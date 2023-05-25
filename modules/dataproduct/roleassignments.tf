@@ -21,7 +21,7 @@ resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_storag
 
 resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_container_raw" {
   count                = var.containers_enabled.raw && local.conditions.security_group ? 1 : 0
-  scope                = one(azapi_resource.container_raw[*].id)
+  scope                = one(azurerm_storage_container.container_raw[*].resource_manager_id)
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = one(data.azuread_group.security_group[*].object_id)
 }
@@ -35,7 +35,7 @@ resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_storag
 
 resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_container_enriched" {
   count                = var.containers_enabled.enriched && local.conditions.security_group ? 1 : 0
-  scope                = one(azapi_resource.container_enriched[*].id)
+  scope                = one(azurerm_storage_container.container_enriched[*].resource_manager_id)
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = one(data.azuread_group.security_group[*].object_id)
 }
@@ -49,7 +49,7 @@ resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_storag
 
 resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_container_curated" {
   count                = var.containers_enabled.curated && local.conditions.security_group ? 1 : 0
-  scope                = one(azapi_resource.container_curated[*].id)
+  scope                = one(azurerm_storage_container.container_curated[*].resource_manager_id)
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = one(data.azuread_group.security_group[*].object_id)
 }
@@ -63,7 +63,7 @@ resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_storag
 
 resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_container_workspace" {
   count                = var.containers_enabled.workspace && local.conditions.security_group ? 1 : 0
-  scope                = one(azapi_resource.container_workspace[*].id)
+  scope                = one(azurerm_storage_container.container_workspace[*].resource_manager_id)
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = one(data.azuread_group.security_group[*].object_id)
 }

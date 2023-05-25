@@ -3,18 +3,12 @@ data "azurerm_storage_account" "datalake_raw" {
   resource_group_name = local.datalake_raw.resource_group_name
 }
 
-resource "azapi_resource" "container_raw" {
-  count     = var.containers_enabled.raw ? 1 : 0
-  type      = "Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01"
-  name      = local.names.container_raw
-  parent_id = "${data.azurerm_storage_account.datalake_raw.id}/blobServices/default"
+resource "azurerm_storage_container" "container_raw" {
+  count                = var.containers_enabled.raw ? 1 : 0
+  name                 = local.names.container_raw
+  storage_account_name = data.azurerm_storage_account.datalake_raw.id
 
-  body = jsonencode({
-    properties = {
-      publicAccess = "None"
-      metadata     = {}
-    }
-  })
+  container_access_type = "private"
 }
 
 data "azurerm_storage_account" "datalake_enriched" {
@@ -22,18 +16,12 @@ data "azurerm_storage_account" "datalake_enriched" {
   resource_group_name = local.datalake_enriched.resource_group_name
 }
 
-resource "azapi_resource" "container_enriched" {
-  count     = var.containers_enabled.enriched ? 1 : 0
-  type      = "Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01"
-  name      = local.names.container_enriched
-  parent_id = "${data.azurerm_storage_account.datalake_enriched.id}/blobServices/default"
+resource "azurerm_storage_container" "container_enriched" {
+  count                = var.containers_enabled.enriched ? 1 : 0
+  name                 = local.names.container_enriched
+  storage_account_name = data.azurerm_storage_account.datalake_enriched.id
 
-  body = jsonencode({
-    properties = {
-      publicAccess = "None"
-      metadata     = {}
-    }
-  })
+  container_access_type = "private"
 }
 
 data "azurerm_storage_account" "datalake_curated" {
@@ -41,18 +29,12 @@ data "azurerm_storage_account" "datalake_curated" {
   resource_group_name = local.datalake_curated.resource_group_name
 }
 
-resource "azapi_resource" "container_curated" {
-  count     = var.containers_enabled.curated ? 1 : 0
-  type      = "Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01"
-  name      = local.names.container_curated
-  parent_id = "${data.azurerm_storage_account.datalake_curated.id}/blobServices/default"
+resource "azurerm_storage_container" "container_curated" {
+  count                = var.containers_enabled.curated ? 1 : 0
+  name                 = local.names.container_curated
+  storage_account_name = data.azurerm_storage_account.datalake_curated.id
 
-  body = jsonencode({
-    properties = {
-      publicAccess = "None"
-      metadata     = {}
-    }
-  })
+  container_access_type = "private"
 }
 
 data "azurerm_storage_account" "datalake_workspace" {
@@ -60,16 +42,10 @@ data "azurerm_storage_account" "datalake_workspace" {
   resource_group_name = local.datalake_workspace.resource_group_name
 }
 
-resource "azapi_resource" "container_workspace" {
-  count     = var.containers_enabled.workspace ? 1 : 0
-  type      = "Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01"
-  name      = local.names.container_workspace
-  parent_id = "${data.azurerm_storage_account.datalake_workspace.id}/blobServices/default"
+resource "azurerm_storage_container" "container_workspace" {
+  count                = var.containers_enabled.workspace ? 1 : 0
+  name                 = local.names.container_workspace
+  storage_account_name = data.azurerm_storage_account.datalake_workspace.id
 
-  body = jsonencode({
-    properties = {
-      publicAccess = "None"
-      metadata     = {}
-    }
-  })
+  container_access_type = "private"
 }
