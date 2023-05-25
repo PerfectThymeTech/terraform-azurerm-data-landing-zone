@@ -24,129 +24,87 @@ resource "azurerm_key_vault" "key_vault" {
   tenant_id                     = data.azurerm_client_config.current.tenant_id
 }
 
-resource "azapi_resource" "key_vault_secret_service_principal_tenant_id" {
+resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_tenant_id" {
   count     = var.service_principal_enabled ? 1 : 0
-  type      = "Microsoft.KeyVault/vaults/secrets@2023-02-01"
-  name      = "servicePrincipalTenantId"
-  parent_id = azurerm_key_vault.key_vault.id
+  name = "servicePrincipalTenantId"
+  key_vault_id = azurerm_key_vault.key_vault.id
 
-  body = jsonencode({
-    properties = {
-      attributes = {
-        enabled = true
-      }
-      contentType = "text/plain"
-      value       = one(azuread_service_principal.service_principal[*].application_tenant_id)
-    }
-  })
-
+  content_type = "text/plain"
+  value = one(azuread_service_principal.service_principal[*].application_tenant_id)
+  
   depends_on = [
-    azurerm_private_endpoint.key_vault_private_endpoint
+    azurerm_private_endpoint.key_vault_private_endpoint,
+    azurerm_role_assignment.current_roleassignment_key_vault
   ]
 }
 
-resource "azapi_resource" "key_vault_secret_service_principal_object_id" {
+resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_object_id" {
   count     = var.service_principal_enabled ? 1 : 0
-  type      = "Microsoft.KeyVault/vaults/secrets@2023-02-01"
-  name      = "servicePrincipalObjectId"
-  parent_id = azurerm_key_vault.key_vault.id
+  name = "servicePrincipalObjectId"
+  key_vault_id = azurerm_key_vault.key_vault.id
 
-  body = jsonencode({
-    properties = {
-      attributes = {
-        enabled = true
-      }
-      contentType = "text/plain"
-      value       = one(azuread_application.application[*].object_id)
-    }
-  })
-
+  content_type = "text/plain"
+  value = one(azuread_application.application[*].object_id)
+  
   depends_on = [
-    azurerm_private_endpoint.key_vault_private_endpoint
+    azurerm_private_endpoint.key_vault_private_endpoint,
+    azurerm_role_assignment.current_roleassignment_key_vault
   ]
 }
 
-resource "azapi_resource" "key_vault_secret_service_principal_client_id" {
+resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_client_id" {
   count     = var.service_principal_enabled ? 1 : 0
-  type      = "Microsoft.KeyVault/vaults/secrets@2023-02-01"
-  name      = "servicePrincipalClientId"
-  parent_id = azurerm_key_vault.key_vault.id
+  name = "servicePrincipalClientId"
+  key_vault_id = azurerm_key_vault.key_vault.id
 
-  body = jsonencode({
-    properties = {
-      attributes = {
-        enabled = true
-      }
-      contentType = "text/plain"
-      value       = one(azuread_service_principal.service_principal[*].application_id)
-    }
-  })
-
+  content_type = "text/plain"
+  value = one(azuread_service_principal.service_principal[*].application_id)
+  
   depends_on = [
-    azurerm_private_endpoint.key_vault_private_endpoint
+    azurerm_private_endpoint.key_vault_private_endpoint,
+    azurerm_role_assignment.current_roleassignment_key_vault
   ]
 }
 
-resource "azapi_resource" "key_vault_secret_service_principal_client_secret" {
+resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_client_secret" {
   count     = var.service_principal_enabled ? 1 : 0
-  type      = "Microsoft.KeyVault/vaults/secrets@2023-02-01"
-  name      = "servicePrincipalClientSecret"
-  parent_id = azurerm_key_vault.key_vault.id
+  name = "servicePrincipalClientSecret"
+  key_vault_id = azurerm_key_vault.key_vault.id
 
-  body = jsonencode({
-    properties = {
-      attributes = {
-        enabled = true
-      }
-      contentType = "text/plain"
-      value       = one(azuread_service_principal_password.service_principal_password[*].value)
-    }
-  })
-
+  content_type = "text/plain"
+  value = one(azuread_service_principal_password.service_principal_password[*].value)
+  
   depends_on = [
-    azurerm_private_endpoint.key_vault_private_endpoint
+    azurerm_private_endpoint.key_vault_private_endpoint,
+    azurerm_role_assignment.current_roleassignment_key_vault
   ]
 }
 
-resource "azapi_resource" "key_vault_secret_security_group_display_name" {
+resource "azurerm_key_vault_secret" "key_vault_secret_security_group_display_name" {
   count     = local.conditions.security_group ? 1 : 0
-  type      = "Microsoft.KeyVault/vaults/secrets@2023-02-01"
-  name      = "securityGroupDisplayName"
-  parent_id = azurerm_key_vault.key_vault.id
+  name = "securityGroupDisplayName"
+  key_vault_id = azurerm_key_vault.key_vault.id
 
-  body = jsonencode({
-    properties = {
-      attributes = {
-        enabled = true
-      }
-      contentType = "text/plain"
-      value       = one(data.azuread_group.security_group[*].display_name)
-    }
-  })
-
+  content_type = "text/plain"
+  value = one(data.azuread_group.security_group[*].display_name)
+  
   depends_on = [
-    azurerm_private_endpoint.key_vault_private_endpoint
+    azurerm_private_endpoint.key_vault_private_endpoint,
+    azurerm_role_assignment.current_roleassignment_key_vault
   ]
 }
 
-resource "azapi_resource" "key_vault_secret_security_group_object_id" {
+resource "azurerm_key_vault_secret" "key_vault_secret_security_group_object_id" {
   count     = local.conditions.security_group ? 1 : 0
-  type      = "Microsoft.KeyVault/vaults/secrets@2023-02-01"
-  name      = "securityGroupObjectId"
-  parent_id = azurerm_key_vault.key_vault.id
+  name = "securityGroupObjectId"
+  key_vault_id = azurerm_key_vault.key_vault.id
 
-  body = jsonencode({
-    properties = {
-      attributes = {
-        enabled = true
-      }
-      contentType = "text/plain"
-      value       = one(data.azuread_group.security_group[*].object_id)
-    }
-  })
-
+  content_type = "text/plain"
+  value = one(data.azuread_group.security_group[*].object_id)
+  
   depends_on = [
-    azurerm_private_endpoint.key_vault_private_endpoint
+    azurerm_private_endpoint.key_vault_private_endpoint,
+    azurerm_role_assignment.current_roleassignment_key_vault
   ]
 }
 
