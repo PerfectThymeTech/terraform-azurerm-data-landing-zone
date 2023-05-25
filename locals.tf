@@ -15,6 +15,18 @@ locals {
     resource_group_name = try(split("/", var.route_table_id)[4], "")
     name                = try(split("/", var.route_table_id)[8], "")
   }
+
+  subnet_cidr_ranges = {
+    storage_subnet                = var.subnet_cidr_ranges.storage_subnet != "" ? var.subnet_cidr_ranges.storage_subnet : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 1))
+    runtimes_subnet               = var.subnet_cidr_ranges.runtimes_subnet != "" ? var.subnet_cidr_ranges.runtimes_subnet : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 2))
+    powerbi_subnet                = var.subnet_cidr_ranges.powerbi_subnet != "" ? var.subnet_cidr_ranges.powerbi_subnet : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 3))
+    shared_app_aut_subnet         = var.subnet_cidr_ranges.shared_app_aut_subnet != "" ? var.subnet_cidr_ranges.shared_app_aut_subnet : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 4))
+    shared_app_exp_subnet         = var.subnet_cidr_ranges.shared_app_exp_subnet != "" ? var.subnet_cidr_ranges.shared_app_exp_subnet : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 5))
+    databricks_private_subnet_001 = var.subnet_cidr_ranges.databricks_private_subnet_001 != "" ? var.subnet_cidr_ranges.databricks_private_subnet_001 : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 23 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 1))
+    databricks_public_subnet_001  = var.subnet_cidr_ranges.databricks_public_subnet_001 != "" ? var.subnet_cidr_ranges.databricks_public_subnet_001 : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 23 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 2))
+    databricks_private_subnet_002 = var.subnet_cidr_ranges.databricks_private_subnet_002 != "" ? var.subnet_cidr_ranges.databricks_private_subnet_002 : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 23 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 3))
+    databricks_public_subnet_002  = var.subnet_cidr_ranges.databricks_public_subnet_002 != "" ? var.subnet_cidr_ranges.databricks_public_subnet_002 : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 23 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 4))
+  }
 }
 
 locals {

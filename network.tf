@@ -13,30 +13,6 @@ data "azurerm_route_table" "route_table" {
   resource_group_name = local.route_table.resource_group_name
 }
 
-resource "azapi_resource" "devops_subnet" {
-  type      = "Microsoft.Network/virtualNetworks/subnets@2022-07-01"
-  name      = "DevOpsSubnet"
-  parent_id = data.azurerm_virtual_network.virtual_network.id
-
-  body = jsonencode({
-    properties = {
-      addressPrefix = tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 0))
-      delegations   = []
-      ipAllocations = []
-      networkSecurityGroup = {
-        id = data.azurerm_network_security_group.network_security_group.id
-      }
-      privateEndpointNetworkPolicies    = "Enabled"
-      privateLinkServiceNetworkPolicies = "Enabled"
-      routeTable = {
-        id = data.azurerm_route_table.route_table.id
-      }
-      serviceEndpointPolicies = []
-      serviceEndpoints        = []
-    }
-  })
-}
-
 resource "azapi_resource" "storage_subnet" {
   type      = "Microsoft.Network/virtualNetworks/subnets@2022-07-01"
   name      = "StorageSubnet"
@@ -44,7 +20,7 @@ resource "azapi_resource" "storage_subnet" {
 
   body = jsonencode({
     properties = {
-      addressPrefix = tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 1))
+      addressPrefix = local.subnet_cidr_ranges.storage_subnet
       delegations   = []
       ipAllocations = []
       networkSecurityGroup = {
@@ -59,10 +35,6 @@ resource "azapi_resource" "storage_subnet" {
       serviceEndpoints        = []
     }
   })
-
-  depends_on = [
-    azapi_resource.devops_subnet
-  ]
 }
 
 resource "azapi_resource" "runtimes_subnet" {
@@ -72,7 +44,7 @@ resource "azapi_resource" "runtimes_subnet" {
 
   body = jsonencode({
     properties = {
-      addressPrefix = tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 2))
+      addressPrefix = local.subnet_cidr_ranges.runtimes_subnet
       delegations   = []
       ipAllocations = []
       networkSecurityGroup = {
@@ -100,7 +72,7 @@ resource "azapi_resource" "powerbi_subnet" {
 
   body = jsonencode({
     properties = {
-      addressPrefix = tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 3))
+      addressPrefix = local.subnet_cidr_ranges.powerbi_subnet
       delegations = [
         {
           name = "PowerBIGatewaySubnetDelegation"
@@ -135,7 +107,7 @@ resource "azapi_resource" "shared_app_aut_subnet" {
 
   body = jsonencode({
     properties = {
-      addressPrefix = tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 4))
+      addressPrefix = local.subnet_cidr_ranges.shared_app_aut_subnet
       delegations   = []
       ipAllocations = []
       networkSecurityGroup = {
@@ -163,7 +135,7 @@ resource "azapi_resource" "shared_app_exp_subnet" {
 
   body = jsonencode({
     properties = {
-      addressPrefix = tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 5))
+      addressPrefix = local.subnet_cidr_ranges.shared_app_exp_subnet
       delegations   = []
       ipAllocations = []
       networkSecurityGroup = {
@@ -191,7 +163,7 @@ resource "azapi_resource" "databricks_private_subnet_001" {
 
   body = jsonencode({
     properties = {
-      addressPrefix = tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 23 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 1))
+      addressPrefix = local.subnet_cidr_ranges.databricks_private_subnet_001
       delegations = [
         {
           name = "DatabricksSubnetDelegation"
@@ -226,7 +198,7 @@ resource "azapi_resource" "databricks_public_subnet_001" {
 
   body = jsonencode({
     properties = {
-      addressPrefix = tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 23 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 2))
+      addressPrefix = local.subnet_cidr_ranges.databricks_public_subnet_001
       delegations = [
         {
           name = "DatabricksSubnetDelegation"
@@ -261,7 +233,7 @@ resource "azapi_resource" "databricks_private_subnet_002" {
 
   body = jsonencode({
     properties = {
-      addressPrefix = tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 23 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 3))
+      addressPrefix = local.subnet_cidr_ranges.databricks_private_subnet_002
       delegations = [
         {
           name = "DatabricksSubnetDelegation"
@@ -296,7 +268,7 @@ resource "azapi_resource" "databricks_public_subnet_002" {
 
   body = jsonencode({
     properties = {
-      addressPrefix = tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 23 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 4))
+      addressPrefix = local.subnet_cidr_ranges.databricks_public_subnet_002
       delegations = [
         {
           name = "DatabricksSubnetDelegation"
