@@ -12,6 +12,7 @@ module "databricks_automation" {
   public_subnet_name                                   = azapi_resource.databricks_public_subnet_001.name
   public_subnet_network_security_group_association_id  = azapi_resource.databricks_public_subnet_001.id
   private_endpoints_subnet_id                          = azapi_resource.shared_app_aut_subnet.id
+  enable_databricks_auth_private_endpoint              = var.enable_databricks_auth_private_endpoint
   private_dns_zone_id_databricks                       = var.private_dns_zone_id_databricks
   private_dns_zone_id_key_vault                        = var.private_dns_zone_id_key_vault
   private_dns_zone_id_blob                             = var.private_dns_zone_id_blob
@@ -53,6 +54,7 @@ module "databricks_experimentation" {
   public_subnet_name                                   = azapi_resource.databricks_public_subnet_002.name
   public_subnet_network_security_group_association_id  = azapi_resource.databricks_public_subnet_002.id
   private_endpoints_subnet_id                          = azapi_resource.shared_app_exp_subnet.id
+  enable_databricks_auth_private_endpoint              = false
   private_dns_zone_id_databricks                       = var.private_dns_zone_id_databricks
   private_dns_zone_id_key_vault                        = var.private_dns_zone_id_key_vault
   private_dns_zone_id_blob                             = var.private_dns_zone_id_blob

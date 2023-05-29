@@ -105,6 +105,13 @@ variable "subnet_cidr_ranges" {
   }
 }
 
+variable "enable_databricks_auth_private_endpoint" {
+  description = "Specifies whether to deploy the private endpoint used for browser authentication. Create one of these per region for all Azure Databricks workspaces as this will be shared."
+  type        = bool
+  sensitive   = false
+  default     = false
+}
+
 variable "purview_id" {
   description = "Specifies the resource ID of the default Purview Account for the Data Landing Zone"
   type        = string

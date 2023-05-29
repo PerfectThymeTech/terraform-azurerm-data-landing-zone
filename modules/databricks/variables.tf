@@ -96,6 +96,13 @@ variable "private_endpoints_subnet_id" {
   }
 }
 
+variable "enable_databricks_auth_private_endpoint" {
+  description = "Specifies whether to deploy the private endpoint used for browser authentication. Create one of these per region for all Azure Databricks workspaces as this will be shared."
+  type        = bool
+  sensitive   = false
+  default     = false
+}
+
 variable "private_dns_zone_id_databricks" {
   description = "Specifies the resource ID of the private DNS zone for Azure Databricks UI endpoints."
   type        = string
