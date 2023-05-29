@@ -13,7 +13,7 @@ data "azurerm_route_table" "route_table" {
   resource_group_name = local.route_table.resource_group_name
 }
 
-resource "azapi_resource" "subnet" {
+resource "azapi_resource" "subnets" {
   for_each = {
     for index, subnet in var.subnets : "${local.names.subnet}${index + 1}" => subnet if var.network_enabled
   }

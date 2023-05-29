@@ -11,8 +11,8 @@ resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_resour
   principal_id         = one(data.azuread_group.security_group[*].object_id)
 }
 
-resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_subnet" {
-  for_each             = azapi_resource.subnet
+resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_subnets" {
+  for_each             = azapi_resource.subnets
   scope                = each.value.id
   role_definition_name = "Network Contributor"
   principal_id         = one(data.azuread_group.security_group[*].object_id)
