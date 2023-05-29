@@ -9,7 +9,7 @@ resource "azurerm_data_factory" "data_factory" {
 
   managed_virtual_network_enabled = true
   public_network_enabled          = false
-  purview_id                      = var.purview_id
+  purview_id                      = var.purview_id == "" ? null : var.purview_id
 }
 
 resource "azurerm_private_endpoint" "data_factory_private_endpoint_data_factory" {
