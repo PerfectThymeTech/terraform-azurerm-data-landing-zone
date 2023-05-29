@@ -74,7 +74,7 @@ variable "subnets" {
   default   = []
   validation {
     condition = alltrue([
-      length([for cidr_range in values(var.subnets)[*].cidr_range : cidr_range if try(cidrnetmask(cidr_range), "invalid") == "invalid"]) <= 0,
+      length([for subnet in var.subnets : subnet.cidr_range if try(cidrnetmask(subnet.cidr_range), "invalid") == "invalid"]) <= 0,
     ])
     error_message = "Please specify a valid subnet object. Subnet CIDR range specified in 'network.subnets[*].cidr_range' must be valid and within the range of the virtual network."
   }
