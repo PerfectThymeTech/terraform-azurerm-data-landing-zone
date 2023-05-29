@@ -60,7 +60,7 @@ resource "azurerm_private_endpoint" "databricks_private_endpoint_web" {
     private_connection_resource_id = azurerm_databricks_workspace.databricks.id
     subresource_names              = ["browser_authentication"]
   }
-  subnet_id = azapi_resource.private_endpoint_subnet.id
+  subnet_id = var.private_endpoints_subnet_id
   dynamic "private_dns_zone_group" {
     for_each = var.private_dns_zone_id_databricks == "" ? [] : [1]
     content {
