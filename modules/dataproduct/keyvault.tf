@@ -25,13 +25,13 @@ resource "azurerm_key_vault" "key_vault" {
 }
 
 resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_tenant_id" {
-  count     = var.service_principal_enabled ? 1 : 0
-  name = "servicePrincipalTenantId"
+  count        = var.service_principal_enabled ? 1 : 0
+  name         = "servicePrincipalTenantId"
   key_vault_id = azurerm_key_vault.key_vault.id
 
   content_type = "text/plain"
-  value = one(azuread_service_principal.service_principal[*].application_tenant_id)
-  
+  value        = one(azuread_service_principal.service_principal[*].application_tenant_id)
+
   depends_on = [
     azurerm_private_endpoint.key_vault_private_endpoint,
     azurerm_role_assignment.current_roleassignment_key_vault
@@ -39,13 +39,13 @@ resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_tenant_i
 }
 
 resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_object_id" {
-  count     = var.service_principal_enabled ? 1 : 0
-  name = "servicePrincipalObjectId"
+  count        = var.service_principal_enabled ? 1 : 0
+  name         = "servicePrincipalObjectId"
   key_vault_id = azurerm_key_vault.key_vault.id
 
   content_type = "text/plain"
-  value = one(azuread_application.application[*].object_id)
-  
+  value        = one(azuread_application.application[*].object_id)
+
   depends_on = [
     azurerm_private_endpoint.key_vault_private_endpoint,
     azurerm_role_assignment.current_roleassignment_key_vault
@@ -53,13 +53,13 @@ resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_object_i
 }
 
 resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_client_id" {
-  count     = var.service_principal_enabled ? 1 : 0
-  name = "servicePrincipalClientId"
+  count        = var.service_principal_enabled ? 1 : 0
+  name         = "servicePrincipalClientId"
   key_vault_id = azurerm_key_vault.key_vault.id
 
   content_type = "text/plain"
-  value = one(azuread_service_principal.service_principal[*].application_id)
-  
+  value        = one(azuread_service_principal.service_principal[*].application_id)
+
   depends_on = [
     azurerm_private_endpoint.key_vault_private_endpoint,
     azurerm_role_assignment.current_roleassignment_key_vault
@@ -67,13 +67,13 @@ resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_client_i
 }
 
 resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_client_secret" {
-  count     = var.service_principal_enabled ? 1 : 0
-  name = "servicePrincipalClientSecret"
+  count        = var.service_principal_enabled ? 1 : 0
+  name         = "servicePrincipalClientSecret"
   key_vault_id = azurerm_key_vault.key_vault.id
 
   content_type = "text/plain"
-  value = one(azuread_service_principal_password.service_principal_password[*].value)
-  
+  value        = one(azuread_service_principal_password.service_principal_password[*].value)
+
   depends_on = [
     azurerm_private_endpoint.key_vault_private_endpoint,
     azurerm_role_assignment.current_roleassignment_key_vault
@@ -81,13 +81,13 @@ resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_client_s
 }
 
 resource "azurerm_key_vault_secret" "key_vault_secret_security_group_display_name" {
-  count     = local.conditions.security_group ? 1 : 0
-  name = "securityGroupDisplayName"
+  count        = local.conditions.security_group ? 1 : 0
+  name         = "securityGroupDisplayName"
   key_vault_id = azurerm_key_vault.key_vault.id
 
   content_type = "text/plain"
-  value = one(data.azuread_group.security_group[*].display_name)
-  
+  value        = one(data.azuread_group.security_group[*].display_name)
+
   depends_on = [
     azurerm_private_endpoint.key_vault_private_endpoint,
     azurerm_role_assignment.current_roleassignment_key_vault
@@ -95,13 +95,13 @@ resource "azurerm_key_vault_secret" "key_vault_secret_security_group_display_nam
 }
 
 resource "azurerm_key_vault_secret" "key_vault_secret_security_group_object_id" {
-  count     = local.conditions.security_group ? 1 : 0
-  name = "securityGroupObjectId"
+  count        = local.conditions.security_group ? 1 : 0
+  name         = "securityGroupObjectId"
   key_vault_id = azurerm_key_vault.key_vault.id
 
   content_type = "text/plain"
-  value = one(data.azuread_group.security_group[*].object_id)
-  
+  value        = one(data.azuread_group.security_group[*].object_id)
+
   depends_on = [
     azurerm_private_endpoint.key_vault_private_endpoint,
     azurerm_role_assignment.current_roleassignment_key_vault
