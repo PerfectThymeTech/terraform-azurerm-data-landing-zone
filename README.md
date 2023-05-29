@@ -280,14 +280,6 @@ Type: `any`
 
 Default: `{}`
 
-### <a name="input_databricks_account_id"></a> [databricks\_account\_id](#input\_databricks\_account\_id)
-
-Description: Specifies the databricks account id.
-
-Type: `string`
-
-Default: `""`
-
 ### <a name="input_databricks_admin_groupname"></a> [databricks\_admin\_groupname](#input\_databricks\_admin\_groupname)
 
 Description: Specifies the databricks admin group name that should be granted access to the Databricks workspace artifacts.
