@@ -65,14 +65,18 @@ variable "route_table_id" {
   }
 }
 
-variable "subnet_cidr_range" {
+variable "subnets" {
   description = "Specifies the subnet cidr range for the data product."
-  type        = string
-  sensitive   = false
-  default     = ""
+  type = list(object({
+    cidr_range = string
+  }))
+  sensitive = false
+  default   = []
   validation {
-    condition     = var.subnet_cidr_range == "" || try(cidrnetmask(var.subnet_cidr_range), "invalid") != "invalid"
-    error_message = "Please specify a valid subnet CIDR range. Subnet CIDR range specified in 'network.subnet_cidr_range' must be valid and within the range of teh virtual network."
+    condition = alltrue([
+      length([for cidr_range in values(var.subnets)[*].cidr_range : cidr_range if try(cidrnetmask(cidr_range), "invalid") == "invalid"]) <= 0,
+    ])
+    error_message = "Please specify a valid subnet object. Subnet CIDR range specified in 'network.subnets[*].cidr_range' must be valid and within the range of the virtual network."
   }
 }
 

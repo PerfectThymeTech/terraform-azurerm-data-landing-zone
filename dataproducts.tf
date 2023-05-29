@@ -14,7 +14,7 @@ module "data_products" {
   vnet_id                        = data.azurerm_virtual_network.virtual_network.id
   nsg_id                         = data.azurerm_network_security_group.network_security_group.id
   route_table_id                 = data.azurerm_route_table.route_table.id
-  subnet_cidr_range              = try(each.value.network.subnet_cidr_range, "")
+  subnets                        = try(each.value.network.subnets, [])
   private_dns_zone_id_key_vault  = var.private_dns_zone_id_key_vault
   identity_enabled               = try(each.value.identity.enabled, false)
   security_group_display_name    = try(each.value.identity.security_group_display_name, "")

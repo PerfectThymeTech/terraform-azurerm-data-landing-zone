@@ -14,14 +14,16 @@ data "azurerm_route_table" "route_table" {
 }
 
 resource "azapi_resource" "subnet" {
-  count     = var.network_enabled ? 1 : 0
+  for_each = {
+    for index, subnet in var.subnets : "${local.names.subnet}${index + 1}" => subnet if var.network_enabled
+  }
   type      = "Microsoft.Network/virtualNetworks/subnets@2022-07-01"
-  name      = local.names.subnet
+  name      = each.key
   parent_id = data.azurerm_virtual_network.virtual_network.id
 
   body = jsonencode({
     properties = {
-      addressPrefix = var.subnet_cidr_range
+      addressPrefix = each.value.cidr_range
       delegations   = []
       ipAllocations = []
       networkSecurityGroup = {

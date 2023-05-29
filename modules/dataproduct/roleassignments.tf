@@ -12,8 +12,8 @@ resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_resour
 }
 
 resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_subnet" {
-  count                = var.network_enabled && local.conditions.security_group ? 1 : 0
-  scope                = one(azapi_resource.subnet[*].id)
+  for_each             = azapi_resource.subnet
+  scope                = each.value.id
   role_definition_name = "Network Contributor"
   principal_id         = one(data.azuread_group.security_group[*].object_id)
 }
