@@ -145,17 +145,6 @@ variable "unity_metastore_id" {
   }
 }
 
-variable "databricks_account_id" {
-  description = "Specifies the databricks account id."
-  type        = string
-  sensitive   = false
-  default     = ""
-  validation {
-    condition     = var.databricks_account_id == "" || length(var.databricks_account_id) >= 2
-    error_message = "Please specify a valid group name."
-  }
-}
-
 variable "databricks_admin_groupname" {
   description = "Specifies the databricks admin group name that should be granted access to the Databricks workspace artifacts."
   type        = string

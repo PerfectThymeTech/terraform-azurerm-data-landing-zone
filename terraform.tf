@@ -13,6 +13,9 @@ terraform {
     databricks = {
       source  = "databricks/databricks"
       version = ">= 1.16.0"
+      configuration_aliases = [
+        databricks.account
+      ]
     }
     random = {
       source  = "hashicorp/random"
@@ -27,12 +30,6 @@ terraform {
       version = ">= 2.39.0"
     }
   }
-}
-
-provider "databricks" {
-  alias      = "account"
-  host       = "https://accounts.azuredatabricks.net"
-  account_id = var.databricks_account_id
 }
 
 provider "databricks" {
