@@ -1,10 +1,10 @@
 module "data_landing_zone" {
   source = "../../"
   providers = {
-    azurerm            = azurerm
-    azapi              = azapi
-    azuread            = azuread
-    databricks.account = databricks.account
+    azurerm    = azurerm
+    azapi      = azapi
+    azuread    = azuread
+    databricks = databricks
   }
 
   location                                = var.location
@@ -20,6 +20,7 @@ module "data_landing_zone" {
   purview_id                              = var.purview_id
   unity_metastore_name                    = var.unity_metastore_name
   unity_metastore_id                      = var.unity_metastore_id
+  databricks_account_id                   = var.databricks_account_id
   databricks_admin_groupname              = var.databricks_admin_groupname
   data_platform_subscription_ids          = var.data_platform_subscription_ids
   data_product_library_path               = local.data_product_library_path

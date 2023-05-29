@@ -85,9 +85,3 @@ provider "azapi" {
 provider "azuread" {
   tenant_id = data.azurerm_client_config.current.tenant_id
 }
-
-provider "databricks" {
-  alias      = "account"
-  host       = "https://accounts.azuredatabricks.net"
-  account_id = "581824c3-9c92-47ef-8512-e2891cd9ae45"
-}

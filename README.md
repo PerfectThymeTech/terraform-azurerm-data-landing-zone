@@ -222,7 +222,7 @@ Type: `string`
 
 ### <a name="input_nsg_id"></a> [nsg\_id](#input\_nsg\_id)
 
-Description: Specifies the resource ID of the default network security group for the Data Landing Zone
+Description: Specifies the resource ID of the default network security group for the Data Landing Zone.
 
 Type: `string`
 
@@ -234,13 +234,13 @@ Type: `string`
 
 ### <a name="input_route_table_id"></a> [route\_table\_id](#input\_route\_table\_id)
 
-Description: Specifies the resource ID of the default route table for the Data Landing Zone
+Description: Specifies the resource ID of the default route table for the Data Landing Zone.
 
 Type: `string`
 
 ### <a name="input_vnet_id"></a> [vnet\_id](#input\_vnet\_id)
 
-Description: Specifies the resource ID of the Vnet used for the Data Landing Zone
+Description: Specifies the resource ID of the Vnet used for the Data Landing Zone.
 
 Type: `string`
 
@@ -250,7 +250,7 @@ The following input variables are optional (have default values):
 
 ### <a name="input_admin_username"></a> [admin\_username](#input\_admin\_username)
 
-Description: Specifies the admin username of the VMs used for the Self-hosted Integration Runtimes
+Description: Specifies the admin username of the VMs used for the Self-hosted Integration Runtimes.
 
 Type: `string`
 
@@ -280,9 +280,17 @@ Type: `any`
 
 Default: `{}`
 
+### <a name="input_databricks_account_id"></a> [databricks\_account\_id](#input\_databricks\_account\_id)
+
+Description: Specifies the databricks account id.
+
+Type: `string`
+
+Default: `""`
+
 ### <a name="input_databricks_admin_groupname"></a> [databricks\_admin\_groupname](#input\_databricks\_admin\_groupname)
 
-Description: Specifies the databricks admin group name that should be granted access to the Databricks workspace artifacts
+Description: Specifies the databricks admin group name that should be granted access to the Databricks workspace artifacts.
 
 Type: `string`
 
@@ -370,7 +378,7 @@ Default: `""`
 
 ### <a name="input_purview_id"></a> [purview\_id](#input\_purview\_id)
 
-Description: Specifies the resource ID of the default Purview Account for the Data Landing Zone
+Description: Specifies the resource ID of the default Purview Account for the Data Landing Zone.
 
 Type: `string`
 

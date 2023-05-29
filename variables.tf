@@ -33,7 +33,7 @@ variable "tags" {
 }
 
 variable "admin_username" {
-  description = "Specifies the admin username of the VMs used for the Self-hosted Integration Runtimes"
+  description = "Specifies the admin username of the VMs used for the Self-hosted Integration Runtimes."
   type        = string
   sensitive   = false
   default     = "VmMainUser"
@@ -44,7 +44,7 @@ variable "admin_username" {
 }
 
 variable "vnet_id" {
-  description = "Specifies the resource ID of the Vnet used for the Data Landing Zone"
+  description = "Specifies the resource ID of the Vnet used for the Data Landing Zone."
   type        = string
   sensitive   = false
   validation {
@@ -54,7 +54,7 @@ variable "vnet_id" {
 }
 
 variable "nsg_id" {
-  description = "Specifies the resource ID of the default network security group for the Data Landing Zone"
+  description = "Specifies the resource ID of the default network security group for the Data Landing Zone."
   type        = string
   sensitive   = false
   validation {
@@ -64,7 +64,7 @@ variable "nsg_id" {
 }
 
 variable "route_table_id" {
-  description = "Specifies the resource ID of the default route table for the Data Landing Zone"
+  description = "Specifies the resource ID of the default route table for the Data Landing Zone."
   type        = string
   sensitive   = false
   validation {
@@ -113,7 +113,7 @@ variable "enable_databricks_auth_private_endpoint" {
 }
 
 variable "purview_id" {
-  description = "Specifies the resource ID of the default Purview Account for the Data Landing Zone"
+  description = "Specifies the resource ID of the default Purview Account for the Data Landing Zone."
   type        = string
   sensitive   = false
   default     = ""
@@ -145,8 +145,19 @@ variable "unity_metastore_id" {
   }
 }
 
+variable "databricks_account_id" {
+  description = "Specifies the databricks account id."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.databricks_account_id == "" || length(var.databricks_account_id) >= 2
+    error_message = "Please specify a valid group name."
+  }
+}
+
 variable "databricks_admin_groupname" {
-  description = "Specifies the databricks admin group name that should be granted access to the Databricks workspace artifacts"
+  description = "Specifies the databricks admin group name that should be granted access to the Databricks workspace artifacts."
   type        = string
   sensitive   = false
   default     = ""
