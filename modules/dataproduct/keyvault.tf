@@ -24,6 +24,15 @@ resource "azurerm_key_vault" "key_vault" {
   tenant_id                     = data.azurerm_client_config.current.tenant_id
 }
 
+resource "time_sleep" "sleep_key_vault" {
+  create_duration = "15s"
+
+  depends_on = [
+    azurerm_private_endpoint.key_vault_private_endpoint,
+    azurerm_role_assignment.current_roleassignment_key_vault
+  ]
+}
+
 resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_tenant_id" {
   count        = var.service_principal_enabled ? 1 : 0
   name         = "servicePrincipalTenantId"
@@ -33,8 +42,7 @@ resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_tenant_i
   value        = one(azuread_service_principal.service_principal[*].application_tenant_id)
 
   depends_on = [
-    azurerm_private_endpoint.key_vault_private_endpoint,
-    azurerm_role_assignment.current_roleassignment_key_vault
+    time_sleep.sleep_key_vault
   ]
 }
 
@@ -47,8 +55,7 @@ resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_object_i
   value        = one(azuread_application.application[*].object_id)
 
   depends_on = [
-    azurerm_private_endpoint.key_vault_private_endpoint,
-    azurerm_role_assignment.current_roleassignment_key_vault
+    time_sleep.sleep_key_vault
   ]
 }
 
@@ -61,8 +68,7 @@ resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_client_i
   value        = one(azuread_service_principal.service_principal[*].application_id)
 
   depends_on = [
-    azurerm_private_endpoint.key_vault_private_endpoint,
-    azurerm_role_assignment.current_roleassignment_key_vault
+    time_sleep.sleep_key_vault
   ]
 }
 
@@ -75,8 +81,7 @@ resource "azurerm_key_vault_secret" "key_vault_secret_service_principal_client_s
   value        = one(azuread_service_principal_password.service_principal_password[*].value)
 
   depends_on = [
-    azurerm_private_endpoint.key_vault_private_endpoint,
-    azurerm_role_assignment.current_roleassignment_key_vault
+    time_sleep.sleep_key_vault
   ]
 }
 
@@ -89,8 +94,7 @@ resource "azurerm_key_vault_secret" "key_vault_secret_security_group_display_nam
   value        = one(data.azuread_group.security_group[*].display_name)
 
   depends_on = [
-    azurerm_private_endpoint.key_vault_private_endpoint,
-    azurerm_role_assignment.current_roleassignment_key_vault
+    time_sleep.sleep_key_vault
   ]
 }
 
@@ -103,8 +107,7 @@ resource "azurerm_key_vault_secret" "key_vault_secret_security_group_object_id" 
   value        = one(data.azuread_group.security_group[*].object_id)
 
   depends_on = [
-    azurerm_private_endpoint.key_vault_private_endpoint,
-    azurerm_role_assignment.current_roleassignment_key_vault
+    time_sleep.sleep_key_vault
   ]
 }
 
