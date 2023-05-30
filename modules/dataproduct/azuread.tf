@@ -6,18 +6,6 @@ data "azuread_group" "security_group" {
   security_enabled = true
 }
 
-resource "azuread_group_member" "security_group_uai_member" {
-  count            = var.user_assigned_identity_enabled && local.conditions.security_group ? 1 : 0
-  group_object_id  = one(data.azuread_group.security_group[*].object_id)
-  member_object_id = one(azurerm_user_assigned_identity.user_assigned_identity[*].principal_id)
-}
-
-resource "azuread_group_member" "security_group_dbac_member" {
-  count            = var.databricks_enabled && var.unity_catalog_configurations.enabled && local.conditions.security_group ? 1 : 0
-  group_object_id  = one(data.azuread_group.security_group[*].object_id)
-  member_object_id = one(azurerm_databricks_access_connector.databricks_access_connector[*].identity[0].principal_id)
-}
-
 resource "azuread_application" "application" {
   count        = var.service_principal_enabled ? 1 : 0
   display_name = local.names.service_principal
@@ -63,10 +51,4 @@ resource "azuread_service_principal_password" "service_principal_password" {
   rotate_when_changed = {
     rotation = time_rotating.rotation.id
   }
-}
-
-resource "azuread_group_member" "security_group_sp_member" {
-  count            = var.service_principal_enabled && local.conditions.security_group ? 1 : 0
-  group_object_id  = one(data.azuread_group.security_group[*].object_id)
-  member_object_id = one(azuread_service_principal.service_principal[*].object_id)
 }
