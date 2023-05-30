@@ -20,7 +20,14 @@ resource "databricks_external_location" "experimentation_external_location" {
   url             = local.databricks_catalog_storage_root
 
   depends_on = [
-    azuread_group_member.security_group_dbac_member
+    azurerm_role_assignment.dbac_roleassignment_storage_raw,
+    azurerm_role_assignment.dbac_roleassignment_container_raw,
+    azurerm_role_assignment.dbac_roleassignment_storage_enriched,
+    azurerm_role_assignment.dbac_roleassignment_container_enriched,
+    azurerm_role_assignment.dbac_roleassignment_storage_curated,
+    azurerm_role_assignment.dbac_roleassignment_container_curated,
+    azurerm_role_assignment.dbac_roleassignment_storage_workspace,
+    azurerm_role_assignment.dbac_roleassignment_container_workspace,
   ]
 }
 
