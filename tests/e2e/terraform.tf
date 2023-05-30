@@ -34,7 +34,7 @@ terraform {
     storage_account_name = "mycrpprdstg001"
     container_name       = "data-landing-zone"
     key                  = "terraform.tfstate"
-    use_oidc             = true
+    # use_oidc             = true
   }
 }
 
@@ -45,7 +45,7 @@ provider "azurerm" {
   environment                    = "public"
   skip_provider_registration     = false
   storage_use_azuread            = true
-  use_oidc                       = true
+  # use_oidc                       = true
 
   features {
     application_insights {
@@ -79,7 +79,7 @@ provider "azapi" {
   disable_correlation_request_id = false
   environment                    = "public"
   skip_provider_registration     = false
-  use_oidc                       = true
+  # use_oidc                       = true
 }
 
 provider "azuread" {
