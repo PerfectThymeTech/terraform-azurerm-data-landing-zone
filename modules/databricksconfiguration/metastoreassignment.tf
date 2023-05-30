@@ -9,6 +9,6 @@ resource "time_sleep" "sleep_metastore_assignment" {
   create_duration = "30s"
 
   depends_on = [
-    module.dns_entries
+    databricks_metastore_assignment.metastore_assignment
   ]
 }

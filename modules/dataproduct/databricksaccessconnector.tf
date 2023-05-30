@@ -8,3 +8,18 @@ resource "azurerm_databricks_access_connector" "databricks_access_connector" {
     type = "SystemAssigned"
   }
 }
+
+resource "time_sleep" "sleep_dbac" {
+  create_duration = "15s"
+
+  depends_on = [
+    azurerm_role_assignment.dbac_roleassignment_storage_raw,
+    azurerm_role_assignment.dbac_roleassignment_container_raw,
+    azurerm_role_assignment.dbac_roleassignment_storage_enriched,
+    azurerm_role_assignment.dbac_roleassignment_container_enriched,
+    azurerm_role_assignment.dbac_roleassignment_storage_curated,
+    azurerm_role_assignment.dbac_roleassignment_container_curated,
+    azurerm_role_assignment.dbac_roleassignment_storage_workspace,
+    azurerm_role_assignment.dbac_roleassignment_container_workspace,
+  ]
+}

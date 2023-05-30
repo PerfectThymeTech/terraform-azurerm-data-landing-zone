@@ -9,21 +9,6 @@ resource "databricks_storage_credential" "automation_storage_credential" {
   comment = "Managed identity credential for ${var.data_product_name} Data Product"
 }
 
-resource "time_sleep" "sleep_dbac" {
-  create_duration = "15s"
-
-  depends_on = [
-    azurerm_role_assignment.dbac_roleassignment_storage_raw,
-    azurerm_role_assignment.dbac_roleassignment_container_raw,
-    azurerm_role_assignment.dbac_roleassignment_storage_enriched,
-    azurerm_role_assignment.dbac_roleassignment_container_enriched,
-    azurerm_role_assignment.dbac_roleassignment_storage_curated,
-    azurerm_role_assignment.dbac_roleassignment_container_curated,
-    azurerm_role_assignment.dbac_roleassignment_storage_workspace,
-    azurerm_role_assignment.dbac_roleassignment_container_workspace,
-  ]
-}
-
 resource "databricks_external_location" "automation_external_location" {
   count    = var.databricks_enabled && !var.databricks_experimentation && var.unity_catalog_configurations.enabled ? 1 : 0
   provider = databricks.automation
