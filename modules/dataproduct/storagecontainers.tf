@@ -5,7 +5,7 @@ data "azurerm_storage_account" "datalake_raw" {
 
 resource "azurerm_storage_container" "container_raw" {
   count                = var.containers_enabled.raw ? 1 : 0
-  name                 = local.names.container_raw
+  name                 = lower(replace(local.names.container_raw, "-", ""))
   storage_account_name = data.azurerm_storage_account.datalake_raw.id
 
   container_access_type = "private"
@@ -18,7 +18,7 @@ data "azurerm_storage_account" "datalake_enriched" {
 
 resource "azurerm_storage_container" "container_enriched" {
   count                = var.containers_enabled.enriched ? 1 : 0
-  name                 = local.names.container_enriched
+  name                 = lower(replace(local.names.container_enriched, "-", ""))
   storage_account_name = data.azurerm_storage_account.datalake_enriched.id
 
   container_access_type = "private"
@@ -31,7 +31,7 @@ data "azurerm_storage_account" "datalake_curated" {
 
 resource "azurerm_storage_container" "container_curated" {
   count                = var.containers_enabled.curated ? 1 : 0
-  name                 = local.names.container_curated
+  name                 = lower(replace(local.names.container_curated, "-", ""))
   storage_account_name = data.azurerm_storage_account.datalake_curated.id
 
   container_access_type = "private"
@@ -44,7 +44,7 @@ data "azurerm_storage_account" "datalake_workspace" {
 
 resource "azurerm_storage_container" "container_workspace" {
   count                = var.containers_enabled.workspace ? 1 : 0
-  name                 = local.names.container_workspace
+  name                 = lower(replace(local.names.container_workspace, "-", ""))
   storage_account_name = data.azurerm_storage_account.datalake_workspace.id
 
   container_access_type = "private"
