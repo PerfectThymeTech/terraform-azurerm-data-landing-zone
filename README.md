@@ -25,6 +25,7 @@ The following architecture will be deployed by this module, whereby the module e
 
 - An Azure subscription. If you don't have an Azure subscription, [create your Azure free account today](https://azure.microsoft.com/free/).
 - (1) [Contributor](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#contributor) and [User Access Administrator](https://learn.microsoft.com/azure/role-based-access-control/built-in-roles#user-access-administrator) or (2) [Owner](https://learn.microsoft.com/azure/role-based-access-control/built-in-roles#owner) access to the subscription to be able to create resources and role assignments.
+- `CREATE_CATALOG` and `CREATE_EXTERNAL_LOCATION` [privileges on the Databricks Unity Catalog](https://learn.microsoft.com/en-us/azure/databricks/data-governance/unity-catalog/manage-privileges/) if you want to configure the Databricks Unity catalog and connect it to your Data Landing Zone.
 - A [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners) or an [Azure DevOps self-hosted agent](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/linux-agent?view=azure-devops) to be able to access the data-plane of services.
 
 ## Usage
@@ -82,7 +83,6 @@ provider "databricks" {
 
 # Declare locals for the module
 locals {
-  company_name   = "<my-company-name>"
   location       = "northeurope"
   prefix         = "<my-prefix>"
   vnet_id        = "/subscriptions/<my-subscription-id>/resourceGroups/<my-rg-name>/providers/Microsoft.Network/virtualNetworks/<my-vnet-name>"
@@ -111,7 +111,11 @@ module "data_landing_zone" {
     databricks.account = databricks.account
   }
 
-  # Todo
+  location                                = var.location
+  prefix                                  = var.prefix
+  vnet_id                                 = local.vnet_id
+  nsg_id                                  = local.nsg_id
+  route_table_id                          = local.route_table_id
   private_dns_zone_id_blob                = local.private_dns_zone_id_blob
   private_dns_zone_id_dfs                 = local.private_dns_zone_id_dfs
   private_dns_zone_id_queue               = local.private_dns_zone_id_queue

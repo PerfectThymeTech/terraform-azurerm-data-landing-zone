@@ -16,6 +16,7 @@ data "databricks_group" "group" {
 }
 
 resource "databricks_mws_permission_assignment" "permission_assignment" {
+  count        = var.databricks_admin_groupname != "" ? 1 : 0
   workspace_id = var.databricks_workspace_id
   principal_id = one(data.databricks_group.group[*].id)
   permissions = [
