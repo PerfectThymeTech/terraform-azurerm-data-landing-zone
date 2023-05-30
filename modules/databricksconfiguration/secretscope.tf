@@ -24,9 +24,12 @@ resource "databricks_mws_permission_assignment" "permission_assignment" {
   ]
 
   provider = databricks.account
+  depends_on = [
+    time_sleep.sleep_metastore_assignment
+  ]
 }
 
-resource "time_sleep" "sleep" {
+resource "time_sleep" "sleep_permission_assignment" {
   create_duration = "30s"
 
   depends_on = [
@@ -41,6 +44,6 @@ resource "databricks_secret_acl" "secret_acl" {
   scope      = databricks_secret_scope.platform_secret_scope.name
 
   depends_on = [
-    time_sleep.sleep
+    time_sleep.sleep_permission_assignment
   ]
 }
