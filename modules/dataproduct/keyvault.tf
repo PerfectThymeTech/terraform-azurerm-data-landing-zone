@@ -25,7 +25,7 @@ resource "azurerm_key_vault" "key_vault" {
 }
 
 resource "time_sleep" "sleep_key_vault" {
-  create_duration = "15s"
+  create_duration = "30s"
 
   depends_on = [
     azurerm_private_endpoint.key_vault_private_endpoint,
