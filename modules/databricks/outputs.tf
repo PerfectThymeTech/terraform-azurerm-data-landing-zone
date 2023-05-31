@@ -33,10 +33,10 @@ output "databricks_setup_completed" {
   description = "Specifies whether the connectivity and identity has been successfully configured."
   sensitive   = false
   depends_on = [
-    azurerm_private_endpoint.azurerm_private_endpoint.azurerm_private_endpoint.databricks_private_endpoint_ui,
-    azurerm_private_endpoint.azurerm_private_endpoint.azurerm_private_endpoint.databricks_private_endpoint_web,
-    azurerm_private_endpoint.azurerm_private_endpoint.databricks_private_endpoint_blob,
-    azurerm_private_endpoint.azurerm_private_endpoint.databricks_private_endpoint_dfs,
+    azurerm_private_endpoint.databricks_private_endpoint_ui,
+    azurerm_private_endpoint.databricks_private_endpoint_web,
+    azurerm_private_endpoint.databricks_private_endpoint_blob,
+    azurerm_private_endpoint.databricks_private_endpoint_dfs,
   ]
 }
 
