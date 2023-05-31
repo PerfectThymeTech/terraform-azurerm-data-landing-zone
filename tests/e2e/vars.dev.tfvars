@@ -9,7 +9,6 @@ route_table_id                          = "/subscriptions/8f171ff9-2b5b-4f0f-aed
 purview_id                              = ""
 unity_metastore_name                    = "perfectthymetech-westeurope"
 unity_metastore_id                      = "65114305-ebd5-447d-860d-6396356927b1"
-databricks_account_id                   = "581824c3-9c92-47ef-8512-e2891cd9ae45"
 databricks_admin_groupname              = "test"
 data_platform_subscription_ids          = []
 data_product_template_file_variables    = {}
