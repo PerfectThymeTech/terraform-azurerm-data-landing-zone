@@ -11,8 +11,8 @@ output "datalake_setup_completed" {
 
   depends_on = [
     azurerm_role_assignment.current_roleassignment_storage,
-    azurerm_private_endpoint.azurerm_private_endpoint.datalake_private_endpoint_blob,
-    azurerm_private_endpoint.azurerm_private_endpoint.datalake_private_endpoint_dfs,
+    azurerm_private_endpoint.datalake_private_endpoint_blob,
+    azurerm_private_endpoint.datalake_private_endpoint_dfs,
     azurerm_private_endpoint.datalake_private_endpoint_queue,
     azurerm_private_endpoint.datalake_private_endpoint_table,
   ]

@@ -47,6 +47,6 @@ output "key_vault_setup_completed" {
 
   depends_on = [
     azurerm_role_assignment.current_roleassignment_key_vault,
-    azurerm_private_endpoint.azurerm_private_endpoint.key_vault_private_endpoint,
+    azurerm_private_endpoint.key_vault_private_endpoint,
   ]
 }
