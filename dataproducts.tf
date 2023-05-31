@@ -38,13 +38,17 @@ module "data_products" {
     group_name   = try(each.value.databricks.unity_catalog.group_name, "")
     storage_root = try(each.value.databricks.unity_catalog.storage_root, "")
   }
-
-  depends_on = [
-    module.datalake_raw,
-    module.datalake_enriched,
-    module.datalake_curated,
-    module.datalake_workspace,
-    module.databricks_automation_configuration,
-    module.databricks_experimentation_configuration
+  dependencies_network = [
+    azapi_resource.databricks_public_subnet_002.id != "",
+  ]
+  dependencies_databricks = [
+    module.databricks_experimentation_configuration.databricks_configuration_setup_completed,
+    module.databricks_automation_configuration.databricks_configuration_setup_completed,
+  ]
+  dependencies_datalake = [
+    module.datalake_raw.datalake_setup_completed,
+    module.datalake_enriched.datalake_setup_completed,
+    module.datalake_curated.datalake_setup_completed,
+    module.datalake_workspace.datalake_setup_completed,
   ]
 }

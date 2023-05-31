@@ -248,3 +248,24 @@ variable "unity_catalog_configurations" {
     error_message = "Please specify a valid value for 'databricks.unity_catalog._'."
   }
 }
+
+variable "dependencies_network" {
+  description = "Specifies a list of dependencies for network resources."
+  type        = list(bool)
+  sensitive   = false
+  default     = []
+}
+
+variable "dependencies_databricks" {
+  description = "Specifies a list of dependencies for databricks resources."
+  type        = list(bool)
+  sensitive   = false
+  default     = []
+}
+
+variable "dependencies_datalake" {
+  description = "Specifies a list of dependencies for datalake resources."
+  type        = list(bool)
+  sensitive   = false
+  default     = []
+}

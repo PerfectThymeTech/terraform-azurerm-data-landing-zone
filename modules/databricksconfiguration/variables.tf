@@ -1,5 +1,3 @@
-data "azurerm_client_config" "current" {}
-
 variable "key_vault_id" {
   description = "Specifies the resource ID of the key vault used for the platform."
   type        = string
@@ -83,4 +81,11 @@ variable "unity_metastore_id" {
     condition     = var.unity_metastore_id == "" || length(var.unity_metastore_id) >= 2
     error_message = "Please specify a valid name."
   }
+}
+
+variable "dependencies" {
+  description = "Specifies a list of dependencies."
+  type        = list(bool)
+  sensitive   = false
+  default     = []
 }

@@ -9,6 +9,10 @@ resource "azurerm_storage_container" "container_raw" {
   storage_account_name = data.azurerm_storage_account.datalake_raw.name
 
   container_access_type = "private"
+
+  depends_on = [
+    var.dependencies_datalake
+  ]
 }
 
 data "azurerm_storage_account" "datalake_enriched" {
@@ -22,6 +26,10 @@ resource "azurerm_storage_container" "container_enriched" {
   storage_account_name = data.azurerm_storage_account.datalake_enriched.name
 
   container_access_type = "private"
+
+  depends_on = [
+    var.dependencies_datalake
+  ]
 }
 
 data "azurerm_storage_account" "datalake_curated" {
@@ -35,6 +43,10 @@ resource "azurerm_storage_container" "container_curated" {
   storage_account_name = data.azurerm_storage_account.datalake_curated.name
 
   container_access_type = "private"
+
+  depends_on = [
+    var.dependencies_datalake
+  ]
 }
 
 data "azurerm_storage_account" "datalake_workspace" {
@@ -48,4 +60,8 @@ resource "azurerm_storage_container" "container_workspace" {
   storage_account_name = data.azurerm_storage_account.datalake_workspace.name
 
   container_access_type = "private"
+
+  depends_on = [
+    var.dependencies_datalake
+  ]
 }

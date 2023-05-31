@@ -38,4 +38,8 @@ resource "azapi_resource" "subnets" {
       serviceEndpoints        = []
     }
   })
+
+  depends_on = [
+    var.dependencies_network
+  ]
 }

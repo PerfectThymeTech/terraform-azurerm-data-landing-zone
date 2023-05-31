@@ -7,6 +7,10 @@ resource "databricks_storage_credential" "automation_storage_credential" {
     access_connector_id = one(azurerm_databricks_access_connector.databricks_access_connector[*].id)
   }
   comment = "Managed identity credential for ${var.data_product_name} Data Product"
+
+  depends_on = [
+    var.dependencies_databricks
+  ]
 }
 
 resource "databricks_external_location" "automation_external_location" {
@@ -18,8 +22,9 @@ resource "databricks_external_location" "automation_external_location" {
   credential_name = one(databricks_storage_credential.automation_storage_credential[*].name)
   skip_validation = false
   url             = local.databricks_catalog_storage_root
-
+  
   depends_on = [
+    var.dependencies_databricks,
     time_sleep.sleep_dbac
   ]
 }

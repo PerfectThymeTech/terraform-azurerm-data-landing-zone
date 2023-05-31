@@ -34,9 +34,8 @@ module "databricks_automation_configuration" {
   databricks_admin_groupname = var.databricks_admin_groupname
   unity_metastore_name       = var.unity_metastore_name
   unity_metastore_id         = var.unity_metastore_id
-
-  depends_on = [
-    module.databricks_automation
+  dependencies = [
+    module.databricks_automation.databricks_setup_completed
   ]
 }
 
@@ -76,8 +75,7 @@ module "databricks_experimentation_configuration" {
   databricks_admin_groupname = var.databricks_admin_groupname
   unity_metastore_name       = var.unity_metastore_name
   unity_metastore_id         = var.unity_metastore_id
-
-  depends_on = [
-    module.databricks_experimentation
+  dependencies = [
+    module.databricks_experimentation.databricks_setup_completed
   ]
 }
