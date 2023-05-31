@@ -10,7 +10,7 @@ resource "azurerm_databricks_access_connector" "databricks_access_connector" {
 }
 
 resource "time_sleep" "sleep_dbac" {
-  create_duration = "15s"
+  create_duration = "30s"
 
   depends_on = [
     azurerm_role_assignment.dbac_roleassignment_storage_raw,
