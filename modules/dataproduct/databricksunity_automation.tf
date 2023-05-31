@@ -22,7 +22,7 @@ resource "databricks_external_location" "automation_external_location" {
   credential_name = one(databricks_storage_credential.automation_storage_credential[*].name)
   skip_validation = false
   url             = local.databricks_catalog_storage_root
-  
+
   depends_on = [
     var.dependencies_databricks,
     time_sleep.sleep_dbac
