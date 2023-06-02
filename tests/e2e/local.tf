@@ -123,7 +123,7 @@ locals {
   }
 
   databricks_cluster_policies = {
-    "cluster-policy-job" = merge(local.default_cluster_policy, local.job_cluster_policy),
+    "cluster-policy-job"         = merge(local.default_cluster_policy, local.job_cluster_policy),
     "cluster-policy-all-purpose" = merge(local.default_cluster_policy, local.all_purpose_cluster_policy)
   }
 }
