@@ -292,6 +292,14 @@ Type: `string`
 
 Default: `""`
 
+### <a name="input_databricks_cluster_policies"></a> [databricks\_cluster\_policies](#input\_databricks\_cluster\_policies)
+
+Description: Specifies the databricks cluster policies that should be added to the workspace.
+
+Type: `map(any)`
+
+Default: `{}`
+
 ### <a name="input_enable_databricks_auth_private_endpoint"></a> [enable\_databricks\_auth\_private\_endpoint](#input\_enable\_databricks\_auth\_private\_endpoint)
 
 Description: Specifies whether to deploy the private endpoint used for browser authentication. Create one of these per region for all Azure Databricks workspaces as this will be shared.
