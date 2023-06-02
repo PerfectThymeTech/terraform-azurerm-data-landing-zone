@@ -21,6 +21,7 @@ module "data_landing_zone" {
   unity_metastore_name                    = var.unity_metastore_name
   unity_metastore_id                      = var.unity_metastore_id
   databricks_admin_groupname              = var.databricks_admin_groupname
+  databricks_cluster_policies             = local.databricks_cluster_policies
   data_platform_subscription_ids          = var.data_platform_subscription_ids
   data_product_library_path               = local.data_product_library_path
   data_product_template_file_variables    = var.data_product_template_file_variables

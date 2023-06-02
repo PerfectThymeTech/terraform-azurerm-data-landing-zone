@@ -10,8 +10,8 @@ variable "environment" {
   sensitive   = false
   default     = "dev"
   validation {
-    condition     = contains(["dev", "tst", "qa", "prd"], var.environment)
-    error_message = "Please use an allowed value: \"dev\", \"tst\", \"qa\" or \"prd\"."
+    condition     = contains(["int", "dev", "tst", "qa", "uat", "prd"], var.environment)
+    error_message = "Please use an allowed value: \"int\", \"dev\", \"tst\", \"qa\", \"uat\" or \"prd\"."
   }
 }
 
@@ -154,6 +154,13 @@ variable "databricks_admin_groupname" {
     condition     = var.databricks_admin_groupname == "" || length(var.databricks_admin_groupname) >= 2
     error_message = "Please specify a valid group name."
   }
+}
+
+variable "databricks_cluster_policies" {
+  description = "Specifies the databricks cluster policies that should be added to the workspace."
+  type        = map(any)
+  sensitive   = false
+  default     = {}
 }
 
 variable "data_platform_subscription_ids" {

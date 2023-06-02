@@ -61,6 +61,13 @@ variable "databricks_admin_groupname" {
   }
 }
 
+variable "databricks_cluster_policies" {
+  description = "Specifies the databricks cluster policies that should be added to the workspace."
+  type        = map(any)
+  sensitive   = false
+  default     = {}
+}
+
 variable "unity_metastore_name" {
   description = "Specifies the name of the Databricks Unity metastore."
   type        = string
