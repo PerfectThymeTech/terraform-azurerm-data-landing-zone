@@ -16,6 +16,10 @@ locals {
     databricks_catalog            = var.data_product_name
   }
 
+  subnet_map = {
+    for index, subnet in var.subnets : "${local.names.subnet}${index + 1}" => subnet if var.network_enabled
+  }
+
   conditions = {
     security_group = var.identity_enabled && var.security_group_display_name != ""
   }
