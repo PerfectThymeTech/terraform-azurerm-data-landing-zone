@@ -20,7 +20,7 @@ resource "azurerm_role_assignment" "security_group_roleassignment_key_vault" {
 }
 
 resource "azurerm_role_assignment" "security_group_roleassignment_subnets" {
-  for_each             = azapi_resource.subnets
+  for_each             = azurerm_subnet.subnets
   scope                = each.value.id
   role_definition_name = "Network Contributor"
   principal_id         = one(data.azuread_group.security_group[*].object_id)
@@ -97,7 +97,7 @@ resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_resour
 }
 
 resource "azurerm_role_assignment" "user_assigned_identity_roleassignment_subnets" {
-  for_each             = azapi_resource.subnets
+  for_each             = azurerm_subnet.subnets
   scope                = each.value.id
   role_definition_name = "Network Contributor"
   principal_id         = one(azurerm_user_assigned_identity.user_assigned_identity[*].principal_id)
@@ -146,7 +146,7 @@ resource "azurerm_role_assignment" "service_principal_roleassignment_resource_gr
 }
 
 resource "azurerm_role_assignment" "service_principal_roleassignment_subnets" {
-  for_each             = azapi_resource.subnets
+  for_each             = azurerm_subnet.subnets
   scope                = each.value.id
   role_definition_name = "Network Contributor"
   principal_id         = one(azuread_service_principal.service_principal[*].object_id)
