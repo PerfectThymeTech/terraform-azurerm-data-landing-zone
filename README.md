@@ -296,7 +296,7 @@ Default: `""`
 
 Description: Specifies the databricks cluster policies that should be added to the workspace.
 
-Type: `map(any)`
+Type: `any`
 
 Default: `{}`
 
