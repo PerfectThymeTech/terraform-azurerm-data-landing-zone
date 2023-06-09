@@ -1,4 +1,6 @@
 locals {
+  data_product_library_path = "${path.root}/dataproducts"
+
   default_cluster_policy = {
     "autoscale.min_workers" : {
       "type" : "range",
@@ -118,5 +120,10 @@ locals {
       "defaultValue" : "SINGLE_USER",
       "hidden" : true
     }
+  }
+
+  databricks_cluster_policies = {
+    "cluster-policy-job"         = merge(local.default_cluster_policy, local.job_cluster_policy),
+    "cluster-policy-all-purpose" = merge(local.default_cluster_policy, local.all_purpose_cluster_policy)
   }
 }

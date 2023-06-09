@@ -3,4 +3,8 @@ resource "databricks_metastore_assignment" "metastore_assignment" {
   default_catalog_name = var.unity_metastore_name
   metastore_id         = var.unity_metastore_id
   workspace_id         = var.databricks_workspace_id
+
+  depends_on = [
+    var.dependencies
+  ]
 }

@@ -16,6 +16,10 @@ locals {
     databricks_catalog            = var.data_product_name
   }
 
+  subnet_map = {
+    for index, subnet in var.subnets : "${local.names.subnet}${index + 1}" => subnet if var.network_enabled
+  }
+
   conditions = {
     security_group = var.identity_enabled && var.security_group_display_name != ""
   }
@@ -62,10 +66,10 @@ locals {
     workspace = data.azurerm_storage_account.datalake_workspace.name
   }
   container_names = {
-    raw       = one(azapi_resource.container_raw[*].name)
-    enriched  = one(azapi_resource.container_enriched[*].name)
-    curated   = one(azapi_resource.container_curated[*].name)
-    workspace = one(azapi_resource.container_workspace[*].name)
+    raw       = one(azurerm_storage_container.container_raw[*].name)
+    enriched  = one(azurerm_storage_container.container_enriched[*].name)
+    curated   = one(azurerm_storage_container.container_curated[*].name)
+    workspace = one(azurerm_storage_container.container_workspace[*].name)
   }
   databricks_catalog_storage_root = "abfss://${lookup(local.container_names, var.unity_catalog_configurations.storage_root, "")}@${lookup(local.datalake_names, var.unity_catalog_configurations.storage_root, "")}.dfs.core.windows.net"
 }

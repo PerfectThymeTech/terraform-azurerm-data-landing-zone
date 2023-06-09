@@ -10,8 +10,8 @@ variable "environment" {
   sensitive   = false
   default     = "dev"
   validation {
-    condition     = contains(["int", "dev", "tst", "qa", "uat", "prd"], var.environment)
-    error_message = "Please use an allowed value: \"int\", \"dev\", \"tst\", \"qa\", \"uat\" or \"prd\"."
+    condition     = contains(["dev", "tst", "qa", "prd"], var.environment)
+    error_message = "Please use an allowed value: \"dev\", \"tst\", \"qa\" or \"prd\"."
   }
 }
 
@@ -156,25 +156,11 @@ variable "databricks_admin_groupname" {
   }
 }
 
-variable "databricks_cluster_policies" {
-  description = "Specifies the databricks cluster policies that should be added to the workspace."
-  type        = any
-  sensitive   = false
-  default     = {}
-}
-
 variable "data_platform_subscription_ids" {
   description = "Specifies the list of subscription IDs of your data platform."
   type        = list(string)
   sensitive   = false
   default     = []
-}
-
-variable "data_product_library_path" {
-  description = "If specified, sets the path to a custom library folder for archetype artefacts."
-  type        = string
-  sensitive   = false
-  default     = ""
 }
 
 variable "data_product_template_file_variables" {

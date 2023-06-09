@@ -6,18 +6,22 @@ resource "databricks_secret_scope" "platform_secret_scope" {
     dns_name    = var.key_vault_uri
     resource_id = var.key_vault_id
   }
+
+  depends_on = [
+    var.dependencies
+  ]
 }
 
-# data "databricks_current_user" "current" {}
+resource "time_sleep" "sleep_metastore_assignment" {
+  create_duration = "30s"
 
-data "databricks_group" "group" {
-  count        = var.databricks_admin_groupname != "" ? 1 : 0
-  display_name = var.databricks_admin_groupname
-
-  provider = databricks.account
+  depends_on = [
+    databricks_metastore_assignment.metastore_assignment
+  ]
 }
 
 resource "databricks_mws_permission_assignment" "permission_assignment" {
+  count        = var.databricks_admin_groupname != "" ? 1 : 0
   workspace_id = var.databricks_workspace_id
   principal_id = one(data.databricks_group.group[*].id)
   permissions = [
@@ -25,9 +29,12 @@ resource "databricks_mws_permission_assignment" "permission_assignment" {
   ]
 
   provider = databricks.account
+  depends_on = [
+    time_sleep.sleep_metastore_assignment
+  ]
 }
 
-resource "time_sleep" "sleep" {
+resource "time_sleep" "sleep_permission_assignment" {
   create_duration = "30s"
 
   depends_on = [
@@ -42,6 +49,6 @@ resource "databricks_secret_acl" "secret_acl" {
   scope      = databricks_secret_scope.platform_secret_scope.name
 
   depends_on = [
-    time_sleep.sleep
+    time_sleep.sleep_permission_assignment
   ]
 }

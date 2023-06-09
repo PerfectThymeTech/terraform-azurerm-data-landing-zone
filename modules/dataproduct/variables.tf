@@ -65,14 +65,18 @@ variable "route_table_id" {
   }
 }
 
-variable "subnet_cidr_range" {
+variable "subnets" {
   description = "Specifies the subnet cidr range for the data product."
-  type        = string
-  sensitive   = false
-  default     = ""
+  type = list(object({
+    cidr_range = string
+  }))
+  sensitive = false
+  default   = []
   validation {
-    condition     = var.subnet_cidr_range == "" || try(cidrnetmask(var.subnet_cidr_range), "invalid") != "invalid"
-    error_message = "Please specify a valid subnet CIDR range. Subnet CIDR range specified in 'network.subnet_cidr_range' must be valid and within the range of teh virtual network."
+    condition = alltrue([
+      length([for subnet in var.subnets : subnet.cidr_range if try(cidrnetmask(subnet.cidr_range), "invalid") == "invalid"]) <= 0,
+    ])
+    error_message = "Please specify a valid subnet object. Subnet CIDR range specified in 'network.subnets[*].cidr_range' must be valid and within the range of the virtual network."
   }
 }
 
@@ -243,4 +247,25 @@ variable "unity_catalog_configurations" {
     ])
     error_message = "Please specify a valid value for 'databricks.unity_catalog._'."
   }
+}
+
+variable "dependencies_network" {
+  description = "Specifies a list of dependencies for network resources."
+  type        = list(bool)
+  sensitive   = false
+  default     = []
+}
+
+variable "dependencies_databricks" {
+  description = "Specifies a list of dependencies for databricks resources."
+  type        = list(bool)
+  sensitive   = false
+  default     = []
+}
+
+variable "dependencies_datalake" {
+  description = "Specifies a list of dependencies for datalake resources."
+  type        = list(bool)
+  sensitive   = false
+  default     = []
 }

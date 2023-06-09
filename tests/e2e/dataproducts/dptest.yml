@@ -1,10 +1,12 @@
-id: "test"
+id: "dptest"
 environment: "prd"
 tags:
   costCenter: "ABCD1234"
 network:
   enabled: true
-  subnet_cidr_range: "10.0.32.96/28"
+  subnets:
+    - cidr_range: "10.0.48.96/28"
+    - cidr_range: "10.0.48.112/28"
 identity:
   enabled: true
   security_group_display_name: "test"

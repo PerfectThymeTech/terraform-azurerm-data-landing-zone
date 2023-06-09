@@ -5,6 +5,10 @@ resource "databricks_grants" "grants_experimentation_catalog" {
     principal  = var.unity_catalog_configurations.group_name
     privileges = ["ALL_PRIVILEGES"]
   }
+
+  depends_on = [
+    var.dependencies_databricks
+  ]
 }
 
 resource "databricks_grants" "grants_automation_catalog" {
@@ -14,4 +18,8 @@ resource "databricks_grants" "grants_automation_catalog" {
     principal  = var.unity_catalog_configurations.group_name
     privileges = ["ALL_PRIVILEGES"]
   }
+
+  depends_on = [
+    var.dependencies_databricks
+  ]
 }

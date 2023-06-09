@@ -12,6 +12,7 @@ module "databricks_automation" {
   public_subnet_name                                   = azapi_resource.databricks_public_subnet_001.name
   public_subnet_network_security_group_association_id  = azapi_resource.databricks_public_subnet_001.id
   private_endpoints_subnet_id                          = azapi_resource.shared_app_aut_subnet.id
+  enable_databricks_auth_private_endpoint              = var.enable_databricks_auth_private_endpoint
   private_dns_zone_id_databricks                       = var.private_dns_zone_id_databricks
   private_dns_zone_id_key_vault                        = var.private_dns_zone_id_key_vault
   private_dns_zone_id_blob                             = var.private_dns_zone_id_blob
@@ -25,17 +26,17 @@ module "databricks_automation_configuration" {
     databricks.account = databricks.account
   }
 
-  key_vault_id               = module.databricks_automation.key_vault_id
-  key_vault_uri              = module.databricks_automation.key_vault_uri
-  client_id_secret_name      = ""
-  client_secret_secret_name  = ""
-  databricks_workspace_id    = module.databricks_automation.databricks_workspace_id
-  databricks_admin_groupname = var.databricks_admin_groupname
-  unity_metastore_name       = var.unity_metastore_name
-  unity_metastore_id         = var.unity_metastore_id
-
-  depends_on = [
-    module.databricks_automation
+  key_vault_id                = module.databricks_automation.key_vault_id
+  key_vault_uri               = module.databricks_automation.key_vault_uri
+  client_id_secret_name       = ""
+  client_secret_secret_name   = ""
+  databricks_workspace_id     = module.databricks_automation.databricks_workspace_id
+  databricks_admin_groupname  = var.databricks_admin_groupname
+  databricks_cluster_policies = var.databricks_cluster_policies
+  unity_metastore_name        = var.unity_metastore_name
+  unity_metastore_id          = var.unity_metastore_id
+  dependencies = [
+    module.databricks_automation.databricks_setup_completed
   ]
 }
 
@@ -53,6 +54,7 @@ module "databricks_experimentation" {
   public_subnet_name                                   = azapi_resource.databricks_public_subnet_002.name
   public_subnet_network_security_group_association_id  = azapi_resource.databricks_public_subnet_002.id
   private_endpoints_subnet_id                          = azapi_resource.shared_app_exp_subnet.id
+  enable_databricks_auth_private_endpoint              = false
   private_dns_zone_id_databricks                       = var.private_dns_zone_id_databricks
   private_dns_zone_id_key_vault                        = var.private_dns_zone_id_key_vault
   private_dns_zone_id_blob                             = var.private_dns_zone_id_blob
@@ -66,16 +68,16 @@ module "databricks_experimentation_configuration" {
     databricks.account = databricks.account
   }
 
-  key_vault_id               = module.databricks_experimentation.key_vault_id
-  key_vault_uri              = module.databricks_experimentation.key_vault_uri
-  client_id_secret_name      = ""
-  client_secret_secret_name  = ""
-  databricks_workspace_id    = module.databricks_experimentation.databricks_workspace_id
-  databricks_admin_groupname = var.databricks_admin_groupname
-  unity_metastore_name       = var.unity_metastore_name
-  unity_metastore_id         = var.unity_metastore_id
-
-  depends_on = [
-    module.databricks_experimentation
+  key_vault_id                = module.databricks_experimentation.key_vault_id
+  key_vault_uri               = module.databricks_experimentation.key_vault_uri
+  client_id_secret_name       = ""
+  client_secret_secret_name   = ""
+  databricks_workspace_id     = module.databricks_experimentation.databricks_workspace_id
+  databricks_admin_groupname  = var.databricks_admin_groupname
+  databricks_cluster_policies = var.databricks_cluster_policies
+  unity_metastore_name        = var.unity_metastore_name
+  unity_metastore_id          = var.unity_metastore_id
+  dependencies = [
+    module.databricks_experimentation.databricks_setup_completed
   ]
 }
