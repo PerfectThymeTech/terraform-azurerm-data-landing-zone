@@ -55,7 +55,7 @@ resource "azurerm_windows_virtual_machine_scale_set" "vmss" {
     ip_configuration {
       name                                   = "${var.selfhostedintegrationruntime_name}-ipconfig"
       load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.lb_backend_address_pool.id]
-      load_balancer_inbound_nat_rules_ids    = [azurerm_lb_nat_rule.lb_nat_rule.id]
+      load_balancer_inbound_nat_rules_ids    = [azurerm_lb_nat_pool.lb_nat_pool.id]
       primary                                = true
       subnet_id                              = var.subnet_id
       version                                = "IPv4"
