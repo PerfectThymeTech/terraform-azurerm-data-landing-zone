@@ -65,13 +65,13 @@ resource "azurerm_subnet" "subnets" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "devops_subnet_nsg" {
-  for_each                  = local.subnet_map
+  for_each                  = azurerm_subnet.subnets
   network_security_group_id = data.azurerm_network_security_group.network_security_group.id
-  subnet_id                 = azurerm_subnet.subnets[each.key].id
+  subnet_id                 = each.value.id
 }
 
 resource "azurerm_subnet_route_table_association" "devops_subnet_routetable" {
-  for_each       = local.subnet_map
+  for_each       = azurerm_subnet.subnets
   route_table_id = data.azurerm_route_table.route_table.id
-  subnet_id      = azurerm_subnet.subnets[each.key].id
+  subnet_id      = each.value.id
 }

@@ -6,6 +6,7 @@ network:
   enabled: true
   subnets:
     - cidr_range: "10.0.48.96/28"
+    - cidr_range: "10.0.48.112/28"
 identity:
   enabled: true
   security_group_display_name: "test"
