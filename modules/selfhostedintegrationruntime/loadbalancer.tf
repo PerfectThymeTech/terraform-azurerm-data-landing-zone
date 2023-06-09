@@ -26,35 +26,37 @@ resource "azurerm_lb_backend_address_pool" "lb_backend_address_pool" {
 #   backend_address_pool_id             = azurerm_lb_backend_address_pool.lb_backend_address_pool.id
 # }
 
-resource "azurerm_lb_nat_pool" "lb_nat_pool" {
-  name                = "${var.selfhostedintegrationruntime_name}-natpool"
+# resource "azurerm_lb_nat_pool" "lb_nat_pool" {
+#   name                = "${var.selfhostedintegrationruntime_name}-natpool"
+#   loadbalancer_id     = azurerm_lb.lb.id
+#   resource_group_name = azurerm_lb.lb.resource_group_name
+
+#   backend_port                   = 3389
+#   floating_ip_enabled            = false
+#   frontend_ip_configuration_name = azurerm_lb.lb.frontend_ip_configuration[0].name
+#   frontend_port_start            = 50000
+#   frontend_port_end              = 50099
+#   idle_timeout_in_minutes        = 4
+#   protocol                       = "Tcp"
+#   tcp_reset_enabled              = true
+# }
+
+resource "azurerm_lb_nat_rule" "lb_nat_rule" {
+  name                = "${var.selfhostedintegrationruntime_name}-natrule"
   loadbalancer_id     = azurerm_lb.lb.id
   resource_group_name = azurerm_lb.lb.resource_group_name
 
+  backend_address_pool_id        = azurerm_lb_backend_address_pool.lb_backend_address_pool.id
   backend_port                   = 3389
-  floating_ip_enabled            = false
+  enable_floating_ip             = false
+  enable_tcp_reset               = true
   frontend_ip_configuration_name = azurerm_lb.lb.frontend_ip_configuration[0].name
   frontend_port_start            = 50000
   frontend_port_end              = 50099
   idle_timeout_in_minutes        = 4
   protocol                       = "Tcp"
-  tcp_reset_enabled              = true
+  # frontend_port                  = 3389
 }
-
-# resource "azurerm_lb_nat_rule" "lb_nat_rule" {
-#   name = "${var.selfhostedintegrationruntime_name}-natrule"
-#   loadbalancer_id = azurerm_lb.lb.id
-#   resource_group_name = azurerm_lb.lb.resource_group_name
-
-#   backend_address_pool_id = azurerm_lb_backend_address_pool.lb_backend_address_pool.id
-#   backend_port = 3389
-#   enable_floating_ip = false
-#   enable_tcp_reset = true
-#   frontend_ip_configuration_name = azurerm_lb.lb.frontend_ip_configuration[0].name
-#   frontend_port = 3389
-#   idle_timeout_in_minutes = 4
-#   protocol = "Tcp"
-# }
 
 # resource "azurerm_lb_outbound_rule" "lb_outbound_rule" {
 #   name = "${var.selfhostedintegrationruntime_name}-outboundrule"
