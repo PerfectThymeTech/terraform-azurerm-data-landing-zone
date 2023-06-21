@@ -30,10 +30,11 @@ locals {
 }
 
 locals {
-  data_product_library_path = "${path.root}/dataproducts"
+  data_product_library_path = var.data_product_library_path
+
   # Load file paths
-  data_product_filepaths_json = tolist(fileset(local.data_product_library_path, "**/*.{json,json.tftpl}"))
-  data_product_filepaths_yaml = tolist(fileset(local.data_product_library_path, "**/*.{yml,yml.tftpl,yaml,yaml.tftpl}"))
+  data_product_filepaths_json = local.data_product_library_path == "" ? [] : tolist(fileset(local.data_product_library_path, "**/*.{json,json.tftpl}"))
+  data_product_filepaths_yaml = local.data_product_library_path == "" ? [] : tolist(fileset(local.data_product_library_path, "**/*.{yml,yml.tftpl,yaml,yaml.tftpl}"))
 
   # Load file content
   data_product_definitions_json = {
