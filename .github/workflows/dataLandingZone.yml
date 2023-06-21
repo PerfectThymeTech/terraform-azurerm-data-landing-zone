@@ -3,10 +3,24 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "**.tf"
+      - "**.yml"
+      - "**.yaml"
+      - "!.github/workflows/**"
+      - "!.pre-commit-config.yaml"
+      - "!.terraform-docs.yml"
 
   pull_request:
     branches:
       - main
+    paths:
+      - "**.tf"
+      - "**.yml"
+      - "**.yaml"
+      - "!.github/workflows/**"
+      - "!.pre-commit-config.yaml"
+      - "!.terraform-docs.yml"
 
 jobs:
   terraform_lint:
