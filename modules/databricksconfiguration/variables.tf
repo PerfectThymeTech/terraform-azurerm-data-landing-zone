@@ -52,12 +52,12 @@ variable "databricks_workspace_id" {
 }
 
 variable "databricks_admin_groupname" {
-  description = "Specifies the databricks admin group name that should be granted access to the Databricks workspace artifacts"
+  description = "Specifies the databricks account admin group name (available in https://accounts.azuredatabricks.net/) that should be granted access to the Databricks workspace artifacts."
   type        = string
   sensitive   = false
   validation {
     condition     = var.databricks_admin_groupname == "" || length(var.databricks_admin_groupname) >= 2
-    error_message = "Please specify a valid group name."
+    error_message = "Please specify a valid Databricks account group name."
   }
 }
 
