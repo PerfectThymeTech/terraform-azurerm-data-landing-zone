@@ -146,7 +146,7 @@ variable "unity_metastore_id" {
 }
 
 variable "databricks_admin_groupname" {
-  description = "Specifies the databricks account admin group name (available in https://accounts.azuredatabricks.net/) that should be granted access to the Databricks workspace artifacts."
+  description = "Specifies the databricks account admin group name (available in https://accounts.azuredatabricks.net/) that should be granted access to the Databricks workspace artifacts. This feature requires you to grant Databricks account admin access to your Service Principal."
   type        = string
   sensitive   = false
   default     = ""
