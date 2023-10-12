@@ -286,7 +286,7 @@ Default: `{}`
 
 ### <a name="input_databricks_admin_groupname"></a> [databricks\_admin\_groupname](#input\_databricks\_admin\_groupname)
 
-Description: Specifies the databricks account admin group name (available in https://accounts.azuredatabricks.net/) that should be granted access to the Databricks workspace artifacts. This feature requires you to grant Databricks account admin access to your Service Principal.
+Description: Specifies the pre-existing databricks account admin group name (available in https://accounts.azuredatabricks.net/) that should be granted access to the Databricks workspace artifacts. This feature requires you to grant Databricks account admin access to your Service Principal.
 
 Type: `string`
 
