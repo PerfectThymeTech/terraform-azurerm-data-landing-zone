@@ -23,7 +23,7 @@ jobs:
       # Setup Terraform
       - name: Setup Terraform
         id: terraform_setup
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.4.6"
           terraform_wrapper: true
