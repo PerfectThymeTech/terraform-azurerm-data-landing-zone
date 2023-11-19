@@ -94,7 +94,7 @@ jobs:
       # Add Pull Request Comment
       - name: Add Pull Request Comment
         id: pr_comment
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         if: github.event_name == 'pull_request'
         continue-on-error: true
         env:
