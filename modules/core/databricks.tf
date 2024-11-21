@@ -19,9 +19,9 @@ module "databricks_workspace" {
   databricks_workspace_public_subnet_network_security_group_association_id  = var.subnet_id_consumption_public
   databricks_workspace_storage_account_sku_name                             = var.zone_redundancy_enabled ? "Standard_ZRS" : "Standard_LRS"
   databricks_workspace_browser_authentication_private_endpoint_enabled      = true
-  diagnostics_configurations                                                = local.diagnostics_configurations
-  subnet_id                                                                 = azapi_resource.private_endpoint_subnet.id
-  connectivity_delay_in_seconds                                             = local.connectivity_delay_in_seconds
+  diagnostics_configurations                                                = var.diagnostics_configurations
+  subnet_id                                                                 = var.subnet_id_storage
+  connectivity_delay_in_seconds                                             = var.connectivity_delay_in_seconds
   private_dns_zone_id_databricks                                            = var.private_dns_zone_id_databricks
-  customer_managed_key                                                      = local.customer_managed_key
+  customer_managed_key                                                      = var.customer_managed_key
 }
