@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Application",
+  "description": "A schema for the application definition.",
+  "properties": {
+    "name": {
+      "description": "Specifies the name of the application.",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 10,
+      "pattern": "^(?!core|mgmt)([a-z0-9]+)$"
+    },
+    "tags": {
+      "description": "Specifies the tags that should be applied to Azure resources.",
+      "type": "object"
+    },
+    "identity": {
+      "description": "Specifies the identity section of the application.",
+      "type": "object",
+      "properties": {
+        "owner_group_name": {
+          "description": "Specifies the name of the admin group.",
+          "type": "string"
+        },
+        "developer_group_name": {
+          "description": "Specifies the name of the contributor group.",
+          "type": "string"
+        },
+        "reader_group_name": {
+          "description": "Specifies the name of the reader group.",
+          "type": "string"
+        },
+        "service_principal_name": {
+          "description": "Specifies the name of the service principal.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "owner_group_name",
+        "service_principal_name"
+      ],
+      "additionalProperties": false
+    },
+    "network": {
+      "description": "Specifies the network section of the application.",
+      "type": "object",
+      "properties": {
+        "subnet_id": {
+          "description": "Specifies the subnet used for the application.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subnet_id"
+      ],
+      "additionalProperties": false
+    },
+    "repository": {
+      "description": "Specifies the repository section of the application.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "Specifies the type of repository.",
+          "type": "string",
+          "enum": [
+            "github"
+          ]
+        },
+        "github": {
+          "description": "Specifies the github repository section.",
+          "type": "object",
+          "properties": {
+            "git_url": {
+              "description": "Specifies the git URL.",
+              "type": "string"
+            },
+            "account_name": {
+              "description": "Specifies the git account name.",
+              "type": "string"
+            },
+            "branch_name": {
+              "description": "Specifies the git branch name.",
+              "type": "string"
+            },
+            "repository_name": {
+              "description": "Specifies the git repository name.",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "name",
+    "identity",
+    "network"
+  ]
+}

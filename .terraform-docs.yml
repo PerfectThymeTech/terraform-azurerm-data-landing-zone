@@ -1,6 +1,6 @@
 formatter: "markdown document"
 
-version: "0.16.0"
+version: "0.17.0"
 
 header-from: "README_header.md"
 footer-from: "README_footer.md"
