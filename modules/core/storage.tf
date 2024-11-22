@@ -17,7 +17,7 @@ module "storage_account_external" {
   storage_blob_change_feed_enabled                = false
   storage_blob_container_delete_retention_in_days = 30
   storage_blob_delete_retention_in_days           = 30
-  storage_blob_cors_rules                         = {}
+  storage_blob_cors_rules                         = local.storage_blob_cors_rules
   storage_blob_last_access_time_enabled           = false
   storage_blob_versioning_enabled                 = false
   storage_is_hns_enabled                          = true
@@ -61,7 +61,7 @@ module "storage_account_raw" {
   storage_blob_change_feed_enabled                = false
   storage_blob_container_delete_retention_in_days = 30
   storage_blob_delete_retention_in_days           = 30
-  storage_blob_cors_rules                         = {}
+  storage_blob_cors_rules                         = local.storage_blob_cors_rules
   storage_blob_last_access_time_enabled           = false
   storage_blob_versioning_enabled                 = false
   storage_is_hns_enabled                          = true
@@ -105,7 +105,7 @@ module "storage_account_enriched" {
   storage_blob_change_feed_enabled                = false
   storage_blob_container_delete_retention_in_days = 30
   storage_blob_delete_retention_in_days           = 30
-  storage_blob_cors_rules                         = {}
+  storage_blob_cors_rules                         = local.storage_blob_cors_rules
   storage_blob_last_access_time_enabled           = false
   storage_blob_versioning_enabled                 = false
   storage_is_hns_enabled                          = true
@@ -149,7 +149,7 @@ module "storage_account_curated" {
   storage_blob_change_feed_enabled                = false
   storage_blob_container_delete_retention_in_days = 30
   storage_blob_delete_retention_in_days           = 30
-  storage_blob_cors_rules                         = {}
+  storage_blob_cors_rules                         = local.storage_blob_cors_rules
   storage_blob_last_access_time_enabled           = false
   storage_blob_versioning_enabled                 = false
   storage_is_hns_enabled                          = true
@@ -193,7 +193,7 @@ module "storage_account_workspace" {
   storage_blob_change_feed_enabled                = false
   storage_blob_container_delete_retention_in_days = 30
   storage_blob_delete_retention_in_days           = 30
-  storage_blob_cors_rules                         = {}
+  storage_blob_cors_rules                         = local.storage_blob_cors_rules
   storage_blob_last_access_time_enabled           = false
   storage_blob_versioning_enabled                 = false
   storage_is_hns_enabled                          = true
