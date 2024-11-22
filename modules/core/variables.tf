@@ -34,6 +34,12 @@ variable "tags" {
 }
 
 # Service variables
+variable "data_platform_subscription_ids" {
+  description = "Specifies the list of subscription IDs of your data platform."
+  type        = list(string)
+  sensitive   = false
+  default     = []
+}
 
 # HA/DR variables
 variable "zone_redundancy_enabled" {
