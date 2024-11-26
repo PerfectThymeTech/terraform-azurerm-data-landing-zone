@@ -151,7 +151,7 @@ locals {
             }
           }
         ]
-        ipAllocations         = []
+        ipAllocations = []
         networkSecurityGroup = {
           id = data.azurerm_network_security_group.network_security_group.id
         }
@@ -180,7 +180,7 @@ locals {
             }
           }
         ]
-        ipAllocations         = []
+        ipAllocations = []
         networkSecurityGroup = {
           id = data.azurerm_network_security_group.network_security_group.id
         }

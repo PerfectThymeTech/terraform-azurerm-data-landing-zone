@@ -16,7 +16,7 @@ resource "databricks_mws_ncc_binding" "ncc_binding" {
   for_each = var.databricks_workspace_details
 
   network_connectivity_config_id = databricks_mws_network_connectivity_config.network_connectivity_config.network_connectivity_config_id
-  
+
   workspace_id = each.value.workspace_id
 }
 

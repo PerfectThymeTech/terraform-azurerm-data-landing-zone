@@ -40,43 +40,43 @@ locals {
   databricks_private_endpoint_rules = {
     "storage-account-external-blob" = {
       resource_id = module.storage_account_external.storage_account_id
-      group_id = "blob"
+      group_id    = "blob"
     }
     "storage-account-external-dfs" = {
       resource_id = module.storage_account_external.storage_account_id
-      group_id = "dfs"
+      group_id    = "dfs"
     }
     "storage-account-raw-blob" = {
       resource_id = module.storage_account_raw.storage_account_id
-      group_id = "blob"
+      group_id    = "blob"
     }
     "storage-account-raw-dfs" = {
       resource_id = module.storage_account_raw.storage_account_id
-      group_id = "dfs"
+      group_id    = "dfs"
     }
     "storage-account-enriched-blob" = {
       resource_id = module.storage_account_enriched.storage_account_id
-      group_id = "blob"
+      group_id    = "blob"
     }
     "storage-account-enriched-dfs" = {
       resource_id = module.storage_account_enriched.storage_account_id
-      group_id = "dfs"
+      group_id    = "dfs"
     }
     "storage-account-curated-blob" = {
       resource_id = module.storage_account_curated.storage_account_id
-      group_id = "blob"
+      group_id    = "blob"
     }
     "storage-account-curated-dfs" = {
       resource_id = module.storage_account_curated.storage_account_id
-      group_id = "dfs"
+      group_id    = "dfs"
     }
     "storage-account-workspace-blob" = {
       resource_id = module.storage_account_workspace.storage_account_id
-      group_id = "blob"
+      group_id    = "blob"
     }
     "storage-account-workspace-dfs" = {
       resource_id = module.storage_account_workspace.storage_account_id
-      group_id = "dfs"
+      group_id    = "dfs"
     }
   }
 }
