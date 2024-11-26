@@ -89,7 +89,7 @@ variable "subnet_id_storage" {
 }
 
 variable "subnet_id_consumption_private" {
-  description = "Specifies the id of the private subnet used for the databricks account for ad-hoc consumption."
+  description = "Specifies the id of the private subnet used for the databricks workspace for ad-hoc consumption."
   type        = string
   sensitive   = false
   validation {
@@ -99,7 +99,7 @@ variable "subnet_id_consumption_private" {
 }
 
 variable "subnet_id_consumption_public" {
-  description = "Specifies the id of the public subnet used for the databricks account for ad-hoc consumption."
+  description = "Specifies the id of the public subnet used for the databricks workspace for ad-hoc consumption."
   type        = string
   sensitive   = false
   validation {
