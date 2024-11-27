@@ -34,7 +34,8 @@ locals {
   databricks_public_subnet_name  = reverse(split("/", var.subnet_id_consumption_public))[0]
   databricks_workspace_details = {
     core = {
-      workspace_id = module.databricks_workspace.databricks_workspace_workspace_id
+      workspace_id        = module.databricks_workspace.databricks_workspace_workspace_id
+      access_connector_id = module.databricks_access_connector.databricks_access_connector_id
     }
   }
   databricks_private_endpoint_rules = {
