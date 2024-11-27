@@ -18,7 +18,7 @@ module "databricks_workspace" {
   databricks_workspace_public_subnet_name                                   = local.databricks_public_subnet_name
   databricks_workspace_public_subnet_network_security_group_association_id  = var.subnet_id_databricks_public
   databricks_workspace_storage_account_sku_name                             = var.zone_redundancy_enabled ? "Standard_ZRS" : "Standard_LRS"
-  databricks_workspace_browser_authentication_private_endpoint_enabled      = true
+  databricks_workspace_browser_authentication_private_endpoint_enabled      = false
   diagnostics_configurations                                                = var.diagnostics_configurations
   subnet_id                                                                 = var.subnet_id_app
   connectivity_delay_in_seconds                                             = var.connectivity_delay_in_seconds

@@ -44,6 +44,38 @@ variable "app_name" {
   }
 }
 
+variable "storage_account_ids" {
+  description = "Specifies the ids of the storage accounts in the core layer."
+  type = object({
+    external  = string
+    raw       = string
+    enriched  = string
+    curated   = string
+    workspace = string
+  })
+  sensitive = false
+  validation {
+    condition     = length(split("/", var.storage_account_ids.external)) == 9
+    error_message = "Please specify a valid external storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.raw)) == 9
+    error_message = "Please specify a valid raw storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.enriched)) == 9
+    error_message = "Please specify a valid enriched storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.curated)) == 9
+    error_message = "Please specify a valid curated storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.workspace)) == 9
+    error_message = "Please specify a valid workspace storage account id."
+  }
+}
+
 # HA/DR variables
 variable "zone_redundancy_enabled" {
   description = "Specifies whether zone-redundancy should be enabled for all resources."
@@ -70,6 +102,32 @@ variable "diagnostics_configurations" {
   }
 }
 
+variable "alerting" {
+  description = "Specifies the alerting details."
+  type = object({
+    categories = optional(object({
+      service_health = optional(object({
+        severity       = optional(string, "Info")
+        incident_level = optional(number, 3)
+      }), {})
+    }), {})
+    endpoints = optional(object({
+      email = optional(object({
+        email_address = string
+      }), null)
+    }), {})
+  })
+  sensitive = false
+  validation {
+    condition = alltrue([
+      var.alerting.endpoints == {} || length(var.alerting.endpoints) > 0,
+      contains(["Debug", "Info", "Warning", "Error", "Critical"], var.alerting.categories.service_health.severity),
+      var.alerting.categories.service_health.incident_level >= 0,
+    ])
+    error_message = "Please specify valid alerting details."
+  }
+}
+
 # Network variables
 variable "vnet_id" {
   description = "Specifies the resource ID of the Vnet used for the Data Landing Zone."
@@ -86,7 +144,7 @@ variable "subnet_id_app" {
   type        = string
   sensitive   = false
   validation {
-    condition     = length(split("/", var.subnet_id_storage)) == 11
+    condition     = length(split("/", var.subnet_id_app)) == 11
     error_message = "Please specify a valid resource ID."
   }
 }
@@ -153,6 +211,18 @@ variable "private_dns_zone_id_databricks" {
   default     = ""
   validation {
     condition     = var.private_dns_zone_id_databricks == "" || (length(split("/", var.private_dns_zone_id_databricks)) == 9 && endswith(var.private_dns_zone_id_databricks, "privatelink.azuredatabricks.net"))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
+variable "private_dns_zone_id_vault" {
+  description = "Specifies the resource ID of the private DNS zone for Azure Key Vault. Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  nullable    = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_vault == "" || (length(split("/", var.private_dns_zone_id_vault)) == 9 && endswith(var.private_dns_zone_id_vault, "privatelink.vaultcore.azure.net"))
     error_message = "Please specify a valid resource ID for the private DNS Zone."
   }
 }
