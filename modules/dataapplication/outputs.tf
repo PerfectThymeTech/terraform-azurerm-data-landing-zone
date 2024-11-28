@@ -23,7 +23,7 @@ output "key_vault_details" {
 
 # Storage outputs
 output "storage_container_ids" {
-  description = "Specifies the ids of the storage accounts in the core layer."
+  description = "Specifies the storage container ids of the app."
   value = {
     external  = azurerm_storage_container.storage_container_external.id
     raw       = azurerm_storage_container.storage_container_raw.id
