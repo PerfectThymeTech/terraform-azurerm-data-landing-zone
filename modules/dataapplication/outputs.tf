@@ -14,11 +14,11 @@ output "databricks_private_endpoint_rules" {
 # Key vault outputs
 output "key_vault_details" {
   description = "Specifies the key vault details of the app."
-  value       = {
+  value = {
     key_vault_uri = module.key_vault.key_vault_uri
     key_vault_id  = module.key_vault.key_vault_id
   }
-  sensitive   = false
+  sensitive = false
 }
 
 # Storage outputs

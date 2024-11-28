@@ -8,7 +8,7 @@ resource "azurerm_monitor_action_group" "monitor_action_group" {
   dynamic "email_receiver" {
     for_each = var.alerting.endpoints.email == null ? [] : [1]
     content {
-      name                    = "${local.prefix}"
+      name                    = local.prefix
       email_address           = var.alerting.endpoints.email.email_address
       use_common_alert_schema = true
     }

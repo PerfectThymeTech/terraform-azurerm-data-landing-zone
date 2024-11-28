@@ -3,10 +3,10 @@ resource "databricks_catalog" "catalog" {
 
   name = local.prefix
 
-  comment       = "Data Applicaton Catalog - ${var.app_name}"
+  comment                        = "Data Applicaton Catalog - ${var.app_name}"
   enable_predictive_optimization = "DISABLE" # Consider enabling this property or use "INHERIT"
-  force_destroy = false
-  isolation_mode = "ISOLATED"
+  force_destroy                  = false
+  isolation_mode                 = "ISOLATED"
   properties = merge({
     location    = var.location
     environment = var.environment
