@@ -54,6 +54,16 @@ variable "databricks_workspace_workspace_id" {
   }
 }
 
+variable "databricks_access_connector_id" {
+  description = "Specifies the id of the databricks access connector."
+  type        = string
+  sensitive   = false
+  validation {
+    condition     = length(split("/", var.databricks_access_connector_id)) == 9
+    error_message = "Please specify a valid workspace id."
+  }
+}
+
 variable "databricks_cluster_policies" {
   description = "Specifies the databricks cluster policies that should be added to the workspace."
   type        = any
@@ -76,6 +86,25 @@ variable "databricks_keyvault_secret_scope_details" {
   }
 }
 
+variable "storage_container_ids" {
+  description = "Specifies the databricks key vault secret scope details that should be added to the workspace."
+  type = object({
+    external  = optional(string, "")
+    raw       = optional(string, "")
+    enriched  = optional(string, "")
+    curated   = optional(string, "")
+    workspace = optional(string, "")
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+  validation {
+    condition     = var.storage_container_ids.external == "" || length(split("/", var.storage_container_ids.external)) == 13
+    error_message = "Please provide valid external storage container id."
+  }
+}
+
+# Budget variables
 variable "budget" {
   description = "Specifies the budget details."
   type = object({
