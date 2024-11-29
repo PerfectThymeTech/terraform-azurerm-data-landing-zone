@@ -1,0 +1,99 @@
+name: Opentofu Destroy Template
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+        default: "dev"
+        description: "Specifies the environment of the deployment."
+      tofu_version:
+        required: true
+        type: string
+        description: "Specifies the opentofu version."
+      node_version:
+        required: true
+        type: number
+        description: "Specifies the node version."
+      working_directory:
+        required: true
+        type: string
+        description: "Specifies the working directory."
+      tenant_id:
+        required: true
+        type: string
+        description: "Specifies the tenant id of the deployment."
+      subscription_id:
+        required: true
+        type: string
+        description: "Specifies the subscription id of the deployment."
+    secrets:
+      CLIENT_ID:
+        required: true
+        description: "Specifies the client id."
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deployment:
+    name: Opentofu Destroy
+    runs-on: [self-hosted]
+    continue-on-error: false
+    environment: ${{ inputs.environment }}
+    if: github.event_name == 'push' || github.event_name == 'release'
+    concurrency:
+      group: opentofu-${{ inputs.environment }}
+      cancel-in-progress: false
+
+    env:
+      ARM_TENANT_ID: ${{ inputs.tenant_id }}
+      ARM_SUBSCRIPTION_ID: ${{ inputs.subscription_id }}
+      ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      ARM_USE_OIDC: true
+
+    steps:
+      # Setup Node
+      - name: Setup Node
+        id: node_setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node_version }}
+
+      # Setup Opentofu
+      - name: Setup Opentofu
+        id: opentofu_setup
+        uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: ${{ inputs.tofu_version }}
+          tofu_wrapper: true
+
+      # Check Out Repository
+      - name: Check Out Repository
+        id: checkout_repository
+        uses: actions/checkout@v4
+
+      # Azure login
+      - name: Azure login
+        id: azure_login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.CLIENT_ID }}
+          tenant-id: ${{ inputs.tenant_id }}
+          subscription-id: ${{ inputs.subscription_id }}
+
+      # Opentofu Init
+      - name: Opentofu Init
+        id: opentofu_init
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          tofu init -backend-config="azurerm.tfbackend"
+
+      # Opentofu Destroy
+      - name: Opentofu Destroy
+        id: opentofu_destroy
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          tofu apply -var-file="vars.tfvars" -auto-approve -input=false -destroy
