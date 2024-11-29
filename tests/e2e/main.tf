@@ -1,12 +1,12 @@
 module "data_landing_zone" {
   source = "../../"
   providers = {
-    azurerm            = azurerm
-    azapi              = azapi
-    azuread            = azuread
+    azurerm = azurerm
+    azapi   = azapi
+    azuread = azuread
     # databricks         = databricks.account
     # databricks.account = databricks.account
-    null               = null
+    null = null
   }
 
   # General variables

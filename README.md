@@ -192,6 +192,12 @@ Version:
 
 The following input variables are required:
 
+### <a name="input_databricks_account_id"></a> [databricks\_account\_id](#input\_databricks\_account\_id)
+
+Description: Specifies the databricks account id.
+
+Type: `string`
+
 ### <a name="input_location"></a> [location](#input\_location)
 
 Description: Specifies the location for all Azure resources.
@@ -215,6 +221,23 @@ Type: `string`
 Description: Specifies the resource ID of the default route table for the Data Landing Zone.
 
 Type: `string`
+
+### <a name="input_subnet_cidr_ranges"></a> [subnet\_cidr\_ranges](#input\_subnet\_cidr\_ranges)
+
+Description: Specifies the cidr ranges of the subnets used for the Data Management Zone. If not specified, the module will automatically define the right subnet cidr ranges. For this to work, the provided vnet must have no subnets.
+
+Type:
+
+```hcl
+object(
+    {
+      storage_subnet                        = string
+      fabric_subnet                         = string
+      databricks_consumption_private_subnet = string
+      databricks_consumption_public_subnet  = string
+    }
+  )
+```
 
 ### <a name="input_vnet_id"></a> [vnet\_id](#input\_vnet\_id)
 
@@ -322,25 +345,6 @@ Description: Specifies the resource ID of the private DNS zone for Azure Key Vau
 Type: `string`
 
 Default: `""`
-
-### <a name="input_subnet_cidr_ranges"></a> [subnet\_cidr\_ranges](#input\_subnet\_cidr\_ranges)
-
-Description: Specifies the cidr ranges of the subnets used for the Data Management Zone. If not specified, the module will automatically define the right subnet cidr ranges. For this to work, the provided vnet must have no subnets.
-
-Type:
-
-```hcl
-object(
-    {
-      storage_subnet                        = string
-      fabric_subnet                         = string
-      databricks_consumption_private_subnet = string
-      databricks_consumption_public_subnet  = string
-    }
-  )
-```
-
-Default: `{}`
 
 ### <a name="input_tags"></a> [tags](#input\_tags)
 
