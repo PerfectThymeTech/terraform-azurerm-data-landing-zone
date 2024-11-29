@@ -1,4 +1,6 @@
 module "databricks_workspace" {
+  count = var.subnet_id_databricks_private != "" && var.subnet_id_databricks_public != "" ? 1 : 0
+
   source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/databricksworkspace?ref=main"
   providers = {
     azurerm = azurerm
@@ -10,7 +12,7 @@ module "databricks_workspace" {
   resource_group_name                                                       = azurerm_resource_group.resource_group_app.name
   tags                                                                      = var.tags
   databricks_workspace_name                                                 = "${local.prefix}-dbw001"
-  databricks_workspace_access_connector_id                                  = module.databricks_access_connector.databricks_access_connector_id
+  databricks_workspace_access_connector_id                                  = one(module.databricks_access_connector[*].databricks_access_connector_id)
   databricks_workspace_machine_learning_workspace_id                        = null
   databricks_workspace_virtual_network_id                                   = var.vnet_id
   databricks_workspace_private_subnet_name                                  = local.databricks_private_subnet_name
