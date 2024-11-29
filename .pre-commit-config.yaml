@@ -20,7 +20,7 @@ repos:
         files: ^schemas/.*\.json$
       - id: check-jsonschema
         files: ^tests/e2e/data-applications/.*\.yml$
-        args: ["--schemafile", "schemas/application.schema.json"]
+        args: ["--schemafile", "schemas/app.schema.json"]
       - id: check-jsonschema
         files: ^tests/e2e/databricks-cluster-policies/.*\.yml$
         args: ["--schemafile", "schemas/clusterPolicy.schema.json"]
