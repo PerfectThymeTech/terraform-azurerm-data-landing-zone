@@ -3,7 +3,7 @@ resource "databricks_cluster_policy" "cluster_policy" {
 
   name                               = each.value.name
   description                        = each.value.description
-  max_clusters_per_user              = each.value.max_clusters_per_user
+  max_clusters_per_user              = each.value.maxClustersPerUser
   policy_family_definition_overrides = null
   policy_family_id                   = null
 

@@ -37,7 +37,10 @@ variable "tags" {
 variable "databricks_workspace_details" {
   description = "Specifies the workspace details of databricks workspaces."
   type = map(object({
-    workspace_id = string
+    id                  = string
+    workspace_id        = string
+    workspace_url       = string
+    access_connector_id = string
   }))
   sensitive = false
   nullable  = false
