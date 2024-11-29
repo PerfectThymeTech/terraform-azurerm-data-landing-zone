@@ -36,7 +36,7 @@ output "subnet_ids_databricks_private_application" {
   sensitive   = false
   value = {
     for key, value in var.subnet_cidr_range_applications :
-    key => value.databricks_private_subnet != "" && value.databricks_public_subnet != "" ? "${azapi_update_resource.virtual_network.id}/subnets/DatabricksPrivateSubnet-${key}" : null
+    key => value.databricks_private_subnet != "" && value.databricks_public_subnet != "" ? "${azapi_update_resource.virtual_network.id}/subnets/DatabricksPrivateSubnet-${key}" : ""
   }
 }
 
@@ -45,6 +45,6 @@ output "subnet_ids_databricks_public_application" {
   sensitive   = false
   value = {
     for key, value in var.subnet_cidr_range_applications :
-    key => value.databricks_private_subnet != "" && value.databricks_public_subnet != "" ? "${azapi_update_resource.virtual_network.id}/subnets/DatabricksPublicSubnet-${key}" : null
+    key => value.databricks_private_subnet != "" && value.databricks_public_subnet != "" ? "${azapi_update_resource.virtual_network.id}/subnets/DatabricksPublicSubnet-${key}" : ""
   }
 }
