@@ -1,7 +1,7 @@
 # General variables
-location    = "westeurope"
-environment = "dev"
-prefix      = "mydlz02"
+location    = "northeurope"
+environment = "int"
+prefix      = "mydlz01"
 tags        = {}
 
 # Service
