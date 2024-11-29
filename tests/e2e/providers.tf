@@ -1,8 +1,9 @@
 provider "azurerm" {
-  disable_correlation_request_id = false
-  environment                    = "public"
-  skip_provider_registration     = false
-  storage_use_azuread            = true
+  disable_correlation_request_id  = false
+  environment                     = "public"
+  resource_provider_registrations = "none"
+  resource_providers_to_register  = local.resource_providers_to_register
+  storage_use_azuread             = true
   # use_oidc                       = true
 
   features {
@@ -44,8 +45,8 @@ provider "azuread" {
   tenant_id = data.azurerm_client_config.current.tenant_id
 }
 
-provider "databricks" {
-  alias      = "account"
-  host       = "https://accounts.azuredatabricks.net"
-  account_id = "515f13c1-53bb-48fb-a2c9-75e3f5d943f5"
-}
+# provider "databricks" {
+#   alias      = "account"
+#   host       = "https://accounts.azuredatabricks.net"
+#   account_id = "515f13c1-53bb-48fb-a2c9-75e3f5d943f5"
+# }

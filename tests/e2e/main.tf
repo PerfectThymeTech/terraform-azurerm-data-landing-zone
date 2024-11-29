@@ -4,7 +4,9 @@ module "data_landing_zone" {
     azurerm            = azurerm
     azapi              = azapi
     azuread            = azuread
-    databricks.account = databricks.account
+    # databricks         = databricks.account
+    # databricks.account = databricks.account
+    null               = null
   }
 
   # General variables
@@ -19,6 +21,7 @@ module "data_landing_zone" {
   data_application_file_variables          = var.data_application_file_variables
   databricks_cluster_policy_library_path   = var.databricks_cluster_policy_library_path
   databricks_cluster_policy_file_variables = var.databricks_cluster_policy_file_variables
+  databricks_account_id                    = var.databricks_account_id
 
   # HA/DR variables
   zone_redundancy_enabled = false
