@@ -1,5 +1,5 @@
 resource "databricks_external_location" "external_location_external" {
-  count = var.databricks_access_connector_id != "" ? 1 : 0
+  count = var.databricks_access_connector_id != "" && var.storage_container_ids.external != "" ? 1 : 0
 
   name = "${local.prefix}-ext"
 
@@ -14,7 +14,7 @@ resource "databricks_external_location" "external_location_external" {
 }
 
 resource "databricks_external_location" "external_location_raw" {
-  count = var.databricks_access_connector_id != "" ? 1 : 0
+  count = var.databricks_access_connector_id != "" && var.storage_container_ids.raw != "" ? 1 : 0
 
   name = "${local.prefix}-raw"
 
@@ -29,7 +29,7 @@ resource "databricks_external_location" "external_location_raw" {
 }
 
 resource "databricks_external_location" "external_location_enriched" {
-  count = var.databricks_access_connector_id != "" ? 1 : 0
+  count = var.databricks_access_connector_id != "" && var.storage_container_ids.enriched != "" ? 1 : 0
 
   name = "${local.prefix}-enr"
 
@@ -44,7 +44,7 @@ resource "databricks_external_location" "external_location_enriched" {
 }
 
 resource "databricks_external_location" "external_location_curated" {
-  count = var.databricks_access_connector_id != "" ? 1 : 0
+  count = var.databricks_access_connector_id != "" && var.storage_container_ids.curated != "" ? 1 : 0
 
   name = "${local.prefix}-cur"
 
@@ -59,7 +59,7 @@ resource "databricks_external_location" "external_location_curated" {
 }
 
 resource "databricks_external_location" "external_location_workspace" {
-  count = var.databricks_access_connector_id != "" ? 1 : 0
+  count = var.databricks_access_connector_id != "" && var.storage_container_ids.workspace != "" ? 1 : 0
 
   name = "${local.prefix}-wks"
 

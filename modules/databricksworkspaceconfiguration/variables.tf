@@ -116,9 +116,9 @@ variable "budget" {
     })
   })
   sensitive = false
-  nullable  = false
+  nullable  = true
   validation {
-    condition     = var.budget.categories.databricks > 0
+    condition     = var.budget == null || try(var.budget.categories.databricks, 0) > 0
     error_message = "Please provide a valid budget greater than 0."
   }
 }
