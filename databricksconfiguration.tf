@@ -23,7 +23,8 @@ module "databricks_workspace_configuration" {
   source = "./modules/databricksworkspaceconfiguration"
 
   providers = {
-    databricks = databricks.application[each.key]
+    databricks         = databricks.application[each.key]
+    databricks.account = databricks.account
   }
 
   # General variables
