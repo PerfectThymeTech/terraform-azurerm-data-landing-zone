@@ -69,6 +69,12 @@ variable "databricks_cluster_policy_file_variables" {
   default     = {}
 }
 
+variable "databricks_account_id" {
+  description = "Specifies the databricks account id."
+  type        = string
+  sensitive   = false
+}
+
 # HA/DR variables
 variable "zone_redundancy_enabled" {
   description = "Specifies whether zone-redundancy should be enabled for all resources."
@@ -120,7 +126,6 @@ variable "subnet_cidr_ranges" {
     }
   )
   sensitive = false
-  default   = {}
   validation {
     condition = alltrue([
       try(cidrnetmask(var.subnet_cidr_ranges.storage_subnet), "invalid") != "invalid",
