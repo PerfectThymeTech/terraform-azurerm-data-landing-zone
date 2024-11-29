@@ -8,11 +8,16 @@
       "type": "string",
       "minLength": 2,
       "maxLength": 100,
-      "pattern": "^([a-z0-9]+)$"
+      "pattern": "^([a-zA-Z0-9]+)$"
     },
     "description": {
       "description": "Specifies the description name of the cluster policy.",
       "type": "string"
+    },
+    "maxClustersPerUser": {
+      "description": "Specifies the number of cluster per user under this policy.",
+      "type": "integer",
+      "minimum": 1
     },
     "definition": {
       "description": "Specifies the policy definition.",
@@ -54,15 +59,16 @@
           "required": [
             "type"
           ],
-          "additionalProperties": false
+          "additionalProperties": true
         }
       }
-    },
-    "required": [
-      "name",
-      "description",
-      "definition"
-    ],
-    "additionalProperties": false
-  }
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "maxClustersPerUser",
+    "definition"
+  ],
+  "additionalProperties": false
 }
