@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DatabricksClusterPolicy",
+  "description": "A schema for the databricks cluster policy.",
+  "properties": {
+    "name": {
+      "description": "Specifies the name of the cluster policy.",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 100,
+      "pattern": "^([a-z0-9]+)$"
+    },
+    "description": {
+      "description": "Specifies the description name of the cluster policy.",
+      "type": "string"
+    },
+    "definition": {
+      "description": "Specifies the policy definition.",
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "description": "Specifies type of restriction.",
+              "type": "string",
+              "enum": [
+                "fixed",
+                "forbidden",
+                "allowlist",
+                "blocklist",
+                "regex",
+                "range",
+                "unlimited"
+              ]
+            },
+            "isOptional": {
+              "description": "Specifies whether the restriction is optional.",
+              "type": "boolean"
+            },
+            "hidden": {
+              "description": "Specifies whether the restriction should be hidden.",
+              "type": "boolean"
+            },
+            "minValue": {
+              "description": "Specifies the minimum value for the restriction.",
+              "type": "integer"
+            },
+            "maxValue": {
+              "description": "Specifies the maximum value for the restriction.",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "name",
+      "description",
+      "definition"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -18,9 +18,12 @@ repos:
     hooks:
       - id: check-metaschema
         files: ^schemas/.*\.json$
-      # - id: check-jsonschema
-      #   files: ^tests/e2e/data-applications/.*\.yml$
-      #   args: ["--schemafile", "schemas/application.schema.json"]
+      - id: check-jsonschema
+        files: ^tests/e2e/data-applications/.*\.yml$
+        args: ["--schemafile", "schemas/application.schema.json"]
+      - id: check-jsonschema
+        files: ^tests/e2e/databricks-cluster-policies/.*\.yml$
+        args: ["--schemafile", "schemas/clusterPolicy.schema.json"]
   - repo: local
     hooks:
       - id: terraform-fmt
