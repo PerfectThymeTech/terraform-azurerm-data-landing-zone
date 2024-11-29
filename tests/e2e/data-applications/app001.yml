@@ -1,0 +1,18 @@
+name: "dptest"
+environment: "prd"
+tags:
+  costCenter: "ABCD1234"
+
+identity:
+  admin_group_name: ""
+  developer_group_name: ""
+  reader_group_name: ""
+  service_principal_name: ""
+
+network:
+  private_endpoint_subnet:
+    cidr_range: ""
+  databricks_private_subnet:
+    cidr_range: ""
+  databricks_public_subnet:
+    cidr_range: ""

@@ -1,0 +1,98 @@
+name: PersonalComputePolicyPtt
+description: Policy for Personal Computes
+maxClustersPerUser: 1
+definition:
+  autotermination_minutes:
+    type: range
+    defaultValue: 60
+    maxValue: 120
+    isOptional: false
+    hidden: false
+  azure_attributes.availability:
+    type: fixed
+    value: ON_DEMAND_AZURE
+    isOptional: false
+    hidden: true
+  azure_attributes.spot_bid_max_price:
+    type: fixed
+    value: -1
+    isOptional: false
+    hidden: true
+  cluster_type:
+    type: fixed
+    value: all-purpose
+    isOptional: false
+    hidden: true
+  cluster_log_conf.type:
+    type: fixed
+    value: DBFS
+    isOptional: false
+    hidden: true
+  cluster_log_conf.path:
+    type: fixed
+    value: dbfs:/cluster-logs
+    isOptional: false
+    hidden: true
+  custom_tags.costCenter:
+    type: regex
+    defaultValue: "[A-Z]{5}-[0-9]{5}"
+    isOptional: false
+    hidden: false
+  data_security_mode:
+    type: fixed
+    value: "SINGLE_USER"
+    isOptional: false
+    hidden: true
+  dbus_per_hour:
+    type: range
+    maxValue: 100
+  driver_instance_pool_id:
+    type: forbidden
+    isOptional: true
+    hidden: true
+  enable_local_disk_encryption:
+    type: fixed
+    value: true
+    isOptional: false
+    hidden: true
+  instance_pool_id:
+    type: forbidden
+    isOptional: true
+    hidden: true
+  num_workers:
+    type: fixed
+    value: 0
+    isOptional: false
+    hidden: true
+  driver_node_type_id:
+    type: allowlist
+    defaultValue: Standard_DS3_v2
+    values:
+      - Standard_DS3_v2
+      - Standard_DS4_v2
+      - Standard_DS5_v2
+    isOptional: true
+    hidden: false
+  node_type_id:
+    type: allowlist
+    defaultValue: Standard_DS3_v2
+    values:
+      - Standard_DS3_v2
+      - Standard_DS4_v2
+      - Standard_DS5_v2
+    isOptional: false
+    hidden: false
+  spark_version:
+    type: unlimited
+    defaultValue: auto:latest-lts
+    isOptional: false
+    hidden: false
+  spark_conf.spark.databricks.cluster.profile:
+    type: fixed
+    value: singleNode
+    isOptional: false
+    hidden: true
+  ssh_public_keys:
+    type: forbidden
+    isOptional: true
+    hidden: true
