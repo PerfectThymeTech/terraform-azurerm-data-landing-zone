@@ -1,54 +1,87 @@
 locals {
-  prefix = "${lower(var.prefix)}-${var.environment}"
+  prefix                        = "${lower(var.prefix)}-${var.environment}"
+  diagnostics_configurations    = []
+  connectivity_delay_in_seconds = 20
+}
 
-  virtual_network = {
-    resource_group_name = split("/", var.vnet_id)[4]
-    name                = split("/", var.vnet_id)[8]
+locals {
+  # Merge databricks workspace details
+  databricks_workspace_details_apps = {
+    for key, value in local.data_application_definitions :
+    key => module.data_application[key].databricks_workspace_details
+  }
+  databricks_workspace_details = merge(
+    module.core.databricks_workspace_details,
+    local.databricks_workspace_details_apps,
+  )
+
+  # Merge databricks private endpoint rules
+  databricks_private_endpoint_rules_apps = {
+    for key, value in local.data_application_definitions :
+    key => module.data_application[key].databricks_private_endpoint_rules
+  }
+  databricks_private_endpoint_rules = merge(
+    module.core.databricks_private_endpoint_rules,
+    local.databricks_private_endpoint_rules_apps,
+  )
+}
+
+locals {
+  data_application_library_path = var.data_application_library_path
+
+  # Load file paths
+  data_application_filepaths_json = local.data_application_library_path == "" ? [] : tolist(fileset(local.data_application_library_path, "**/*.{json,json.tftpl}"))
+  data_application_filepaths_yaml = local.data_application_library_path == "" ? [] : tolist(fileset(local.data_application_library_path, "**/*.{yml,yml.tftpl,yaml,yaml.tftpl}"))
+
+  # Load file content
+  data_application_definitions_json = {
+    for filepath in local.data_application_filepaths_json :
+    filepath => jsondecode(templatefile("${local.data_application_library_path}/${filepath}", var.data_application_file_variables))
+  }
+  data_application_definitions_yaml = {
+    for filepath in local.data_application_filepaths_yaml :
+    filepath => yamldecode(templatefile("${local.data_application_library_path}/${filepath}", var.data_application_file_variables))
   }
 
-  network_security_group = {
-    resource_group_name = try(split("/", var.nsg_id)[4], "")
-    name                = try(split("/", var.nsg_id)[8], "")
-  }
+  # Merge data
+  data_application_definitions_merged = merge(
+    local.data_application_definitions_json,
+    local.data_application_definitions_yaml
+  )
 
-  route_table = {
-    resource_group_name = try(split("/", var.route_table_id)[4], "")
-    name                = try(split("/", var.route_table_id)[8], "")
-  }
-
-  subnet_cidr_ranges = {
-    storage_subnet                = var.subnet_cidr_ranges.storage_subnet != "" ? var.subnet_cidr_ranges.storage_subnet : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 1))
-    runtimes_subnet               = var.subnet_cidr_ranges.runtimes_subnet != "" ? var.subnet_cidr_ranges.runtimes_subnet : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 2))
-    powerbi_subnet                = var.subnet_cidr_ranges.powerbi_subnet != "" ? var.subnet_cidr_ranges.powerbi_subnet : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 3))
-    shared_app_aut_subnet         = var.subnet_cidr_ranges.shared_app_aut_subnet != "" ? var.subnet_cidr_ranges.shared_app_aut_subnet : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 4))
-    shared_app_exp_subnet         = var.subnet_cidr_ranges.shared_app_exp_subnet != "" ? var.subnet_cidr_ranges.shared_app_exp_subnet : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 28 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 5))
-    databricks_private_subnet_001 = var.subnet_cidr_ranges.databricks_private_subnet_001 != "" ? var.subnet_cidr_ranges.databricks_private_subnet_001 : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 23 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 1))
-    databricks_public_subnet_001  = var.subnet_cidr_ranges.databricks_public_subnet_001 != "" ? var.subnet_cidr_ranges.databricks_public_subnet_001 : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 23 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 2))
-    databricks_private_subnet_002 = var.subnet_cidr_ranges.databricks_private_subnet_002 != "" ? var.subnet_cidr_ranges.databricks_private_subnet_002 : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 23 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 3))
-    databricks_public_subnet_002  = var.subnet_cidr_ranges.databricks_public_subnet_002 != "" ? var.subnet_cidr_ranges.databricks_public_subnet_002 : tostring(cidrsubnet(data.azurerm_virtual_network.virtual_network.address_space[0], 23 - tonumber(reverse(split("/", data.azurerm_virtual_network.virtual_network.address_space[0]))[0]), 4))
+  # Data applications by name
+  data_application_definitions = {
+    for key, value in local.data_application_definitions_merged :
+    try(value.name, "unknown") => value
   }
 }
 
 locals {
-  data_product_library_path = var.data_product_library_path
+  databricks_cluster_policy_library_path = var.databricks_cluster_policy_library_path
 
   # Load file paths
-  data_product_filepaths_json = local.data_product_library_path == "" ? [] : tolist(fileset(local.data_product_library_path, "**/*.{json,json.tftpl}"))
-  data_product_filepaths_yaml = local.data_product_library_path == "" ? [] : tolist(fileset(local.data_product_library_path, "**/*.{yml,yml.tftpl,yaml,yaml.tftpl}"))
+  databricks_cluster_policy_filepaths_json = local.databricks_cluster_policy_library_path == "" ? [] : tolist(fileset(local.databricks_cluster_policy_library_path, "**/*.{json,json.tftpl}"))
+  databricks_cluster_policy_filepaths_yaml = local.databricks_cluster_policy_library_path == "" ? [] : tolist(fileset(local.databricks_cluster_policy_library_path, "**/*.{yml,yml.tftpl,yaml,yaml.tftpl}"))
 
   # Load file content
-  data_product_definitions_json = {
-    for filepath in local.data_product_filepaths_json :
-    filepath => jsondecode(templatefile("${local.data_product_library_path}/${filepath}", var.data_product_template_file_variables))
+  databricks_cluster_policy_definitions_json = {
+    for filepath in local.databricks_cluster_policy_filepaths_json :
+    filepath => jsondecode(templatefile("${local.databricks_cluster_policy_library_path}/${filepath}", var.databricks_cluster_policy_file_variables))
   }
-  data_product_definitions_yaml = {
-    for filepath in local.data_product_filepaths_yaml :
-    filepath => yamldecode(templatefile("${local.data_product_library_path}/${filepath}", var.data_product_template_file_variables))
+  databricks_cluster_policy_definitions_yaml = {
+    for filepath in local.databricks_cluster_policy_filepaths_yaml :
+    filepath => yamldecode(templatefile("${local.databricks_cluster_policy_library_path}/${filepath}", var.databricks_cluster_policy_file_variables))
   }
 
   # Merge data
-  data_product_definitions = merge(
-    local.data_product_definitions_json,
-    local.data_product_definitions_yaml
+  databricks_cluster_policy_definitions_merged = merge(
+    local.databricks_cluster_policy_definitions_json,
+    local.databricks_cluster_policy_definitions_yaml
   )
+
+  # Databricks cluster policies by name
+  databricks_cluster_policy_definitions = {
+    for key, value in local.databricks_cluster_policy_definitions_merged :
+    try(value.name, "unknown") => value
+  }
 }
