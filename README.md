@@ -83,6 +83,10 @@ provider "databricks" {
 
 # Declare locals for the module
 locals {
+  resource_providers = [
+    "Microsoft.PowerPlatform"
+  ]
+
   location       = "northeurope"
   prefix         = "<my-prefix>"
   vnet_id        = "/subscriptions/<my-subscription-id>/resourceGroups/<my-rg-name>/providers/Microsoft.Network/virtualNetworks/<my-vnet-name>"
@@ -136,79 +140,49 @@ The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>=0.12)
 
-- <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (>= 1.5.0)
+- <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 2.0)
 
-- <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) (>= 2.39.0)
+- <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) (~> 2.39)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (>= 3.56.0)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
 
-- <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) (>= 1.16.0)
+- <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) (~> 1.58)
 
-- <a name="requirement_random"></a> [random](#requirement\_random) (>= 3.5.1)
+- <a name="requirement_null"></a> [null](#requirement\_null) (~> 3.2)
 
-- <a name="requirement_time"></a> [time](#requirement\_time) (>= 0.9.1)
+- <a name="requirement_time"></a> [time](#requirement\_time) (~> 0.9)
 
 ## Modules
 
 The following Modules are called:
 
-### <a name="module_data_products"></a> [data\_products](#module\_data\_products)
+### <a name="module_core"></a> [core](#module\_core)
 
-Source: ./modules/dataproduct
-
-Version:
-
-### <a name="module_databricks_automation"></a> [databricks\_automation](#module\_databricks\_automation)
-
-Source: ./modules/databricks
+Source: ./modules/core
 
 Version:
 
-### <a name="module_databricks_automation_configuration"></a> [databricks\_automation\_configuration](#module\_databricks\_automation\_configuration)
+### <a name="module_data_application"></a> [data\_application](#module\_data\_application)
 
-Source: ./modules/databricksconfiguration
-
-Version:
-
-### <a name="module_databricks_experimentation"></a> [databricks\_experimentation](#module\_databricks\_experimentation)
-
-Source: ./modules/databricks
+Source: ./modules/dataapplication
 
 Version:
 
-### <a name="module_databricks_experimentation_configuration"></a> [databricks\_experimentation\_configuration](#module\_databricks\_experimentation\_configuration)
+### <a name="module_databricks_account_configuration"></a> [databricks\_account\_configuration](#module\_databricks\_account\_configuration)
 
-Source: ./modules/databricksconfiguration
-
-Version:
-
-### <a name="module_datalake_curated"></a> [datalake\_curated](#module\_datalake\_curated)
-
-Source: ./modules/datalake
+Source: ./modules/databricksaccountconfiguration
 
 Version:
 
-### <a name="module_datalake_enriched"></a> [datalake\_enriched](#module\_datalake\_enriched)
+### <a name="module_databricks_workspace_configuration"></a> [databricks\_workspace\_configuration](#module\_databricks\_workspace\_configuration)
 
-Source: ./modules/datalake
-
-Version:
-
-### <a name="module_datalake_raw"></a> [datalake\_raw](#module\_datalake\_raw)
-
-Source: ./modules/datalake
+Source: ./modules/databricksworkspaceconfiguration
 
 Version:
 
-### <a name="module_datalake_workspace"></a> [datalake\_workspace](#module\_datalake\_workspace)
+### <a name="module_platform"></a> [platform](#module\_platform)
 
-Source: ./modules/datalake
-
-Version:
-
-### <a name="module_shir_001"></a> [shir\_001](#module\_shir\_001)
-
-Source: ./modules/selfhostedintegrationruntime
+Source: ./modules/platform
 
 Version:
 
@@ -252,31 +226,24 @@ Type: `string`
 
 The following input variables are optional (have default values):
 
-### <a name="input_admin_username"></a> [admin\_username](#input\_admin\_username)
+### <a name="input_customer_managed_key"></a> [customer\_managed\_key](#input\_customer\_managed\_key)
 
-Description: Specifies the admin username of the VMs used for the Self-hosted Integration Runtimes.
+Description: Specifies the customer managed key configurations.
 
-Type: `string`
+Type:
 
-Default: `"VmMainUser"`
+```hcl
+object({
+    key_vault_id                     = string,
+    key_vault_key_versionless_id     = string,
+    user_assigned_identity_id        = string,
+    user_assigned_identity_client_id = string,
+  })
+```
 
-### <a name="input_data_platform_subscription_ids"></a> [data\_platform\_subscription\_ids](#input\_data\_platform\_subscription\_ids)
+Default: `null`
 
-Description: Specifies the list of subscription IDs of your data platform.
-
-Type: `list(string)`
-
-Default: `[]`
-
-### <a name="input_data_product_library_path"></a> [data\_product\_library\_path](#input\_data\_product\_library\_path)
-
-Description: If specified, sets the path to a custom library folder for archetype artefacts.
-
-Type: `string`
-
-Default: `""`
-
-### <a name="input_data_product_template_file_variables"></a> [data\_product\_template\_file\_variables](#input\_data\_product\_template\_file\_variables)
+### <a name="input_data_application_file_variables"></a> [data\_application\_file\_variables](#input\_data\_application\_file\_variables)
 
 Description: If specified, provides the ability to define custom template variables used when reading in data product template files from the library path.
 
@@ -284,29 +251,37 @@ Type: `any`
 
 Default: `{}`
 
-### <a name="input_databricks_admin_groupname"></a> [databricks\_admin\_groupname](#input\_databricks\_admin\_groupname)
+### <a name="input_data_application_library_path"></a> [data\_application\_library\_path](#input\_data\_application\_library\_path)
 
-Description: Specifies the pre-existing databricks account admin group name (available in https://accounts.azuredatabricks.net/) that should be granted access to the Databricks workspace artifacts. This feature requires you to grant Databricks account admin access to your Service Principal.
+Description: If specified, sets the path to a custom library folder for apllication artefacts.
 
 Type: `string`
 
 Default: `""`
 
-### <a name="input_databricks_cluster_policies"></a> [databricks\_cluster\_policies](#input\_databricks\_cluster\_policies)
+### <a name="input_data_platform_subscription_ids"></a> [data\_platform\_subscription\_ids](#input\_data\_platform\_subscription\_ids)
 
-Description: Specifies the databricks cluster policies that should be added to the workspace.
+Description: Specifies the list of subscription IDs of your data platform.
+
+Type: `set(string)`
+
+Default: `[]`
+
+### <a name="input_databricks_cluster_policy_file_variables"></a> [databricks\_cluster\_policy\_file\_variables](#input\_databricks\_cluster\_policy\_file\_variables)
+
+Description: Specifies custom template variables used when reading in databricks policy template files from the library path.
 
 Type: `any`
 
 Default: `{}`
 
-### <a name="input_enable_databricks_auth_private_endpoint"></a> [enable\_databricks\_auth\_private\_endpoint](#input\_enable\_databricks\_auth\_private\_endpoint)
+### <a name="input_databricks_cluster_policy_library_path"></a> [databricks\_cluster\_policy\_library\_path](#input\_databricks\_cluster\_policy\_library\_path)
 
-Description: Specifies whether to deploy the private endpoint used for browser authentication. Create one of these per region for all Azure Databricks workspaces as this will be shared.
+Description: Specifies the databricks cluster policy library path.
 
-Type: `bool`
+Type: `string`
 
-Default: `false`
+Default: `""`
 
 ### <a name="input_environment"></a> [environment](#input\_environment)
 
@@ -319,22 +294,6 @@ Default: `"dev"`
 ### <a name="input_private_dns_zone_id_blob"></a> [private\_dns\_zone\_id\_blob](#input\_private\_dns\_zone\_id\_blob)
 
 Description: Specifies the resource ID of the private DNS zone for Azure Storage blob endpoints. Not required if DNS A-records get created via Azue Policy.
-
-Type: `string`
-
-Default: `""`
-
-### <a name="input_private_dns_zone_id_data_factory"></a> [private\_dns\_zone\_id\_data\_factory](#input\_private\_dns\_zone\_id\_data\_factory)
-
-Description: Specifies the resource ID of the private DNS zone for Azure Data Factory. Not required if DNS A-records get created via Azue Policy.
-
-Type: `string`
-
-Default: `""`
-
-### <a name="input_private_dns_zone_id_data_factory_portal"></a> [private\_dns\_zone\_id\_data\_factory\_portal](#input\_private\_dns\_zone\_id\_data\_factory\_portal)
-
-Description: Specifies the resource ID of the private DNS zone for Azure Data Factory Portal. Not required if DNS A-records get created via Azue Policy.
 
 Type: `string`
 
@@ -356,33 +315,9 @@ Type: `string`
 
 Default: `""`
 
-### <a name="input_private_dns_zone_id_key_vault"></a> [private\_dns\_zone\_id\_key\_vault](#input\_private\_dns\_zone\_id\_key\_vault)
+### <a name="input_private_dns_zone_id_vault"></a> [private\_dns\_zone\_id\_vault](#input\_private\_dns\_zone\_id\_vault)
 
-Description: Specifies the resource ID of the private DNS zone for Azure Key Vault. Not required if DNS A-records get created via Azue Policy.
-
-Type: `string`
-
-Default: `""`
-
-### <a name="input_private_dns_zone_id_queue"></a> [private\_dns\_zone\_id\_queue](#input\_private\_dns\_zone\_id\_queue)
-
-Description: Specifies the resource ID of the private DNS zone for Azure Storage queue endpoints. Not required if DNS A-records get created via Azue Policy.
-
-Type: `string`
-
-Default: `""`
-
-### <a name="input_private_dns_zone_id_table"></a> [private\_dns\_zone\_id\_table](#input\_private\_dns\_zone\_id\_table)
-
-Description: Specifies the resource ID of the private DNS zone for Azure Storage table endpoints. Not required if DNS A-records get created via Azue Policy.
-
-Type: `string`
-
-Default: `""`
-
-### <a name="input_purview_id"></a> [purview\_id](#input\_purview\_id)
-
-Description: Specifies the resource ID of the default Purview Account for the Data Landing Zone.
+Description: Specifies the resource ID of the private DNS zone for Azure Key Vault. Not required if DNS A-records get created via Azure Policy.
 
 Type: `string`
 
@@ -397,15 +332,10 @@ Type:
 ```hcl
 object(
     {
-      storage_subnet                = optional(string, "")
-      runtimes_subnet               = optional(string, "")
-      powerbi_subnet                = optional(string, "")
-      shared_app_aut_subnet         = optional(string, "")
-      shared_app_exp_subnet         = optional(string, "")
-      databricks_private_subnet_001 = optional(string, "")
-      databricks_public_subnet_001  = optional(string, "")
-      databricks_private_subnet_002 = optional(string, "")
-      databricks_public_subnet_002  = optional(string, "")
+      storage_subnet                        = string
+      fabric_subnet                         = string
+      databricks_consumption_private_subnet = string
+      databricks_consumption_public_subnet  = string
     }
   )
 ```
@@ -420,21 +350,13 @@ Type: `map(string)`
 
 Default: `{}`
 
-### <a name="input_unity_metastore_id"></a> [unity\_metastore\_id](#input\_unity\_metastore\_id)
+### <a name="input_zone_redundancy_enabled"></a> [zone\_redundancy\_enabled](#input\_zone\_redundancy\_enabled)
 
-Description: Specifies the id of the Databricks Unity metastore.
+Description: Specifies whether zone-redundancy should be enabled for all resources.
 
-Type: `string`
+Type: `bool`
 
-Default: `""`
-
-### <a name="input_unity_metastore_name"></a> [unity\_metastore\_name](#input\_unity\_metastore\_name)
-
-Description: Specifies the name of the Databricks Unity metastore.
-
-Type: `string`
-
-Default: `""`
+Default: `true`
 
 ## Outputs
 
@@ -448,5 +370,4 @@ No outputs.
 ## Contributing
 
 This project accepts public contributions. Please use issues, pull requests and the discussins feature in case you have any questions or want to enhance this module.
-
 <!-- END_TF_DOCS -->
