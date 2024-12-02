@@ -22,8 +22,10 @@ route_table_id = "/subscriptions/1fdab118-1638-419a-8b12-06c9543714a0/resourceGr
 subnet_cidr_ranges = {
   storage_subnet                        = "10.2.0.0/27"
   fabric_subnet                         = "10.2.0.32/27"
-  databricks_consumption_private_subnet = "10.2.0.64/26"
-  databricks_consumption_public_subnet  = "10.2.0.128/26"
+  databricks_engineering_private_subnet = "10.2.0.64/26"
+  databricks_engineering_public_subnet  = "10.2.0.128/26"
+  databricks_consumption_private_subnet = "10.2.0.192/26"
+  databricks_consumption_public_subnet  = "10.2.1.0/26"
 }
 
 # DNS variables

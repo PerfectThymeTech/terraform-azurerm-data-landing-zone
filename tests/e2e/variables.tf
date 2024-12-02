@@ -121,6 +121,8 @@ variable "subnet_cidr_ranges" {
     {
       storage_subnet                        = string
       fabric_subnet                         = string
+      databricks_engineering_private_subnet = string
+      databricks_engineering_public_subnet  = string
       databricks_consumption_private_subnet = string
       databricks_consumption_public_subnet  = string
     }
@@ -130,6 +132,8 @@ variable "subnet_cidr_ranges" {
     condition = alltrue([
       try(cidrnetmask(var.subnet_cidr_ranges.storage_subnet), "invalid") != "invalid",
       try(cidrnetmask(var.subnet_cidr_ranges.fabric_subnet), "invalid") != "invalid",
+      try(cidrnetmask(var.subnet_cidr_ranges.databricks_engineering_private_subnet), "invalid") != "invalid",
+      try(cidrnetmask(var.subnet_cidr_ranges.databricks_engineering_public_subnet), "invalid") != "invalid",
       try(cidrnetmask(var.subnet_cidr_ranges.databricks_consumption_private_subnet), "invalid") != "invalid",
       try(cidrnetmask(var.subnet_cidr_ranges.databricks_consumption_public_subnet), "invalid") != "invalid",
     ])

@@ -88,6 +88,26 @@ variable "subnet_id_storage" {
   }
 }
 
+variable "subnet_id_engineering_private" {
+  description = "Specifies the id of the private subnet used for the databricks workspace for engineering."
+  type        = string
+  sensitive   = false
+  validation {
+    condition     = length(split("/", var.subnet_id_engineering_private)) == 11
+    error_message = "Please specify a valid resource ID."
+  }
+}
+
+variable "subnet_id_engineering_public" {
+  description = "Specifies the id of the public subnet used for the databricks workspace for engineering."
+  type        = string
+  sensitive   = false
+  validation {
+    condition     = length(split("/", var.subnet_id_engineering_public)) == 11
+    error_message = "Please specify a valid resource ID."
+  }
+}
+
 variable "subnet_id_consumption_private" {
   description = "Specifies the id of the private subnet used for the databricks workspace for ad-hoc consumption."
   type        = string

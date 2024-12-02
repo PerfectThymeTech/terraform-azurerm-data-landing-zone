@@ -7,8 +7,8 @@ locals {
 locals {
   # Merge databricks workspace details
   databricks_workspace_details_apps = {
-    for key, value in local.data_application_definitions :
-    key => module.data_application[key].databricks_workspace_details
+    # for key, value in local.data_application_definitions :
+    # key => module.data_application[key].databricks_workspace_details
   }
   databricks_workspace_details = merge(
     module.core.databricks_workspace_details,
@@ -17,8 +17,8 @@ locals {
 
   # Merge databricks private endpoint rules
   databricks_private_endpoint_rules_apps = {
-    for key, value in local.data_application_definitions :
-    key => module.data_application[key].databricks_private_endpoint_rules
+    # for key, value in local.data_application_definitions :
+    # key => module.data_application[key].databricks_private_endpoint_rules
   }
   databricks_private_endpoint_rules = merge(
     module.core.databricks_private_endpoint_rules,

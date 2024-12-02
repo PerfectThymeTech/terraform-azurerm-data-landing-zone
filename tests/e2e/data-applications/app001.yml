@@ -12,7 +12,7 @@ identity:
 network:
   private_endpoint_subnet:
     cidr_range: ""
-  databricks_private_subnet:
-    cidr_range: ""
-  databricks_public_subnet:
-    cidr_range: ""
+  # databricks_private_subnet:
+  #   cidr_range: ""
+  # databricks_public_subnet:
+  #   cidr_range: ""

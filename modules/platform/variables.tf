@@ -84,6 +84,26 @@ variable "subnet_cidr_range_fabric" {
   }
 }
 
+variable "subnet_cidr_range_engineering_private" {
+  description = "Specifies the cidr ranges of the engineering private subnet used for the Data Landing Zone."
+  type        = string
+  sensitive   = false
+  validation {
+    condition     = try(cidrnetmask(var.subnet_cidr_range_engineering_private), "invalid") != "invalid"
+    error_message = "Please specify a valid CIDR range for the consumption private subnet."
+  }
+}
+
+variable "subnet_cidr_range_engineering_public" {
+  description = "Specifies the cidr ranges of the engineering public subnet used for the Data Landing Zone."
+  type        = string
+  sensitive   = false
+  validation {
+    condition     = try(cidrnetmask(var.subnet_cidr_range_engineering_public), "invalid") != "invalid"
+    error_message = "Please specify a valid CIDR range for the consumption public subnet."
+  }
+}
+
 variable "subnet_cidr_range_consumption_private" {
   description = "Specifies the cidr ranges of the consumption private subnet used for the Data Landing Zone."
   type        = string
@@ -108,8 +128,8 @@ variable "subnet_cidr_range_applications" {
   description = "Specifies the cidr ranges of the data application subnets used for the Data Landing Zone."
   type = map(object({
     private_endpoint_subnet   = string
-    databricks_private_subnet = optional(string, "")
-    databricks_public_subnet  = optional(string, "")
+    # databricks_private_subnet = optional(string, "")
+    # databricks_public_subnet  = optional(string, "")
   }))
   sensitive = false
   validation {
@@ -118,16 +138,16 @@ variable "subnet_cidr_range_applications" {
     ])
     error_message = "Please specify a valid CIDR range for the private endpoint subnets of all applications."
   }
-  validation {
-    condition = alltrue([
-      for key, value in var.subnet_cidr_range_applications : value.databricks_private_subnet == "" || try(cidrnetmask(value.databricks_private_subnet), "invalid") != "invalid"
-    ])
-    error_message = "Please specify a valid CIDR range for the databricks private subnets of all applications."
-  }
-  validation {
-    condition = alltrue([
-      for key, value in var.subnet_cidr_range_applications : value.databricks_public_subnet == "" || try(cidrnetmask(value.databricks_public_subnet), "invalid") != "invalid"
-    ])
-    error_message = "Please specify a valid CIDR range for the databricks public subnets of all applications."
-  }
+  # validation {
+  #   condition = alltrue([
+  #     for key, value in var.subnet_cidr_range_applications : value.databricks_private_subnet == "" || try(cidrnetmask(value.databricks_private_subnet), "invalid") != "invalid"
+  #   ])
+  #   error_message = "Please specify a valid CIDR range for the databricks private subnets of all applications."
+  # }
+  # validation {
+  #   condition = alltrue([
+  #     for key, value in var.subnet_cidr_range_applications : value.databricks_public_subnet == "" || try(cidrnetmask(value.databricks_public_subnet), "invalid") != "invalid"
+  #   ])
+  #   error_message = "Please specify a valid CIDR range for the databricks public subnets of all applications."
+  # }
 }

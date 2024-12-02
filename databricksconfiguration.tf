@@ -18,12 +18,29 @@ module "databricks_account_configuration" {
 }
 
 module "databricks_workspace_configuration" {
-  for_each = local.databricks_workspace_details
-
   source = "./modules/databricksworkspaceconfiguration"
 
   providers = {
-    databricks         = databricks.application[each.key]
+    databricks = databricks.engineering
+  }
+
+  # General variables
+  location    = var.location
+  environment = var.environment
+  prefix      = var.prefix
+  tags        = var.tags
+
+  # Service variables
+  databricks_cluster_policies              = local.databricks_cluster_policy_definitions
+}
+
+module "databricksworkspaceapplication" {
+  for_each = local.data_application_definitions
+
+  source = "./modules/databricksworkspaceapplication"
+
+  providers = {
+    databricks         = databricks.engineering
     databricks.account = databricks
   }
 
@@ -35,9 +52,9 @@ module "databricks_workspace_configuration" {
 
   # Service variables
   app_name                                 = each.key
-  databricks_workspace_workspace_id        = each.value.workspace_id
-  databricks_access_connector_id           = each.value.access_connector_id # module.data_application[key].databricks_workspace_details.access_connector_id
-  databricks_cluster_policies              = local.databricks_cluster_policy_definitions
+  databricks_workspace_workspace_id        = module.core.databricks_workspace_details.engineering.id # each.value.workspace_id
+  databricks_access_connector_id           = module.data_application[each.key].databricks_access_connector_id
+  databricks_cluster_policy_ids            = module.databricks_workspace_configuration.databricks_cluster_policy_ids
   databricks_keyvault_secret_scope_details = try(module.data_application[each.key].key_vault_details, {})
   storage_container_ids                    = try(module.data_application[each.key].storage_container_ids, {})
 
