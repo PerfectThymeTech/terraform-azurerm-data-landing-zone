@@ -2,7 +2,7 @@ module "databricks_account_configuration" {
   source = "./modules/databricksaccountconfiguration"
 
   providers = {
-    databricks = databricks.account
+    databricks = databricks
     null       = null
   }
 
@@ -24,7 +24,7 @@ module "databricks_workspace_configuration" {
 
   providers = {
     databricks         = databricks.application[each.key]
-    databricks.account = databricks.account
+    databricks.account = databricks
   }
 
   # General variables

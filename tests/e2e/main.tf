@@ -7,6 +7,7 @@ module "data_landing_zone" {
     # databricks         = databricks.account
     # databricks.account = databricks.account
     null = null
+    time = time
   }
 
   # General variables
