@@ -18,8 +18,8 @@ module "platform" {
   route_table_id                        = var.route_table_id
   subnet_cidr_range_storage             = var.subnet_cidr_ranges.storage_subnet
   subnet_cidr_range_fabric              = var.subnet_cidr_ranges.fabric_subnet
-  subnet_cidr_range_engineering_private = var.subnet_cidr_ranges.subnet_cidr_range_engineering_private
-  subnet_cidr_range_engineering_public  = var.subnet_cidr_ranges.subnet_cidr_range_engineering_public
+  subnet_cidr_range_engineering_private = var.subnet_cidr_ranges.databricks_engineering_private_subnet
+  subnet_cidr_range_engineering_public  = var.subnet_cidr_ranges.databricks_engineering_public_subnet
   subnet_cidr_range_consumption_private = var.subnet_cidr_ranges.databricks_consumption_private_subnet
   subnet_cidr_range_consumption_public  = var.subnet_cidr_ranges.databricks_consumption_public_subnet
   subnet_cidr_range_applications = {
