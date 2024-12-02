@@ -1,5 +1,5 @@
 resource "databricks_secret_scope" "secret_scope" {
-  count = var.databricks_keyvault_secret_scope_details.key_vault_uri != "" && var.databricks_keyvault_secret_scope_details.key_vault_id != "" ? 1 : 0
+  # count = var.databricks_keyvault_secret_scope_details.key_vault_uri != "" && var.databricks_keyvault_secret_scope_details.key_vault_id != "" ? 1 : 0
 
   name = "${local.prefix}-secret-scope"
 
