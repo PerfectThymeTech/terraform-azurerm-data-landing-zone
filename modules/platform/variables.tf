@@ -11,8 +11,8 @@ variable "environment" {
   sensitive   = false
   default     = "dev"
   validation {
-    condition     = contains(["dev", "tst", "qa", "prd"], var.environment)
-    error_message = "Please use an allowed value: \"dev\", \"tst\", \"qa\" or \"prd\"."
+    condition     = contains(["int", "dev", "tst", "qa", "uat", "prd"], var.environment)
+    error_message = "Please use an allowed value: \"int\", \"dev\", \"tst\", \"qa\", \"uat\" or \"prd\"."
   }
 }
 
