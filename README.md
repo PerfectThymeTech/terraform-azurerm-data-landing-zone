@@ -142,7 +142,7 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 2.0)
 
-- <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) (~> 2.39)
+- <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) (~> 3.0)
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
 
@@ -177,6 +177,12 @@ Version:
 ### <a name="module_databricks_workspace_configuration"></a> [databricks\_workspace\_configuration](#module\_databricks\_workspace\_configuration)
 
 Source: ./modules/databricksworkspaceconfiguration
+
+Version:
+
+### <a name="module_databricksworkspaceapplication"></a> [databricksworkspaceapplication](#module\_databricksworkspaceapplication)
+
+Source: ./modules/databricksworkspaceapplication
 
 Version:
 
@@ -233,6 +239,8 @@ object(
     {
       storage_subnet                        = string
       fabric_subnet                         = string
+      databricks_engineering_private_subnet = string
+      databricks_engineering_public_subnet  = string
       databricks_consumption_private_subnet = string
       databricks_consumption_public_subnet  = string
     }

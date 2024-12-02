@@ -25,7 +25,7 @@ module "platform" {
   subnet_cidr_range_applications = {
     for key, value in local.data_application_definitions :
     key => {
-      private_endpoint_subnet   = try(value.network.private_endpoint_subnet.cidr_range, "")
+      private_endpoint_subnet = try(value.network.private_endpoint_subnet.cidr_range, "")
       # databricks_private_subnet = try(value.network.databricks_private_subnet.cidr_range, "")
       # databricks_public_subnet  = try(value.network.databricks_public_subnet.cidr_range, "")
     }

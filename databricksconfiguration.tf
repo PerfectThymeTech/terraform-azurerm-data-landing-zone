@@ -31,7 +31,7 @@ module "databricks_workspace_configuration" {
   tags        = var.tags
 
   # Service variables
-  databricks_cluster_policies              = local.databricks_cluster_policy_definitions
+  databricks_cluster_policies = local.databricks_cluster_policy_definitions
 }
 
 module "databricksworkspaceapplication" {

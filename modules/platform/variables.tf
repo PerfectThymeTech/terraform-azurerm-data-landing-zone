@@ -127,7 +127,7 @@ variable "subnet_cidr_range_consumption_public" {
 variable "subnet_cidr_range_applications" {
   description = "Specifies the cidr ranges of the data application subnets used for the Data Landing Zone."
   type = map(object({
-    private_endpoint_subnet   = string
+    private_endpoint_subnet = string
     # databricks_private_subnet = optional(string, "")
     # databricks_public_subnet  = optional(string, "")
   }))
