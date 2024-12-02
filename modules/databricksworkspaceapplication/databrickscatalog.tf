@@ -1,5 +1,5 @@
 resource "databricks_catalog" "catalog" {
-  count = var.databricks_access_connector_id != "" ? 1 : 0
+  # count = var.databricks_access_connector_id != "" ? 1 : 0
 
   name = local.prefix
 
