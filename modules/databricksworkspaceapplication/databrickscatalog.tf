@@ -14,3 +14,12 @@ resource "databricks_catalog" "catalog" {
   }, var.tags)
   storage_root = one(databricks_external_location.external_location_curated[*].url)
 }
+
+resource "databricks_workspace_binding" "workspace_binding_catalog" {
+  for_each = var.databricks_workspace_binding_catalog
+
+  binding_type   = "BINDING_TYPE_READ_ONLY"
+  securable_name = databricks_catalog.catalog.name
+  securable_type = "catalog"
+  workspace_id   = each.value.workspace_id
+}
