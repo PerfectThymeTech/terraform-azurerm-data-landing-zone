@@ -54,6 +54,16 @@ variable "databricks_workspace_workspace_id" {
   }
 }
 
+variable "databricks_workspace_binding_catalog" {
+  description = "Specifies the workspace ids of the databricks workspaces to which the catalog should be connected."
+  type = map(object({
+    workspace_id = string
+  }))
+  sensitive = false
+  nullable  = false
+  default   = {}
+}
+
 variable "databricks_access_connector_id" {
   description = "Specifies the id of the databricks access connector."
   type        = string
