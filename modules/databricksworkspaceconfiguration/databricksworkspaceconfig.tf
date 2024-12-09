@@ -1,7 +1,7 @@
 resource "databricks_workspace_conf" "workspace_conf" {
   custom_config = {
     customerApprovedWSLoginExpirationTime   = "1998-01-01T00:00:00.000Z"
-    enableAclsConfig                        = false
+    # enableAclsConfig                        = false
     enableIpAccessLists                     = true
     enableExportNotebook                    = false
     enableResultsDownloading                = false
