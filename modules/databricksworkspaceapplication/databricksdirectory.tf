@@ -1,4 +1,4 @@
 resource "databricks_directory" "directory" {
-  path = "/${local.prefix}"
+  path             = "/${local.prefix}"
   delete_recursive = true
 }
