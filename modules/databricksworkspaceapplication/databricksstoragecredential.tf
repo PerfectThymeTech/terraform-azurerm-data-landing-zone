@@ -1,6 +1,4 @@
 resource "databricks_storage_credential" "storage_credential" {
-  # count = var.databricks_access_connector_id != "" ? 1 : 0
-
   name = "${local.prefix}-cred"
 
   azure_managed_identity {
