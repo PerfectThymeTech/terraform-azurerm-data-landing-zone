@@ -24,13 +24,11 @@ on:
 
 jobs:
   terraform:
-    # uses: ./.github/workflows/_opentofuEnvironmentTemplate.yml
     uses: ./.github/workflows/_terraformEnvironmentTemplate.yml
     name: "Terraform"
     with:
       environment: "dev"
-      terraform_version: "1.9.8"
-      # tofu_version: "1.9.0-alpha2"
+      terraform_version: "1.10.1"
       node_version: 20
       working_directory: "./tests/e2e"
       tenant_id: "37963dd4-f4e6-40f8-a7d6-24b97919e452"
@@ -45,8 +43,7 @@ jobs:
     if: github.event_name == 'push' || github.event_name == 'release'
     with:
       environment: "dev"
-      terraform_version: "1.9.8"
-      # tofu_version: "1.9.0-alpha2"
+      terraform_version: "1.10.1"
       node_version: 20
       working_directory: "./tests/e2e"
       tenant_id: "37963dd4-f4e6-40f8-a7d6-24b97919e452"
