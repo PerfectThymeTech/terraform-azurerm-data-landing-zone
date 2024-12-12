@@ -46,8 +46,8 @@ definition:
     isOptional: false
     hidden: true
   custom_tags.costCenter:
-    type: regex
-    defaultValue: "[A-Z]{5}-[0-9]{5}"
+    type: fixed
+    defaultValue: "${costCenter}"
     isOptional: false
     hidden: false
   data_security_mode:
