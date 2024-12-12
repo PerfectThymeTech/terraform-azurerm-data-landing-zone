@@ -66,11 +66,11 @@ locals {
   # Load file content
   databricks_cluster_policy_definitions_json = {
     for filepath in local.databricks_cluster_policy_filepaths_json :
-    filepath => jsondecode(templatefile("${local.databricks_cluster_policy_library_path}/${filepath}", var.databricks_cluster_policy_file_variables))
+    filepath => jsondecode(file("${local.databricks_cluster_policy_library_path}/${filepath}"))  # templatefile("${local.databricks_cluster_policy_library_path}/${filepath}", var.databricks_cluster_policy_file_variables))
   }
   databricks_cluster_policy_definitions_yaml = {
     for filepath in local.databricks_cluster_policy_filepaths_yaml :
-    filepath => yamldecode(templatefile("${local.databricks_cluster_policy_library_path}/${filepath}", var.databricks_cluster_policy_file_variables))
+    filepath => yamldecode(file("${local.databricks_cluster_policy_library_path}/${filepath}"))  # templatefile("${local.databricks_cluster_policy_library_path}/${filepath}", var.databricks_cluster_policy_file_variables))
   }
 
   # Merge data
