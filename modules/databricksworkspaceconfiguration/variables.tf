@@ -34,9 +34,3 @@ variable "tags" {
 }
 
 # Service variables
-variable "databricks_cluster_policies" {
-  description = "Specifies the databricks cluster policies that should be added to the workspace."
-  type        = any
-  sensitive   = false
-  default     = {}
-}
