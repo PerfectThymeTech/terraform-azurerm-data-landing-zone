@@ -33,7 +33,7 @@ locals {
     }
   )
   databricks_cluster_policies = {
-    for key, value in var.databricks_cluster_policies:
+    for key, value in var.databricks_cluster_policies :
     key => templatestring(value, local.databricks_cluster_policy_file_variables)
   }
 }
