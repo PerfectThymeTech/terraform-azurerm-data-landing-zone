@@ -125,7 +125,6 @@ variable "storage_container_ids" {
 variable "budget" {
   description = "Specifies the budget details."
   type = object({
-    cost_center = string
     categories = object({
       databricks = number
     })

@@ -28,9 +28,6 @@ locals {
   databricks_cluster_policy_file_variables = merge(
     var.databricks_cluster_policy_file_variables,
     var.tags,
-    {
-      costCenter = var.budget.cost_center
-    }
   )
   databricks_cluster_policies = {
     for key, value in var.databricks_cluster_policies :
