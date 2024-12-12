@@ -74,9 +74,16 @@ variable "databricks_access_connector_id" {
   }
 }
 
-variable "databricks_cluster_policy_ids" {
-  description = "Specifies the databricks cluster policies that have been added to the workspace."
-  type        = map(string)
+variable "databricks_cluster_policies" {
+  description = "Specifies the databricks cluster policies that should be added to the workspace."
+  type        = any
+  sensitive   = false
+  default     = {}
+}
+
+variable "databricks_cluster_policy_file_variables" {
+  description = "Specifies custom template variables used when reading in databricks policy template files from the library path."
+  type        = any
   sensitive   = false
   default     = {}
 }
@@ -118,6 +125,7 @@ variable "storage_container_ids" {
 variable "budget" {
   description = "Specifies the budget details."
   type = object({
+    cost_center = string
     categories = object({
       databricks = number
     })

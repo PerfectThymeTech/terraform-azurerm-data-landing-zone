@@ -23,4 +23,17 @@ locals {
     storage_account_name   = split("/", var.storage_container_ids.workspace)[8]
     storage_container_name = reverse(split("/", var.storage_container_ids.workspace))[0]
   }
+
+  # Databricks locals
+  databricks_cluster_policy_file_variables = merge(
+    var.databricks_cluster_policy_file_variables,
+    var.tags,
+    {
+      costCenter = var.budget.cost_center
+    }
+  )
+  databricks_cluster_policies = {
+    for key, value in var.databricks_cluster_policies:
+    key => templatestring(value, local.databricks_cluster_policy_file_variables)
+  }
 }
