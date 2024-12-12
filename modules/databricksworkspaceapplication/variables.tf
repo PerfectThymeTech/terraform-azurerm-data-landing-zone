@@ -74,11 +74,11 @@ variable "databricks_access_connector_id" {
   }
 }
 
-variable "databricks_cluster_policies" {
-  description = "Specifies the databricks cluster policies that should be added to the workspace."
-  type        = any
+variable "databricks_cluster_policy_library_path" {
+  description = "Specifies the databricks cluster policy library path."
+  type        = string
   sensitive   = false
-  default     = {}
+  default     = ""
 }
 
 variable "databricks_cluster_policy_file_variables" {

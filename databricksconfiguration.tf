@@ -53,7 +53,7 @@ module "databricksworkspaceapplication" {
   app_name                                 = each.key
   databricks_workspace_workspace_id        = module.core.databricks_workspace_details.engineering.id # each.value.workspace_id
   databricks_access_connector_id           = module.data_application[each.key].databricks_access_connector_id
-  databricks_cluster_policies              = local.databricks_cluster_policy_definitions
+  databricks_cluster_policy_library_path   = var.databricks_cluster_policy_library_path
   databricks_cluster_policy_file_variables = var.databricks_cluster_policy_file_variables
   databricks_keyvault_secret_scope_details = try(module.data_application[each.key].key_vault_details, {})
   storage_container_ids                    = try(module.data_application[each.key].storage_container_ids, {})

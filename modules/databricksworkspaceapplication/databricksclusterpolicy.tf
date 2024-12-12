@@ -1,5 +1,5 @@
 resource "databricks_cluster_policy" "cluster_policy" {
-  for_each = local.databricks_cluster_policies
+  for_each = local.databricks_cluster_policy_definitions
 
   name                               = each.value.name
   description                        = each.value.description
