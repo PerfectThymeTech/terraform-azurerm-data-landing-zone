@@ -125,17 +125,24 @@ variable "storage_container_ids" {
 variable "budget" {
   description = "Specifies the budget details."
   type = object({
-    categories = object({
+    categories = optional(object({
+      azure      = number
       databricks = number
-    })
-    endpoints = object({
-      email = string
-    })
+    }), {})
+    endpoints = optional(object({
+      email = optional(object({
+        email_address = string
+      }), null)
+    }), {})
   })
   sensitive = false
   nullable  = true
   validation {
+    condition     = var.budget == null || try(var.budget.categories.azure, 0) > 0
+    error_message = "Please provide a valid azure budget greater than 0."
+  }
+  validation {
     condition     = var.budget == null || try(var.budget.categories.databricks, 0) > 0
-    error_message = "Please provide a valid budget greater than 0."
+    error_message = "Please provide a valid databricks budget greater than 0."
   }
 }

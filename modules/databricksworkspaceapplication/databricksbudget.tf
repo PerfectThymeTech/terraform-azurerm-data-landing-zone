@@ -12,7 +12,7 @@ resource "databricks_budget" "budget" {
     trigger_type       = "CUMULATIVE_SPENDING_EXCEEDED"
     action_configurations {
       action_type = "EMAIL_NOTIFICATION"
-      target      = var.budget.endpoints.email
+      target      = var.budget.endpoints.email.email_address
     }
   }
   filter {

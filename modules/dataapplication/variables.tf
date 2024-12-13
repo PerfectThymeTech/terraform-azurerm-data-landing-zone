@@ -253,3 +253,29 @@ variable "customer_managed_key" {
     error_message = "Please specify a valid resource ID."
   }
 }
+
+# Budget variables
+variable "budget" {
+  description = "Specifies the budget details."
+  type = object({
+    categories = optional(object({
+      azure      = number
+      databricks = number
+    }), {})
+    endpoints = optional(object({
+      email = optional(object({
+        email_address = string
+      }), null)
+    }), {})
+  })
+  sensitive = false
+  nullable  = true
+  validation {
+    condition     = var.budget == null || try(var.budget.categories.azure, 0) > 0
+    error_message = "Please provide a valid azure budget greater than 0."
+  }
+  validation {
+    condition     = var.budget == null || try(var.budget.categories.databricks, 0) > 0
+    error_message = "Please provide a valid databricks budget greater than 0."
+  }
+}

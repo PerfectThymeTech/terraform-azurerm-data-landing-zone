@@ -16,3 +16,20 @@ network:
   #   cidr_range: ""
   # databricks_public_subnet:
   #   cidr_range: ""
+
+alerting:
+  categories:
+    service_health:
+      severity: "Info"
+      incident_level: 3
+  endpoints:
+    email:
+      email_address: test@microsoft.com
+
+budget:
+  categories:
+    azure: 1000
+    databricks: 1000
+  endpoints:
+    email:
+      email_address: test@microsoft.com

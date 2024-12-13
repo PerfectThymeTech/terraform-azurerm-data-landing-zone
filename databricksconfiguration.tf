@@ -59,5 +59,5 @@ module "databricksworkspaceapplication" {
   storage_container_ids                    = try(module.data_application[each.key].storage_container_ids, {})
 
   # Budget variables
-  budget = try(local.data_application_definitions[each.key].budget, null)
+  budget = try(each.value.budget, null)
 }
