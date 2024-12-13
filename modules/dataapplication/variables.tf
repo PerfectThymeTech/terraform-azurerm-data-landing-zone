@@ -258,10 +258,10 @@ variable "customer_managed_key" {
 variable "budget" {
   description = "Specifies the budget details."
   type = object({
-    categories = optional(object({
+    categories = object({
       azure      = number
       databricks = number
-    }), {})
+    })
     endpoints = optional(object({
       email = optional(object({
         email_address = string
