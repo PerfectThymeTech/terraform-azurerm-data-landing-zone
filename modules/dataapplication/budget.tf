@@ -11,7 +11,7 @@ resource "azurerm_consumption_budget_subscription" "consumption_budget_subscript
   filter {
     dynamic "tag" {
       for_each = var.tags
-      iterator = "item"
+      iterator = item
       content {
         name     = item.key
         operator = "In"
