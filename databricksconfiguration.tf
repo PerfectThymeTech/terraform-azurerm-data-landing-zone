@@ -51,7 +51,7 @@ module "databricksworkspaceapplication" {
 
   # Service variables
   app_name                                 = each.key
-  databricks_workspace_workspace_id        = module.core.databricks_workspace_details.engineering.id # each.value.workspace_id
+  databricks_workspace_workspace_id        = module.core.databricks_workspace_details.engineering.workspace_id # each.value.workspace_id
   databricks_access_connector_id           = module.data_application[each.key].databricks_access_connector_id
   databricks_cluster_policy_library_path   = var.databricks_cluster_policy_library_path
   databricks_cluster_policy_file_variables = var.databricks_cluster_policy_file_variables
