@@ -118,5 +118,5 @@ module "data_application" {
   customer_managed_key = var.customer_managed_key
 
   # Budget variables
-  budget = try(each.value.budget, null)
+  budget = try(each.value.budget, 100)
 }
