@@ -85,6 +85,119 @@
         "private_endpoint_subnet"
       ],
       "additionalProperties": false
+    },
+    "alerting": {
+      "description": "Specifies the alerting section of the application.",
+      "type": "object",
+      "properties": {
+        "categories": {
+          "description": "Specifies the alerting categories for the application.",
+          "type": "object",
+          "properties": {
+            "service_health": {
+              "description": "Specifies the service health alerting configurations.",
+              "type": "object",
+              "properties": {
+                "severity": {
+                  "description": "Specifies the severity for the service health alerting configuration.",
+                  "type": "string",
+                  "enum": [
+                    "Debug",
+                    "Info",
+                    "Warning",
+                    "Error",
+                    "Critical"
+                  ]
+                },
+                "incident_level": {
+                  "description": "Specifies the incident level for the service health alerting configuration.",
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "endpoints": {
+          "description": "Specifies the alerting endpoints for the application.",
+          "type": "object",
+          "properties": {
+            "email": {
+              "description": "Specifies email alerting endpoint config for the application.",
+              "type": "object",
+              "properties": {
+                "email_address": {
+                  "description": "Specifies email address to which alerts will be sent.",
+                  "type": "string",
+                  "format": "email"
+                }
+              },
+              "required": [
+                "email_address"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "budget": {
+      "description": "Specifies the budget section of the application.",
+      "type": "object",
+      "properties": {
+        "categories": {
+          "description": "Specifies the budget categories for the application.",
+          "type": "object",
+          "properties": {
+            "azure": {
+              "description": "Specifies the azure budget.",
+              "type": "integer",
+              "minimum": 1
+            },
+            "databricks": {
+              "description": "Specifies the databricks budget.",
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "endpoints": {
+          "description": "Specifies the budget endpoints for the application.",
+          "type": "object",
+          "properties": {
+            "email": {
+              "description": "Specifies email bduget endpoint config for the application.",
+              "type": "object",
+              "properties": {
+                "email_address": {
+                  "description": "Specifies email address to which budget alerts will be sent.",
+                  "type": "string",
+                  "format": "email"
+                }
+              },
+              "required": [
+                "email_address"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": [],
+      "additionalProperties": false
     }
   },
   "required": [
