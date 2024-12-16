@@ -45,7 +45,7 @@ definition:
     hidden: true
   dbus_per_hour:
     type: range
-    maxValue: 100
+    maxValue: 10
   driver_instance_pool_id:
     type: forbidden
     isOptional: true
