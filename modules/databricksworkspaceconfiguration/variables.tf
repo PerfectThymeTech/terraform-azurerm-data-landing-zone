@@ -34,3 +34,16 @@ variable "tags" {
 }
 
 # Service variables
+variable "databricks_ip_access_list_allow" {
+  description = "Specifies the ip access allow-list for the databricks workspace."
+  type        = list(string)
+  sensitive   = false
+  default     = []
+}
+
+variable "databricks_ip_access_list_deny" {
+  description = "Specifies the ip access deny-list for the databricks workspace."
+  type        = list(string)
+  sensitive   = false
+  default     = []
+}

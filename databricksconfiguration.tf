@@ -31,6 +31,8 @@ module "databricks_workspace_configuration" {
   tags        = var.tags
 
   # Service variables
+  databricks_ip_access_list_allow = []
+  databricks_ip_access_list_deny  = []
 }
 
 module "databricksworkspaceapplication" {
