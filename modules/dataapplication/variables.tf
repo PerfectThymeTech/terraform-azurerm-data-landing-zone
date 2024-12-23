@@ -149,30 +149,6 @@ variable "subnet_id_app" {
   }
 }
 
-# variable "subnet_id_databricks_private" {
-#   description = "Specifies the id of the private subnet used for the databricks workspace."
-#   type        = string
-#   sensitive   = false
-#   nullable    = false
-#   default     = ""
-#   validation {
-#     condition     = var.subnet_id_databricks_private == "" || length(split("/", var.subnet_id_databricks_private)) == 11
-#     error_message = "Please specify a valid resource ID."
-#   }
-# }
-
-# variable "subnet_id_databricks_public" {
-#   description = "Specifies the id of the public subnet used for the databricks workspace."
-#   type        = string
-#   sensitive   = false
-#   nullable    = false
-#   default     = ""
-#   validation {
-#     condition     = var.subnet_id_databricks_public == "" || length(split("/", var.subnet_id_databricks_public)) == 11
-#     error_message = "Please specify a valid resource ID."
-#   }
-# }
-
 variable "connectivity_delay_in_seconds" {
   description = "Specifies the delay in seconds after the private endpoint deployment (required for the DNS automation via Policies)."
   type        = number
