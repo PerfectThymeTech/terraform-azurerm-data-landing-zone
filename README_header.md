@@ -82,6 +82,10 @@ provider "databricks" {
 
 # Declare locals for the module
 locals {
+  resource_providers = [
+    "Microsoft.PowerPlatform"
+  ]
+
   location       = "northeurope"
   prefix         = "<my-prefix>"
   vnet_id        = "/subscriptions/<my-subscription-id>/resourceGroups/<my-rg-name>/providers/Microsoft.Network/virtualNetworks/<my-vnet-name>"

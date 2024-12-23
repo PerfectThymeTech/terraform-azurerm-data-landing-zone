@@ -4,7 +4,7 @@ exclude: |
   )$
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: check-yaml
       - id: end-of-file-fixer
@@ -13,6 +13,17 @@ repos:
       - id: check-yaml
       - id: pretty-format-json
         args: ["--indent", "2", "--autofix", "--no-sort-keys"]
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.27.3
+    hooks:
+      - id: check-metaschema
+        files: ^schemas/.*\.json$
+      - id: check-jsonschema
+        files: ^tests/e2e/data-applications/.*\.yml$
+        args: ["--schemafile", "schemas/app.schema.json"]
+      - id: check-jsonschema
+        files: ^tests/e2e/databricks-cluster-policies/.*\.yml$
+        args: ["--schemafile", "schemas/clusterPolicy.schema.json"]
   - repo: local
     hooks:
       - id: terraform-fmt
@@ -22,7 +33,7 @@ repos:
         language: system
         pass_filenames: false
   - repo: https://github.com/terraform-docs/terraform-docs
-    rev: v0.16.0
+    rev: v0.17.0
     hooks:
       - id: terraform-docs-go
         args: ["-c", "./.terraform-docs.yml", "./"]

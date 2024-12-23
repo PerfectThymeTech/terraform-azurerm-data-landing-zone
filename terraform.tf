@@ -4,46 +4,30 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 3.56.0"
+      version = "~> 4.0"
     }
     azapi = {
       source  = "azure/azapi"
-      version = ">= 1.5.0"
-    }
-    databricks = {
-      source  = "databricks/databricks"
-      version = ">= 1.16.0"
-      configuration_aliases = [
-        databricks.account
-      ]
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = ">= 3.5.1"
-    }
-    time = {
-      source  = "hashicorp/time"
-      version = ">= 0.9.1"
+      version = "~> 2.0"
     }
     azuread = {
       source  = "hashicorp/azuread"
-      version = ">= 2.39.0"
+      version = "~> 3.0"
+    }
+    databricks = {
+      source  = "databricks/databricks"
+      version = "~> 1.58"
+      # configuration_aliases = [
+      #   databricks.account
+      # ]
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = "~> 0.9"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 3.2"
     }
   }
-}
-
-provider "databricks" {
-  alias                       = "automation"
-  azure_environment           = "public"
-  azure_workspace_resource_id = module.databricks_automation.databricks_id
-  host                        = module.databricks_automation.databricks_workspace_url
-  http_timeout_seconds        = 600
-}
-
-provider "databricks" {
-  alias                       = "experimentation"
-  azure_environment           = "public"
-  azure_workspace_resource_id = module.databricks_experimentation.databricks_id
-  host                        = module.databricks_experimentation.databricks_workspace_url
-  http_timeout_seconds        = 600
 }

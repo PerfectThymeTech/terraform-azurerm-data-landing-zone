@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Application",
+  "description": "A schema for the application definition.",
+  "properties": {
+    "name": {
+      "description": "Specifies the name of the application.",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 10,
+      "pattern": "^([a-z0-9]+)$"
+    },
+    "environment": {
+      "description": "Specifies the environment name of the application.",
+      "type": "string",
+      "pattern": "^(int|dev|tst|qa|uat|prd)$"
+    },
+    "tags": {
+      "description": "Specifies the tags that should be applied to Azure resources.",
+      "type": "object"
+    },
+    "identity": {
+      "description": "Specifies the identity section of the application.",
+      "type": "object",
+      "properties": {
+        "admin_group_name": {
+          "description": "Specifies the name of the admin group.",
+          "type": "string"
+        },
+        "developer_group_name": {
+          "description": "Specifies the name of the contributor group.",
+          "type": "string"
+        },
+        "reader_group_name": {
+          "description": "Specifies the name of the reader group.",
+          "type": "string"
+        },
+        "service_principal_name": {
+          "description": "Specifies the name of the service principal.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "admin_group_name",
+        "service_principal_name"
+      ],
+      "additionalProperties": false
+    },
+    "network": {
+      "description": "Specifies the network section of the application.",
+      "type": "object",
+      "properties": {
+        "private_endpoint_subnet": {
+          "description": "Specifies the private endpoint subnet config for the application.",
+          "type": "object",
+          "properties": {
+            "cidr_range": {
+              "description": "Specifies the cidr range of the subnet.",
+              "type": "string"
+            }
+          }
+        },
+        "databricks_private_subnet": {
+          "description": "Specifies the databricks private subnet config for the application.",
+          "type": "object",
+          "properties": {
+            "cidr_range": {
+              "description": "Specifies the cidr range of the subnet.",
+              "type": "string"
+            }
+          }
+        },
+        "databricks_public_subnet": {
+          "description": "Specifies the databricks public subnet config for the application.",
+          "type": "object",
+          "properties": {
+            "cidr_range": {
+              "description": "Specifies the cidr range of the subnet.",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "private_endpoint_subnet"
+      ],
+      "additionalProperties": false
+    },
+    "alerting": {
+      "description": "Specifies the alerting section of the application.",
+      "type": "object",
+      "properties": {
+        "categories": {
+          "description": "Specifies the alerting categories for the application.",
+          "type": "object",
+          "properties": {
+            "service_health": {
+              "description": "Specifies the service health alerting configurations.",
+              "type": "object",
+              "properties": {
+                "severity": {
+                  "description": "Specifies the severity for the service health alerting configuration.",
+                  "type": "string",
+                  "enum": [
+                    "Debug",
+                    "Info",
+                    "Warning",
+                    "Error",
+                    "Critical"
+                  ]
+                },
+                "incident_level": {
+                  "description": "Specifies the incident level for the service health alerting configuration.",
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "endpoints": {
+          "description": "Specifies the alerting endpoints for the application.",
+          "type": "object",
+          "properties": {
+            "email": {
+              "description": "Specifies email alerting endpoint config for the application.",
+              "type": "object",
+              "properties": {
+                "email_address": {
+                  "description": "Specifies email address to which alerts will be sent.",
+                  "type": "string",
+                  "format": "email"
+                }
+              },
+              "required": [
+                "email_address"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "budget": {
+      "description": "Specifies the budget section of the application.",
+      "type": "object",
+      "properties": {
+        "categories": {
+          "description": "Specifies the budget categories for the application.",
+          "type": "object",
+          "properties": {
+            "azure": {
+              "description": "Specifies the azure budget.",
+              "type": "integer",
+              "minimum": 1
+            },
+            "databricks": {
+              "description": "Specifies the databricks budget.",
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "endpoints": {
+          "description": "Specifies the budget endpoints for the application.",
+          "type": "object",
+          "properties": {
+            "email": {
+              "description": "Specifies email bduget endpoint config for the application.",
+              "type": "object",
+              "properties": {
+                "email_address": {
+                  "description": "Specifies email address to which budget alerts will be sent.",
+                  "type": "string",
+                  "format": "email"
+                }
+              },
+              "required": [
+                "email_address"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "name",
+    "identity",
+    "network"
+  ],
+  "additionalProperties": false
+}

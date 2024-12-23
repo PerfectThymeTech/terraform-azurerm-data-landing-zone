@@ -1,0 +1,7 @@
+environment          = "public"
+subscription_id      = "e82c5267-9dc4-4f45-ac13-abdd5e130d27"
+resource_group_name  = "rg-terraform"
+storage_account_name = "terraformststg001"
+container_name       = "data-landing-zone"
+key                  = "terraform.tfstate"
+use_azuread_auth     = true

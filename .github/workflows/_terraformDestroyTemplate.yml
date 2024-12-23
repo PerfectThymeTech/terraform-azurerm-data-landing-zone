@@ -12,21 +12,24 @@ on:
         required: true
         type: string
         description: "Specifies the terraform version."
+      node_version:
+        required: true
+        type: number
+        description: "Specifies the node version."
       working_directory:
         required: true
         type: string
         description: "Specifies the working directory."
-    secrets:
-      TENANT_ID:
+      tenant_id:
         required: true
+        type: string
         description: "Specifies the tenant id of the deployment."
+      subscription_id:
+        required: true
+        type: string
+        description: "Specifies the subscription id of the deployment."
+    secrets:
       CLIENT_ID:
-        required: true
-        description: "Specifies the client id."
-      CLIENT_SECRET:
-        required: true
-        description: "Specifies the client secret."
-      SUBSCRIPTION_ID:
         required: true
         description: "Specifies the client id."
 
@@ -37,16 +40,19 @@ permissions:
 jobs:
   deployment:
     name: Terraform Destroy
-    runs-on: self-hosted
+    runs-on: [self-hosted]
     continue-on-error: false
     environment: ${{ inputs.environment }}
+    if: github.event_name == 'push' || github.event_name == 'release'
+    concurrency:
+      group: terraform-${{ inputs.environment }}
+      cancel-in-progress: false
 
     env:
-      ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ inputs.tenant_id }}
+      ARM_SUBSCRIPTION_ID: ${{ inputs.subscription_id }}
       ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-      ARM_USE_OIDC: false
+      ARM_USE_OIDC: true
 
     steps:
       # Setup Node
@@ -54,7 +60,7 @@ jobs:
         id: node_setup
         uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: ${{ inputs.node_version }}
 
       # Setup Terraform
       - name: Setup Terraform
@@ -69,14 +75,25 @@ jobs:
         id: checkout_repository
         uses: actions/checkout@v4
 
+      # Azure login
+      - name: Azure login
+        id: azure_login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.CLIENT_ID }}
+          tenant-id: ${{ inputs.tenant_id }}
+          subscription-id: ${{ inputs.subscription_id }}
+
       # Terraform Init
       - name: Terraform Init
+        id: terraform_init
         working-directory: ${{ inputs.working_directory }}
         run: |
-          terraform init
+          terraform init -backend-config="azurerm.tfbackend"
 
       # Terraform Destroy
       - name: Terraform Destroy
+        id: terraform_destroy
         working-directory: ${{ inputs.working_directory }}
         run: |
-          terraform apply -var-file vars.${{ inputs.environment }}.tfvars -auto-approve -input=false -destroy
+          terraform apply -var-file="vars.tfvars" -auto-approve -input=false -destroy

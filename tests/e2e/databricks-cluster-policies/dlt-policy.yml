@@ -1,0 +1,93 @@
+name: DltComputePolicyPtt
+description: Policy for DLT Computes
+maxClustersPerUser: 3
+definition:
+  autoscale.min_workers:
+    type: range
+    defaultValue: 1
+    maxValue: 10
+    isOptional: false
+    hidden: false
+  autoscale.max_workers:
+    type: range
+    defaultValue: 5
+    maxValue: 10
+    isOptional: false
+    hidden: false
+  autotermination_minutes:
+    type: range
+    defaultValue: 60
+    maxValue: 120
+    isOptional: false
+    hidden: false
+  azure_attributes.availability:
+    type: fixed
+    value: ON_DEMAND_AZURE
+    isOptional: false
+    hidden: true
+  azure_attributes.spot_bid_max_price:
+    type: fixed
+    value: -1
+    isOptional: false
+    hidden: true
+  cluster_type:
+    type: fixed
+    value: dlt
+    isOptional: false
+    hidden: true
+  cluster_log_conf.type:
+    type: fixed
+    value: DBFS
+    isOptional: false
+    hidden: true
+  cluster_log_conf.path:
+    type: fixed
+    value: dbfs:/cluster-logs
+    isOptional: false
+    hidden: true
+  custom_tags.costCenter:
+    type: fixed
+    defaultValue: "${costCenter}"
+    isOptional: false
+    hidden: false
+  data_security_mode:
+    type: allowlist
+    defaultValue: SINGLE_USER
+    values:
+      - SINGLE_USER
+      - USER_ISOLATION
+      - NONE
+    isOptional: false
+    hidden: false
+  enable_local_disk_encryption:
+    type: fixed
+    value: true
+    isOptional: false
+    hidden: true
+  driver_node_type_id:
+    type: allowlist
+    defaultValue: Standard_DS3_v2
+    values:
+      - Standard_DS3_v2
+      - Standard_DS4_v2
+      - Standard_DS5_v2
+    isOptional: true
+    hidden: false
+  node_type_id:
+    type: allowlist
+    defaultValue: Standard_DS3_v2
+    values:
+      - Standard_DS3_v2
+      - Standard_DS4_v2
+      - Standard_DS5_v2
+    isOptional: false
+    hidden: false
+  spark_version:
+    type: unlimited
+    defaultValue: auto:latest-lts
+    isOptional: false
+    hidden: false
+  ssh_public_keys:
+    type: forbidden
+    isOptional: true
+    hidden: true
