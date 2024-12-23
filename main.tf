@@ -102,8 +102,8 @@ module "data_application" {
   alerting                   = try(each.value.alerting, {})
 
   # Network variables
-  vnet_id       = var.vnet_id
-  subnet_id_app = module.platform.subnet_ids_private_endpoint_application[each.key]
+  vnet_id                       = var.vnet_id
+  subnet_id_app                 = module.platform.subnet_ids_private_endpoint_application[each.key]
   connectivity_delay_in_seconds = local.connectivity_delay_in_seconds
 
   # DNS variables
