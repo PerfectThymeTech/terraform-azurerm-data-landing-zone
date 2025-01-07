@@ -4,18 +4,14 @@ tags:
   costCenter: "ABCD1234"
 
 identity:
-  admin_group_name: ""
-  developer_group_name: ""
-  reader_group_name: ""
-  service_principal_name: ""
+  admin_group_name: "app001-admin"
+  developer_group_name: "app001-developer"
+  reader_group_name: "app001-reader"
+  service_principal_name: "app001-sp"
 
 network:
   private_endpoint_subnet:
     cidr_range: "10.2.1.64/27"
-  # databricks_private_subnet:
-  #   cidr_range: ""
-  # databricks_public_subnet:
-  #   cidr_range: ""
 
 alerting:
   categories:
