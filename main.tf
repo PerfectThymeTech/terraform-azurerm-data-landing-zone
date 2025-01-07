@@ -102,10 +102,10 @@ module "data_application" {
   alerting                   = try(each.value.alerting, {})
 
   # Identity variables
-  admin_group_name       = try(module.data_application[each.key].identity.admin_group_name, "")
-  developer_group_name   = try(module.data_application[each.key].identity.developer_group_name, "")
-  reader_group_name      = try(module.data_application[each.key].identity.reader_group_name, "")
-  service_principal_name = try(module.data_application[each.key].identity.service_principal_name, "")
+  admin_group_name       = try(each.value.identity.admin_group_name, "")
+  developer_group_name   = try(each.value.identity.developer_group_name, "")
+  reader_group_name      = try(each.value.identity.reader_group_name, "")
+  service_principal_name = try(each.value.identity.service_principal_name, "")
 
   # Network variables
   vnet_id                       = var.vnet_id
