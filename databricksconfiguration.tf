@@ -60,6 +60,12 @@ module "databricksworkspaceapplication" {
   databricks_keyvault_secret_scope_details = try(module.data_application[each.key].key_vault_details, {})
   storage_container_ids                    = try(module.data_application[each.key].storage_container_ids, {})
 
+  # Identity variables
+  admin_group_name       = try(module.data_application[each.key].identity.admin_group_name, "")
+  developer_group_name   = try(module.data_application[each.key].identity.developer_group_name, "")
+  reader_group_name      = try(module.data_application[each.key].identity.reader_group_name, "")
+  service_principal_name = try(module.data_application[each.key].identity.service_principal_name, "")
+
   # Budget variables
   budget = try(each.value.budget, 100)
 }

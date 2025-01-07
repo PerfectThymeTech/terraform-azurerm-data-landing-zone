@@ -101,6 +101,12 @@ module "data_application" {
   diagnostics_configurations = local.diagnostics_configurations
   alerting                   = try(each.value.alerting, {})
 
+  # Identity variables
+  admin_group_name       = try(module.data_application[each.key].identity.admin_group_name, "")
+  developer_group_name   = try(module.data_application[each.key].identity.developer_group_name, "")
+  reader_group_name      = try(module.data_application[each.key].identity.reader_group_name, "")
+  service_principal_name = try(module.data_application[each.key].identity.service_principal_name, "")
+
   # Network variables
   vnet_id                       = var.vnet_id
   subnet_id_app                 = module.platform.subnet_ids_private_endpoint_application[each.key]
