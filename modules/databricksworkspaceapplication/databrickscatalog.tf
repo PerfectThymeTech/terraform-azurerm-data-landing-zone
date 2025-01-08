@@ -3,7 +3,7 @@ resource "databricks_catalog" "catalog_internal" {
 
   comment                        = "Data Applicaton Catalog - ${var.app_name} - Internal"
   enable_predictive_optimization = "DISABLE" # Consider enabling this property or use "INHERIT"
-  force_destroy                  = false
+  force_destroy                  = true
   isolation_mode                 = "ISOLATED"
   properties = merge({
     location    = var.location
@@ -18,7 +18,7 @@ resource "databricks_catalog" "catalog_external" {
 
   comment                        = "Data Applicaton Catalog - ${var.app_name} - External"
   enable_predictive_optimization = "DISABLE" # Consider enabling this property or use "INHERIT"
-  force_destroy                  = false
+  force_destroy                  = true
   isolation_mode                 = "OPEN"
   properties = merge({
     location    = var.location
