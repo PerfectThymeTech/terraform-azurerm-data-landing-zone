@@ -24,7 +24,7 @@ resource "databricks_permissions" "permissions_directory" {
   }
   # Service principal permissions
   access_control {
-    service_principal_name = databricks_service_principal.service_principal.display_name
+    service_principal_name = databricks_service_principal.service_principal.application_id
     permission_level       = "CAN_MANAGE"
   }
 
@@ -48,7 +48,7 @@ resource "databricks_permissions" "permissions_cluster_policy" {
   }
   # # Service principal permissions
   # access_control {
-  #   service_principal_name = databricks_service_principal.service_principal.display_name
+  #   service_principal_name = databricks_service_principal.service_principal.application_id
   #   permission_level       = "CAN_USE"
   # }
 
