@@ -1,4 +1,4 @@
-resource "databricks_permissions" "permissions_directory_developer" {
+resource "databricks_permissions" "permissions_directory" {
   directory_path = databricks_directory.directory.path
 
   # Admin permissions
@@ -22,9 +22,26 @@ resource "databricks_permissions" "permissions_directory_developer" {
       permission_level = "CAN_READ"
     }
   }
-  # Service principal permissions
+  # # Service principal permissions
+  # access_control {
+  #   service_principal_name = databricks_service_principal.service_principal.display_name
+  #   permission_level       = "CAN_MANAGE"
+  # }
+}
+
+resource "databricks_permissions" "permissions_cluster_policy" {
+  for_each = local.databricks_cluster_policy_definitions
+
+  cluster_policy_id = databricks_cluster_policy.cluster_policy[each.key].id
+
+  # Admin permissions
   access_control {
-    service_principal_name = databricks_service_principal.service_principal.display_name
-    permission_level       = "CAN_MANAGE"
+    group_name       = data.databricks_group.group_admin.display_name
+    permission_level = "CAN_USE"
   }
+  # # Service principal permissions
+  # access_control {
+  #   service_principal_name = databricks_service_principal.service_principal.display_name
+  #   permission_level       = "CAN_USE"
+  # }
 }
