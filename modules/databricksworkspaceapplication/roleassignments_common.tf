@@ -46,11 +46,11 @@ resource "databricks_permissions" "permissions_cluster_policy" {
     group_name       = data.databricks_group.group_admin.display_name
     permission_level = "CAN_USE"
   }
-  # # Service principal permissions
-  # access_control {
-  #   service_principal_name = databricks_service_principal.service_principal.application_id
-  #   permission_level       = "CAN_USE"
-  # }
+  # Service principal permissions
+  access_control {
+    service_principal_name = databricks_service_principal.service_principal.application_id
+    permission_level       = "CAN_USE"
+  }
 
   depends_on = [
     databricks_permission_assignment.permission_assignment_admin,
