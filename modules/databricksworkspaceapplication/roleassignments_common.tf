@@ -22,11 +22,18 @@ resource "databricks_permissions" "permissions_directory" {
       permission_level = "CAN_READ"
     }
   }
-  # # Service principal permissions
-  # access_control {
-  #   service_principal_name = databricks_service_principal.service_principal.display_name
-  #   permission_level       = "CAN_MANAGE"
-  # }
+  # Service principal permissions
+  access_control {
+    service_principal_name = databricks_service_principal.service_principal.display_name
+    permission_level       = "CAN_MANAGE"
+  }
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_admin,
+    databricks_permission_assignment.permission_assignment_developer,
+    databricks_permission_assignment.permission_assignment_reader,
+    databricks_permission_assignment.permission_assignment_service_principal,
+  ]
 }
 
 resource "databricks_permissions" "permissions_cluster_policy" {
@@ -44,4 +51,11 @@ resource "databricks_permissions" "permissions_cluster_policy" {
   #   service_principal_name = databricks_service_principal.service_principal.display_name
   #   permission_level       = "CAN_USE"
   # }
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_admin,
+    databricks_permission_assignment.permission_assignment_developer,
+    databricks_permission_assignment.permission_assignment_reader,
+    databricks_permission_assignment.permission_assignment_service_principal,
+  ]
 }
