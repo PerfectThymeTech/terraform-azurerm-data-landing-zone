@@ -82,3 +82,128 @@ resource "databricks_grant" "grant_catalog_external_reader" {
     # "CREATE_VOLUME", # Only allow read permissions
   ]
 }
+
+resource "databricks_grant" "permissions_external_location_external_reader" {
+  external_location = databricks_external_location.external_location_external.id
+  principal = databricks_service_principal.service_principal.application_id
+  privileges = [
+    # General
+    # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
+    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+
+    # Metadata
+    "BROWSE",
+
+    # Read
+    "READ_FILES",
+
+    # Edit
+    # "WRITE_FILES", # Only allow read permissions
+
+    # Create
+    # "CREATE_EXTERNAL_TABLE", # Only allow read permissions
+    # "CREATE_EXTERNAL_VOLUME", # Only allow read permissions
+    # "CREATE_FOREIGN_SECURABLE", # Only allow read permissions
+    # "CREATE_MANAGED_STORAGE", # Only allow read permissions
+  ]
+}
+
+resource "databricks_grant" "permissions_external_location_raw_reader" {
+  external_location = databricks_external_location.external_location_raw.id
+  principal = databricks_service_principal.service_principal.application_id
+  privileges = [
+    # General
+    # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
+    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+
+    # Metadata
+    "BROWSE",
+
+    # Read
+    "READ_FILES",
+
+    # Edit
+    # "WRITE_FILES", # Only allow read permissions
+
+    # Create
+    # "CREATE_EXTERNAL_TABLE", # Only allow read permissions
+    # "CREATE_EXTERNAL_VOLUME", # Only allow read permissions
+    # "CREATE_FOREIGN_SECURABLE", # Only allow read permissions
+    # "CREATE_MANAGED_STORAGE", # Only allow read permissions
+  ]
+}
+
+resource "databricks_grant" "permissions_external_location_enriched_reader" {
+  external_location = databricks_external_location.external_location_enriched.id
+  principal = databricks_service_principal.service_principal.application_id
+  privileges = [
+    # General
+    # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
+    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+
+    # Metadata
+    "BROWSE",
+
+    # Read
+    "READ_FILES",
+
+    # Edit
+    # "WRITE_FILES", # Only allow read permissions
+
+    # Create
+    # "CREATE_EXTERNAL_TABLE", # Only allow read permissions
+    # "CREATE_EXTERNAL_VOLUME", # Only allow read permissions
+    # "CREATE_FOREIGN_SECURABLE", # Only allow read permissions
+    # "CREATE_MANAGED_STORAGE", # Only allow read permissions
+  ]
+}
+
+resource "databricks_grant" "permissions_external_location_curated_reader" {
+  external_location = databricks_external_location.external_location_curated.id
+  principal = databricks_service_principal.service_principal.application_id
+  privileges = [
+    # General
+    # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
+    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+
+    # Metadata
+    "BROWSE",
+
+    # Read
+    "READ_FILES",
+
+    # Edit
+    # "WRITE_FILES", # Only allow read permissions
+
+    # Create
+    # "CREATE_EXTERNAL_TABLE", # Only allow read permissions
+    # "CREATE_EXTERNAL_VOLUME", # Only allow read permissions
+    # "CREATE_FOREIGN_SECURABLE", # Only allow read permissions
+    # "CREATE_MANAGED_STORAGE", # Only allow read permissions
+  ]
+}
+
+resource "databricks_grant" "permissions_external_location_workspace_reader" {
+  external_location = databricks_external_location.external_location_workspace.id
+  principal = databricks_service_principal.service_principal.application_id
+  privileges = [
+    # General
+    # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
+    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+
+    # Metadata
+    "BROWSE",
+
+    # Read
+    "READ_FILES",
+
+    # Edit
+    # "WRITE_FILES", # Only allow read permissions
+
+    # Create
+    # "CREATE_EXTERNAL_TABLE", # Only allow read permissions
+    # "CREATE_EXTERNAL_VOLUME", # Only allow read permissions
+    # "CREATE_FOREIGN_SECURABLE", # Only allow read permissions
+    # "CREATE_MANAGED_STORAGE", # Only allow read permissions
+  ]
+}
