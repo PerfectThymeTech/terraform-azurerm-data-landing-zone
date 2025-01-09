@@ -91,7 +91,7 @@ resource "databricks_grant" "grant_catalog_external_developer" {
   ]
 }
 
-resource "databricks_grant" "permissions_external_location_external_developer" {
+resource "databricks_grant" "grant_external_location_external_developer" {
   count = var.developer_group_name == "" ? 0 : 1
 
   external_location = databricks_external_location.external_location_external.id
@@ -118,7 +118,7 @@ resource "databricks_grant" "permissions_external_location_external_developer" {
   ]
 }
 
-resource "databricks_grant" "permissions_external_location_raw_developer" {
+resource "databricks_grant" "grant_external_location_raw_developer" {
   count = var.developer_group_name == "" ? 0 : 1
 
   external_location = databricks_external_location.external_location_raw.id
@@ -145,7 +145,7 @@ resource "databricks_grant" "permissions_external_location_raw_developer" {
   ]
 }
 
-resource "databricks_grant" "permissions_external_location_enriched_developer" {
+resource "databricks_grant" "grant_external_location_enriched_developer" {
   count = var.developer_group_name == "" ? 0 : 1
 
   external_location = databricks_external_location.external_location_enriched.id
@@ -172,7 +172,7 @@ resource "databricks_grant" "permissions_external_location_enriched_developer" {
   ]
 }
 
-resource "databricks_grant" "permissions_external_location_curated_developer" {
+resource "databricks_grant" "grant_external_location_curated_developer" {
   count = var.developer_group_name == "" ? 0 : 1
 
   external_location = databricks_external_location.external_location_curated.id
@@ -199,7 +199,7 @@ resource "databricks_grant" "permissions_external_location_curated_developer" {
   ]
 }
 
-resource "databricks_grant" "permissions_external_location_workspace_developer" {
+resource "databricks_grant" "grant_external_location_workspace_developer" {
   count = var.developer_group_name == "" ? 0 : 1
 
   external_location = databricks_external_location.external_location_workspace.id
@@ -223,5 +223,27 @@ resource "databricks_grant" "permissions_external_location_workspace_developer" 
     "CREATE_EXTERNAL_VOLUME",
     "CREATE_FOREIGN_SECURABLE",
     "CREATE_MANAGED_STORAGE",
+  ]
+}
+
+resource "databricks_grant" "grant_storage_credential_developer" {
+  count = var.developer_group_name == "" ? 0 : 1
+
+  storage_credential = databricks_storage_credential.storage_credential.id
+  principal          = one(data.databricks_group.group_developer[*].display_name)
+  privileges = [
+    # General
+    # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
+    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+
+    # Read
+    "READ_FILES",
+
+    # Edit
+    "WRITE_FILES",
+
+    # Create
+    "CREATE EXTERNAL LOCATION",
+    "CREATE_EXTERNAL_TABLE",
   ]
 }

@@ -83,9 +83,9 @@ resource "databricks_grant" "grant_catalog_external_service_principal" {
   ]
 }
 
-resource "databricks_grant" "permissions_external_location_external_service_principal" {
+resource "databricks_grant" "grant_external_location_external_service_principal" {
   external_location = databricks_external_location.external_location_external.id
-  principal = databricks_service_principal.service_principal.application_id
+  principal         = databricks_service_principal.service_principal.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -108,9 +108,9 @@ resource "databricks_grant" "permissions_external_location_external_service_prin
   ]
 }
 
-resource "databricks_grant" "permissions_external_location_raw_service_principal" {
+resource "databricks_grant" "grant_external_location_raw_service_principal" {
   external_location = databricks_external_location.external_location_raw.id
-  principal = databricks_service_principal.service_principal.application_id
+  principal         = databricks_service_principal.service_principal.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -133,9 +133,9 @@ resource "databricks_grant" "permissions_external_location_raw_service_principal
   ]
 }
 
-resource "databricks_grant" "permissions_external_location_enriched_service_principal" {
+resource "databricks_grant" "grant_external_location_enriched_service_principal" {
   external_location = databricks_external_location.external_location_enriched.id
-  principal = databricks_service_principal.service_principal.application_id
+  principal         = databricks_service_principal.service_principal.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -158,9 +158,9 @@ resource "databricks_grant" "permissions_external_location_enriched_service_prin
   ]
 }
 
-resource "databricks_grant" "permissions_external_location_curated_service_principal" {
+resource "databricks_grant" "grant_external_location_curated_service_principal" {
   external_location = databricks_external_location.external_location_curated.id
-  principal = databricks_service_principal.service_principal.application_id
+  principal         = databricks_service_principal.service_principal.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -183,9 +183,9 @@ resource "databricks_grant" "permissions_external_location_curated_service_princ
   ]
 }
 
-resource "databricks_grant" "permissions_external_location_workspace_service_principal" {
+resource "databricks_grant" "grant_external_location_workspace_service_principal" {
   external_location = databricks_external_location.external_location_workspace.id
-  principal = databricks_service_principal.service_principal.application_id
+  principal         = databricks_service_principal.service_principal.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -205,5 +205,25 @@ resource "databricks_grant" "permissions_external_location_workspace_service_pri
     "CREATE_EXTERNAL_VOLUME",
     "CREATE_FOREIGN_SECURABLE",
     "CREATE_MANAGED_STORAGE",
+  ]
+}
+
+resource "databricks_grant" "grant_storage_credential_service_principal" {
+  storage_credential = databricks_storage_credential.storage_credential.id
+  principal          = databricks_service_principal.service_principal.application_id
+  privileges = [
+    # General
+    # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
+    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+
+    # Read
+    "READ_FILES",
+
+    # Edit
+    "WRITE_FILES",
+
+    # Create
+    "CREATE EXTERNAL LOCATION",
+    "CREATE_EXTERNAL_TABLE",
   ]
 }
