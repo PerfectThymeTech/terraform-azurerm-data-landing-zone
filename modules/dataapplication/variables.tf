@@ -76,6 +76,19 @@ variable "storage_account_ids" {
   }
 }
 
+variable "databricks_workspace_details" {
+  description = "Specifies the workspace details of databricks workspaces."
+  type = map(object({
+    id                  = string
+    workspace_id        = string
+    workspace_url       = string
+    access_connector_id = string
+  }))
+  sensitive = false
+  nullable  = false
+  default   = {}
+}
+
 # HA/DR variables
 variable "zone_redundancy_enabled" {
   description = "Specifies whether zone-redundancy should be enabled for all resources."

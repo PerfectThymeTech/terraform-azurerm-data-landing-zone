@@ -91,8 +91,9 @@ module "data_application" {
   tags        = merge(var.tags, try(each.value.tags, {}))
 
   # Service variables
-  app_name            = each.key
-  storage_account_ids = module.core.storage_account_ids
+  app_name                     = each.key
+  storage_account_ids          = module.core.storage_account_ids
+  databricks_workspace_details = module.core.databricks_workspace_details
 
   # HA/DR variables
   zone_redundancy_enabled = var.zone_redundancy_enabled
