@@ -9,6 +9,7 @@ resource "databricks_catalog" "catalog_internal" {
     location    = var.location
     environment = var.environment
     app_name    = var.app_name
+    use         = "internal"
   }, var.tags)
   storage_root = one(databricks_external_location.external_location_curated[*].url)
 }
@@ -24,6 +25,7 @@ resource "databricks_catalog" "catalog_external" {
     location    = var.location
     environment = var.environment
     app_name    = var.app_name
+    use         = "external"
   }, var.tags)
   storage_root = one(databricks_external_location.external_location_curated[*].url)
 }
