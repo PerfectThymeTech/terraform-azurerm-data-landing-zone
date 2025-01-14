@@ -14,6 +14,7 @@ resource "databricks_workspace_conf" "workspace_conf" {
     enableDatabricksAutologgingAdminConf             = true
     enableFileStoreEndpoint                          = false
     enableProjectsAllowList                          = true
+    enableJobsEmailsV2                               = true
     enableVerboseAuditLogs                           = true
     enforceUserIsolation                             = true
     maxTokenLifetimeDays                             = "1"
