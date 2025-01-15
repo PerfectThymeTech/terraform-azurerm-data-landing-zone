@@ -76,6 +76,19 @@ variable "storage_account_ids" {
   }
 }
 
+variable "databricks_workspace_details" {
+  description = "Specifies the workspace details of databricks workspaces."
+  type = map(object({
+    id                  = string
+    workspace_id        = string
+    workspace_url       = string
+    access_connector_id = string
+  }))
+  sensitive = false
+  nullable  = false
+  default   = {}
+}
+
 # HA/DR variables
 variable "zone_redundancy_enabled" {
   description = "Specifies whether zone-redundancy should be enabled for all resources."
@@ -125,6 +138,49 @@ variable "alerting" {
       var.alerting.categories.service_health.incident_level >= 0,
     ])
     error_message = "Please specify valid alerting details."
+  }
+}
+
+# Identity variables
+variable "admin_group_name" {
+  description = "Specifies the name of the admin Entra ID security group."
+  type        = string
+  sensitive   = false
+  validation {
+    condition     = length(var.admin_group_name) >= 2
+    error_message = "Please specify a valid Entra ID group name."
+  }
+}
+
+variable "developer_group_name" {
+  description = "Specifies the name of the developer Entra ID security group."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.developer_group_name == "" || length(var.developer_group_name) >= 2
+    error_message = "Please specify a valid Entra ID group name."
+  }
+}
+
+variable "reader_group_name" {
+  description = "Specifies the name of the reader Entra ID security group."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.reader_group_name == "" || length(var.reader_group_name) >= 2
+    error_message = "Please specify a valid Entra ID group name."
+  }
+}
+
+variable "service_principal_name" {
+  description = "Specifies the name of the Entra ID service principal name."
+  type        = string
+  sensitive   = false
+  validation {
+    condition     = length(var.service_principal_name) >= 2
+    error_message = "Please specify a valid Entra ID service principal name."
   }
 }
 

@@ -9,7 +9,7 @@ resource "azurerm_consumption_budget_subscription" "consumption_budget_subscript
   amount     = var.budget.categories.azure
   time_grain = "Monthly"
   time_period {
-    start_date = "${time_rotating.rotating_current.year - local.budget_start_date_rotation_years}-${time_rotating.rotating_current.month}-01T00:00:00Z"
+    start_date = "${time_rotating.rotating_current.year - local.budget_start_date_rotation_years}-${format("%02s", time_rotating.rotating_current.month)}-01T00:00:00Z"
   }
   filter {
     dynamic "tag" {

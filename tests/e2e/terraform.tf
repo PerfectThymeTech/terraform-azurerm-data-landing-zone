@@ -8,7 +8,7 @@ terraform {
     }
     azapi = {
       source  = "azure/azapi"
-      version = "2.1.0"
+      version = "2.2.0"
     }
     azuread = {
       source  = "hashicorp/azuread"
@@ -16,7 +16,7 @@ terraform {
     }
     databricks = {
       source  = "databricks/databricks"
-      version = "1.62.0"
+      version = "1.62.1"
     }
     time = {
       source  = "hashicorp/time"

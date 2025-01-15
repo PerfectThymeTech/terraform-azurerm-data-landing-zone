@@ -7,19 +7,20 @@ resource "databricks_workspace_conf" "workspace_conf" {
     enableTokensConfig                               = false
     enableDeprecatedClusterNamedInitScripts          = false
     enableDeprecatedGlobalInitScripts                = false
-    enableUploadDataUis                              = false
+    enableUploadDataUis                              = false # Consider enabling this for development
     enableNotebookTableClipboard                     = false
     enableWebTerminal                                = true
     enableDbfsFileBrowser                            = false
     enableDatabricksAutologgingAdminConf             = true
     enableFileStoreEndpoint                          = false
     enableProjectsAllowList                          = true
+    enableJobsEmailsV2                               = true
     enableVerboseAuditLogs                           = true
     enforceUserIsolation                             = true
     maxTokenLifetimeDays                             = "1"
     mlflowRunArtifactDownloadEnabled                 = false
     projectsAllowListPermissions                     = "ALLOWLISTED_CLONE_COMMIT_PUSH" # ALLOWLISTED_COMMIT_PUSH
-    projectsAllowList                                = "https://github.com/"
+    projectsAllowList                                = "https://github.com/"           # Update to specific URI
     reposIpynbResultsExportPermissions               = "DISABLE"
     storeInteractiveNotebookResultsInCustomerAccount = true
   }

@@ -9,3 +9,26 @@ data "azurerm_location" "current" {
 data "azuread_service_principal" "service_principal_databricks" {
   client_id = local.databricks_enterprise_application_id
 }
+
+data "azuread_service_principal" "service_principal" {
+  display_name = var.service_principal_name
+}
+
+data "azuread_group" "group_admin" {
+  display_name     = var.admin_group_name
+  security_enabled = true
+}
+
+data "azuread_group" "group_developer" {
+  count = var.developer_group_name == "" ? 0 : 1
+
+  display_name     = var.developer_group_name
+  security_enabled = true
+}
+
+data "azuread_group" "group_reader" {
+  count = var.reader_group_name == "" ? 0 : 1
+
+  display_name     = var.reader_group_name
+  security_enabled = true
+}

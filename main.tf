@@ -91,8 +91,9 @@ module "data_application" {
   tags        = merge(var.tags, try(each.value.tags, {}))
 
   # Service variables
-  app_name            = each.key
-  storage_account_ids = module.core.storage_account_ids
+  app_name                     = each.key
+  storage_account_ids          = module.core.storage_account_ids
+  databricks_workspace_details = module.core.databricks_workspace_details
 
   # HA/DR variables
   zone_redundancy_enabled = var.zone_redundancy_enabled
@@ -100,6 +101,12 @@ module "data_application" {
   # Logging and monitoring variables
   diagnostics_configurations = local.diagnostics_configurations
   alerting                   = try(each.value.alerting, {})
+
+  # Identity variables
+  admin_group_name       = try(each.value.identity.admin_group_name, "")
+  developer_group_name   = try(each.value.identity.developer_group_name, "")
+  reader_group_name      = try(each.value.identity.reader_group_name, "")
+  service_principal_name = try(each.value.identity.service_principal_name, "")
 
   # Network variables
   vnet_id                       = var.vnet_id

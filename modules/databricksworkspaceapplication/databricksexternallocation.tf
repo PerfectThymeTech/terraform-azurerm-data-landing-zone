@@ -3,8 +3,8 @@ resource "databricks_external_location" "external_location_external" {
 
   comment         = "Default external storage layer for '${var.app_name}' data application."
   credential_name = one(databricks_storage_credential.storage_credential[*].name)
-  force_destroy   = false
-  force_update    = false
+  force_destroy   = true
+  force_update    = true
   isolation_mode  = "ISOLATION_MODE_ISOLATED"
   read_only       = false
   skip_validation = false
@@ -16,8 +16,8 @@ resource "databricks_external_location" "external_location_raw" {
 
   comment         = "Default raw storage layer for '${var.app_name}' data application."
   credential_name = one(databricks_storage_credential.storage_credential[*].name)
-  force_destroy   = false
-  force_update    = false
+  force_destroy   = true
+  force_update    = true
   isolation_mode  = "ISOLATION_MODE_ISOLATED"
   read_only       = false
   skip_validation = false
@@ -29,8 +29,8 @@ resource "databricks_external_location" "external_location_enriched" {
 
   comment         = "Default enriched storage layer for '${var.app_name}' data application."
   credential_name = one(databricks_storage_credential.storage_credential[*].name)
-  force_destroy   = false
-  force_update    = false
+  force_destroy   = true
+  force_update    = true
   isolation_mode  = "ISOLATION_MODE_ISOLATED"
   read_only       = false
   skip_validation = false
@@ -42,8 +42,8 @@ resource "databricks_external_location" "external_location_curated" {
 
   comment         = "Default curated storage layer for '${var.app_name}' data application."
   credential_name = one(databricks_storage_credential.storage_credential[*].name)
-  force_destroy   = false
-  force_update    = false
+  force_destroy   = true
+  force_update    = true
   isolation_mode  = "ISOLATION_MODE_ISOLATED"
   read_only       = false
   skip_validation = false
@@ -55,8 +55,8 @@ resource "databricks_external_location" "external_location_workspace" {
 
   comment         = "Default workspace storage layer for '${var.app_name}' data application."
   credential_name = one(databricks_storage_credential.storage_credential[*].name)
-  force_destroy   = false
-  force_update    = false
+  force_destroy   = true
+  force_update    = true
   isolation_mode  = "ISOLATION_MODE_ISOLATED"
   read_only       = false
   skip_validation = false
