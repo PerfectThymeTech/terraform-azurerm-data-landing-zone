@@ -80,6 +80,7 @@ module "data_application" {
 
   providers = {
     azurerm = azurerm
+    azapi   = azapi
     azuread = azuread
     time    = time
   }
