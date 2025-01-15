@@ -29,3 +29,9 @@ budget:
   endpoints:
     email:
       email_address: test@microsoft.com
+
+ai_services:
+  oai:
+    location: westeurope
+    kind: OpenAI
+    sku: S0
