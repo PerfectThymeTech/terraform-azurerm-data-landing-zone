@@ -42,6 +42,8 @@ resource "azurerm_role_assignment" "role_assignment_databricks_workspace_reader_
   principal_type       = "Group"
 }
 
+# AI service role assignments
+
 # Storage role assignments
 resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_reader_reader" {
   count = var.reader_group_name == "" ? 0 : 1
