@@ -44,7 +44,7 @@ resource "azurerm_role_assignment" "role_assignment_databricks_workspace_reader_
 # Storage role assignments
 resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_owner_admin" {
   description          = "Role assignment to the external storage container."
-  scope                = azurerm_storage_container.storage_container_external.resource_manager_id
+  scope                = azurerm_storage_container.storage_container_external.id
   role_definition_name = "Storage Blob Data Owner"
   principal_id         = data.azuread_group.group_admin.object_id
   principal_type       = "Group"
@@ -52,7 +52,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_external_b
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_raw_blob_data_owner_admin" {
   description          = "Role assignment to the raw storage container."
-  scope                = azurerm_storage_container.storage_container_raw.resource_manager_id
+  scope                = azurerm_storage_container.storage_container_raw.id
   role_definition_name = "Storage Blob Data Owner"
   principal_id         = data.azuread_group.group_admin.object_id
   principal_type       = "Group"
@@ -60,7 +60,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_raw_blob_d
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_enriched_blob_data_owner_admin" {
   description          = "Role assignment to the enriched storage container."
-  scope                = azurerm_storage_container.storage_container_enriched.resource_manager_id
+  scope                = azurerm_storage_container.storage_container_enriched.id
   role_definition_name = "Storage Blob Data Owner"
   principal_id         = data.azuread_group.group_admin.object_id
   principal_type       = "Group"
@@ -68,7 +68,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_enriched_b
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_curated_blob_data_owner_admin" {
   description          = "Role assignment to the curated storage container."
-  scope                = azurerm_storage_container.storage_container_curated.resource_manager_id
+  scope                = azurerm_storage_container.storage_container_curated.id
   role_definition_name = "Storage Blob Data Owner"
   principal_id         = data.azuread_group.group_admin.object_id
   principal_type       = "Group"
@@ -76,7 +76,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_curated_bl
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_workspace_blob_data_owner_admin" {
   description          = "Role assignment to the workspace storage container."
-  scope                = azurerm_storage_container.storage_container_workspace.resource_manager_id
+  scope                = azurerm_storage_container.storage_container_workspace.id
   role_definition_name = "Storage Blob Data Owner"
   principal_id         = data.azuread_group.group_admin.object_id
   principal_type       = "Group"
