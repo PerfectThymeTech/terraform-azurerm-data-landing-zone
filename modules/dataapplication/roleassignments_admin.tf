@@ -46,7 +46,7 @@ resource "azurerm_role_assignment" "role_assignment_ai_service_admin" {
   for_each = var.ai_services
 
   description          = "Role assignment to the ai services."
-  scope                = module.ai_services[each.key].cognitive_account_id
+  scope                = module.ai_service[each.key].cognitive_account_id
   role_definition_name = local.ai_service_kind_role_map_write[each.value.kind]
   principal_id         = data.azuread_group.group_admin.object_id
   principal_type       = "Group"
