@@ -32,6 +32,6 @@ budget:
 
 ai_services:
   oai:
-    location: westeurope
+    location: swedencentral
     kind: OpenAI
     sku: S0
