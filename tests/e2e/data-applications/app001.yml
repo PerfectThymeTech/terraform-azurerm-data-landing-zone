@@ -31,7 +31,7 @@ budget:
       email_address: test@microsoft.com
 
 ai_services:
-  oai:
+  fr:
     location: swedencentral
-    kind: OpenAI
+    kind: FormRecognizer
     sku: S0
