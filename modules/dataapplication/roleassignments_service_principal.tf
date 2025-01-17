@@ -41,6 +41,25 @@ resource "azurerm_role_assignment" "role_assignment_databricks_workspace_reader_
   principal_type       = "ServicePrincipal"
 }
 
+# AI service role assignments
+resource "azurerm_role_assignment" "role_assignment_ai_service_service_principal" {
+  for_each = var.ai_services
+
+  description          = "Role assignment to the ai services."
+  scope                = module.ai_service[each.key].cognitive_account_id
+  role_definition_name = local.ai_service_kind_role_map_write[each.value.kind]
+  principal_id         = data.azuread_service_principal.service_principal.object_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_cognitive_services_usages_reader_service_principal" {
+  description          = "Cognitive Services Usages Reader to check quota for Azure Open AI models."
+  scope                = data.azurerm_subscription.current.id
+  role_definition_name = "Cognitive Services Usages Reader"
+  principal_id         = data.azuread_service_principal.service_principal.object_id
+  principal_type       = "ServicePrincipal"
+}
+
 # Storage role assignments
 resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_owner_service_principal" {
   description          = "Role assignment to the external storage container."

@@ -198,6 +198,65 @@
       },
       "required": [],
       "additionalProperties": false
+    },
+    "ai_services": {
+      "description": "Specifies the ai services to be deployed for the application.",
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "properties": {
+            "location": {
+              "description": "Specifies the location of the ai service in case it needs to be deployed in another region for capacity reasons.",
+              "type": "string"
+            },
+            "kind": {
+              "description": "Specifies the kind of the ai service.",
+              "type": "string",
+              "enum": [
+                "AnomalyDetector",
+                "ComputerVision",
+                "CognitiveServices",
+                "ContentModerator",
+                "CustomVision.Training",
+                "CustomVision.Prediction",
+                "Face",
+                "FormRecognizer",
+                "ImmersiveReader",
+                "LUIS",
+                "Personalizer",
+                "SpeechServices",
+                "TextAnalytics",
+                "TextTranslation",
+                "OpenAI"
+              ]
+            },
+            "sku": {
+              "description": "Specifies the sku of the ai service.",
+              "type": "string",
+              "enum": [
+                "S",
+                "S0",
+                "S1",
+                "S2",
+                "S3",
+                "S4",
+                "S5",
+                "S6",
+                "P0",
+                "P1",
+                "P2",
+                "E0",
+                "DC0"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "sku"
+          ],
+          "additionalProperties": false
+        }
+      }
     }
   },
   "required": [

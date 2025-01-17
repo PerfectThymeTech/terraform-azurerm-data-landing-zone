@@ -89,6 +89,25 @@ variable "databricks_workspace_details" {
   default   = {}
 }
 
+variable "ai_services" {
+  description = "Specifies the map of ai services to be created for this application."
+  type = map(object({
+    location = optional(string, null)
+    kind     = string
+    sku      = string
+  }))
+  sensitive = false
+  nullable  = false
+  default   = {}
+  validation {
+    condition = alltrue([
+      length([for kind in values(var.ai_services)[*].kind : kind if !contains(["AnomalyDetector", "ComputerVision", "CognitiveServices", "ContentModerator", "CustomVision.Training", "CustomVision.Prediction", "Face", "FormRecognizer", "ImmersiveReader", "LUIS", "Personalizer", "SpeechServices", "TextAnalytics", "TextTranslation", "OpenAI"], kind)]) <= 0,
+      length([for sku in values(var.ai_services)[*].sku : sku if !startswith(sku, "S") && !startswith(sku, "P") && !startswith(sku, "E") && !startswith(sku, "DC")]) <= 0
+    ])
+    error_message = "Please specify a valid ai service configuration."
+  }
+}
+
 # HA/DR variables
 variable "zone_redundancy_enabled" {
   description = "Specifies whether zone-redundancy should be enabled for all resources."
@@ -259,6 +278,17 @@ variable "private_dns_zone_id_vault" {
   default     = ""
   validation {
     condition     = var.private_dns_zone_id_vault == "" || (length(split("/", var.private_dns_zone_id_vault)) == 9 && endswith(var.private_dns_zone_id_vault, "privatelink.vaultcore.azure.net"))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
+variable "private_dns_zone_id_cognitive_account" {
+  description = "Specifies the resource ID of the private DNS zone for Azure Cognitive Services. Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_cognitive_account == "" || (length(split("/", var.private_dns_zone_id_cognitive_account)) == 9 && (endswith(var.private_dns_zone_id_cognitive_account, "privatelink.cognitiveservices.azure.com") || endswith(var.private_dns_zone_id_cognitive_account, "privatelink.openai.azure.com")))
     error_message = "Please specify a valid resource ID for the private DNS Zone."
   }
 }

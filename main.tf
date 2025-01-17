@@ -80,6 +80,7 @@ module "data_application" {
 
   providers = {
     azurerm = azurerm
+    azapi   = azapi
     azuread = azuread
     time    = time
   }
@@ -94,6 +95,7 @@ module "data_application" {
   app_name                     = each.key
   storage_account_ids          = module.core.storage_account_ids
   databricks_workspace_details = module.core.databricks_workspace_details
+  ai_services                  = try(each.value.ai_services, {})
 
   # HA/DR variables
   zone_redundancy_enabled = var.zone_redundancy_enabled
