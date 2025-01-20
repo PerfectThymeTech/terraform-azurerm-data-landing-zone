@@ -119,7 +119,7 @@ jobs:
         working-directory: ${{ inputs.working_directory }}
         run: |
           terraform apply -var-file="vars.tfvars" -auto-approve -input=false -destroy
-      
+
       # Databricks Destroy
       - name: Databricks Destroy
         id: databricks_destroy
