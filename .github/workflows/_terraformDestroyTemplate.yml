@@ -70,6 +70,11 @@ jobs:
           terraform_version: ${{ inputs.terraform_version }}
           terraform_wrapper: true
 
+      # Setup Databricks CLI
+      - name: Setup Databricks CLI
+        id: databricks_cli_setup
+        uses: databricks/setup-cli@v0.239.0
+
       # Check Out Repository
       - name: Check Out Repository
         id: checkout_repository
@@ -91,9 +96,38 @@ jobs:
         run: |
           terraform init -backend-config="azurerm.tfbackend"
 
+      # Terraform Init
+      - name: Terraform Init
+        id: terraform_state_remove
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          # Remove config from state
+          echo "Remove config from state"
+          terraform state rm "module.data_landing_zone.module.databricks_account_configuration.databricks_mws_network_connectivity_config.network_connectivity_config"
+          terraform state rm "module.data_landing_zone.module.databricks_workspace_configuration.databricks_workspace_conf.workspace_conf"
+
+          # Get Terraform output
+          echo "Get Terraform output"
+          databricks_account_id=$(terraform output -raw databricks_account_id)
+          databricks_network_connectivity_config_id=$(terraform output -raw databricks_network_connectivity_config_id)
+          echo "databricks_account_id=$databricks_account_id" >> "$GITHUB_OUTPUT"
+          echo "databricks_network_connectivity_config_id=$databricks_network_connectivity_config_id" >> "$GITHUB_OUTPUT"
+
       # Terraform Destroy
       - name: Terraform Destroy
         id: terraform_destroy
         working-directory: ${{ inputs.working_directory }}
         run: |
           terraform apply -var-file="vars.tfvars" -auto-approve -input=false -destroy
+
+      # Databricks Destroy
+      - name: Databricks Destroy
+        id: databricks_destroy
+        run: |
+          # Login
+          echo "Login"
+          databricks auth login --host "https://accounts.azuredatabricks.net" --account-id "${{ steps.terraform_state_remove.outputs.databricks_account_id }}"
+
+          # Remove network connectivity config
+          echo "Remove network connectivity config"
+          databricks account network-connectivity delete-network-connectivity-configuration "${{ steps.terraform_state_remove.outputs.databricks_network_connectivity_config_id }}"

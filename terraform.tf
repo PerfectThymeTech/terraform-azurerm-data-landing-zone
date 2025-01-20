@@ -16,7 +16,7 @@ terraform {
     }
     databricks = {
       source  = "databricks/databricks"
-      version = "~> 1.58"
+      version = "~> 1.63"
       # configuration_aliases = [
       #   databricks.account
       # ]

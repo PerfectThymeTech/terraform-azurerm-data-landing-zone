@@ -146,7 +146,7 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
 
-- <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) (~> 1.58)
+- <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) (~> 1.63)
 
 - <a name="requirement_null"></a> [null](#requirement\_null) (~> 3.2)
 
@@ -372,7 +372,15 @@ Default: `true`
 
 ## Outputs
 
-No outputs.
+The following outputs are exported:
+
+### <a name="output_databricks_account_id"></a> [databricks\_account\_id](#output\_databricks\_account\_id)
+
+Description: Specifies the account id of Databricks.
+
+### <a name="output_databricks_network_connectivity_config_id"></a> [databricks\_network\_connectivity\_config\_id](#output\_databricks\_network\_connectivity\_config\_id)
+
+Description: Specifies the id of the network connectivity config.
 
 <!-- markdownlint-enable -->
 ## License
