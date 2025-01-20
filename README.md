@@ -146,7 +146,7 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
 
-- <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) (~> 1.58)
+- <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) (~> 1.63)
 
 - <a name="requirement_null"></a> [null](#requirement\_null) (~> 3.2)
 
