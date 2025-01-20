@@ -372,7 +372,15 @@ Default: `true`
 
 ## Outputs
 
-No outputs.
+The following outputs are exported:
+
+### <a name="output_databricks_account_id"></a> [databricks\_account\_id](#output\_databricks\_account\_id)
+
+Description: Specifies the account id of Databricks.
+
+### <a name="output_databricks_network_connectivity_config_id"></a> [databricks\_network\_connectivity\_config\_id](#output\_databricks\_network\_connectivity\_config\_id)
+
+Description: Specifies the id of the network connectivity config.
 
 <!-- markdownlint-enable -->
 ## License
