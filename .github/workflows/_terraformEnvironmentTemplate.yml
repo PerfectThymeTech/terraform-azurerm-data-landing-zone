@@ -262,7 +262,7 @@ jobs:
         run: |
           # Get Terraform output
           echo "Get Terraform output"
-          
+
           databricks_account_id=$(terraform output -raw databricks_account_id)
           echo "databricks_account_id=$databricks_account_id" >> "$GITHUB_OUTPUT"
 
