@@ -6,6 +6,6 @@ output "databricks_account_id" {
 
 output "databricks_network_connectivity_config_id" {
   description = "Specifies the id of the network connectivity config."
-  value       = module.databricks_account_configuration.databricks_network_connectivity_config_id
+  value       = module.databricks_core.databricks_network_connectivity_config_id
   sensitive   = false
 }

@@ -34,6 +34,30 @@ variable "tags" {
 }
 
 # Service variables
+variable "databricks_workspace_details" {
+  description = "Specifies the workspace details of databricks workspaces."
+  type = map(object({
+    id                  = string
+    workspace_id        = string
+    workspace_url       = string
+    access_connector_id = string
+  }))
+  sensitive = false
+  nullable  = false
+  default   = {}
+}
+
+variable "databricks_private_endpoint_rules" {
+  description = "Specifies the private endpoint outbound rules for databricks ncc."
+  type = map(object({
+    resource_id = string
+    group_id    = string
+  }))
+  sensitive = false
+  nullable  = false
+  default   = {}
+}
+
 variable "databricks_ip_access_list_allow" {
   description = "Specifies the ip access allow-list for the databricks workspace."
   type        = list(string)

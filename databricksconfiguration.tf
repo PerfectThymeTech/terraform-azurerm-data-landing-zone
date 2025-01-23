@@ -1,9 +1,10 @@
-module "databricks_account_configuration" {
-  source = "./modules/databricksaccountconfiguration"
+module "databricks_core" {
+  source = "./modules/databrickscore"
 
   providers = {
-    databricks = databricks
-    null       = null
+    databricks         = databricks.engineering
+    databricks.account = databricks
+    null               = null
   }
 
   # General variables
@@ -15,30 +16,14 @@ module "databricks_account_configuration" {
   # Service variables
   databricks_workspace_details      = local.databricks_workspace_details
   databricks_private_endpoint_rules = local.databricks_private_endpoint_rules
+  databricks_ip_access_list_allow   = []
+  databricks_ip_access_list_deny    = []
 }
 
-module "databricks_workspace_configuration" {
-  source = "./modules/databricksworkspaceconfiguration"
-
-  providers = {
-    databricks = databricks.engineering
-  }
-
-  # General variables
-  location    = var.location
-  environment = var.environment
-  prefix      = var.prefix
-  tags        = var.tags
-
-  # Service variables
-  databricks_ip_access_list_allow = []
-  databricks_ip_access_list_deny  = []
-}
-
-module "databricksworkspaceapplication" {
+module "databricks_data_application" {
   for_each = local.data_application_definitions
 
-  source = "./modules/databricksworkspaceapplication"
+  source = "./modules/databricksdataapplication"
 
   providers = {
     databricks         = databricks.engineering
