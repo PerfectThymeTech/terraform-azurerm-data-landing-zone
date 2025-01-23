@@ -14,8 +14,8 @@ jobs:
     environment: "dev"
 
     env:
-      ARM_TENANT_ID: ${{ inputs.tenant_id }}
-      ARM_SUBSCRIPTION_ID: ${{ inputs.subscription_id }}
+      ARM_TENANT_ID: "37963dd4-f4e6-40f8-a7d6-24b97919e452"
+      ARM_SUBSCRIPTION_ID: "9842be63-c8c0-4647-a5d1-0c5e7f8bbb25"
       ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
       ARM_USE_OIDC: true
 
@@ -36,8 +36,8 @@ jobs:
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.CLIENT_ID }}
-          tenant-id: ${{ inputs.tenant_id }}
-          subscription-id: ${{ inputs.subscription_id }}
+          tenant-id: "37963dd4-f4e6-40f8-a7d6-24b97919e452"
+          subscription-id: "9842be63-c8c0-4647-a5d1-0c5e7f8bbb25"
 
       # Databricks Destroy
       - name: Databricks Destroy
@@ -49,7 +49,7 @@ jobs:
 
           # Remove network connectivity config
           echo "Remove network connectivity config"
-          databricks account network-connectivity delete-network-connectivity-configuration "${{ inputs.databricks_network_connectivity_config_id }}"
+          databricks account network-connectivity delete-network-connectivity-configuration "123"
         env:
           DATABRICKS_HOST: "https://accounts.azuredatabricks.net"
           DATABRICKS_ACCOUNT_ID: "515f13c1-53bb-48fb-a2c9-75e3f5d943f5"
