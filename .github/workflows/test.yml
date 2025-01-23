@@ -1,4 +1,4 @@
-name: Lint and Test
+name: test
 on:
   push:
     branches:
@@ -13,7 +13,7 @@ permissions:
       
 jobs:
   lint:
-    name: Lint and Test
+    name: test
     runs-on: ubuntu-latest
     environment: "dev"
 
@@ -49,11 +49,11 @@ jobs:
         run: |
           # Login
           echo "Login"
-          databricks auth login
+          # databricks auth login
 
           # Remove network connectivity config
           echo "Remove network connectivity config"
-          databricks account network-connectivity delete-network-connectivity-configuration "123"
+          databricks account network-connectivity delete-network-connectivity-configuration "25a89533-5fa4-40e1-ad20-716beb6199cf"
         env:
           DATABRICKS_HOST: "https://accounts.azuredatabricks.net"
           DATABRICKS_ACCOUNT_ID: "515f13c1-53bb-48fb-a2c9-75e3f5d943f5"
