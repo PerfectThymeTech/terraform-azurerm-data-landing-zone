@@ -1,0 +1,55 @@
+name: Lint and Test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Lint and Test
+    runs-on: ubuntu-latest
+    environment: "dev"
+
+    env:
+      ARM_TENANT_ID: ${{ inputs.tenant_id }}
+      ARM_SUBSCRIPTION_ID: ${{ inputs.subscription_id }}
+      ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      ARM_USE_OIDC: true
+
+    steps:
+      # Setup Databricks CLI
+      - name: Setup Databricks CLI
+        id: databricks_cli_setup
+        uses: databricks/setup-cli@v0.239.0
+
+      # Check Out Repository
+      - name: Check Out Repository
+        id: checkout_repository
+        uses: actions/checkout@v4
+
+      # Azure login
+      - name: Azure login
+        id: azure_login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.CLIENT_ID }}
+          tenant-id: ${{ inputs.tenant_id }}
+          subscription-id: ${{ inputs.subscription_id }}
+
+      # Databricks Destroy
+      - name: Databricks Destroy
+        id: databricks_destroy
+        run: |
+          # Login
+          echo "Login"
+          databricks auth login
+
+          # Remove network connectivity config
+          echo "Remove network connectivity config"
+          databricks account network-connectivity delete-network-connectivity-configuration "${{ inputs.databricks_network_connectivity_config_id }}"
+        env:
+          DATABRICKS_HOST: "https://accounts.azuredatabricks.net"
+          DATABRICKS_ACCOUNT_ID: "515f13c1-53bb-48fb-a2c9-75e3f5d943f5"
