@@ -42,6 +42,10 @@ resource "databricks_grant" "grant_catalog_internal_reader" {
     # "CREATE_TABLE", # Only allow read permissions
     # "CREATE_VOLUME", # Only allow read permissions
   ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_reader,
+  ]
 }
 
 resource "databricks_grant" "grant_catalog_external_reader" {
@@ -81,6 +85,10 @@ resource "databricks_grant" "grant_catalog_external_reader" {
     # "CREATE_TABLE", # Only allow read permissions
     # "CREATE_VOLUME", # Only allow read permissions
   ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_reader,
+  ]
 }
 
 resource "databricks_grant" "grant_external_location_external_reader" {
@@ -107,6 +115,10 @@ resource "databricks_grant" "grant_external_location_external_reader" {
     # "CREATE_EXTERNAL_VOLUME", # Only allow read permissions
     # "CREATE_FOREIGN_SECURABLE", # Only allow read permissions
     # "CREATE_MANAGED_STORAGE", # Only allow read permissions
+  ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_reader,
   ]
 }
 
@@ -135,6 +147,10 @@ resource "databricks_grant" "grant_external_location_raw_reader" {
     # "CREATE_FOREIGN_SECURABLE", # Only allow read permissions
     # "CREATE_MANAGED_STORAGE", # Only allow read permissions
   ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_reader,
+  ]
 }
 
 resource "databricks_grant" "grant_external_location_enriched_reader" {
@@ -161,6 +177,10 @@ resource "databricks_grant" "grant_external_location_enriched_reader" {
     # "CREATE_EXTERNAL_VOLUME", # Only allow read permissions
     # "CREATE_FOREIGN_SECURABLE", # Only allow read permissions
     # "CREATE_MANAGED_STORAGE", # Only allow read permissions
+  ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_reader,
   ]
 }
 
@@ -189,6 +209,10 @@ resource "databricks_grant" "grant_external_location_curated_reader" {
     # "CREATE_FOREIGN_SECURABLE", # Only allow read permissions
     # "CREATE_MANAGED_STORAGE", # Only allow read permissions
   ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_reader,
+  ]
 }
 
 resource "databricks_grant" "grant_external_location_workspace_reader" {
@@ -216,6 +240,10 @@ resource "databricks_grant" "grant_external_location_workspace_reader" {
     # "CREATE_FOREIGN_SECURABLE", # Only allow read permissions
     # "CREATE_MANAGED_STORAGE", # Only allow read permissions
   ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_reader,
+  ]
 }
 
 resource "databricks_grant" "grant_storage_credential_reader" {
@@ -237,5 +265,9 @@ resource "databricks_grant" "grant_storage_credential_reader" {
     # Create
     # "CREATE EXTERNAL LOCATION", # Only allow read permissions
     # "CREATE_EXTERNAL_TABLE", # Only allow read permissions
+  ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_reader,
   ]
 }

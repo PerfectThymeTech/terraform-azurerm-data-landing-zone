@@ -11,6 +11,10 @@ resource "databricks_secret_acl" "secret_acl_developer" {
   principal  = one(data.databricks_group.group_developer[*].display_name)
   permission = "READ"
   scope      = databricks_secret_scope.secret_scope.id
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_developer,
+  ]
 }
 
 resource "databricks_grant" "grant_catalog_internal_developer" {
@@ -49,6 +53,10 @@ resource "databricks_grant" "grant_catalog_internal_developer" {
     # "CREATE_SCHEMA", # Only allow admins to create schemas
     "CREATE_TABLE",
     "CREATE_VOLUME",
+  ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_developer,
   ]
 }
 
@@ -89,6 +97,10 @@ resource "databricks_grant" "grant_catalog_external_developer" {
     "CREATE_TABLE",
     "CREATE_VOLUME",
   ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_developer,
+  ]
 }
 
 resource "databricks_grant" "grant_external_location_external_developer" {
@@ -115,6 +127,10 @@ resource "databricks_grant" "grant_external_location_external_developer" {
     "CREATE_EXTERNAL_VOLUME",
     "CREATE_FOREIGN_SECURABLE",
     "CREATE_MANAGED_STORAGE",
+  ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_developer,
   ]
 }
 
@@ -143,6 +159,10 @@ resource "databricks_grant" "grant_external_location_raw_developer" {
     "CREATE_FOREIGN_SECURABLE",
     "CREATE_MANAGED_STORAGE",
   ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_developer,
+  ]
 }
 
 resource "databricks_grant" "grant_external_location_enriched_developer" {
@@ -169,6 +189,10 @@ resource "databricks_grant" "grant_external_location_enriched_developer" {
     "CREATE_EXTERNAL_VOLUME",
     "CREATE_FOREIGN_SECURABLE",
     "CREATE_MANAGED_STORAGE",
+  ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_developer,
   ]
 }
 
@@ -197,6 +221,10 @@ resource "databricks_grant" "grant_external_location_curated_developer" {
     "CREATE_FOREIGN_SECURABLE",
     "CREATE_MANAGED_STORAGE",
   ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_developer,
+  ]
 }
 
 resource "databricks_grant" "grant_external_location_workspace_developer" {
@@ -224,6 +252,10 @@ resource "databricks_grant" "grant_external_location_workspace_developer" {
     "CREATE_FOREIGN_SECURABLE",
     "CREATE_MANAGED_STORAGE",
   ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_developer,
+  ]
 }
 
 resource "databricks_grant" "grant_storage_credential_developer" {
@@ -245,5 +277,9 @@ resource "databricks_grant" "grant_storage_credential_developer" {
     # Create
     "CREATE EXTERNAL LOCATION",
     "CREATE_EXTERNAL_TABLE",
+  ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_developer,
   ]
 }
