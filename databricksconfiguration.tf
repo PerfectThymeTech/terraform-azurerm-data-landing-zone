@@ -4,7 +4,7 @@ module "databricks_core" {
   providers = {
     databricks         = databricks.engineering
     databricks.account = databricks
-    null       = null
+    null               = null
   }
 
   # General variables
@@ -16,8 +16,8 @@ module "databricks_core" {
   # Service variables
   databricks_workspace_details      = local.databricks_workspace_details
   databricks_private_endpoint_rules = local.databricks_private_endpoint_rules
-  databricks_ip_access_list_allow = []
-  databricks_ip_access_list_deny  = []
+  databricks_ip_access_list_allow   = []
+  databricks_ip_access_list_deny    = []
 }
 
 module "databricks_data_application" {

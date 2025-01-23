@@ -7,7 +7,7 @@ resource "databricks_mws_network_connectivity_config" "network_connectivity_conf
 
 resource "databricks_mws_ncc_private_endpoint_rule" "ncc_private_endpoint_rule" {
   provider = databricks.account
-  
+
   for_each = var.databricks_private_endpoint_rules
 
   network_connectivity_config_id = databricks_mws_network_connectivity_config.network_connectivity_config.network_connectivity_config_id
@@ -18,7 +18,7 @@ resource "databricks_mws_ncc_private_endpoint_rule" "ncc_private_endpoint_rule" 
 
 resource "databricks_mws_ncc_binding" "ncc_binding" {
   provider = databricks.account
-  
+
   for_each = var.databricks_workspace_details
 
   network_connectivity_config_id = databricks_mws_network_connectivity_config.network_connectivity_config.network_connectivity_config_id

@@ -168,21 +168,15 @@ Source: ./modules/dataapplication
 
 Version:
 
-### <a name="module_databricks_account_configuration"></a> [databricks\_account\_configuration](#module\_databricks\_account\_configuration)
+### <a name="module_databricks_core"></a> [databricks\_core](#module\_databricks\_core)
 
-Source: ./modules/databricksaccountconfiguration
-
-Version:
-
-### <a name="module_databricks_workspace_configuration"></a> [databricks\_workspace\_configuration](#module\_databricks\_workspace\_configuration)
-
-Source: ./modules/databricksworkspaceconfiguration
+Source: ./modules/databrickscore
 
 Version:
 
-### <a name="module_databricksworkspaceapplication"></a> [databricksworkspaceapplication](#module\_databricksworkspaceapplication)
+### <a name="module_databricks_data_application"></a> [databricks\_data\_application](#module\_databricks\_data\_application)
 
-Source: ./modules/databricksworkspaceapplication
+Source: ./modules/databricksdataapplication
 
 Version:
 
