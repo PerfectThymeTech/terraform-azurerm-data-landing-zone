@@ -31,6 +31,13 @@ on:
       CLIENT_ID:
         required: true
         description: "Specifies the client id."
+    outputs:
+      databricks_account_id:
+        description: "Specifies the account id of Databricks."
+        value: ${{ jobs.apply.outputs.databricks_account_id }}
+      databricks_network_connectivity_config_id:
+        description: "Specifies the network connectivity config id of Databricks."
+        value: ${{ jobs.apply.outputs.databricks_network_connectivity_config_id }}
 
 permissions:
   id-token: write
@@ -194,6 +201,9 @@ jobs:
     concurrency:
       group: terraform-${{ inputs.environment }}
       cancel-in-progress: false
+    outputs:
+      databricks_account_id: ${{ steps.terraform_outputs.outputs.databricks_account_id }}
+      databricks_network_connectivity_config_id: ${{ steps.terraform_outputs.outputs.databricks_network_connectivity_config_id }}
 
     env:
       ARM_TENANT_ID: ${{ inputs.tenant_id }}
@@ -244,3 +254,17 @@ jobs:
         working-directory: ${{ inputs.working_directory }}
         run: |
           terraform apply -var-file="vars.tfvars" -auto-approve -input=false
+
+      # Terraform Export Outputs
+      - name: Terraform Export Outputs
+        id: terraform_outputs
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          # Get Terraform output
+          echo "Get Terraform output"
+
+          databricks_account_id=$(terraform output -raw databricks_account_id)
+          echo "databricks_account_id=$databricks_account_id" >> "$GITHUB_OUTPUT"
+
+          databricks_network_connectivity_config_id=$(terraform output -raw databricks_network_connectivity_config_id)
+          echo "databricks_network_connectivity_config_id=$databricks_network_connectivity_config_id" >> "$GITHUB_OUTPUT"

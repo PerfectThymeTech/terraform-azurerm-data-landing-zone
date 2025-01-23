@@ -31,7 +31,7 @@ budget:
       email_address: test@microsoft.com
 
 ai_services:
-  fr:
+  fore:
     location: swedencentral
     kind: FormRecognizer
     sku: S0
