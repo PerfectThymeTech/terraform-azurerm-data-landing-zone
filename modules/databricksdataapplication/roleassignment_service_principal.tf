@@ -263,3 +263,19 @@ resource "databricks_grant" "grant_storage_credential_service_principal" {
     databricks_permission_assignment.permission_assignment_service_principal,
   ]
 }
+
+resource "databricks_grant" "grant_credential_service_principal" {
+  credential = databricks_credential.credential.id
+  principal  = databricks_service_principal.service_principal.application_id
+  privileges = [
+    # General
+    # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
+    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+
+    # Read
+    "ACCESS",
+
+    # Create
+    "CREATE_CONNECTION",
+  ]
+}
