@@ -81,7 +81,7 @@ jobs:
       # Setup Databricks CLI
       - name: Setup Databricks CLI
         id: databricks_cli_setup
-        uses: databricks/setup-cli@v0.239.0
+        uses: databricks/setup-cli@v0.239.1
 
       # Check Out Repository
       - name: Check Out Repository
