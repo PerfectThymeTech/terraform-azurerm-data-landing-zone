@@ -8,7 +8,7 @@ resource "databricks_credential" "credential" {
   force_destroy  = true
   force_update   = true
   isolation_mode = "ISOLATION_MODE_ISOLATED"
-  # owner          = data.databricks_current_user.current_user.user_name
   purpose        = "SERVICE"
   read_only      = false
+  # owner          = data.databricks_current_user.current_user.user_name
 }
