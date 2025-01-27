@@ -1,4 +1,4 @@
-data "databricks_current_user" "current_user" {}
+# data "databricks_current_user" "current_user" {}
 
 data "azuread_service_principal" "service_principal" {
   display_name = var.service_principal_name
