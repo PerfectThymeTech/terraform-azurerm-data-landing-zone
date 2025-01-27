@@ -190,6 +190,17 @@ variable "private_dns_zone_id_databricks" {
   }
 }
 
+variable "private_dns_zone_id_cognitive_account" {
+  description = "Specifies the resource ID of the private DNS zone for Azure Cognitive Services. Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_cognitive_account == "" || (length(split("/", var.private_dns_zone_id_cognitive_account)) == 9 && (endswith(var.private_dns_zone_id_cognitive_account, "privatelink.cognitiveservices.azure.com") || endswith(var.private_dns_zone_id_cognitive_account, "privatelink.openai.azure.com")))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
 # Customer-managed key variables
 variable "customer_managed_key" {
   description = "Specifies the customer managed key configurations."
