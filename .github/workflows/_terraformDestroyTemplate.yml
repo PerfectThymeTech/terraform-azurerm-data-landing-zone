@@ -112,8 +112,8 @@ jobs:
         run: |
           # Remove config from state
           echo "Remove config from state"
-          terraform state rm "module.data_landing_zone.module.databricks_account_configuration.databricks_mws_network_connectivity_config.network_connectivity_config"
-          terraform state rm "module.data_landing_zone.module.databricks_workspace_configuration.databricks_workspace_conf.workspace_conf"
+          terraform state rm "module.data_landing_zone.module.databricks_core.databricks_mws_network_connectivity_config.network_connectivity_config"
+          terraform state rm "module.data_landing_zone.module.databricks_core.databricks_workspace_conf.workspace_conf"
 
       # Terraform Destroy
       - name: Terraform Destroy

@@ -283,3 +283,21 @@ resource "databricks_grant" "grant_storage_credential_developer" {
     databricks_permission_assignment.permission_assignment_developer,
   ]
 }
+
+resource "databricks_grant" "grant_credential_developer" {
+  count = var.developer_group_name == "" ? 0 : 1
+
+  credential = databricks_credential.credential.id
+  principal  = one(data.databricks_group.group_developer[*].display_name)
+  privileges = [
+    # General
+    # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
+    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+
+    # Read
+    "ACCESS",
+
+    # Create
+    "CREATE_CONNECTION",
+  ]
+}
