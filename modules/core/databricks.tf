@@ -21,7 +21,7 @@ module "databricks_workspace_engineering" {
   databricks_workspace_browser_authentication_private_endpoint_enabled      = false
   diagnostics_configurations                                                = var.diagnostics_configurations
   subnet_id                                                                 = var.subnet_id_storage
-  connectivity_delay_in_seconds                                             = var.connectivity_delay_in_seconds
+  connectivity_delay_in_seconds                                             = var.connectivity_delay_in_seconds + 30
   private_dns_zone_id_databricks                                            = var.private_dns_zone_id_databricks
   customer_managed_key                                                      = var.customer_managed_key
 }
@@ -49,7 +49,7 @@ module "databricks_workspace_consumption" {
   databricks_workspace_browser_authentication_private_endpoint_enabled      = false
   diagnostics_configurations                                                = var.diagnostics_configurations
   subnet_id                                                                 = var.subnet_id_storage
-  connectivity_delay_in_seconds                                             = var.connectivity_delay_in_seconds
+  connectivity_delay_in_seconds                                             = var.connectivity_delay_in_seconds + 30
   private_dns_zone_id_databricks                                            = var.private_dns_zone_id_databricks
   customer_managed_key                                                      = var.customer_managed_key
 }
