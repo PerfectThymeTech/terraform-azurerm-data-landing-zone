@@ -71,10 +71,3 @@ variable "databricks_ip_access_list_deny" {
   sensitive   = false
   default     = []
 }
-
-variable "databricks_dependencies" {
-  description = "Specifies a list of dependencies for storage resources."
-  type        = list(bool)
-  sensitive   = false
-  default     = []
-}

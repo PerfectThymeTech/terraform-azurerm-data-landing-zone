@@ -121,13 +121,6 @@ variable "storage_container_ids" {
   }
 }
 
-variable "databricks_dependencies" {
-  description = "Specifies a list of dependencies for storage resources."
-  type        = list(bool)
-  sensitive   = false
-  default     = []
-}
-
 # Identity variables
 variable "admin_group_name" {
   description = "Specifies the name of the admin Entra ID security group."
