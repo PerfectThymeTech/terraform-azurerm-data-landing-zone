@@ -18,6 +18,10 @@ module "databricks_core" {
   databricks_private_endpoint_rules = local.databricks_private_endpoint_rules
   databricks_ip_access_list_allow   = []
   databricks_ip_access_list_deny    = []
+
+  depends_on = [
+    module.core.databricks_dependencies,
+  ]
 }
 
 module "databricks_data_application" {
@@ -53,4 +57,8 @@ module "databricks_data_application" {
 
   # Budget variables
   budget = try(each.value.budget, 100)
+
+  depends_on = [
+    module.core.databricks_dependencies,
+  ]
 }

@@ -34,10 +34,11 @@ module "data_landing_zone" {
   subnet_cidr_ranges = var.subnet_cidr_ranges
 
   # DNS variables
-  private_dns_zone_id_blob       = var.private_dns_zone_id_blob
-  private_dns_zone_id_dfs        = var.private_dns_zone_id_dfs
-  private_dns_zone_id_vault      = var.private_dns_zone_id_vault
-  private_dns_zone_id_databricks = var.private_dns_zone_id_databricks
+  private_dns_zone_id_blob              = var.private_dns_zone_id_blob
+  private_dns_zone_id_dfs               = var.private_dns_zone_id_dfs
+  private_dns_zone_id_vault             = var.private_dns_zone_id_vault
+  private_dns_zone_id_databricks        = var.private_dns_zone_id_databricks
+  private_dns_zone_id_cognitive_account = var.private_dns_zone_id_cognitive_account
 
   # Customer-managed key variables
   customer_managed_key = var.customer_managed_key

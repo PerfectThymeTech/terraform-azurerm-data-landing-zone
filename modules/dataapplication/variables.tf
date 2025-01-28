@@ -108,6 +108,13 @@ variable "ai_services" {
   }
 }
 
+variable "storage_dependencies" {
+  description = "Specifies a list of dependencies for storage resources."
+  type        = list(bool)
+  sensitive   = false
+  default     = []
+}
+
 # HA/DR variables
 variable "zone_redundancy_enabled" {
   description = "Specifies whether zone-redundancy should be enabled for all resources."

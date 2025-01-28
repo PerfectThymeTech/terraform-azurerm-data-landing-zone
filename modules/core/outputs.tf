@@ -15,6 +15,14 @@ output "databricks_private_endpoint_rules" {
   sensitive   = false
 }
 
+output "databricks_dependencies" {
+  description = "Specifies the dependencies for Databricks."
+  value = [
+    module.databricks_workspace_engineering.databricks_workspace_completed,
+    module.databricks_workspace_consumption.databricks_workspace_completed,
+  ]
+}
+
 # Storage outputs
 output "storage_account_ids" {
   description = "Specifies the ids of the storage accounts in the core layer."
@@ -26,4 +34,15 @@ output "storage_account_ids" {
     workspace = module.storage_account_workspace.storage_account_id
   }
   sensitive = false
+}
+
+output "storage_dependencies" {
+  description = "Specifies the dependencies for Databricks."
+  value = [
+    module.storage_account_external.storage_setup_completed,
+    module.storage_account_raw.storage_setup_completed,
+    module.storage_account_enriched.storage_setup_completed,
+    module.storage_account_curated.storage_setup_completed,
+    module.storage_account_workspace.storage_setup_completed,
+  ]
 }

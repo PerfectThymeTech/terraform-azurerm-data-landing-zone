@@ -9,6 +9,10 @@ resource "azurerm_storage_container" "storage_container_external" {
     app_name    = var.app_name
     environment = var.environment
   }
+
+  depends_on = [
+    var.storage_dependencies,
+  ]
 }
 
 resource "azurerm_storage_container" "storage_container_raw" {
@@ -22,6 +26,10 @@ resource "azurerm_storage_container" "storage_container_raw" {
     app_name    = var.app_name
     environment = var.environment
   }
+
+  depends_on = [
+    var.storage_dependencies,
+  ]
 }
 
 resource "azurerm_storage_container" "storage_container_enriched" {
@@ -35,6 +43,10 @@ resource "azurerm_storage_container" "storage_container_enriched" {
     app_name    = var.app_name
     environment = var.environment
   }
+
+  depends_on = [
+    var.storage_dependencies,
+  ]
 }
 
 resource "azurerm_storage_container" "storage_container_curated" {
@@ -48,6 +60,10 @@ resource "azurerm_storage_container" "storage_container_curated" {
     app_name    = var.app_name
     environment = var.environment
   }
+
+  depends_on = [
+    var.storage_dependencies,
+  ]
 }
 
 resource "azurerm_storage_container" "storage_container_workspace" {
@@ -61,4 +77,8 @@ resource "azurerm_storage_container" "storage_container_workspace" {
     app_name    = var.app_name
     environment = var.environment
   }
+
+  depends_on = [
+    var.storage_dependencies,
+  ]
 }
