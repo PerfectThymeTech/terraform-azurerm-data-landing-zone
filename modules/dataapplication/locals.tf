@@ -97,7 +97,7 @@ locals {
     }
   }
   data_factory_ai_service_managed_private_endpoints = {
-    for key, value in var.ai_services:
+    for key, value in var.ai_services :
     "aiservice-${key}-account" => {
       subresource_name   = "account"
       target_resource_id = module.ai_service[key].cognitive_account_id

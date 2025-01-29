@@ -332,6 +332,14 @@ Type: `string`
 
 Default: `""`
 
+### <a name="input_private_dns_zone_id_data_factory"></a> [private\_dns\_zone\_id\_data\_factory](#input\_private\_dns\_zone\_id\_data\_factory)
+
+Description: Specifies the resource ID of the private DNS zone for Azure Data Factory. Not required if DNS A-records get created via Azure Policy.
+
+Type: `string`
+
+Default: `""`
+
 ### <a name="input_private_dns_zone_id_databricks"></a> [private\_dns\_zone\_id\_databricks](#input\_private\_dns\_zone\_id\_databricks)
 
 Description: Specifies the resource ID of the private DNS zone for Azure Databricks UI endpoints. Not required if DNS A-records get created via Azue Policy.
