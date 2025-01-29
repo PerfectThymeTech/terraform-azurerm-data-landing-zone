@@ -60,6 +60,15 @@ resource "azurerm_role_assignment" "role_assignment_cognitive_services_usages_re
   principal_type       = "Group"
 }
 
+# Data factory role assignments
+resource "azurerm_role_assignment" "role_assignment_data_factory_data_factory_contributor_admin" {
+  description          = "Role assignment to data factory."
+  scope                = module.data_factory.data_factory_id
+  role_definition_name = "Data Factory Contributor"
+  principal_id         = data.azuread_group.group_admin.object_id
+  principal_type       = "Group"
+}
+
 # Storage role assignments
 resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_owner_admin" {
   description          = "Role assignment to the external storage container."

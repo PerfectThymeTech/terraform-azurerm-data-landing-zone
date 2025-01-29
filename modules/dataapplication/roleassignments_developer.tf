@@ -53,11 +53,22 @@ resource "azurerm_role_assignment" "role_assignment_databricks_workspace_reader_
 
 # AI service role assignments
 resource "azurerm_role_assignment" "role_assignment_ai_service_developer" {
-  for_each = var.ai_services
+  for_each = var.developer_group_name == "" ? {} : var.ai_services
 
   description          = "Role assignment to the ai services."
   scope                = module.ai_service[each.key].cognitive_account_id
   role_definition_name = local.ai_service_kind_role_map_write[each.value.kind]
+  principal_id         = one(data.azuread_group.group_developer[*].object_id)
+  principal_type       = "Group"
+}
+
+# Data factory role assignments
+resource "azurerm_role_assignment" "role_assignment_data_factory_data_factory_contributor_developer" {
+  count = var.developer_group_name == "" ? 0 : 1
+
+  description          = "Role assignment to data factory."
+  scope                = module.data_factory.data_factory_id
+  role_definition_name = "Data Factory Contributor"
   principal_id         = one(data.azuread_group.group_developer[*].object_id)
   principal_type       = "Group"
 }
