@@ -1,0 +1,43 @@
+name: Import Azure Resource into Terraform State
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Specifies the environment of the deployment."
+        required: true
+        type: choice
+        default: "dev"
+        options:
+        - "dev"
+      config:
+        description: "Specifies the config of the deployment."
+        required: true
+        type: choice
+        default: "SharedTenant"
+        options:
+        - "SharedTenant"
+      import_target:
+        required: true
+        type: string
+        description: 'Specifies the terraform resource address (e.g., azurerm_resource_group.my_rg)'
+      resource_id:
+        required: true
+        type: string
+        description: "Specifies the resource id to import (e.g., /subscriptions/.../resourceGroups/myResourceGroup)"
+
+jobs:
+  terraform_import:
+    uses: ./.github/workflows/_terraformImportTemplate.yml
+    name: "Dev"
+    with:
+      environment: ${{ inputs.environment }}
+      config: ${{ inputs.config }}
+      terraform_version: "1.9.5"
+      node_version: 20
+      working_directory: "./infrastructure/platform"
+      import_target: ${{ inputs.import_target }}
+      resource_id: ${{ inputs.resource_id }}
+    secrets:
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
