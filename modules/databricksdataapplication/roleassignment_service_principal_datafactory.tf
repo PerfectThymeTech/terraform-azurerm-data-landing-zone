@@ -3,17 +3,17 @@ resource "databricks_permission_assignment" "permission_assignment_service_princ
   permissions  = ["USER"]
 }
 
-resource "databricks_secret_acl" "secret_acl_service_principal" {
+resource "databricks_secret_acl" "secret_acl_service_principal_data_factory" {
   principal  = databricks_service_principal.service_principal_data_factory.application_id
   permission = "READ"
   scope      = databricks_secret_scope.secret_scope.id
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_service_principal_data_factory,
   ]
 }
 
-resource "databricks_grant" "grant_catalog_internal_service_principal" {
+resource "databricks_grant" "grant_catalog_internal_service_principal_data_factory" {
   catalog   = databricks_catalog.catalog_internal.id
   principal = databricks_service_principal.service_principal_data_factory.application_id
   privileges = [
@@ -50,11 +50,11 @@ resource "databricks_grant" "grant_catalog_internal_service_principal" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_service_principal_data_factory,
   ]
 }
 
-resource "databricks_grant" "grant_catalog_external_service_principal" {
+resource "databricks_grant" "grant_catalog_external_service_principal_data_factory" {
   catalog   = databricks_catalog.catalog_external.id
   principal = databricks_service_principal.service_principal_data_factory.application_id
   privileges = [
@@ -91,11 +91,11 @@ resource "databricks_grant" "grant_catalog_external_service_principal" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_service_principal_data_factory,
   ]
 }
 
-resource "databricks_grant" "grant_external_location_external_service_principal" {
+resource "databricks_grant" "grant_external_location_external_service_principal_data_factory" {
   external_location = databricks_external_location.external_location_external.id
   principal         = databricks_service_principal.service_principal_data_factory.application_id
   privileges = [
@@ -120,11 +120,11 @@ resource "databricks_grant" "grant_external_location_external_service_principal"
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_service_principal_data_factory,
   ]
 }
 
-resource "databricks_grant" "grant_external_location_raw_service_principal" {
+resource "databricks_grant" "grant_external_location_raw_service_principal_data_factory" {
   external_location = databricks_external_location.external_location_raw.id
   principal         = databricks_service_principal.service_principal_data_factory.application_id
   privileges = [
@@ -149,11 +149,11 @@ resource "databricks_grant" "grant_external_location_raw_service_principal" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_service_principal_data_factory,
   ]
 }
 
-resource "databricks_grant" "grant_external_location_enriched_service_principal" {
+resource "databricks_grant" "grant_external_location_enriched_service_principal_data_factory" {
   external_location = databricks_external_location.external_location_enriched.id
   principal         = databricks_service_principal.service_principal_data_factory.application_id
   privileges = [
@@ -178,11 +178,11 @@ resource "databricks_grant" "grant_external_location_enriched_service_principal"
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_service_principal_data_factory,
   ]
 }
 
-resource "databricks_grant" "grant_external_location_curated_service_principal" {
+resource "databricks_grant" "grant_external_location_curated_service_principal_data_factory" {
   external_location = databricks_external_location.external_location_curated.id
   principal         = databricks_service_principal.service_principal_data_factory.application_id
   privileges = [
@@ -207,11 +207,11 @@ resource "databricks_grant" "grant_external_location_curated_service_principal" 
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_service_principal_data_factory,
   ]
 }
 
-resource "databricks_grant" "grant_external_location_workspace_service_principal" {
+resource "databricks_grant" "grant_external_location_workspace_service_principal_data_factory" {
   external_location = databricks_external_location.external_location_workspace.id
   principal         = databricks_service_principal.service_principal_data_factory.application_id
   privileges = [
@@ -236,11 +236,11 @@ resource "databricks_grant" "grant_external_location_workspace_service_principal
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_service_principal_data_factory,
   ]
 }
 
-resource "databricks_grant" "grant_storage_credential_service_principal" {
+resource "databricks_grant" "grant_storage_credential_service_principal_data_factory" {
   storage_credential = databricks_storage_credential.storage_credential.id
   principal          = databricks_service_principal.service_principal_data_factory.application_id
   privileges = [
@@ -260,11 +260,11 @@ resource "databricks_grant" "grant_storage_credential_service_principal" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_service_principal_data_factory,
   ]
 }
 
-resource "databricks_grant" "grant_credential_service_principal" {
+resource "databricks_grant" "grant_credential_service_principal_data_factory" {
   credential = databricks_credential.credential.id
   principal  = databricks_service_principal.service_principal_data_factory.application_id
   privileges = [
