@@ -1,14 +1,14 @@
 resource "databricks_permission_assignment" "permission_assignment_service_principal_data_factory" {
   count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
 
-  principal_id = databricks_service_principal.service_principal_data_factory.id
+  principal_id = one(databricks_service_principal.service_principal_data_factory[*].id)
   permissions  = ["USER"]
 }
 
 resource "databricks_secret_acl" "secret_acl_service_principal_data_factory" {
   count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
 
-  principal  = databricks_service_principal.service_principal_data_factory.application_id
+  principal  = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   permission = "READ"
   scope      = databricks_secret_scope.secret_scope.id
 
@@ -21,7 +21,7 @@ resource "databricks_grant" "grant_catalog_internal_service_principal_data_facto
   count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
 
   catalog   = databricks_catalog.catalog_internal.id
-  principal = databricks_service_principal.service_principal_data_factory.application_id
+  principal = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -64,7 +64,7 @@ resource "databricks_grant" "grant_catalog_external_service_principal_data_facto
   count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
 
   catalog   = databricks_catalog.catalog_external.id
-  principal = databricks_service_principal.service_principal_data_factory.application_id
+  principal = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -107,7 +107,7 @@ resource "databricks_grant" "grant_external_location_external_service_principal_
   count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
 
   external_location = databricks_external_location.external_location_external.id
-  principal         = databricks_service_principal.service_principal_data_factory.application_id
+  principal         = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -138,7 +138,7 @@ resource "databricks_grant" "grant_external_location_raw_service_principal_data_
   count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
 
   external_location = databricks_external_location.external_location_raw.id
-  principal         = databricks_service_principal.service_principal_data_factory.application_id
+  principal         = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -169,7 +169,7 @@ resource "databricks_grant" "grant_external_location_enriched_service_principal_
   count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
 
   external_location = databricks_external_location.external_location_enriched.id
-  principal         = databricks_service_principal.service_principal_data_factory.application_id
+  principal         = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -200,7 +200,7 @@ resource "databricks_grant" "grant_external_location_curated_service_principal_d
   count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
 
   external_location = databricks_external_location.external_location_curated.id
-  principal         = databricks_service_principal.service_principal_data_factory.application_id
+  principal         = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -231,7 +231,7 @@ resource "databricks_grant" "grant_external_location_workspace_service_principal
   count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
 
   external_location = databricks_external_location.external_location_workspace.id
-  principal         = databricks_service_principal.service_principal_data_factory.application_id
+  principal         = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -262,7 +262,7 @@ resource "databricks_grant" "grant_storage_credential_service_principal_data_fac
   count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
 
   storage_credential = databricks_storage_credential.storage_credential.id
-  principal          = databricks_service_principal.service_principal_data_factory.application_id
+  principal          = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -288,7 +288,7 @@ resource "databricks_grant" "grant_credential_service_principal_data_factory" {
   count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
 
   credential = databricks_credential.credential.id
-  principal  = databricks_service_principal.service_principal_data_factory.application_id
+  principal  = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
