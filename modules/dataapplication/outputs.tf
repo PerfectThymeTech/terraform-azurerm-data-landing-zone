@@ -32,6 +32,7 @@ output "key_vault_details" {
 output "data_factory_details" {
   description = "Specifies the data factory details of the app."
   value = {
+    data_factory_enabled      = var.data_factory_details.enabled
     data_factory_name         = var.data_factory_details.enabled ? one(module.data_factory[*].data_factory_name) : ""
     data_factory_id           = var.data_factory_details.enabled ? one(module.data_factory[*].data_factory_id) : ""
     data_factory_principal_id = var.data_factory_details.enabled ? one(module.data_factory[*].data_factory_principal_id) : ""

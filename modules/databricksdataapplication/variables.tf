@@ -107,6 +107,7 @@ variable "databricks_keyvault_secret_scope_details" {
 variable "databricks_data_factory_details" {
   description = "Specifies the databricks data factory details to onboard the managed identity to the account."
   type = object({
+    data_factory_enabled      = bool
     data_factory_name         = optional(string, "")
     data_factory_id           = optional(string, "")
     data_factory_principal_id = optional(string, "")

@@ -15,7 +15,7 @@ resource "databricks_service_principal" "service_principal" {
 }
 
 resource "databricks_service_principal" "service_principal_data_factory" {
-  count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
+  count = var.databricks_data_factory_details.data_factory_enableddata_factory_enabled ? 1 : 0
 
   provider = databricks.account
 

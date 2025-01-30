@@ -1,13 +1,13 @@
 resource "databricks_permission_assignment" "permission_assignment_service_principal_data_factory" {
-  count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
-
+  count = var.databricks_data_factory_details.data_factory_enableddata_factory_enabled ? 1 : 0
+  
   principal_id = one(databricks_service_principal.service_principal_data_factory[*].id)
   permissions  = ["USER"]
 }
 
 resource "databricks_secret_acl" "secret_acl_service_principal_data_factory" {
-  count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
-
+  count = var.databricks_data_factory_details.data_factory_enableddata_factory_enabled ? 1 : 0
+  
   principal  = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   permission = "READ"
   scope      = databricks_secret_scope.secret_scope.id
@@ -18,8 +18,8 @@ resource "databricks_secret_acl" "secret_acl_service_principal_data_factory" {
 }
 
 resource "databricks_grant" "grant_catalog_internal_service_principal_data_factory" {
-  count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
-
+  count = var.databricks_data_factory_details.data_factory_enableddata_factory_enabled ? 1 : 0
+  
   catalog   = databricks_catalog.catalog_internal.id
   principal = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
@@ -61,8 +61,8 @@ resource "databricks_grant" "grant_catalog_internal_service_principal_data_facto
 }
 
 resource "databricks_grant" "grant_catalog_external_service_principal_data_factory" {
-  count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
-
+  count = var.databricks_data_factory_details.data_factory_enableddata_factory_enabled ? 1 : 0
+  
   catalog   = databricks_catalog.catalog_external.id
   principal = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
@@ -104,8 +104,8 @@ resource "databricks_grant" "grant_catalog_external_service_principal_data_facto
 }
 
 resource "databricks_grant" "grant_external_location_external_service_principal_data_factory" {
-  count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
-
+  count = var.databricks_data_factory_details.data_factory_enableddata_factory_enabled ? 1 : 0
+  
   external_location = databricks_external_location.external_location_external.id
   principal         = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
@@ -135,8 +135,8 @@ resource "databricks_grant" "grant_external_location_external_service_principal_
 }
 
 resource "databricks_grant" "grant_external_location_raw_service_principal_data_factory" {
-  count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
-
+  count = var.databricks_data_factory_details.data_factory_enableddata_factory_enabled ? 1 : 0
+  
   external_location = databricks_external_location.external_location_raw.id
   principal         = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
@@ -166,8 +166,8 @@ resource "databricks_grant" "grant_external_location_raw_service_principal_data_
 }
 
 resource "databricks_grant" "grant_external_location_enriched_service_principal_data_factory" {
-  count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
-
+  count = var.databricks_data_factory_details.data_factory_enableddata_factory_enabled ? 1 : 0
+  
   external_location = databricks_external_location.external_location_enriched.id
   principal         = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
@@ -197,8 +197,8 @@ resource "databricks_grant" "grant_external_location_enriched_service_principal_
 }
 
 resource "databricks_grant" "grant_external_location_curated_service_principal_data_factory" {
-  count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
-
+  count = var.databricks_data_factory_details.data_factory_enableddata_factory_enabled ? 1 : 0
+  
   external_location = databricks_external_location.external_location_curated.id
   principal         = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
@@ -228,8 +228,8 @@ resource "databricks_grant" "grant_external_location_curated_service_principal_d
 }
 
 resource "databricks_grant" "grant_external_location_workspace_service_principal_data_factory" {
-  count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
-
+  count = var.databricks_data_factory_details.data_factory_enableddata_factory_enabled ? 1 : 0
+  
   external_location = databricks_external_location.external_location_workspace.id
   principal         = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
@@ -259,8 +259,8 @@ resource "databricks_grant" "grant_external_location_workspace_service_principal
 }
 
 resource "databricks_grant" "grant_storage_credential_service_principal_data_factory" {
-  count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
-
+  count = var.databricks_data_factory_details.data_factory_enableddata_factory_enabled ? 1 : 0
+  
   storage_credential = databricks_storage_credential.storage_credential.id
   principal          = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
@@ -285,8 +285,8 @@ resource "databricks_grant" "grant_storage_credential_service_principal_data_fac
 }
 
 resource "databricks_grant" "grant_credential_service_principal_data_factory" {
-  count = var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != "" ? 1 : 0
-
+  count = var.databricks_data_factory_details.data_factory_enableddata_factory_enabled ? 1 : 0
+  
   credential = databricks_credential.credential.id
   principal  = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
