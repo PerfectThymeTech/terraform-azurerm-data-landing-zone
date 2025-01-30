@@ -6,6 +6,8 @@ module "data_factory" {
     time    = time
   }
 
+  count = var.data_factory_details.enabled ? 1 : 0
+
   location                                          = var.location
   resource_group_name                               = azurerm_resource_group.resource_group_app.name
   tags                                              = var.tags

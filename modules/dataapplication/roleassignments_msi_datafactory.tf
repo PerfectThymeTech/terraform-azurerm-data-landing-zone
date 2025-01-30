@@ -1,5 +1,7 @@
 # Resource group role assignments
 resource "azurerm_role_assignment" "role_assignment_resource_group_app_reader_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to app resource group."
   scope                = azurerm_resource_group.resource_group_app.id
   role_definition_name = "Reader"
@@ -8,6 +10,8 @@ resource "azurerm_role_assignment" "role_assignment_resource_group_app_reader_da
 }
 
 resource "azurerm_role_assignment" "role_assignment_resource_group_app_monitoring_reader_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to app resource group."
   scope                = azurerm_resource_group.resource_group_app_monitoring.id
   role_definition_name = "Reader"
@@ -16,6 +20,8 @@ resource "azurerm_role_assignment" "role_assignment_resource_group_app_monitorin
 }
 
 resource "azurerm_role_assignment" "role_assignment_resource_group_storage_reader_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to storage resource group."
   scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.external)[4]}"
   role_definition_name = "Reader"
@@ -25,6 +31,8 @@ resource "azurerm_role_assignment" "role_assignment_resource_group_storage_reade
 
 # Key vault role assignments
 resource "azurerm_role_assignment" "role_assignment_key_vault_secrets_user_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to key vault to read secrets."
   scope                = module.key_vault.key_vault_id
   role_definition_name = "Key Vault Secrets User"
@@ -34,6 +42,8 @@ resource "azurerm_role_assignment" "role_assignment_key_vault_secrets_user_dataf
 
 # Databricks role assignments
 resource "azurerm_role_assignment" "role_assignment_databricks_workspace_reader_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to databricks workspace."
   scope                = var.databricks_workspace_details["engineering"].id
   role_definition_name = "Reader"
@@ -43,7 +53,7 @@ resource "azurerm_role_assignment" "role_assignment_databricks_workspace_reader_
 
 # AI service role assignments
 resource "azurerm_role_assignment" "role_assignment_ai_service_datafactory" {
-  for_each = var.ai_services
+  for_each = var.data_factory_details.enabled ? var.ai_services : {}
 
   description          = "Role assignment to the ai services."
   scope                = module.ai_service[each.key].cognitive_account_id
@@ -53,6 +63,8 @@ resource "azurerm_role_assignment" "role_assignment_ai_service_datafactory" {
 }
 
 resource "azurerm_role_assignment" "role_assignment_cognitive_services_usages_reader_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Cognitive Services Usages Reader to check quota for Azure Open AI models."
   scope                = data.azurerm_subscription.current.id
   role_definition_name = "Cognitive Services Usages Reader"
@@ -62,6 +74,8 @@ resource "azurerm_role_assignment" "role_assignment_cognitive_services_usages_re
 
 # Storage Role Assignments
 resource "azurerm_role_assignment" "role_assignment_storage_account_external_event_subscription_contributor_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to external storage account to create event triggers."
   scope                = var.storage_account_ids.external
   role_definition_name = "EventGrid EventSubscription Contributor"
@@ -70,6 +84,8 @@ resource "azurerm_role_assignment" "role_assignment_storage_account_external_eve
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_contributor_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to external storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_external.id
   role_definition_name = "Storage Blob Data Contributor"
@@ -78,6 +94,8 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_external_b
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_account_raw_event_subscription_contributor_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to raw storage account to create event triggers."
   scope                = var.storage_account_ids.raw
   role_definition_name = "EventGrid EventSubscription Contributor"
@@ -86,6 +104,8 @@ resource "azurerm_role_assignment" "role_assignment_storage_account_raw_event_su
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_raw_blob_data_contributor_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to raw storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_raw.id
   role_definition_name = "Storage Blob Data Contributor"
@@ -94,6 +114,8 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_raw_blob_d
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_account_enriched_event_subscription_contributor_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to enriched storage account to create event triggers."
   scope                = var.storage_account_ids.enriched
   role_definition_name = "EventGrid EventSubscription Contributor"
@@ -102,6 +124,8 @@ resource "azurerm_role_assignment" "role_assignment_storage_account_enriched_eve
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_enriched_blob_data_contributor_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to enriched storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_enriched.id
   role_definition_name = "Storage Blob Data Contributor"
@@ -110,6 +134,8 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_enriched_b
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_account_curated_event_subscription_contributor_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to curated storage account to create event triggers."
   scope                = var.storage_account_ids.curated
   role_definition_name = "EventGrid EventSubscription Contributor"
@@ -118,6 +144,8 @@ resource "azurerm_role_assignment" "role_assignment_storage_account_curated_even
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_curated_blob_data_contributor_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to curated storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_curated.id
   role_definition_name = "Storage Blob Data Contributor"
@@ -134,6 +162,8 @@ resource "azurerm_role_assignment" "role_assignment_storage_account_workspace_ev
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_workspace_blob_data_contributor_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to workspace storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_workspace.id
   role_definition_name = "Storage Blob Data Contributor"
