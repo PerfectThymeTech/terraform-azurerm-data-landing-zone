@@ -110,6 +110,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
   integration_runtime_name = local.data_factory_default_integration_runtime_name
   parameters               = {}
   url                      = "https://${split("/", var.storage_account_ids.external)[7]}.dfs.core.windows.net/"
+  use_managed_identity     = true
 }
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_raw" {
@@ -122,6 +123,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
   integration_runtime_name = local.data_factory_default_integration_runtime_name
   parameters               = {}
   url                      = "https://${split("/", var.storage_account_ids.external)[7]}.dfs.core.windows.net/"
+  use_managed_identity     = true
 }
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_enriched" {
@@ -134,6 +136,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
   integration_runtime_name = local.data_factory_default_integration_runtime_name
   parameters               = {}
   url                      = "https://${split("/", var.storage_account_ids.enriched)[7]}.dfs.core.windows.net/"
+  use_managed_identity     = true
 }
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_curated" {
@@ -146,6 +149,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
   integration_runtime_name = local.data_factory_default_integration_runtime_name
   parameters               = {}
   url                      = "https://${split("/", var.storage_account_ids.curated)[7]}.dfs.core.windows.net/"
+  use_managed_identity     = true
 }
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_workspace" {
@@ -158,4 +162,5 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
   integration_runtime_name = local.data_factory_default_integration_runtime_name
   parameters               = {}
   url                      = "https://${split("/", var.storage_account_ids.workspace)[7]}.dfs.core.windows.net/"
+  use_managed_identity     = true
 }
