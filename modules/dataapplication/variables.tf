@@ -112,13 +112,13 @@ variable "data_factory_details" {
   description = "Specifies the data factory configuration details."
   type = object({
     enabled = optional(bool, true)
-    github_repo = optional({
+    github_repo = optional(object({
       account_name    = optional(string, "")
       branch_name     = optional(string, "")
       git_url         = optional(string, "")
       repository_name = optional(string, "")
       root_folder     = optional(string, "")
-    }, {})
+    }), {})
   })
   sensitive = false
   default   = {}
