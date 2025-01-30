@@ -86,6 +86,59 @@
       ],
       "additionalProperties": false
     },
+    "repository": {
+      "description": "Specifies the repository section of the extension.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "Specifies the type of repository.",
+          "type": "string",
+          "enum": [
+            "github"
+          ],
+          "default": "github"
+        },
+        "github": {
+          "description": "Specifies the github repository section.",
+          "type": "object",
+          "properties": {
+            "git_url": {
+              "description": "Specifies the git URL.",
+              "type": "string",
+              "enum": [
+                "",
+                "https://github.com"
+              ],
+              "default": "https://github.com"
+            },
+            "account_name": {
+              "description": "Specifies the git account name.",
+              "type": "string"
+            },
+            "branch_name": {
+              "description": "Specifies the main git branch name.",
+              "type": "string",
+              "default": "main"
+            },
+            "repository_name": {
+              "description": "Specifies the git repository name.",
+              "type": "string"
+            },
+            "data_factory_root_folder": {
+              "description": "Specifies the git root folder for data factory artifacts.",
+              "type": "string",
+              "default": "/code/datafactory"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
     "alerting": {
       "description": "Specifies the alerting section of the application.",
       "type": "object",
@@ -257,6 +310,19 @@
           "additionalProperties": false
         }
       }
+    },
+    "data_factory": {
+      "description": "Specifies the data factory section of the application.",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "description": "Specifies whether data factory should be enabled.",
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "required": [],
+      "additionalProperties": false
     }
   },
   "required": [

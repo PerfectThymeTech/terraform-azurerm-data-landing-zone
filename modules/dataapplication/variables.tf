@@ -108,6 +108,22 @@ variable "ai_services" {
   }
 }
 
+variable "data_factory_details" {
+  description = "Specifies the data factory configuration details."
+  type = object({
+    enabled = optional(bool, true)
+    github_repo = optional({
+      account_name    = optional(string, "")
+      branch_name     = optional(string, "")
+      git_url         = optional(string, "")
+      repository_name = optional(string, "")
+      root_folder     = optional(string, "")
+    }, {})
+  })
+  sensitive = false
+  default   = {}
+}
+
 variable "storage_dependencies" {
   description = "Specifies a list of dependencies for storage resources."
   type        = list(bool)

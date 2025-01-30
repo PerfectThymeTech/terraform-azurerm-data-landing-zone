@@ -12,7 +12,7 @@ module "data_factory" {
   data_factory_name                                 = "${local.prefix}-adf001"
   data_factory_purview_id                           = null
   data_factory_azure_devops_repo                    = {}
-  data_factory_github_repo                          = {} # TODO: Add input variable
+  data_factory_github_repo                          = var.data_factory_details.github_repo
   data_factory_global_parameters                    = {}
   data_factory_published_content                    = {}
   data_factory_published_content_template_variables = {}
