@@ -14,9 +14,9 @@ on:
         description: "Specifies the config of the deployment."
         required: true
         type: choice
-        default: "SharedTenant"
+        default: "."
         options:
-        - "SharedTenant"
+        - "."
       import_target:
         required: true
         type: string
@@ -33,11 +33,12 @@ jobs:
     with:
       environment: ${{ inputs.environment }}
       config: ${{ inputs.config }}
-      terraform_version: "1.9.5"
+      terraform_version: "1.10.4"
       node_version: 20
-      working_directory: "./infrastructure/platform"
+      working_directory: "./tests/e2e"
+      tenant_id: "37963dd4-f4e6-40f8-a7d6-24b97919e452"
+      subscription_id: "9842be63-c8c0-4647-a5d1-0c5e7f8bbb25"
       import_target: ${{ inputs.import_target }}
       resource_id: ${{ inputs.resource_id }}
     secrets:
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
-      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
