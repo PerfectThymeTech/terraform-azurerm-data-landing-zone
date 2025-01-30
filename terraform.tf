@@ -17,9 +17,6 @@ terraform {
     databricks = {
       source  = "databricks/databricks"
       version = "~> 1.63"
-      # configuration_aliases = [
-      #   databricks.account
-      # ]
     }
     time = {
       source  = "hashicorp/time"
