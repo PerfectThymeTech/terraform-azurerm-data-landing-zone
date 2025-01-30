@@ -67,7 +67,7 @@ resource "azurerm_role_assignment" "role_assignment_data_factory_data_factory_co
   count = var.developer_group_name == "" ? 0 : 1
 
   description          = "Role assignment to data factory."
-  scope                = module.data_factory.data_factory_id
+  scope                = one(module.data_factory[*].data_factory_id)
   role_definition_name = "Data Factory Contributor"
   principal_id         = one(data.azuread_group.group_developer[*].object_id)
   principal_type       = "Group"

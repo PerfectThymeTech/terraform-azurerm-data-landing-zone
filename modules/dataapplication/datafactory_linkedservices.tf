@@ -2,7 +2,7 @@
 resource "azurerm_data_factory_linked_service_key_vault" "data_factory_linked_service_key_vault" {
   count = var.data_factory_details.enabled ? 1 : 0
 
-  data_factory_id = module.data_factory.data_factory_id
+  data_factory_id = one(module.data_factory[*].data_factory_id)
   name            = "KeyVault"
 
   additional_properties = {}
@@ -17,7 +17,7 @@ resource "azurerm_data_factory_linked_service_key_vault" "data_factory_linked_se
 resource "azurerm_data_factory_linked_service_azure_databricks" "data_factory_linked_service_azure_databricks" {
   count = var.data_factory_details.enabled ? 1 : 0
 
-  data_factory_id = module.data_factory.data_factory_id
+  data_factory_id = one(module.data_factory[*].data_factory_id)
   name            = "Databricks"
 
   adb_domain            = "https://${var.databricks_workspace_details["engineering"].workspace_url}"
@@ -36,7 +36,7 @@ resource "azurerm_data_factory_linked_service_azure_databricks" "data_factory_li
 resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_linked_service_azure_blob_storage_external" {
   count = var.data_factory_details.enabled ? 1 : 0
 
-  data_factory_id = module.data_factory.data_factory_id
+  data_factory_id = one(module.data_factory[*].data_factory_id)
   name            = "BlobStorageExternal"
 
   additional_properties = {}
@@ -52,7 +52,7 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
 resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_linked_service_azure_blob_storage_raw" {
   count = var.data_factory_details.enabled ? 1 : 0
 
-  data_factory_id = module.data_factory.data_factory_id
+  data_factory_id = one(module.data_factory[*].data_factory_id)
   name            = "BlobStorageRaw"
 
   additional_properties = {}
@@ -68,7 +68,7 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
 resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_linked_service_azure_blob_storage_enriched" {
   count = var.data_factory_details.enabled ? 1 : 0
 
-  data_factory_id = module.data_factory.data_factory_id
+  data_factory_id = one(module.data_factory[*].data_factory_id)
   name            = "BlobStorageEnriched"
 
   additional_properties = {}
@@ -84,7 +84,7 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
 resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_linked_service_azure_blob_storage_curated" {
   count = var.data_factory_details.enabled ? 1 : 0
 
-  data_factory_id = module.data_factory.data_factory_id
+  data_factory_id = one(module.data_factory[*].data_factory_id)
   name            = "BlobStorageCurated"
 
   additional_properties = {}
@@ -100,7 +100,7 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
 resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_linked_service_azure_blob_storage_workspace" {
   count = var.data_factory_details.enabled ? 1 : 0
 
-  data_factory_id = module.data_factory.data_factory_id
+  data_factory_id = one(module.data_factory[*].data_factory_id)
   name            = "BlobStorageWorkspace"
 
   additional_properties = {}
@@ -117,7 +117,7 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_external" {
   count = var.data_factory_details.enabled ? 1 : 0
 
-  data_factory_id = module.data_factory.data_factory_id
+  data_factory_id = one(module.data_factory[*].data_factory_id)
   name            = "DatalakeStorageExternal"
 
   additional_properties = {}
@@ -132,7 +132,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_raw" {
   count = var.data_factory_details.enabled ? 1 : 0
 
-  data_factory_id = module.data_factory.data_factory_id
+  data_factory_id = one(module.data_factory[*].data_factory_id)
   name            = "DatalakeStorageRaw"
 
   additional_properties = {}
@@ -147,7 +147,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_enriched" {
   count = var.data_factory_details.enabled ? 1 : 0
 
-  data_factory_id = module.data_factory.data_factory_id
+  data_factory_id = one(module.data_factory[*].data_factory_id)
   name            = "DatalakeStorageEnriched"
 
   additional_properties = {}
@@ -162,7 +162,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_curated" {
   count = var.data_factory_details.enabled ? 1 : 0
 
-  data_factory_id = module.data_factory.data_factory_id
+  data_factory_id = one(module.data_factory[*].data_factory_id)
   name            = "DatalakeStorageCurated"
 
   additional_properties = {}
@@ -177,7 +177,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_workspace" {
   count = var.data_factory_details.enabled ? 1 : 0
 
-  data_factory_id = module.data_factory.data_factory_id
+  data_factory_id = one(module.data_factory[*].data_factory_id)
   name            = "DatalakeStorageWorkspace"
 
   additional_properties = {}

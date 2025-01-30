@@ -62,8 +62,10 @@ resource "azurerm_role_assignment" "role_assignment_cognitive_services_usages_re
 
 # Data factory role assignments
 resource "azurerm_role_assignment" "role_assignment_data_factory_data_factory_contributor_service_principal" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to data factory."
-  scope                = module.data_factory.data_factory_id
+  scope                = one(module.data_factory[*].data_factory_id)
   role_definition_name = "Data Factory Contributor"
   principal_id         = data.azuread_service_principal.service_principal.object_id
   principal_type       = "ServicePrincipal"
