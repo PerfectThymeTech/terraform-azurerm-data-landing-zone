@@ -21,8 +21,20 @@ output "databricks_access_connector_id" {
 output "key_vault_details" {
   description = "Specifies the key vault details of the app."
   value = {
-    key_vault_uri = module.key_vault.key_vault_uri
-    key_vault_id  = module.key_vault.key_vault_id
+    key_vault_name = module.key_vault.key_vault_name
+    key_vault_id   = module.key_vault.key_vault_id
+    key_vault_uri  = module.key_vault.key_vault_uri
+  }
+  sensitive = false
+}
+
+# Data factory outputs
+output "data_factory_details" {
+  description = "Specifies the data factory details of the app."
+  value = {
+    data_factory_name         = var.data_factory_details.enabled ? one(module.data_factory[*].data_factory_name) : ""
+    data_factory_id           = var.data_factory_details.enabled ? one(module.data_factory[*].data_factory_id) : ""
+    data_factory_principal_id = var.data_factory_details.enabled ? one(module.data_factory[*].data_factory_principal_id) : ""
   }
   sensitive = false
 }

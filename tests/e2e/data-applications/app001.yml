@@ -13,6 +13,15 @@ network:
   private_endpoint_subnet:
     cidr_range: "10.2.1.64/27"
 
+repository:
+  type: github
+  github:
+    git_url: "https://github.com"
+    account_name: "PerfectThymeTech"
+    branch_name: main
+    repository_name: "terraform-azurerm-data-landing-zone"
+    data_factory_root_folder: "/code/datafactory"
+
 alerting:
   categories:
     service_health:
@@ -35,3 +44,6 @@ ai_services:
     location: swedencentral
     kind: FormRecognizer
     sku: S0
+
+data_factory:
+  enabled: true

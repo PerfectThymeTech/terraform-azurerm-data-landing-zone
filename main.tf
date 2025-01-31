@@ -96,7 +96,17 @@ module "data_application" {
   storage_account_ids          = module.core.storage_account_ids
   databricks_workspace_details = module.core.databricks_workspace_details
   ai_services                  = try(each.value.ai_services, {})
-  storage_dependencies         = module.core.storage_dependencies
+  data_factory_details = {
+    enabled = try(each.value.data_factory.enabled, false)
+    github_repo = {
+      account_name    = try(each.value.repository.github.account_name, "")
+      branch_name     = try(each.value.repository.github.branch_name, "")
+      git_url         = try(each.value.repository.github.git_url, "")
+      repository_name = try(each.value.repository.github.repository_name, "")
+      root_folder     = try(each.value.repository.github.data_factory_root_folder, "")
+    }
+  }
+  storage_dependencies = module.core.storage_dependencies
 
   # HA/DR variables
   zone_redundancy_enabled = var.zone_redundancy_enabled
@@ -122,6 +132,7 @@ module "data_application" {
   private_dns_zone_id_databricks        = var.private_dns_zone_id_databricks
   private_dns_zone_id_vault             = var.private_dns_zone_id_vault
   private_dns_zone_id_cognitive_account = var.private_dns_zone_id_cognitive_account
+  private_dns_zone_id_data_factory      = var.private_dns_zone_id_data_factory
 
   # Customer-managed key variables
   customer_managed_key = var.customer_managed_key

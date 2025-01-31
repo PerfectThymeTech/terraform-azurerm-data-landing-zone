@@ -108,6 +108,22 @@ variable "ai_services" {
   }
 }
 
+variable "data_factory_details" {
+  description = "Specifies the data factory configuration details."
+  type = object({
+    enabled = optional(bool, true)
+    github_repo = optional(object({
+      account_name    = optional(string, "")
+      branch_name     = optional(string, "")
+      git_url         = optional(string, "")
+      repository_name = optional(string, "")
+      root_folder     = optional(string, "")
+    }), {})
+  })
+  sensitive = false
+  default   = {}
+}
+
 variable "storage_dependencies" {
   description = "Specifies a list of dependencies for storage resources."
   type        = list(bool)
@@ -296,6 +312,17 @@ variable "private_dns_zone_id_cognitive_account" {
   default     = ""
   validation {
     condition     = var.private_dns_zone_id_cognitive_account == "" || (length(split("/", var.private_dns_zone_id_cognitive_account)) == 9 && (endswith(var.private_dns_zone_id_cognitive_account, "privatelink.cognitiveservices.azure.com") || endswith(var.private_dns_zone_id_cognitive_account, "privatelink.openai.azure.com")))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
+variable "private_dns_zone_id_data_factory" {
+  description = "Specifies the resource ID of the private DNS zone for Azure Data Factory. Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_data_factory == "" || (length(split("/", var.private_dns_zone_id_data_factory)) == 9 && endswith(var.private_dns_zone_id_data_factory, "privatelink.datafactory.azure.net"))
     error_message = "Please specify a valid resource ID for the private DNS Zone."
   }
 }

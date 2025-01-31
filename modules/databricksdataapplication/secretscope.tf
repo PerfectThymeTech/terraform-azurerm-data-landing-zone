@@ -7,15 +7,3 @@ resource "databricks_secret_scope" "secret_scope" {
     resource_id = var.databricks_keyvault_secret_scope_details.key_vault_id
   }
 }
-
-# resource "databricks_secret_acl" "secret_acl" {
-#   count      = var.databricks_admin_groupname != "" ? 1 : 0
-
-#   principal  = one(data.databricks_group.group[*].display_name)
-#   permission = "MANAGE"
-#   scope      = databricks_secret_scope.platform_secret_scope.name
-
-#   depends_on = [
-#     time_sleep.sleep_permission_assignment
-#   ]
-# }

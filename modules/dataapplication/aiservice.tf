@@ -8,10 +8,9 @@ module "ai_service" {
 
   for_each = var.ai_services
 
-  location            = var.location
-  resource_group_name = azurerm_resource_group.resource_group_app.name
-  tags                = var.tags
-
+  location                                                = var.location
+  resource_group_name                                     = azurerm_resource_group.resource_group_app.name
+  tags                                                    = var.tags
   cognitive_account_name                                  = "${local.prefix}-${each.key}-kv001"
   cognitive_account_kind                                  = each.value.kind
   cognitive_account_sku                                   = each.value.sku

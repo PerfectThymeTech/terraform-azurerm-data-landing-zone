@@ -91,15 +91,33 @@ variable "databricks_cluster_policy_file_variables" {
 variable "databricks_keyvault_secret_scope_details" {
   description = "Specifies the databricks key vault secret scope details that should be added to the workspace."
   type = object({
-    key_vault_uri = optional(string, "")
-    key_vault_id  = optional(string, "")
+    key_vault_name = optional(string, "")
+    key_vault_uri  = optional(string, "")
+    key_vault_id   = optional(string, "")
   })
   sensitive = false
   nullable  = false
   default   = {}
   validation {
-    condition     = var.databricks_keyvault_secret_scope_details.key_vault_uri == "" && var.databricks_keyvault_secret_scope_details.key_vault_id == "" || var.databricks_keyvault_secret_scope_details.key_vault_uri != "" && var.databricks_keyvault_secret_scope_details.key_vault_id != ""
+    condition     = var.databricks_keyvault_secret_scope_details.key_vault_name == "" && var.databricks_keyvault_secret_scope_details.key_vault_uri == "" && var.databricks_keyvault_secret_scope_details.key_vault_id == "" || var.databricks_keyvault_secret_scope_details.key_vault_name != "" && var.databricks_keyvault_secret_scope_details.key_vault_uri != "" && var.databricks_keyvault_secret_scope_details.key_vault_id != ""
     error_message = "Please provide valid key vault details."
+  }
+}
+
+variable "databricks_data_factory_details" {
+  description = "Specifies the databricks data factory details to onboard the managed identity to the account."
+  type = object({
+    data_factory_enabled      = optional(bool, false)
+    data_factory_name         = optional(string, "")
+    data_factory_id           = optional(string, "")
+    data_factory_principal_id = optional(string, "")
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+  validation {
+    condition     = var.databricks_data_factory_details.data_factory_name == "" && var.databricks_data_factory_details.data_factory_id == "" && var.databricks_data_factory_details.data_factory_principal_id == "" || var.databricks_data_factory_details.data_factory_name != "" && var.databricks_data_factory_details.data_factory_id != "" && var.databricks_data_factory_details.data_factory_principal_id != ""
+    error_message = "Please provide valid data factory details."
   }
 }
 
