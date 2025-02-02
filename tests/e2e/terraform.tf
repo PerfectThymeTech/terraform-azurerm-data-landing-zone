@@ -16,7 +16,7 @@ terraform {
     }
     databricks = {
       source  = "databricks/databricks"
-      version = "1.63.0"
+      version = "1.64.1"
     }
     time = {
       source  = "hashicorp/time"
