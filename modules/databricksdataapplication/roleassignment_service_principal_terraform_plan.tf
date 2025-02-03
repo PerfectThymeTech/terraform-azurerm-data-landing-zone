@@ -4,7 +4,7 @@ resource "databricks_permission_assignment" "permission_assignment_service_princ
 }
 
 resource "databricks_secret_acl" "secret_acl_service_principal_terraform_plan" {
-  principal  = one(databricks_service_principal.service_principal[*].application_id)
+  principal  = one(data.databricks_service_principal.service_principal[*].application_id)
   permission = "READ"
   scope      = databricks_secret_scope.secret_scope.id
 
