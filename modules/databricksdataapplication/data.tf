@@ -4,6 +4,14 @@ data "azuread_service_principal" "service_principal" {
   display_name = var.service_principal_name
 }
 
+data "azuread_service_principal" "service_principal_terraform_plan" {
+  display_name = var.service_principal_name_terraform_plan
+}
+
+data "databricks_service_principal" "service_principal_terraform_plan" {
+  application_id = data.azuread_service_principal.service_principal_terraform_plan.client_id
+}
+
 data "databricks_group" "group_admin" {
   provider = databricks.account
 
