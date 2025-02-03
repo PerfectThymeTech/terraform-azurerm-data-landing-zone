@@ -91,7 +91,7 @@ variable "service_principal_name_terraform_plan" {
   sensitive   = false
   default     = ""
   validation {
-    condition     = var.service_principal_name_tfplan == "" || length(var.service_principal_name_tfplan) >= 2
+    condition     = var.service_principal_name_terraform_plan == "" || length(var.service_principal_name_terraform_plan) >= 2
     error_message = "Please specify a valid name."
   }
 }
