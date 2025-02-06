@@ -23,9 +23,25 @@ resource "databricks_permissions" "permissions_directory" {
     }
   }
   # Service principal permissions
+  dynamic "access_control" {
+    for_each = var.service_principal_name == "" ? [] : [1]
+    content {
+      service_principal_name = one(databricks_service_principal.service_principal[*].application_id)
+      permission_level       = "CAN_MANAGE"
+    }
+  }
+  # Service principal data factory permissions
+  dynamic "access_control" {
+    for_each = var.databricks_data_factory_details.data_factory_enabled ? [1] : [0]
+    content {
+      service_principal_name = one(databricks_service_principal.service_principal_data_factory[*].application_id)
+      permission_level       = "CAN_MANAGE"
+    }
+  }
+  # UAI permissions
   access_control {
-    service_principal_name = databricks_service_principal.service_principal.application_id
-    permission_level       = "CAN_MANAGE"
+    group_name       = databricks_service_principal.service_principal_uai.application_id
+    permission_level = "CAN_MANAGE"
   }
 
   depends_on = [
@@ -33,6 +49,7 @@ resource "databricks_permissions" "permissions_directory" {
     databricks_permission_assignment.permission_assignment_developer,
     databricks_permission_assignment.permission_assignment_reader,
     databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
@@ -47,9 +64,25 @@ resource "databricks_permissions" "permissions_cluster_policy" {
     permission_level = "CAN_USE"
   }
   # Service principal permissions
+  dynamic "access_control" {
+    for_each = var.service_principal_name == "" ? [] : [1]
+    content {
+      service_principal_name = one(databricks_service_principal.service_principal[*].application_id)
+      permission_level       = "CAN_USE"
+    }
+  }
+  # Service principal data factory permissions
+  dynamic "access_control" {
+    for_each = var.databricks_data_factory_details.data_factory_enabled ? [1] : [0]
+    content {
+      service_principal_name = one(databricks_service_principal.service_principal_data_factory[*].application_id)
+      permission_level       = "CAN_USE"
+    }
+  }
+  # UAI permissions
   access_control {
-    service_principal_name = databricks_service_principal.service_principal.application_id
-    permission_level       = "CAN_USE"
+    group_name       = databricks_service_principal.service_principal_uai.application_id
+    permission_level = "CAN_USE"
   }
 
   depends_on = [
@@ -57,6 +90,7 @@ resource "databricks_permissions" "permissions_cluster_policy" {
     databricks_permission_assignment.permission_assignment_developer,
     databricks_permission_assignment.permission_assignment_reader,
     databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
@@ -85,15 +119,33 @@ resource "databricks_permissions" "permissions_cluster_policy" {
 #     }
 #   }
 #   # Service principal permissions
-#   access_control {
-#     service_principal_name = databricks_service_principal.service_principal.application_id
-#     permission_level       = "CAN_USE"
+#   dynamic "access_control" {
+#     for_each = var.service_principal_name == "" ? [] : [1]
+#     content {
+#       service_principal_name = one(databricks_service_principal.service_principal[*].application_id)
+#       permission_level       = "CAN_USE"
+#     }
 #   }
+#   # Service principal data factory permissions
+#   dynamic "access_control" {
+#     for_each = var.databricks_data_factory_details.data_factory_enabled ? [1] : [0]
+#     content {
+#       service_principal_name = one(databricks_service_principal.service_principal_data_factory[*].application_id)
+#       permission_level       = "CAN_USE"
+#     }
+#   }
+#   # UAI permissions
+#   access_control {
+#     group_name       = databricks_service_principal.service_principal_uai.application_id
+#     permission_level = "CAN_USE"
+#   }
+
 
 #   depends_on = [
 #     databricks_permission_assignment.permission_assignment_admin,
 #     databricks_permission_assignment.permission_assignment_developer,
 #     databricks_permission_assignment.permission_assignment_reader,
 #     databricks_permission_assignment.permission_assignment_service_principal,
+#     databricks_permission_assignment.permission_assignment_uai,
 #   ]
 # }
