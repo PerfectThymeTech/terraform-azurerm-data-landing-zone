@@ -27,6 +27,9 @@ module "data_landing_zone" {
   # HA/DR variables
   zone_redundancy_enabled = false
 
+  # Identity variables
+  service_principal_name_terraform_plan = var.service_principal_name_terraform_plan
+
   # Network variables
   vnet_id            = var.vnet_id
   nsg_id             = var.nsg_id

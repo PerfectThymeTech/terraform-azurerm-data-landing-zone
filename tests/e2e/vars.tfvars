@@ -15,6 +15,9 @@ databricks_account_id                    = "515f13c1-53bb-48fb-a2c9-75e3f5d943f5
 # HA/DR variables
 zone_redundancy_enabled = false
 
+# Identity variables
+service_principal_name_terraform_plan = ""
+
 # Network variables
 vnet_id        = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001"
 nsg_id         = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/networkSecurityGroups/ptt-dev-default-nsg001"
