@@ -16,7 +16,7 @@ resource "databricks_service_principal" "service_principal" {
 
 resource "databricks_service_principal" "service_principal_uai" {
   application_id             = var.databricks_user_assigned_identity_details.user_assigned_identity_principal_id
-  display_name               = "sp-${ var.databricks_user_assigned_identity_details.user_assigned_identity_name}"
+  display_name               = "sp-${var.databricks_user_assigned_identity_details.user_assigned_identity_name}"
   active                     = true
   allow_cluster_create       = false
   allow_instance_pool_create = false

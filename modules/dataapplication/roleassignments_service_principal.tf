@@ -53,9 +53,7 @@ resource "azurerm_role_assignment" "role_assignment_databricks_workspace_reader_
 
 # AI service role assignments
 resource "azurerm_role_assignment" "role_assignment_ai_service_service_principal" {
-  count = var.service_principal_name == "" ? 0 : 1
-
-  for_each = var.ai_services
+  for_each = var.service_principal_name == "" ? {} : var.ai_services
 
   description          = "Role assignment to the ai services."
   scope                = module.ai_service[each.key].cognitive_account_id

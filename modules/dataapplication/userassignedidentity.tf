@@ -8,5 +8,5 @@ module "user_assigned_identity" {
   resource_group_name                                   = azurerm_resource_group.resource_group_app.name
   tags                                                  = var.tags
   user_assigned_identity_name                           = "${local.prefix}-uai001"
-  user_assigned_identity_federated_identity_credentials = {}
+  user_assigned_identity_federated_identity_credentials = local.user_assigned_identity_federated_identity_credentials
 }
