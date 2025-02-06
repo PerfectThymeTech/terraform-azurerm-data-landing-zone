@@ -7,7 +7,7 @@ identity:
   admin_group_name: "app001-admin"
   developer_group_name: "app001-developer"
   reader_group_name: "app001-reader"
-  service_principal_name: "app001-sp"
+  # service_principal_name: "app001-sp"
 
 network:
   private_endpoint_subnet:
