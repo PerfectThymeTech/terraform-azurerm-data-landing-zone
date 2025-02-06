@@ -116,10 +116,11 @@ module "data_application" {
   alerting                   = try(each.value.alerting, {})
 
   # Identity variables
-  admin_group_name       = try(each.value.identity.admin_group_name, "")
-  developer_group_name   = try(each.value.identity.developer_group_name, "")
-  reader_group_name      = try(each.value.identity.reader_group_name, "")
-  service_principal_name = try(each.value.identity.service_principal_name, "")
+  admin_group_name                      = try(each.value.identity.admin_group_name, "")
+  developer_group_name                  = try(each.value.identity.developer_group_name, "")
+  reader_group_name                     = try(each.value.identity.reader_group_name, "")
+  service_principal_name                = try(each.value.identity.service_principal_name, "")
+  service_principal_name_terraform_plan = var.service_principal_name_terraform_plan
 
   # Network variables
   vnet_id                       = var.vnet_id

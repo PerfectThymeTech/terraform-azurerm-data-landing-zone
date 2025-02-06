@@ -32,3 +32,9 @@ data "azuread_group" "group_reader" {
   display_name     = var.reader_group_name
   security_enabled = true
 }
+
+data "azuread_service_principal" "service_principal_terraform_plan" {
+  count = var.service_principal_name_terraform_plan == "" ? 0 : 1
+
+  display_name = var.service_principal_name_terraform_plan
+}

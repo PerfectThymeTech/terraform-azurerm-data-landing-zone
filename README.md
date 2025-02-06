@@ -364,6 +364,14 @@ Type: `string`
 
 Default: `""`
 
+### <a name="input_service_principal_name_terraform_plan"></a> [service\_principal\_name\_terraform\_plan](#input\_service\_principal\_name\_terraform\_plan)
+
+Description: Specifies the name of the service principal used for the Terraform plan in PRs.
+
+Type: `string`
+
+Default: `""`
+
 ### <a name="input_tags"></a> [tags](#input\_tags)
 
 Description: Specifies the tags that you want to apply to all resources.

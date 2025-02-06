@@ -84,6 +84,18 @@ variable "zone_redundancy_enabled" {
   default     = true
 }
 
+# Identity variables
+variable "service_principal_name_terraform_plan" {
+  description = "Specifies the name of the service principal used for the Terraform plan in PRs."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.service_principal_name_terraform_plan == "" || length(var.service_principal_name_terraform_plan) >= 2
+    error_message = "Please specify a valid name."
+  }
+}
+
 # Network variables
 variable "vnet_id" {
   description = "Specifies the resource ID of the Vnet used for the Data Landing Zone."

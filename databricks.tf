@@ -56,10 +56,11 @@ module "databricks_data_application" {
   storage_container_ids = try(module.data_application[each.key].storage_container_ids, {})
 
   # Identity variables
-  admin_group_name       = try(each.value.identity.admin_group_name, "")
-  developer_group_name   = try(each.value.identity.developer_group_name, "")
-  reader_group_name      = try(each.value.identity.reader_group_name, "")
-  service_principal_name = try(each.value.identity.service_principal_name, "")
+  admin_group_name                      = try(each.value.identity.admin_group_name, "")
+  developer_group_name                  = try(each.value.identity.developer_group_name, "")
+  reader_group_name                     = try(each.value.identity.reader_group_name, "")
+  service_principal_name                = try(each.value.identity.service_principal_name, "")
+  service_principal_name_terraform_plan = var.service_principal_name_terraform_plan
 
   # Budget variables
   budget = try(each.value.budget, 100)
