@@ -11,6 +11,8 @@ data "azuread_service_principal" "service_principal_databricks" {
 }
 
 data "azuread_service_principal" "service_principal" {
+  count = var.service_principal_name == "" ? 0 : 1
+
   display_name = var.service_principal_name
 }
 

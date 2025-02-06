@@ -41,8 +41,7 @@
         }
       },
       "required": [
-        "admin_group_name",
-        "service_principal_name"
+        "admin_group_name"
       ],
       "additionalProperties": false
     },

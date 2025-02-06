@@ -1,6 +1,8 @@
 resource "databricks_service_principal" "service_principal" {
-  application_id             = data.azuread_service_principal.service_principal.client_id
-  display_name               = "sp-${data.azuread_service_principal.service_principal.display_name}"
+  count = var.service_principal_name == "" ? 0 : 1
+
+  application_id             = one(data.azuread_service_principal.service_principal[*].client_id)
+  display_name               = "sp-${one(data.azuread_service_principal.service_principal[*].display_name)}"
   active                     = true
   allow_cluster_create       = false
   allow_instance_pool_create = false

@@ -194,7 +194,7 @@ variable "service_principal_name" {
   type        = string
   sensitive   = false
   validation {
-    condition     = length(var.service_principal_name) >= 2
+    condition     = var.service_principal_name == "" || length(var.service_principal_name) >= 2
     error_message = "Please specify a valid Entra ID service principal name."
   }
 }
