@@ -1,10 +1,14 @@
 resource "databricks_permission_assignment" "permission_assignment_service_principal" {
-  principal_id = databricks_service_principal.service_principal.id
+  count = var.service_principal_name == "" ? 0 : 1
+
+  principal_id = one(databricks_service_principal.service_principal[*].id)
   permissions  = ["USER"]
 }
 
 resource "databricks_secret_acl" "secret_acl_service_principal" {
-  principal  = databricks_service_principal.service_principal.application_id
+  count = var.service_principal_name == "" ? 0 : 1
+
+  principal  = one(databricks_service_principal.service_principal[*].application_id)
   permission = "READ"
   scope      = databricks_secret_scope.secret_scope.id
 
@@ -14,8 +18,10 @@ resource "databricks_secret_acl" "secret_acl_service_principal" {
 }
 
 resource "databricks_grant" "grant_catalog_internal_service_principal" {
+  count = var.service_principal_name == "" ? 0 : 1
+
   catalog   = databricks_catalog.catalog_internal.id
-  principal = databricks_service_principal.service_principal.application_id
+  principal = one(databricks_service_principal.service_principal[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -55,8 +61,10 @@ resource "databricks_grant" "grant_catalog_internal_service_principal" {
 }
 
 resource "databricks_grant" "grant_catalog_external_service_principal" {
+  count = var.service_principal_name == "" ? 0 : 1
+
   catalog   = databricks_catalog.catalog_external.id
-  principal = databricks_service_principal.service_principal.application_id
+  principal = one(databricks_service_principal.service_principal[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -96,8 +104,10 @@ resource "databricks_grant" "grant_catalog_external_service_principal" {
 }
 
 resource "databricks_grant" "grant_external_location_external_service_principal" {
+  count = var.service_principal_name == "" ? 0 : 1
+
   external_location = databricks_external_location.external_location_external.id
-  principal         = databricks_service_principal.service_principal.application_id
+  principal         = one(databricks_service_principal.service_principal[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -125,8 +135,10 @@ resource "databricks_grant" "grant_external_location_external_service_principal"
 }
 
 resource "databricks_grant" "grant_external_location_raw_service_principal" {
+  count = var.service_principal_name == "" ? 0 : 1
+
   external_location = databricks_external_location.external_location_raw.id
-  principal         = databricks_service_principal.service_principal.application_id
+  principal         = one(databricks_service_principal.service_principal[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -154,8 +166,10 @@ resource "databricks_grant" "grant_external_location_raw_service_principal" {
 }
 
 resource "databricks_grant" "grant_external_location_enriched_service_principal" {
+  count = var.service_principal_name == "" ? 0 : 1
+
   external_location = databricks_external_location.external_location_enriched.id
-  principal         = databricks_service_principal.service_principal.application_id
+  principal         = one(databricks_service_principal.service_principal[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -183,8 +197,10 @@ resource "databricks_grant" "grant_external_location_enriched_service_principal"
 }
 
 resource "databricks_grant" "grant_external_location_curated_service_principal" {
+  count = var.service_principal_name == "" ? 0 : 1
+
   external_location = databricks_external_location.external_location_curated.id
-  principal         = databricks_service_principal.service_principal.application_id
+  principal         = one(databricks_service_principal.service_principal[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -212,8 +228,10 @@ resource "databricks_grant" "grant_external_location_curated_service_principal" 
 }
 
 resource "databricks_grant" "grant_external_location_workspace_service_principal" {
+  count = var.service_principal_name == "" ? 0 : 1
+
   external_location = databricks_external_location.external_location_workspace.id
-  principal         = databricks_service_principal.service_principal.application_id
+  principal         = one(databricks_service_principal.service_principal[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -241,8 +259,10 @@ resource "databricks_grant" "grant_external_location_workspace_service_principal
 }
 
 resource "databricks_grant" "grant_storage_credential_service_principal" {
+  count = var.service_principal_name == "" ? 0 : 1
+
   storage_credential = databricks_storage_credential.storage_credential.id
-  principal          = databricks_service_principal.service_principal.application_id
+  principal          = one(databricks_service_principal.service_principal[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -265,8 +285,10 @@ resource "databricks_grant" "grant_storage_credential_service_principal" {
 }
 
 resource "databricks_grant" "grant_credential_service_principal" {
+  count = var.service_principal_name == "" ? 0 : 1
+
   credential = databricks_credential.credential.id
-  principal  = databricks_service_principal.service_principal.application_id
+  principal  = one(databricks_service_principal.service_principal[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -277,5 +299,9 @@ resource "databricks_grant" "grant_credential_service_principal" {
 
     # Create
     "CREATE_CONNECTION",
+  ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_service_principal,
   ]
 }

@@ -121,6 +121,23 @@ variable "databricks_data_factory_details" {
   }
 }
 
+variable "databricks_user_assigned_identity_details" {
+  description = "Specifies the databricks data factory details to onboard the managed identity to the account."
+  type = object({
+    user_assigned_identity_enabled      = optional(bool, false)
+    user_assigned_identity_name         = optional(string, "")
+    user_assigned_identity_id           = optional(string, "")
+    user_assigned_identity_principal_id = optional(string, "")
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+  validation {
+    condition     = var.databricks_user_assigned_identity_details.user_assigned_identity_name == "" && var.databricks_user_assigned_identity_details.user_assigned_identity_id == "" && var.databricks_user_assigned_identity_details.user_assigned_identity_principal_id == "" || var.databricks_user_assigned_identity_details.user_assigned_identity_name != "" && var.databricks_user_assigned_identity_details.user_assigned_identity_id != "" && var.databricks_user_assigned_identity_details.user_assigned_identity_principal_id != ""
+    error_message = "Please provide valid data factory details."
+  }
+}
+
 variable "storage_container_ids" {
   description = "Specifies the databricks key vault secret scope details that should be added to the workspace."
   type = object({
@@ -177,7 +194,7 @@ variable "service_principal_name" {
   type        = string
   sensitive   = false
   validation {
-    condition     = length(var.service_principal_name) >= 2
+    condition     = var.service_principal_name == "" || length(var.service_principal_name) >= 2
     error_message = "Please specify a valid Entra ID service principal name."
   }
 }

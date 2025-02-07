@@ -1,27 +1,21 @@
-resource "databricks_permission_assignment" "permission_assignment_developer" {
-  count = var.developer_group_name == "" ? 0 : 1
-
-  principal_id = one(data.databricks_group.group_developer[*].id)
+resource "databricks_permission_assignment" "permission_assignment_uai" {
+  principal_id = databricks_service_principal.service_principal_uai.id
   permissions  = ["USER"]
 }
 
-resource "databricks_secret_acl" "secret_acl_developer" {
-  count = var.developer_group_name == "" ? 0 : 1
+# resource "databricks_secret_acl" "secret_acl_uai" {
+#   principal  = databricks_service_principal.service_principal_uai.application_id
+#   permission = "READ"
+#   scope      = databricks_secret_scope.secret_scope.id
 
-  principal  = one(data.databricks_group.group_developer[*].display_name)
-  permission = "READ"
-  scope      = databricks_secret_scope.secret_scope.id
+#   depends_on = [
+#     databricks_permission_assignment.permission_assignment_uai,
+#   ]
+# }
 
-  depends_on = [
-    databricks_permission_assignment.permission_assignment_developer,
-  ]
-}
-
-resource "databricks_grant" "grant_catalog_internal_developer" {
-  count = var.developer_group_name == "" ? 0 : 1
-
+resource "databricks_grant" "grant_catalog_internal_uai" {
   catalog   = databricks_catalog.catalog_internal.id
-  principal = one(data.databricks_group.group_developer[*].display_name)
+  principal = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -50,21 +44,19 @@ resource "databricks_grant" "grant_catalog_internal_developer" {
     "CREATE_FUNCTION",
     "CREATE_MATERIALIZED_VIEW",
     "CREATE_MODEL",
-    # "CREATE_SCHEMA", # Only allow admins to create schemas
+    "CREATE_SCHEMA",
     "CREATE_TABLE",
     "CREATE_VOLUME",
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_developer,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
-resource "databricks_grant" "grant_catalog_external_developer" {
-  count = var.developer_group_name == "" ? 0 : 1
-
+resource "databricks_grant" "grant_catalog_external_uai" {
   catalog   = databricks_catalog.catalog_external.id
-  principal = one(data.databricks_group.group_developer[*].display_name)
+  principal = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -93,21 +85,19 @@ resource "databricks_grant" "grant_catalog_external_developer" {
     "CREATE_FUNCTION",
     "CREATE_MATERIALIZED_VIEW",
     "CREATE_MODEL",
-    # "CREATE_SCHEMA", # Only allow admins to create schemas
+    "CREATE_SCHEMA",
     "CREATE_TABLE",
     "CREATE_VOLUME",
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_developer,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
-resource "databricks_grant" "grant_external_location_external_developer" {
-  count = var.developer_group_name == "" ? 0 : 1
-
+resource "databricks_grant" "grant_external_location_external_uai" {
   external_location = databricks_external_location.external_location_external.id
-  principal         = one(data.databricks_group.group_developer[*].display_name)
+  principal         = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -130,15 +120,13 @@ resource "databricks_grant" "grant_external_location_external_developer" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_developer,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
-resource "databricks_grant" "grant_external_location_raw_developer" {
-  count = var.developer_group_name == "" ? 0 : 1
-
+resource "databricks_grant" "grant_external_location_raw_uai" {
   external_location = databricks_external_location.external_location_raw.id
-  principal         = one(data.databricks_group.group_developer[*].display_name)
+  principal         = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -161,15 +149,13 @@ resource "databricks_grant" "grant_external_location_raw_developer" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_developer,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
-resource "databricks_grant" "grant_external_location_enriched_developer" {
-  count = var.developer_group_name == "" ? 0 : 1
-
+resource "databricks_grant" "grant_external_location_enriched_uai" {
   external_location = databricks_external_location.external_location_enriched.id
-  principal         = one(data.databricks_group.group_developer[*].display_name)
+  principal         = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -192,15 +178,13 @@ resource "databricks_grant" "grant_external_location_enriched_developer" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_developer,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
-resource "databricks_grant" "grant_external_location_curated_developer" {
-  count = var.developer_group_name == "" ? 0 : 1
-
+resource "databricks_grant" "grant_external_location_curated_uai" {
   external_location = databricks_external_location.external_location_curated.id
-  principal         = one(data.databricks_group.group_developer[*].display_name)
+  principal         = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -223,15 +207,13 @@ resource "databricks_grant" "grant_external_location_curated_developer" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_developer,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
-resource "databricks_grant" "grant_external_location_workspace_developer" {
-  count = var.developer_group_name == "" ? 0 : 1
-
+resource "databricks_grant" "grant_external_location_workspace_uai" {
   external_location = databricks_external_location.external_location_workspace.id
-  principal         = one(data.databricks_group.group_developer[*].display_name)
+  principal         = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -254,15 +236,13 @@ resource "databricks_grant" "grant_external_location_workspace_developer" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_developer,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
-resource "databricks_grant" "grant_storage_credential_developer" {
-  count = var.developer_group_name == "" ? 0 : 1
-
+resource "databricks_grant" "grant_storage_credential_uai" {
   storage_credential = databricks_storage_credential.storage_credential.id
-  principal          = one(data.databricks_group.group_developer[*].display_name)
+  principal          = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -280,15 +260,13 @@ resource "databricks_grant" "grant_storage_credential_developer" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_developer,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
-resource "databricks_grant" "grant_credential_developer" {
-  count = var.developer_group_name == "" ? 0 : 1
-
+resource "databricks_grant" "grant_credential_uai" {
   credential = databricks_credential.credential.id
-  principal  = one(data.databricks_group.group_developer[*].display_name)
+  principal  = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -302,6 +280,6 @@ resource "databricks_grant" "grant_credential_developer" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_developer,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }

@@ -51,3 +51,14 @@ output "storage_container_ids" {
   }
   sensitive = false
 }
+
+# User assigned identity outputs
+output "user_assigned_identity_details" {
+  description = "Specifies the user assigned identity details of the app."
+  value = {
+    user_assigned_identity_name         = module.user_assigned_identity.user_assigned_identity_name
+    user_assigned_identity_id           = module.user_assigned_identity.user_assigned_identity_id
+    user_assigned_identity_principal_id = module.user_assigned_identity.user_assigned_identity_principal_id
+  }
+  sensitive = false
+}

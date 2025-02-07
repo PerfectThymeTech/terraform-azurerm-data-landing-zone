@@ -1,8 +1,22 @@
 resource "databricks_service_principal" "service_principal" {
-  provider = databricks.account
+  count = var.service_principal_name == "" ? 0 : 1
 
-  application_id             = data.azuread_service_principal.service_principal.client_id
-  display_name               = "sp-${data.azuread_service_principal.service_principal.display_name}"
+  application_id             = one(data.azuread_service_principal.service_principal[*].client_id)
+  display_name               = "sp-${one(data.azuread_service_principal.service_principal[*].display_name)}"
+  active                     = true
+  allow_cluster_create       = false
+  allow_instance_pool_create = false
+  databricks_sql_access      = false
+  workspace_access           = false
+  force                      = true
+  force_delete_repos         = false
+  force_delete_home_dir      = false
+  disable_as_user_deletion   = false
+}
+
+resource "databricks_service_principal" "service_principal_uai" {
+  application_id             = var.databricks_user_assigned_identity_details.user_assigned_identity_principal_id
+  display_name               = "sp-${var.databricks_user_assigned_identity_details.user_assigned_identity_name}"
   active                     = true
   allow_cluster_create       = false
   allow_instance_pool_create = false
@@ -16,8 +30,6 @@ resource "databricks_service_principal" "service_principal" {
 
 resource "databricks_service_principal" "service_principal_data_factory" {
   count = var.databricks_data_factory_details.data_factory_enabled ? 1 : 0
-
-  provider = databricks.account
 
   application_id             = var.databricks_data_factory_details.data_factory_principal_id
   display_name               = "adf-${var.databricks_data_factory_details.data_factory_name}"

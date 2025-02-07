@@ -6,6 +6,15 @@ locals {
   # Databricks locals
   databricks_enterprise_application_id = "2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
 
+  # User assigned identity locals
+  user_assigned_identity_federated_identity_credentials = var.data_factory_details.github_repo.account_name != "" && var.data_factory_details.github_repo.branch_name != "" && var.data_factory_details.github_repo.git_url != "" && var.data_factory_details.github_repo.repository_name != "" ? {
+    oidc = {
+      audience = "api://AzureADTokenExchange",
+      issuer   = "https://token.actions.githubusercontent.com",
+      subject  = "repo:${var.data_factory_details.github_repo.account_name}/${var.data_factory_details.github_repo.repository_name}:environment:${var.environment}",
+    }
+  } : {}
+
   # AI service locals
   ai_service_kind_firewall_bypass_azure_services_list = [
     "OpenAI"
