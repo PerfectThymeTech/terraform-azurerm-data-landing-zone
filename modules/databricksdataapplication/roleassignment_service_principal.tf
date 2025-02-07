@@ -300,4 +300,8 @@ resource "databricks_grant" "grant_credential_service_principal" {
     # Create
     "CREATE_CONNECTION",
   ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_service_principal,
+  ]
 }

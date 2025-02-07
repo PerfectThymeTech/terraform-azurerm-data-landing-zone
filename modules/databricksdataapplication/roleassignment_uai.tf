@@ -9,7 +9,7 @@ resource "databricks_secret_acl" "secret_acl_uai" {
   scope      = databricks_secret_scope.secret_scope.id
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
@@ -50,7 +50,7 @@ resource "databricks_grant" "grant_catalog_internal_uai" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
@@ -91,7 +91,7 @@ resource "databricks_grant" "grant_catalog_external_uai" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
@@ -120,7 +120,7 @@ resource "databricks_grant" "grant_external_location_external_uai" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
@@ -149,7 +149,7 @@ resource "databricks_grant" "grant_external_location_raw_uai" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
@@ -178,7 +178,7 @@ resource "databricks_grant" "grant_external_location_enriched_uai" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
@@ -207,7 +207,7 @@ resource "databricks_grant" "grant_external_location_curated_uai" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
@@ -236,7 +236,7 @@ resource "databricks_grant" "grant_external_location_workspace_uai" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
@@ -260,7 +260,7 @@ resource "databricks_grant" "grant_storage_credential_uai" {
   ]
 
   depends_on = [
-    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
 
@@ -277,5 +277,9 @@ resource "databricks_grant" "grant_credential_uai" {
 
     # Create
     "CREATE_CONNECTION",
+  ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_uai,
   ]
 }
