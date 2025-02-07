@@ -49,6 +49,7 @@ resource "databricks_permissions" "permissions_directory" {
     databricks_permission_assignment.permission_assignment_developer,
     databricks_permission_assignment.permission_assignment_reader,
     databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_service_principal_data_factory,
     databricks_permission_assignment.permission_assignment_uai,
   ]
 }
@@ -90,6 +91,7 @@ resource "databricks_permissions" "permissions_cluster_policy" {
     databricks_permission_assignment.permission_assignment_developer,
     databricks_permission_assignment.permission_assignment_reader,
     databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_service_principal_data_factory,
     databricks_permission_assignment.permission_assignment_uai,
   ]
 }
@@ -146,6 +148,7 @@ resource "databricks_permissions" "permissions_cluster_policy" {
 #     databricks_permission_assignment.permission_assignment_developer,
 #     databricks_permission_assignment.permission_assignment_reader,
 #     databricks_permission_assignment.permission_assignment_service_principal,
+#     databricks_permission_assignment.permission_assignment_service_principal_data_factory,
 #     databricks_permission_assignment.permission_assignment_uai,
 #   ]
 # }
