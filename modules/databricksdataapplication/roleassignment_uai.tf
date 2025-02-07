@@ -3,15 +3,15 @@ resource "databricks_permission_assignment" "permission_assignment_uai" {
   permissions  = ["USER"]
 }
 
-resource "databricks_secret_acl" "secret_acl_uai" {
-  principal  = databricks_service_principal.service_principal_uai.application_id
-  permission = "READ"
-  scope      = databricks_secret_scope.secret_scope.id
+# resource "databricks_secret_acl" "secret_acl_uai" {
+#   principal  = databricks_service_principal.service_principal_uai.application_id
+#   permission = "READ"
+#   scope      = databricks_secret_scope.secret_scope.id
 
-  depends_on = [
-    databricks_permission_assignment.permission_assignment_uai,
-  ]
-}
+#   depends_on = [
+#     databricks_permission_assignment.permission_assignment_uai,
+#   ]
+# }
 
 resource "databricks_grant" "grant_catalog_internal_uai" {
   catalog   = databricks_catalog.catalog_internal.id
