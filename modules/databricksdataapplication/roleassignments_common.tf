@@ -40,8 +40,8 @@ resource "databricks_permissions" "permissions_directory" {
   }
   # UAI permissions
   access_control {
-    group_name       = databricks_service_principal.service_principal_uai.application_id
-    permission_level = "CAN_MANAGE"
+    service_principal_name = databricks_service_principal.service_principal_uai.application_id
+    permission_level       = "CAN_MANAGE"
   }
 
   depends_on = [
@@ -82,8 +82,8 @@ resource "databricks_permissions" "permissions_cluster_policy" {
   }
   # UAI permissions
   access_control {
-    group_name       = databricks_service_principal.service_principal_uai.application_id
-    permission_level = "CAN_USE"
+    service_principal_name = databricks_service_principal.service_principal_uai.application_id
+    permission_level       = "CAN_USE"
   }
 
   depends_on = [
@@ -138,8 +138,8 @@ resource "databricks_permissions" "permissions_cluster_policy" {
 #   }
 #   # UAI permissions
 #   access_control {
-#     group_name       = databricks_service_principal.service_principal_uai.application_id
-#     permission_level = "CAN_USE"
+#     service_principal_name = databricks_service_principal.service_principal_uai.application_id
+#     permission_level       = "CAN_USE"
 #   }
 
 
