@@ -49,6 +49,5 @@ jobs:
       tenant_id: "37963dd4-f4e6-40f8-a7d6-24b97919e452"
       subscription_id: "9842be63-c8c0-4647-a5d1-0c5e7f8bbb25"
       databricks_account_id: ${{ needs.terraform.outputs.databricks_account_id }}
-      databricks_network_connectivity_config_id: ${{ needs.terraform.outputs.databricks_network_connectivity_config_id }}
     secrets:
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
