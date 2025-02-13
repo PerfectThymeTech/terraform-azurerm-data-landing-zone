@@ -14,9 +14,9 @@ module "databricks_workspace_engineering" {
   databricks_workspace_machine_learning_workspace_id                        = null
   databricks_workspace_virtual_network_id                                   = var.vnet_id
   databricks_workspace_private_subnet_name                                  = local.databricks_engineering_private_subnet_name
-  databricks_workspace_private_subnet_network_security_group_association_id = var.subnet_id_consumption_private
+  databricks_workspace_private_subnet_network_security_group_association_id = var.subnet_id_engineering_private
   databricks_workspace_public_subnet_name                                   = local.databricks_engineering_public_subnet_name
-  databricks_workspace_public_subnet_network_security_group_association_id  = var.subnet_id_consumption_public
+  databricks_workspace_public_subnet_network_security_group_association_id  = var.subnet_id_engineering_public
   databricks_workspace_storage_account_sku_name                             = var.zone_redundancy_enabled ? "Standard_ZRS" : "Standard_LRS"
   databricks_workspace_browser_authentication_private_endpoint_enabled      = false
   diagnostics_configurations                                                = var.diagnostics_configurations

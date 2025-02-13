@@ -35,9 +35,6 @@ on:
       databricks_account_id:
         description: "Specifies the account id of Databricks."
         value: ${{ jobs.apply.outputs.databricks_account_id }}
-      databricks_network_connectivity_config_id:
-        description: "Specifies the network connectivity config id of Databricks."
-        value: ${{ jobs.apply.outputs.databricks_network_connectivity_config_id }}
 
 permissions:
   id-token: write
@@ -265,6 +262,3 @@ jobs:
 
           databricks_account_id=$(terraform output -raw databricks_account_id)
           echo "databricks_account_id=$databricks_account_id" >> "$GITHUB_OUTPUT"
-
-          databricks_network_connectivity_config_id=$(terraform output -raw databricks_network_connectivity_config_id)
-          echo "databricks_network_connectivity_config_id=$databricks_network_connectivity_config_id" >> "$GITHUB_OUTPUT"

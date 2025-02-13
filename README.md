@@ -198,6 +198,12 @@ Description: Specifies the databricks account id.
 
 Type: `string`
 
+### <a name="input_databricks_network_connectivity_config_name"></a> [databricks\_network\_connectivity\_config\_name](#input\_databricks\_network\_connectivity\_config\_name)
+
+Description: Specifies the name of the ncc connectivity config name that should be attached to the databricks workspace.
+
+Type: `string`
+
 ### <a name="input_location"></a> [location](#input\_location)
 
 Description: Specifies the location for all Azure resources.
