@@ -14,10 +14,11 @@ module "databricks_core" {
   tags        = var.tags
 
   # Service variables
-  databricks_workspace_details      = local.databricks_workspace_details
-  databricks_private_endpoint_rules = local.databricks_private_endpoint_rules
-  databricks_ip_access_list_allow   = []
-  databricks_ip_access_list_deny    = []
+  databricks_workspace_details                = local.databricks_workspace_details
+  databricks_private_endpoint_rules           = local.databricks_private_endpoint_rules
+  databricks_ip_access_list_allow             = []
+  databricks_ip_access_list_deny              = []
+  databricks_network_connectivity_config_name = var.databricks_network_connectivity_config_name
 
   depends_on = [
     module.core.databricks_dependencies,

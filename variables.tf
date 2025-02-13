@@ -75,6 +75,16 @@ variable "databricks_account_id" {
   sensitive   = false
 }
 
+variable "databricks_network_connectivity_config_name" {
+  description = "Specifies the name of the ncc connectivity config name that should be attached to the databricks workspace."
+  type        = string
+  sensitive   = false
+  validation {
+    condition     = length(var.databricks_network_connectivity_config_name) > 2
+    error_message = "Please provide a valid name for the databricks connectivity config."
+  }
+}
+
 # HA/DR variables
 variable "zone_redundancy_enabled" {
   description = "Specifies whether zone-redundancy should be enabled for all resources."
