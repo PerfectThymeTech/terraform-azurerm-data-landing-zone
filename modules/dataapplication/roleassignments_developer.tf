@@ -64,7 +64,7 @@ resource "azurerm_role_assignment" "role_assignment_ai_service_developer" {
 
 # AI search service role assignment
 resource "azurerm_role_assignment" "role_assignment_search_service_index_data_contributor_developer" {
-  count = var.developer_group_name != "" && var.search_service.enabled ? 1 : 0
+  count = var.developer_group_name != "" && var.search_service_details.enabled ? 1 : 0
 
   description          = "Role assignment to create or manage objects in AI Search."
   scope                = one(module.ai_search[*].search_service_id)
@@ -74,7 +74,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_index_data_co
 }
 
 resource "azurerm_role_assignment" "role_assignment_search_service_contributor_developer" {
-  count = var.developer_group_name != "" && var.search_service.enabled ? 1 : 0
+  count = var.developer_group_name != "" && var.search_service_details.enabled ? 1 : 0
 
   description          = "Role assignment to load documents and run indexing jobs in AI Search."
   scope                = one(module.ai_search[*].search_service_id)
