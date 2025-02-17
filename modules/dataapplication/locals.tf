@@ -129,7 +129,7 @@ locals {
   search_service_shared_ai_service_private_links = {
     for key, value in var.ai_services :
     "aiservice-${key}-account" => {
-      subresource_name   = "account"
+      subresource_name   = value.kind == "OpenAI" ? "openai_account" : "cognitiveservices_account"
       target_resource_id = module.ai_service[key].cognitive_account_id
       approve            = true
     }
