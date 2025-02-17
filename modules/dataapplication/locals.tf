@@ -117,4 +117,25 @@ locals {
     local.data_factory_default_managed_private_endpoints,
     local.data_factory_ai_service_managed_private_endpoints,
   )
+
+  # Search service locals
+  search_service_shared_default_private_links = {
+    "keyvault-vault" = {
+      subresource_name   = "vault"
+      target_resource_id = module.key_vault.key_vault_id
+      approve            = true
+    }
+  }
+  search_service_shared_ai_service_private_links = {
+    for key, value in var.ai_services :
+    "aiservice-${key}-account" => {
+      subresource_name   = "account"
+      target_resource_id = module.ai_service[key].cognitive_account_id
+      approve            = true
+    }
+  }
+  search_service_shared_private_links = merge(
+    local.search_service_shared_default_private_links,
+    local.search_service_shared_ai_service_private_links
+  )
 }

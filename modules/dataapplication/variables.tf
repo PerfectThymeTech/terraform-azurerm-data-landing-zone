@@ -124,6 +124,29 @@ variable "data_factory_details" {
   default   = {}
 }
 
+variable "search_service_details" {
+  description = "Specifies the search service configuration details."
+  type = object({
+    enabled             = optional(bool, false)
+    sku                 = optional(string, "standard")
+    semantic_search_sku = optional(string, "standard")
+    partition_count     = optional(number, 1)
+    replica_count       = optional(string, 1)
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+  validation {
+    condition = alltrue([
+      contains(["free", "basic", "standard", "standard2", "standard3", "storage_optimized_l1", "storage_optimized_l2"], var.search_service.sku),
+      contains(["free", "standard"], var.search_service.semantic_search_sku),
+      contains([1, 2, 3, 4, 6, 12], var.search_service.partition_count),
+      var.search_service.replica_count > 0,
+    ])
+    error_message = "Please specify a valid search service configuration."
+  }
+}
+
 variable "storage_dependencies" {
   description = "Specifies a list of dependencies for storage resources."
   type        = list(bool)
@@ -334,6 +357,17 @@ variable "private_dns_zone_id_data_factory" {
   default     = ""
   validation {
     condition     = var.private_dns_zone_id_data_factory == "" || (length(split("/", var.private_dns_zone_id_data_factory)) == 9 && endswith(var.private_dns_zone_id_data_factory, "privatelink.datafactory.azure.net"))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
+variable "private_dns_zone_id_search_service" {
+  description = "Specifies the resource ID of the private DNS zone for Azure Cognitive Search endpoints. Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_search_service == "" || (length(split("/", var.private_dns_zone_id_search_service)) == 9 && endswith(var.private_dns_zone_id_search_service, "privatelink.search.windows.net"))
     error_message = "Please specify a valid resource ID for the private DNS Zone."
   }
 }

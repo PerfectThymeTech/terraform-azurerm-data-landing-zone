@@ -44,6 +44,7 @@ module "data_landing_zone" {
   private_dns_zone_id_databricks        = var.private_dns_zone_id_databricks
   private_dns_zone_id_cognitive_account = var.private_dns_zone_id_cognitive_account
   private_dns_zone_id_data_factory      = var.private_dns_zone_id_data_factory
+  private_dns_zone_id_search_service    = var.private_dns_zone_id_search_service
 
   # Customer-managed key variables
   customer_managed_key = var.customer_managed_key
