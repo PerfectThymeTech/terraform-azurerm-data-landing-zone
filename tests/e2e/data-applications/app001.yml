@@ -45,7 +45,7 @@ ai_services:
     kind: FormRecognizer
     sku: S0
 
-search:
+ai_search:
   enabled: true
   sku: standard
   semantic_search_sku: standard

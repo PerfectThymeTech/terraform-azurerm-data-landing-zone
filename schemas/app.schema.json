@@ -310,12 +310,12 @@
         }
       }
     },
-    "search_service": {
-      "description": "Specifies the search service configuration for the app.",
+    "ai_search": {
+      "description": "Specifies the ai search configuration for the app.",
       "type": "object",
       "properties": {
         "enabled": {
-          "description": "Specifies whether the search service should be enabled.",
+          "description": "Specifies whether ai search should be enabled.",
           "type": "boolean"
         },
         "sku": {
