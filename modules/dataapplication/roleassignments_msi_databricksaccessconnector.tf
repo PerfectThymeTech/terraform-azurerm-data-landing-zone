@@ -71,7 +71,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_index_data_co
   principal_type       = "ServicePrincipal"
 }
 
-resource "azurerm_role_assignment" "role_assignment_search_service_contributor_developer" {
+resource "azurerm_role_assignment" "role_assignment_search_service_contributor_accessconnector" {
   count = var.search_service.enabled ? 1 : 0
 
   description          = "Role assignment to load documents and run indexing jobs in AI Search."

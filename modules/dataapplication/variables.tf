@@ -138,10 +138,10 @@ variable "search_service_details" {
   default   = {}
   validation {
     condition = alltrue([
-      contains(["free", "basic", "standard", "standard2", "standard3", "storage_optimized_l1", "storage_optimized_l2"], var.search_service.sku),
-      contains(["free", "standard"], var.search_service.semantic_search_sku),
-      contains([1, 2, 3, 4, 6, 12], var.search_service.partition_count),
-      var.search_service.replica_count > 0,
+      contains(["free", "basic", "standard", "standard2", "standard3", "storage_optimized_l1", "storage_optimized_l2"], var.search_service_details.sku),
+      contains(["free", "standard"], var.search_service_details.semantic_search_sku),
+      contains([1, 2, 3, 4, 6, 12], var.search_service_details.partition_count),
+      var.search_service_details.replica_count > 0,
     ])
     error_message = "Please specify a valid search service configuration."
   }
