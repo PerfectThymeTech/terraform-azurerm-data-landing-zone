@@ -67,7 +67,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_index_data_co
   description          = "Role assignment to create or manage objects in AI Search."
   scope                = one(module.ai_search[*].search_service_id)
   role_definition_name = "Search Index Data Contributor"
-  principal_id         = data.azuread_group.admin_group.object_id
+  principal_id         = data.azuread_group.group_admin.object_id
   principal_type       = "Group"
 }
 
@@ -77,7 +77,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_contributor_a
   description          = "Role assignment to load documents and run indexing jobs in AI Search."
   scope                = one(module.ai_search[*].search_service_id)
   role_definition_name = "Search Service Contributor"
-  principal_id         = data.azuread_group.admin_group.object_id
+  principal_id         = data.azuread_group.group_admin.object_id
   principal_type       = "Group"
 }
 
