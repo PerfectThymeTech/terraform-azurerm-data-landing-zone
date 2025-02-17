@@ -45,5 +45,12 @@ ai_services:
     kind: FormRecognizer
     sku: S0
 
+ai_search:
+  enabled: true
+  sku: standard
+  semantic_search_sku: standard
+  partition_count: 1
+  replica_count: 1
+
 data_factory:
   enabled: true

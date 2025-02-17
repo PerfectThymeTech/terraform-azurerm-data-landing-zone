@@ -362,6 +362,14 @@ Type: `string`
 
 Default: `""`
 
+### <a name="input_private_dns_zone_id_search_service"></a> [private\_dns\_zone\_id\_search\_service](#input\_private\_dns\_zone\_id\_search\_service)
+
+Description: Specifies the resource ID of the private DNS zone for Azure Cognitive Search endpoints. Not required if DNS A-records get created via Azure Policy.
+
+Type: `string`
+
+Default: `""`
+
 ### <a name="input_private_dns_zone_id_vault"></a> [private\_dns\_zone\_id\_vault](#input\_private\_dns\_zone\_id\_vault)
 
 Description: Specifies the resource ID of the private DNS zone for Azure Key Vault. Not required if DNS A-records get created via Azure Policy.

@@ -234,6 +234,17 @@ variable "private_dns_zone_id_data_factory" {
   }
 }
 
+variable "private_dns_zone_id_search_service" {
+  description = "Specifies the resource ID of the private DNS zone for Azure Cognitive Search endpoints. Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_search_service == "" || (length(split("/", var.private_dns_zone_id_search_service)) == 9 && endswith(var.private_dns_zone_id_search_service, "privatelink.search.windows.net"))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
 # Customer-managed key variables
 variable "customer_managed_key" {
   description = "Specifies the customer managed key configurations."

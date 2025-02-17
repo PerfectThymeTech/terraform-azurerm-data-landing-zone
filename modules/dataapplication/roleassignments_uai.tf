@@ -60,6 +60,27 @@ resource "azurerm_role_assignment" "role_assignment_cognitive_services_usages_re
   principal_type       = "ServicePrincipal"
 }
 
+# AI search service role assignment
+resource "azurerm_role_assignment" "role_assignment_search_service_index_data_contributor_uai" {
+  count = var.search_service_details.enabled ? 1 : 0
+
+  description          = "Role assignment to create or manage objects in AI Search."
+  scope                = one(module.ai_search[*].search_service_id)
+  role_definition_name = "Search Index Data Contributor"
+  principal_id         = module.user_assigned_identity.user_assigned_identity_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_search_service_contributor_uai" {
+  count = var.search_service_details.enabled ? 1 : 0
+
+  description          = "Role assignment to load documents and run indexing jobs in AI Search."
+  scope                = one(module.ai_search[*].search_service_id)
+  role_definition_name = "Search Service Contributor"
+  principal_id         = module.user_assigned_identity.user_assigned_identity_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
 # Data factory role assignments
 resource "azurerm_role_assignment" "role_assignment_data_factory_data_factory_contributor_uai" {
   count = var.data_factory_details.enabled ? 1 : 0

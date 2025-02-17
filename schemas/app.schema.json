@@ -310,6 +310,38 @@
         }
       }
     },
+    "ai_search": {
+      "description": "Specifies the ai search configuration for the app.",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "description": "Specifies whether ai search should be enabled.",
+          "type": "boolean"
+        },
+        "sku": {
+          "description": "Specifies the sku of the search service.",
+          "type": "string"
+        },
+        "semantic_search_sku": {
+          "description": "Specifies the semantic search sku of the search service.",
+          "type": "string"
+        },
+        "partition_count": {
+          "description": "Specifies the partition count of the search service.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "replica_count": {
+          "description": "Specifies replica count of the search service.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
     "data_factory": {
       "description": "Specifies the data factory section of the application.",
       "type": "object",
