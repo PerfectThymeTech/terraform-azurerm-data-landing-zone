@@ -1,5 +1,5 @@
 locals {
-  prefix                        = "${lower(var.prefix)}-${var.environment}"
+  prefix = "${lower(var.prefix)}-${var.environment}"
   diagnostics_configurations = var.log_analytics_workspace_id != "" ? [
     {
       log_analytics_workspace_id = var.log_analytics_workspace_id,

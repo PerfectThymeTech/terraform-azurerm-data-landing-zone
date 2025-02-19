@@ -5,7 +5,6 @@ provider "azurerm" {
   resource_providers_to_register  = local.resource_providers_to_register
   storage_use_azuread             = true
   # use_oidc                       = true
-  subscription_id = "9842be63-c8c0-4647-a5d1-0c5e7f8bbb25"
 
   features {
     application_insights {
@@ -40,7 +39,6 @@ provider "azapi" {
   environment                    = "public"
   skip_provider_registration     = false
   use_oidc                       = true
-  subscription_id = "9842be63-c8c0-4647-a5d1-0c5e7f8bbb25"
 }
 
 provider "azuread" {
