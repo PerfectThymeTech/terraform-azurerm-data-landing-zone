@@ -16,6 +16,9 @@ databricks_network_connectivity_config_name = "ncc-northeurope-test"
 # HA/DR variables
 zone_redundancy_enabled = false
 
+# Logging variables
+log_analytics_workspace_id = ""
+
 # Identity variables
 service_principal_name_terraform_plan = ""
 
