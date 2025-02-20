@@ -1,6 +1,11 @@
 locals {
-  prefix                        = "${lower(var.prefix)}-${var.environment}"
-  diagnostics_configurations    = []
+  prefix = "${lower(var.prefix)}-${var.environment}"
+  diagnostics_configurations = var.log_analytics_workspace_id != "" ? [
+    {
+      log_analytics_workspace_id = var.log_analytics_workspace_id,
+      storage_account_id         = ""
+    }
+  ] : []
   connectivity_delay_in_seconds = 20
 }
 

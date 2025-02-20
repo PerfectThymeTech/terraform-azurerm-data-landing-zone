@@ -94,6 +94,18 @@ variable "zone_redundancy_enabled" {
   default     = true
 }
 
+# Logging variables
+variable "log_analytics_workspace_id" {
+  description = "Specifies the resource ID of a log analytics workspace for all diagnostic logs."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = length(split("/", var.log_analytics_workspace_id)) == 9 || var.log_analytics_workspace_id == ""
+    error_message = "Please specify a valid resource ID."
+  }
+}
+
 # Identity variables
 variable "service_principal_name_terraform_plan" {
   description = "Specifies the name of the service principal used for the Terraform plan in PRs."

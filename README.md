@@ -322,6 +322,14 @@ Type: `string`
 
 Default: `"dev"`
 
+### <a name="input_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#input\_log\_analytics\_workspace\_id)
+
+Description: Specifies the resource ID of a log analytics workspace for all diagnostic logs.
+
+Type: `string`
+
+Default: `""`
+
 ### <a name="input_private_dns_zone_id_blob"></a> [private\_dns\_zone\_id\_blob](#input\_private\_dns\_zone\_id\_blob)
 
 Description: Specifies the resource ID of the private DNS zone for Azure Storage blob endpoints. Not required if DNS A-records get created via Azue Policy.

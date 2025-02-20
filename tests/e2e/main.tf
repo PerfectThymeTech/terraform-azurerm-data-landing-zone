@@ -28,6 +28,9 @@ module "data_landing_zone" {
   # HA/DR variables
   zone_redundancy_enabled = false
 
+  # Logging variables
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+
   # Identity variables
   service_principal_name_terraform_plan = var.service_principal_name_terraform_plan
 
