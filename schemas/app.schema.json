@@ -310,6 +310,33 @@
         }
       }
     },
+    "private_endpoints": {
+      "description": "Specifies the private endpoints to be deployed for the application.",
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "properties": {
+            "resource_id": {
+              "description": "Specifies the resource id to which the private endpoint should connect.",
+              "type": "string"
+            },
+            "subresource_name": {
+              "description": "Specifies the subresource name of the private endpoint.",
+              "type": "string"
+            },
+            "private_dns_zone_id": {
+              "description": "Specifies the private dns zone for the private endpoint.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "resource_id",
+            "subresource_name"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
     "ai_search": {
       "description": "Specifies the ai search configuration for the app.",
       "type": "object",
