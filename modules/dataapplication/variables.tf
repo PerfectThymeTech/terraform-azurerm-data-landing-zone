@@ -121,7 +121,7 @@ variable "private_endpoints" {
   validation {
     condition = alltrue([
       length([for resource_id in values(var.private_endpoints)[*].resource_id : resource_id if length(split("/", resource_id)) != 9]) <= 0,
-      length([for private_dns_zone_id in values(var.private_endpoints)[*].private_dns_zone_id : private_dns_zone_id if (private_dns_zone_id != "" && length(split("/", private_dns_zone_id)) != 9)]) <= 0,
+      length([for private_dns_zone_id in values(var.private_endpoints)[*].private_dns_zone_id : private_dns_zone_id if(private_dns_zone_id != "" && length(split("/", private_dns_zone_id)) != 9)]) <= 0,
     ])
     error_message = "Please specify a valid ai service configuration."
   }
