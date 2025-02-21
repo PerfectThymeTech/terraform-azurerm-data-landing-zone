@@ -2,7 +2,7 @@ resource "azurerm_private_endpoint" "private_endpoint" {
   for_each = var.private_endpoints
 
   name                = "${local.prefix}-${each.key}-pe"
-  resource_group_name = azurerm_resource_group.resource_group_app.id
+  resource_group_name = azurerm_resource_group.resource_group_app.name
   location            = var.location
 
   custom_network_interface_name = "${local.prefix}-${each.key}-nic"
