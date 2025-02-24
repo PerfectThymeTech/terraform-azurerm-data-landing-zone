@@ -10,6 +10,7 @@ resource "azurerm_private_endpoint" "private_endpoint" {
     name                           = "${local.prefix}-${each.key}-svc"
     is_manual_connection           = true
     private_connection_resource_id = each.value.resource_id
+    request_message                = "Private Endpoint Connection Request from Data Landing Zone Stamp Application with prefix: ${local.prefix}"
     subresource_names              = [each.value.subresource_name]
   }
   subnet_id = var.subnet_id_app
