@@ -96,6 +96,7 @@ module "data_application" {
   storage_account_ids          = module.core.storage_account_ids
   databricks_workspace_details = module.core.databricks_workspace_details
   ai_services                  = try(each.value.ai_services, {})
+  private_endpoints            = try(each.value.private_endpoints, {})
   search_service_details       = try(each.value.ai_search, {})
   data_factory_details = {
     enabled = try(each.value.data_factory.enabled, false)
