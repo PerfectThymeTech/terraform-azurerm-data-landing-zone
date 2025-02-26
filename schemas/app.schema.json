@@ -251,6 +251,33 @@
       "required": [],
       "additionalProperties": false
     },
+    "data_providers": {
+      "description": "Specifies the data providers of the application.",
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "type": "object",
+          "properties": {
+            "service_principal_names": {
+              "description": "Specifies service principal names that will be granted storage blob data contributor rights to the external storage account container name.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "group_names": {
+              "description": "Specifies Entra ID group names that will be granted storage blob data contributor rights to the external storage account container name.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      }
+    },
     "ai_services": {
       "description": "Specifies the ai services to be deployed for the application.",
       "type": "object",

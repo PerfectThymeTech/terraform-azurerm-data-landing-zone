@@ -92,9 +92,9 @@ resource "databricks_grant" "grant_catalog_external_reader" {
 }
 
 resource "databricks_grant" "grant_external_location_external_reader" {
-  count = var.reader_group_name == "" ? 0 : 1
+  for_each = var.reader_group_name == "" ? {} : var.data_provider_details
 
-  external_location = databricks_external_location.external_location_external.id
+  external_location = databricks_external_location.external_location_external[each.key].id
   principal         = one(data.databricks_group.group_reader[*].display_name)
   privileges = [
     # General

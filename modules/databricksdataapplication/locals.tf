@@ -1,11 +1,14 @@
 locals {
   # General locals
-  prefix = "${lower(var.prefix)}-${lower(var.app_name)}-${var.environment}"
+  prefix = "${lower(var.prefix)}-${var.environment}-${lower(var.app_name)}"
 
   # Storage locals
   storage_container_external = {
-    storage_account_name   = split("/", var.storage_container_ids.external)[8]
-    storage_container_name = reverse(split("/", var.storage_container_ids.external))[0]
+    for key, value in var.data_provider_details :
+    key => {
+      storage_account_name   = split("/", var.storage_container_ids.external[key])[8]
+      storage_container_name = reverse(split("/", var.storage_container_ids.external[key]))[0]
+    }
   }
   storage_container_raw = {
     storage_account_name   = split("/", var.storage_container_ids.raw)[8]

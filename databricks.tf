@@ -55,6 +55,7 @@ module "databricks_data_application" {
     data_factory_principal_id = try(module.data_application[each.key].data_factory_details.data_factory_principal_id, {})
   }
   storage_container_ids = try(module.data_application[each.key].storage_container_ids, {})
+  data_provider_details = try(each.value.data_providers, {})
 
   # Identity variables
   admin_group_name                      = try(each.value.identity.admin_group_name, "")

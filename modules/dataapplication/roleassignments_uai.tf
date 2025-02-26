@@ -94,8 +94,10 @@ resource "azurerm_role_assignment" "role_assignment_data_factory_data_factory_co
 
 # Storage role assignments
 resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_owner_uai" {
+  for_each = var.data_provider_details
+
   description          = "Role assignment to the external storage container."
-  scope                = azurerm_storage_container.storage_container_external.id
+  scope                = azurerm_storage_container.storage_container_external[each.key].id
   role_definition_name = "Storage Blob Data Owner"
   principal_id         = module.user_assigned_identity.user_assigned_identity_principal_id
   principal_type       = "ServicePrincipal"

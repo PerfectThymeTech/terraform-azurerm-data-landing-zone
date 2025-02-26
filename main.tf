@@ -94,6 +94,7 @@ module "data_application" {
   # Service variables
   app_name                     = each.key
   storage_account_ids          = module.core.storage_account_ids
+  data_provider_details        = try(each.value.data_providers, {})
   databricks_workspace_details = module.core.databricks_workspace_details
   ai_services                  = try(each.value.ai_services, {})
   private_endpoints            = try(each.value.private_endpoints, {})

@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "resource_group_app" {
 }
 
 resource "azurerm_resource_group" "resource_group_app_monitoring" {
-  name     = "${local.prefix}-monitoring-rg"
+  name     = "${local.prefix}-mntrng-rg"
   location = var.location
   tags     = var.tags
 }

@@ -1,6 +1,8 @@
 resource "azurerm_storage_container" "storage_container_external" {
+  for_each = var.data_provider_details
+
   storage_account_id = var.storage_account_ids.external
-  name               = "${local.prefix}-ext"
+  name               = "${local.prefix}-ext-${lower(each.key)}"
 
   container_access_type             = "private"
   default_encryption_scope          = null

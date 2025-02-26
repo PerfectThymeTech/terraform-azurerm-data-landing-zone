@@ -104,9 +104,9 @@ resource "databricks_grant" "grant_catalog_external_service_principal" {
 }
 
 resource "databricks_grant" "grant_external_location_external_service_principal" {
-  count = var.service_principal_name == "" ? 0 : 1
+  for_each = var.service_principal_name == "" ? {} : var.data_provider_details
 
-  external_location = databricks_external_location.external_location_external.id
+  external_location = databricks_external_location.external_location_external[each.key].id
   principal         = one(databricks_service_principal.service_principal[*].application_id)
   privileges = [
     # General
