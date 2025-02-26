@@ -1,6 +1,6 @@
 locals {
   # General locals
-  prefix                           = "${lower(var.prefix)}-${lower(var.app_name)}-${var.environment}"
+  prefix                           = "${lower(var.prefix)}-${var.environment}-${lower(var.app_name)}"
   budget_start_date_rotation_years = 9
 
   # Databricks locals

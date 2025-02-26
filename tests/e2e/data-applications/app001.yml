@@ -31,6 +31,12 @@ alerting:
     email:
       email_address: test@microsoft.com
 
+data_providers:
+  p001:
+    service_principal_names: []
+    group_names:
+    - data-provider-001
+
 budget:
   categories:
     azure: 1000

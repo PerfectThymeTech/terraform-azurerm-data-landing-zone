@@ -1,6 +1,6 @@
 locals {
   # General locals
-  prefix = "${lower(var.prefix)}-core-${var.environment}"
+  prefix = "${lower(var.prefix)}-${var.environment}-core"
 
   # Storage locals
   storage_external_network_private_link_access = [

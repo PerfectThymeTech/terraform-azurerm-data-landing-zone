@@ -141,7 +141,7 @@ variable "databricks_user_assigned_identity_details" {
 variable "storage_container_ids" {
   description = "Specifies the databricks key vault secret scope details that should be added to the workspace."
   type = object({
-    external  = optional(string, "")
+    external  = optional(map(string), {})
     raw       = optional(string, "")
     enriched  = optional(string, "")
     curated   = optional(string, "")
@@ -151,8 +151,26 @@ variable "storage_container_ids" {
   nullable  = false
   default   = {}
   validation {
-    condition     = var.storage_container_ids.external == "" || length(split("/", var.storage_container_ids.external)) == 13
+    condition = alltrue([
+      length([for id in values(var.storage_container_ids.external)[*] : id if length(split("/", id)) != 13]) <= 0,
+    ])
     error_message = "Please provide valid external storage container id."
+  }
+  validation {
+    condition     = var.storage_container_ids.raw == "" || length(split("/", var.storage_container_ids.raw)) == 13
+    error_message = "Please provide valid raw storage container id."
+  }
+  validation {
+    condition     = var.storage_container_ids.enriched == "" || length(split("/", var.storage_container_ids.enriched)) == 13
+    error_message = "Please provide valid curated storage container id."
+  }
+  validation {
+    condition     = var.storage_container_ids.curated == "" || length(split("/", var.storage_container_ids.curated)) == 13
+    error_message = "Please provide valid curated storage container id."
+  }
+  validation {
+    condition     = var.storage_container_ids.workspace == "" || length(split("/", var.storage_container_ids.workspace)) == 13
+    error_message = "Please provide valid workspace storage container id."
   }
 }
 
