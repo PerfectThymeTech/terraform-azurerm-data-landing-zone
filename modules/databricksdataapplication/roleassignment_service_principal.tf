@@ -104,7 +104,7 @@ resource "databricks_grant" "grant_catalog_external_service_principal" {
 }
 
 resource "databricks_grant" "grant_external_location_external_service_principal" {
-  count = var.service_principal_name == "" ? {} : var.storage_container_ids.external
+  for_each = var.service_principal_name == "" ? {} : var.storage_container_ids.external
 
   external_location = databricks_external_location.external_location_external[each.key].id
   principal         = one(databricks_service_principal.service_principal[*].application_id)
