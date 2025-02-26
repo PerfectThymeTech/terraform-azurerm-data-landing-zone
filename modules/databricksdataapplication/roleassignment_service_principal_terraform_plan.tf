@@ -104,9 +104,9 @@ resource "databricks_grant" "grant_catalog_external_service_principal_terraform_
 }
 
 resource "databricks_grant" "grant_external_location_external_service_principal_terraform_plan" {
-  count = var.service_principal_name_terraform_plan == "" ? 0 : 1
+  for_each = var.service_principal_name_terraform_plan == "" ? {} : var.storage_container_ids.external
 
-  external_location = databricks_external_location.external_location_external.id
+  external_location = databricks_external_location.external_location_external[each.key].id
   principal         = one(data.databricks_service_principal.service_principal_terraform_plan[*].application_id)
   privileges = [
     # General

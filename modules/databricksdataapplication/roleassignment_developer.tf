@@ -104,9 +104,9 @@ resource "databricks_grant" "grant_catalog_external_developer" {
 }
 
 resource "databricks_grant" "grant_external_location_external_developer" {
-  count = var.developer_group_name == "" ? 0 : 1
+  for_each = var.developer_group_name == "" ? {} : var.storage_container_ids.external
 
-  external_location = databricks_external_location.external_location_external.id
+  external_location = databricks_external_location.external_location_external[each.key].id
   principal         = one(data.databricks_group.group_developer[*].display_name)
   privileges = [
     # General

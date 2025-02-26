@@ -96,7 +96,9 @@ resource "databricks_grant" "grant_catalog_external_admin" {
 }
 
 resource "databricks_grant" "grant_external_location_external_admin" {
-  external_location = databricks_external_location.external_location_external.id
+  for_each = var.storage_container_ids.external
+
+  external_location = databricks_external_location.external_location_external[each.key].id
   principal         = data.databricks_group.group_admin.display_name
   privileges = [
     # General
