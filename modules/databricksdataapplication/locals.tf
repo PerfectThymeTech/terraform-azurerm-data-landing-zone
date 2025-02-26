@@ -1,6 +1,6 @@
 locals {
   # General locals
-  prefix = "${lower(var.prefix)}-${lower(var.app_name)}-${var.environment}"
+  prefix = "${lower(var.prefix)}-${var.environment}-${lower(var.app_name)}"
 
   # Storage locals
   storage_container_external = {
