@@ -1,4 +1,4 @@
-name: DltComputePolicyPtt
+name: DltComputePolicy
 description: Policy for DLT Computes
 maxClustersPerUser: 3
 definition:
@@ -23,32 +23,31 @@ definition:
   azure_attributes.availability:
     type: fixed
     value: ON_DEMAND_AZURE
-    isOptional: false
     hidden: true
   azure_attributes.spot_bid_max_price:
     type: fixed
     value: -1
-    isOptional: false
     hidden: true
+  cluster_name:
+    type: regex
+    pattern: "${prefix}-[a-z0-9]"
+    isOptional: false
+    hidden: false
   cluster_type:
     type: fixed
     value: dlt
-    isOptional: false
     hidden: true
   cluster_log_conf.type:
     type: fixed
     value: DBFS
-    isOptional: false
     hidden: true
   cluster_log_conf.path:
     type: fixed
     value: dbfs:/cluster-logs
-    isOptional: false
     hidden: true
   custom_tags.costCenter:
     type: fixed
-    defaultValue: "${costCenter}"
-    isOptional: false
+    value: "${costCenter}"
     hidden: false
   data_security_mode:
     type: allowlist
@@ -57,12 +56,10 @@ definition:
       - SINGLE_USER
       - USER_ISOLATION
       - NONE
-    isOptional: false
     hidden: false
   enable_local_disk_encryption:
     type: fixed
     value: true
-    isOptional: false
     hidden: true
   driver_node_type_id:
     type: allowlist
@@ -87,7 +84,3 @@ definition:
     defaultValue: auto:latest-lts
     isOptional: false
     hidden: false
-  ssh_public_keys:
-    type: forbidden
-    isOptional: true
-    hidden: true
