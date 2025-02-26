@@ -174,6 +174,16 @@ variable "storage_container_ids" {
   }
 }
 
+variable "data_provider_details" {
+  description = "Specifies the list of data provider systems that are pushing data."
+  type = map(object({
+    service_principal_names = optional(list(string), [])
+    group_names             = optional(list(string), [])
+  }))
+  sensitive = false
+  default   = {}
+}
+
 # Identity variables
 variable "admin_group_name" {
   description = "Specifies the name of the admin Entra ID security group."

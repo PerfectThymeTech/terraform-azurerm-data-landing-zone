@@ -96,7 +96,7 @@ resource "databricks_grant" "grant_catalog_external_uai" {
 }
 
 resource "databricks_grant" "grant_external_location_external_uai" {
-  for_each = var.storage_container_ids.external
+  for_each = var.data_provider_details
 
   external_location = databricks_external_location.external_location_external[each.key].id
   principal         = databricks_service_principal.service_principal_uai.application_id

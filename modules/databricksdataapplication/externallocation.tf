@@ -1,5 +1,5 @@
 resource "databricks_external_location" "external_location_external" {
-  for_each = var.storage_container_ids.external
+  for_each = var.data_provider_details
 
   name = "${local.prefix}-${each.key}-ext"
 
