@@ -1,5 +1,7 @@
 resource "databricks_external_location" "external_location_external" {
-  name = "${local.prefix}-ext"
+  for_each = var.storage_container_ids.external
+
+  name = "${local.prefix}-${each.key}-ext"
 
   comment         = "Default external storage layer for '${var.app_name}' data application."
   credential_name = one(databricks_storage_credential.storage_credential[*].name)
@@ -9,7 +11,7 @@ resource "databricks_external_location" "external_location_external" {
   isolation_mode  = "ISOLATION_MODE_ISOLATED"
   read_only       = false
   skip_validation = false
-  url             = "abfss://${local.storage_container_external.storage_container_name}@${local.storage_container_external.storage_account_name}.dfs.core.windows.net/"
+  url             = "abfss://${local.storage_container_external[each.key].storage_container_name}@${local.storage_container_external[each.key].storage_account_name}.dfs.core.windows.net/"
 }
 
 resource "databricks_external_location" "external_location_raw" {

@@ -43,7 +43,10 @@ output "data_factory_details" {
 output "storage_container_ids" {
   description = "Specifies the storage container ids of the app."
   value = {
-    external  = azurerm_storage_container.storage_container_external.id
+    external = {
+      for key, value in var.data_provider_details :
+      key => azurerm_storage_container.storage_container_external[each.key].id
+    }
     raw       = azurerm_storage_container.storage_container_raw.id
     enriched  = azurerm_storage_container.storage_container_enriched.id
     curated   = azurerm_storage_container.storage_container_curated.id

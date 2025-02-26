@@ -4,8 +4,11 @@ locals {
 
   # Storage locals
   storage_container_external = {
-    storage_account_name   = split("/", var.storage_container_ids.external)[8]
-    storage_container_name = reverse(split("/", var.storage_container_ids.external))[0]
+    for key, value in var.storage_container_ids.external :
+    key => {
+      storage_account_name   = split("/", var.storage_container_ids.external)[8]
+      storage_container_name = reverse(split("/", var.storage_container_ids.external))[0]
+    }
   }
   storage_container_raw = {
     storage_account_name   = split("/", var.storage_container_ids.raw)[8]
