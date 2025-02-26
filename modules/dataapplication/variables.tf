@@ -76,6 +76,16 @@ variable "storage_account_ids" {
   }
 }
 
+variable "data_provider_details" {
+  description = "Specifies the list of data provider systems that are pushing data."
+  type = map(object({
+    service_principal_names = optional(list(string), [])
+    group_names             = optional(list(string), [])
+  }))
+  sensitive = false
+  default   = {}
+}
+
 variable "databricks_workspace_details" {
   description = "Specifies the workspace details of databricks workspaces."
   type = map(object({

@@ -105,10 +105,10 @@ resource "azurerm_role_assignment" "role_assignment_storage_account_external_eve
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_contributor_datafactory" {
-  count = var.data_factory_details.enabled ? 1 : 0
+  for_each = var.data_factory_details.enabled ? var.data_provider_details : {}
 
   description          = "Role assignment to external storage account container to read and write data."
-  scope                = azurerm_storage_container.storage_container_external.id
+  scope                = azurerm_storage_container.storage_container_external[each.key].id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = one(module.data_factory[*].data_factory_principal_id)
   principal_type       = "ServicePrincipal"
