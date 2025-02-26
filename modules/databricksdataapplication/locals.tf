@@ -36,6 +36,9 @@ locals {
   databricks_cluster_policy_file_variables = merge(
     var.databricks_cluster_policy_file_variables,
     var.tags,
+    {
+      prefix = local.prefix
+    }
   )
 
   # Load file content

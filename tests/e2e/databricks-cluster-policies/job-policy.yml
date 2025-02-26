@@ -30,6 +30,11 @@ definition:
     value: -1
     isOptional: false
     hidden: true
+  cluster_name:
+    type: regex
+    pattern: "${prefix}-[a-z0-9]"
+    isOptional: false
+    hidden: true
   cluster_type:
     type: fixed
     value: job
