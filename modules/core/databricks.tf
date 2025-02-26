@@ -9,7 +9,7 @@ module "databricks_workspace_engineering" {
   location_private_endpoint                                                 = var.location
   resource_group_name                                                       = azurerm_resource_group.resource_group_engineering.name
   tags                                                                      = var.tags
-  databricks_workspace_name                                                 = "${local.prefix}-eng-dbw001"
+  databricks_workspace_name                                                 = "${local.prefix}-engnrng-dbw001"
   databricks_workspace_access_connector_id                                  = module.databricks_access_connector_engineering.databricks_access_connector_id
   databricks_workspace_machine_learning_workspace_id                        = null
   databricks_workspace_virtual_network_id                                   = var.vnet_id
