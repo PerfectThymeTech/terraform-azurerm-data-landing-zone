@@ -6,6 +6,6 @@ output "databricks_network_connectivity_config_id" {
 
 output "databricks_service_principal_terraform_plan_application_id" {
   description = "Specifies the application id of the service principal used for Terraform Plan."
-  value       = databricks_service_principal.service_principal_terraform_plan.application_id
+  value       = one(databricks_service_principal.service_principal_terraform_plan[*].application_id)
   sensitive   = false
 }
