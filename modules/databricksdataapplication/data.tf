@@ -9,6 +9,8 @@ data "azuread_service_principal" "service_principal" {
 data "databricks_service_principal" "service_principal_terraform_plan" {
   count = var.databricks_service_principal_terraform_plan_application_id == "" ? 0 : 1
 
+  provider = databricks.account
+
   application_id = var.databricks_service_principal_terraform_plan_application_id
 }
 
