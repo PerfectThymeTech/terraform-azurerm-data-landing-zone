@@ -20,7 +20,7 @@ zone_redundancy_enabled = false
 log_analytics_workspace_id = ""
 
 # Identity variables
-service_principal_name_terraform_plan = "ptt-dev-uai002"
+service_principal_name_terraform_plan = "ptt-dev-uai001-dlz-tfplan"
 
 # Network variables
 vnet_id        = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001"
