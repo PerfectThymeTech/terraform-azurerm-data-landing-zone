@@ -85,7 +85,7 @@ resource "databricks_grant" "grant_catalog_external_service_principal_terraform_
 }
 
 resource "databricks_grant" "grant_external_location_external_service_principal_terraform_plan" {
-  for_each = var.databricks_service_principal_terraform_plan_application_id == "" ? {} : var.data_provider_details
+  for_each = var.service_principal_name_terraform_plan == "" ? {} : var.data_provider_details
 
   external_location = databricks_external_location.external_location_external[each.key].id
   principal         = one(data.databricks_service_principal.service_principal_terraform_plan[*].application_id)
