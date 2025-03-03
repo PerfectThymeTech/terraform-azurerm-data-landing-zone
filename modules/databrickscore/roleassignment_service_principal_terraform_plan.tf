@@ -10,6 +10,6 @@ resource "databricks_service_principal_role" "service_principal_role_account_adm
 
   count = var.service_principal_name_terraform_plan == "" ? 0 : 1
 
-  service_principal_id = one(data.databricks_service_principal.application[*].id)
+  service_principal_id = one(data.databricks_service_principal.service_principal_terraform_plan[*].id)
   role                 = "account_admin"
 }
