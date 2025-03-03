@@ -6,14 +6,6 @@ data "azuread_service_principal" "service_principal" {
   display_name = var.service_principal_name
 }
 
-data "databricks_service_principal" "service_principal_terraform_plan" {
-  count = var.service_principal_name_terraform_plan == "" ? 0 : 1
-
-  provider = databricks.account
-
-  application_id = var.databricks_service_principal_terraform_plan_application_id
-}
-
 data "databricks_group" "group_admin" {
   provider = databricks.account
 
