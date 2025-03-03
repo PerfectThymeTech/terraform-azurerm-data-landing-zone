@@ -66,6 +66,7 @@ module "databricks_data_application" {
   reader_group_name                                          = try(each.value.identity.reader_group_name, "")
   service_principal_name                                     = try(each.value.identity.service_principal_name, "")
   databricks_service_principal_terraform_plan_application_id = module.databricks_core.databricks_service_principal_terraform_plan_application_id
+  service_principal_name_terraform_plan                      = var.service_principal_name_terraform_plan
 
   # Budget variables
   budget = try(each.value.budget, 100)
