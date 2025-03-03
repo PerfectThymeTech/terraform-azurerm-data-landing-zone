@@ -8,3 +8,14 @@ resource "azurerm_role_assignment" "role_assignment_key_vault_secrets_user_servi
   principal_id         = one(data.azuread_service_principal.service_principal_terraform_plan[*].object_id)
   principal_type       = "ServicePrincipal"
 }
+
+# AI search service role assignment
+resource "azurerm_role_assignment" "role_assignment_search_service_contributor_service_principal_terraform_plan" {
+  count = var.service_principal_name_terraform_plan != "" && var.search_service_details.enabled ? 1 : 0
+
+  description          = "Role assignment to load documents and run indexing jobs in AI Search."
+  scope                = one(module.ai_search[*].search_service_id)
+  role_definition_name = "Search Service Contributor"
+  principal_id         = one(data.azuread_service_principal.service_principal_terraform_plan[*].object_id)
+  principal_type       = "ServicePrincipal"
+}
