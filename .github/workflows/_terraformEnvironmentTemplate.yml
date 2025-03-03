@@ -28,9 +28,12 @@ on:
         type: string
         description: "Specifies the subscription id of the deployment."
     secrets:
-      CLIENT_ID:
+      CLIENT_ID_PLAN:
         required: true
-        description: "Specifies the client id."
+        description: "Specifies the client id for plan."
+      CLIENT_ID_APPLY:
+        required: true
+        description: "Specifies the client id for apply."
     outputs:
       databricks_account_id:
         description: "Specifies the account id of Databricks."
@@ -101,7 +104,7 @@ jobs:
     env:
       ARM_TENANT_ID: ${{ inputs.tenant_id }}
       ARM_SUBSCRIPTION_ID: ${{ inputs.subscription_id }}
-      ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      ARM_CLIENT_ID: ${{ secrets.CLIENT_ID_PLAN }}
       ARM_USE_OIDC: true
 
     steps:
@@ -130,7 +133,7 @@ jobs:
         id: azure_login
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.CLIENT_ID }}
+          client-id: ${{ secrets.CLIENT_ID_PLAN }}
           tenant-id: ${{ inputs.tenant_id }}
           subscription-id: ${{ inputs.subscription_id }}
 
@@ -205,7 +208,7 @@ jobs:
     env:
       ARM_TENANT_ID: ${{ inputs.tenant_id }}
       ARM_SUBSCRIPTION_ID: ${{ inputs.subscription_id }}
-      ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      ARM_CLIENT_ID: ${{ secrets.CLIENT_ID_APPLY }}
       ARM_USE_OIDC: true
 
     steps:
@@ -234,7 +237,7 @@ jobs:
         id: azure_login
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.CLIENT_ID }}
+          client-id: ${{ secrets.CLIENT_ID_APPLY }}
           tenant-id: ${{ inputs.tenant_id }}
           subscription-id: ${{ inputs.subscription_id }}
 

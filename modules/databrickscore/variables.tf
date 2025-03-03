@@ -81,3 +81,15 @@ variable "databricks_network_connectivity_config_name" {
     error_message = "Please provide a valid name for the databricks connectivity config."
   }
 }
+
+# Identity variables
+variable "service_principal_name_terraform_plan" {
+  description = "Specifies the name of the service principal used for the Terraform plan in PRs."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.service_principal_name_terraform_plan == "" || length(var.service_principal_name_terraform_plan) >= 2
+    error_message = "Please specify a valid name."
+  }
+}

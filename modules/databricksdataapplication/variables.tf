@@ -227,6 +227,17 @@ variable "service_principal_name" {
   }
 }
 
+variable "databricks_service_principal_terraform_plan_application_id" {
+  description = "Specifies the application id of the service principal used for Terraform Plan."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.databricks_service_principal_terraform_plan_application_id == "" || length(var.databricks_service_principal_terraform_plan_application_id) >= 2
+    error_message = "Please specify a valid name."
+  }
+}
+
 variable "service_principal_name_terraform_plan" {
   description = "Specifies the name of the service principal used for the Terraform plan in PRs."
   type        = string
