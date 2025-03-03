@@ -18,7 +18,7 @@ resource "databricks_grant" "grant_catalog_internal_service_principal_terraform_
     # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
 
     # Prerequisite
-    # "USE_CATALOG",
+    "USE_CATALOG",
     # "USE_SCHEMA",
 
     # Metadata
@@ -57,7 +57,7 @@ resource "databricks_grant" "grant_catalog_external_service_principal_terraform_
     # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
 
     # Prerequisite
-    # "USE_CATALOG",
+    "USE_CATALOG",
     # "USE_SCHEMA",
 
     # Metadata
@@ -98,7 +98,7 @@ resource "databricks_grant" "grant_external_location_external_service_principal_
     "BROWSE",
 
     # Read
-    # "READ_FILES",
+    "READ_FILES",
 
     # Edit
     # "WRITE_FILES",
@@ -125,7 +125,7 @@ resource "databricks_grant" "grant_external_location_raw_service_principal_terra
     "BROWSE",
 
     # Read
-    # "READ_FILES",
+    "READ_FILES",
 
     # Edit
     # "WRITE_FILES",
@@ -152,7 +152,7 @@ resource "databricks_grant" "grant_external_location_enriched_service_principal_
     "BROWSE",
 
     # Read
-    # "READ_FILES",
+    "READ_FILES",
 
     # Edit
     # "WRITE_FILES",
@@ -179,7 +179,7 @@ resource "databricks_grant" "grant_external_location_curated_service_principal_t
     "BROWSE",
 
     # Read
-    # "READ_FILES",
+    "READ_FILES",
 
     # Edit
     # "WRITE_FILES",
@@ -206,7 +206,7 @@ resource "databricks_grant" "grant_external_location_workspace_service_principal
     "BROWSE",
 
     # Read
-    # "READ_FILES",
+    "READ_FILES",
 
     # Edit
     # "WRITE_FILES",
