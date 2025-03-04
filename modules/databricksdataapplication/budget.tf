@@ -28,5 +28,12 @@ resource "databricks_budget" "budget" {
 resource "databricks_budget_policy" "budget_policy" {
   policy_name = "${local.prefix}-budget"
 
-  custom_tags = [var.tags]
+  custom_tags = [
+    merge(
+      var.tags,
+      {
+        prefix = local.prefix
+      }
+    )
+  ]
 }
