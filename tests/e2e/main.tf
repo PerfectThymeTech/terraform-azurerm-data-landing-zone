@@ -17,13 +17,14 @@ module "data_landing_zone" {
   tags        = var.tags
 
   # Service variables
-  data_platform_subscription_ids              = var.data_platform_subscription_ids
-  data_application_library_path               = var.data_application_library_path
-  data_application_file_variables             = var.data_application_file_variables
-  databricks_cluster_policy_library_path      = var.databricks_cluster_policy_library_path
-  databricks_cluster_policy_file_variables    = var.databricks_cluster_policy_file_variables
-  databricks_account_id                       = var.databricks_account_id
-  databricks_network_connectivity_config_name = var.databricks_network_connectivity_config_name
+  data_platform_subscription_ids                   = var.data_platform_subscription_ids
+  data_application_library_path                    = var.data_application_library_path
+  data_application_file_variables                  = var.data_application_file_variables
+  databricks_cluster_policy_library_path           = var.databricks_cluster_policy_library_path
+  databricks_cluster_policy_file_variables         = var.databricks_cluster_policy_file_variables
+  databricks_account_id                            = var.databricks_account_id
+  databricks_network_connectivity_config_name      = var.databricks_network_connectivity_config_name
+  databricks_compliance_security_profile_standards = var.databricks_compliance_security_profile_standards
 
   # HA/DR variables
   zone_redundancy_enabled = false

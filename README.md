@@ -314,6 +314,14 @@ Type: `string`
 
 Default: `""`
 
+### <a name="input_databricks_compliance_security_profile_standards"></a> [databricks\_compliance\_security\_profile\_standards](#input\_databricks\_compliance\_security\_profile\_standards)
+
+Description: Specifies which enhanced compliance security profiles ('HIPAA', 'PCI\_DSS') should be enabled for the Azure Databricks workspace.
+
+Type: `list(string)`
+
+Default: `[]`
+
 ### <a name="input_environment"></a> [environment](#input\_environment)
 
 Description: Specifies the environment of the deployment.
