@@ -146,7 +146,7 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
 
-- <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) (~> 1.63)
+- <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) (~> 1.69)
 
 - <a name="requirement_null"></a> [null](#requirement\_null) (~> 3.2)
 
@@ -313,6 +313,14 @@ Description: Specifies the databricks cluster policy library path.
 Type: `string`
 
 Default: `""`
+
+### <a name="input_databricks_compliance_security_profile_standards"></a> [databricks\_compliance\_security\_profile\_standards](#input\_databricks\_compliance\_security\_profile\_standards)
+
+Description: Specifies which enhanced compliance security profiles ('HIPAA', 'PCI\_DSS') should be enabled for the Azure Databricks workspace.
+
+Type: `list(string)`
+
+Default: `[]`
 
 ### <a name="input_environment"></a> [environment](#input\_environment)
 

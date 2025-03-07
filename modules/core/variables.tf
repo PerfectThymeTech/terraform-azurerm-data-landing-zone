@@ -41,6 +41,20 @@ variable "data_platform_subscription_ids" {
   default     = []
 }
 
+variable "databricks_compliance_security_profile_standards" {
+  description = "Specifies which enhanced compliance security profiles ('HIPAA', 'PCI_DSS') should be enabled for the Azure Databricks workspace."
+  type        = list(string)
+  sensitive   = false
+  nullable    = false
+  default     = []
+  validation {
+    condition = alltrue([
+      length([for compliance_security_profile_standard in toset(var.databricks_compliance_security_profile_standards) : compliance_security_profile_standard if !contains(["HIPAA", "PCI_DSS"], compliance_security_profile_standard)]) <= 0
+    ])
+    error_message = "Please specify a valid compliance security profile."
+  }
+}
+
 # HA/DR variables
 variable "zone_redundancy_enabled" {
   description = "Specifies whether zone-redundancy should be enabled for all resources."

@@ -24,3 +24,17 @@ resource "databricks_budget" "budget" {
     }
   }
 }
+
+resource "databricks_budget_policy" "budget_policy" {
+  provider = databricks.account
+
+  policy_name = "${local.prefix}-budget"
+
+  custom_tags = [
+    for key, value in merge(var.tags, { prefix = local.prefix }) :
+    {
+      key   = key
+      value = value
+    }
+  ]
+}

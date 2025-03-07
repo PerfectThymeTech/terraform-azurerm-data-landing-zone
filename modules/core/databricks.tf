@@ -19,6 +19,7 @@ module "databricks_workspace_engineering" {
   databricks_workspace_public_subnet_network_security_group_association_id  = var.subnet_id_engineering_public
   databricks_workspace_storage_account_sku_name                             = var.zone_redundancy_enabled ? "Standard_ZRS" : "Standard_LRS"
   databricks_workspace_browser_authentication_private_endpoint_enabled      = false
+  databricks_workspace_compliance_security_profile_standards                = var.databricks_compliance_security_profile_standards
   diagnostics_configurations                                                = var.diagnostics_configurations
   subnet_id                                                                 = var.subnet_id_storage
   connectivity_delay_in_seconds                                             = var.connectivity_delay_in_seconds + 30
@@ -47,6 +48,7 @@ module "databricks_workspace_consumption" {
   databricks_workspace_public_subnet_network_security_group_association_id  = var.subnet_id_consumption_public
   databricks_workspace_storage_account_sku_name                             = var.zone_redundancy_enabled ? "Standard_ZRS" : "Standard_LRS"
   databricks_workspace_browser_authentication_private_endpoint_enabled      = false
+  databricks_workspace_compliance_security_profile_standards                = var.databricks_compliance_security_profile_standards
   diagnostics_configurations                                                = var.diagnostics_configurations
   subnet_id                                                                 = var.subnet_id_storage
   connectivity_delay_in_seconds                                             = var.connectivity_delay_in_seconds + 30

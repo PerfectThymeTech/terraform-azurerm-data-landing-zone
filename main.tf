@@ -47,7 +47,8 @@ module "core" {
   tags        = var.tags
 
   # Service variables
-  data_platform_subscription_ids = var.data_platform_subscription_ids
+  data_platform_subscription_ids                   = var.data_platform_subscription_ids
+  databricks_compliance_security_profile_standards = var.databricks_compliance_security_profile_standards
 
   # HA/DR variables
   zone_redundancy_enabled = var.zone_redundancy_enabled
