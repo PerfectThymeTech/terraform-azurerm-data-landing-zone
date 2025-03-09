@@ -24,6 +24,8 @@ module "databricks_workspace_engineering" {
   subnet_id                                                                 = var.subnet_id_storage
   connectivity_delay_in_seconds                                             = var.connectivity_delay_in_seconds + 30
   private_dns_zone_id_databricks                                            = var.private_dns_zone_id_databricks
+  private_dns_zone_id_blob                                                  = var.private_dns_zone_id_blob
+  private_dns_zone_id_dfs                                                   = var.private_dns_zone_id_dfs
   customer_managed_key                                                      = var.customer_managed_key
 }
 
@@ -53,5 +55,7 @@ module "databricks_workspace_consumption" {
   subnet_id                                                                 = var.subnet_id_storage
   connectivity_delay_in_seconds                                             = var.connectivity_delay_in_seconds + 30
   private_dns_zone_id_databricks                                            = var.private_dns_zone_id_databricks
+  private_dns_zone_id_blob                                                  = var.private_dns_zone_id_blob
+  private_dns_zone_id_dfs                                                   = var.private_dns_zone_id_dfs
   customer_managed_key                                                      = var.customer_managed_key
 }
