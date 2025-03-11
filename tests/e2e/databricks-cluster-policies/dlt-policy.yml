@@ -28,11 +28,6 @@ definition:
     type: fixed
     value: -1
     hidden: true
-  cluster_name:
-    type: regex
-    pattern: "${prefix}-[a-z0-9]"
-    isOptional: false
-    hidden: false
   cluster_type:
     type: fixed
     value: dlt
