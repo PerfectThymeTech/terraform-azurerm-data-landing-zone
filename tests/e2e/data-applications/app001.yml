@@ -52,7 +52,7 @@ ai_services:
     sku: S0
 
 ai_search:
-  enabled: true
+  enabled: false
   sku: standard
   semantic_search_sku: standard
   partition_count: 1
