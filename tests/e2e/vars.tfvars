@@ -13,6 +13,11 @@ databricks_cluster_policy_file_variables         = {}
 databricks_account_id                            = "515f13c1-53bb-48fb-a2c9-75e3f5d943f5"
 databricks_network_connectivity_config_name      = "ncc-northeurope-test"
 databricks_compliance_security_profile_standards = ["PCI_DSS"]
+fabric_capacity_details = {
+  enabled      = true
+  admin_emails = []
+  sku          = "F2"
+}
 
 # HA/DR variables
 zone_redundancy_enabled = false

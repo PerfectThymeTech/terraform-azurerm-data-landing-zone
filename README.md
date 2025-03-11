@@ -330,6 +330,22 @@ Type: `string`
 
 Default: `"dev"`
 
+### <a name="input_fabric_capacity_details"></a> [fabric\_capacity\_details](#input\_fabric\_capacity\_details)
+
+Description: Specifies the fabric capacity configuration.
+
+Type:
+
+```hcl
+object({
+    enabled      = optional(bool, false)
+    admin_emails = optional(list, [])
+    sku          = optional(string, "F2")
+  })
+```
+
+Default: `{}`
+
 ### <a name="input_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#input\_log\_analytics\_workspace\_id)
 
 Description: Specifies the resource ID of a log analytics workspace for all diagnostic logs.

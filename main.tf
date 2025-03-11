@@ -49,6 +49,7 @@ module "core" {
   # Service variables
   data_platform_subscription_ids                   = var.data_platform_subscription_ids
   databricks_compliance_security_profile_standards = var.databricks_compliance_security_profile_standards
+  fabric_capacity_details                          = var.fabric_capacity_details
 
   # HA/DR variables
   zone_redundancy_enabled = var.zone_redundancy_enabled
