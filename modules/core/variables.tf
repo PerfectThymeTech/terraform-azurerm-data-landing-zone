@@ -59,7 +59,7 @@ variable "fabric_capacity_details" {
   description = "Specifies the fabric capacity configuration."
   type = object({
     enabled      = optional(bool, false)
-    admin_emails = optional(list, [])
+    admin_emails = optional(list(string), [])
     sku          = optional(string, "F2")
   })
   sensitive = false

@@ -339,7 +339,7 @@ Type:
 ```hcl
 object({
     enabled      = optional(bool, false)
-    admin_emails = optional(list, [])
+    admin_emails = optional(list(string), [])
     sku          = optional(string, "F2")
   })
 ```
