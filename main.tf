@@ -37,6 +37,7 @@ module "core" {
 
   providers = {
     azurerm = azurerm
+    azapi   = azapi
     time    = time
   }
 
