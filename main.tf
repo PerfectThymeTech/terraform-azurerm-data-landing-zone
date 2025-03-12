@@ -138,6 +138,7 @@ module "data_application" {
   private_dns_zone_id_databricks        = var.private_dns_zone_id_databricks
   private_dns_zone_id_vault             = var.private_dns_zone_id_vault
   private_dns_zone_id_cognitive_account = var.private_dns_zone_id_cognitive_account
+  private_dns_zone_id_open_ai           = var.private_dns_zone_id_open_ai
   private_dns_zone_id_data_factory      = var.private_dns_zone_id_data_factory
   private_dns_zone_id_search_service    = var.private_dns_zone_id_search_service
 
