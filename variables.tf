@@ -271,7 +271,7 @@ variable "private_dns_zone_id_open_ai" {
   sensitive   = false
   default     = ""
   validation {
-    condition     = var.private_dns_zone_id_cognitive_account == "" || (length(split("/", var.private_dns_zone_id_cognitive_account)) == 9 && (endswith(var.private_dns_zone_id_cognitive_account, "privatelink.openai.azure.com")))
+    condition     = var.private_dns_zone_id_open_ai == "" || (length(split("/", var.private_dns_zone_id_open_ai)) == 9 && (endswith(var.private_dns_zone_id_open_ai, "privatelink.openai.azure.com")))
     error_message = "Please specify a valid resource ID for the private DNS Zone."
   }
 }
