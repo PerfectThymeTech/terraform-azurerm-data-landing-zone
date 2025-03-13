@@ -25,6 +25,7 @@ module "data_landing_zone" {
   databricks_account_id                            = var.databricks_account_id
   databricks_network_connectivity_config_name      = var.databricks_network_connectivity_config_name
   databricks_compliance_security_profile_standards = var.databricks_compliance_security_profile_standards
+  fabric_capacity_details                          = var.fabric_capacity_details
 
   # HA/DR variables
   zone_redundancy_enabled = false
@@ -47,6 +48,7 @@ module "data_landing_zone" {
   private_dns_zone_id_vault             = var.private_dns_zone_id_vault
   private_dns_zone_id_databricks        = var.private_dns_zone_id_databricks
   private_dns_zone_id_cognitive_account = var.private_dns_zone_id_cognitive_account
+  private_dns_zone_id_open_ai           = var.private_dns_zone_id_open_ai
   private_dns_zone_id_data_factory      = var.private_dns_zone_id_data_factory
   private_dns_zone_id_search_service    = var.private_dns_zone_id_search_service
 

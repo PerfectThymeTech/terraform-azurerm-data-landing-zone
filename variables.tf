@@ -99,6 +99,22 @@ variable "databricks_compliance_security_profile_standards" {
   }
 }
 
+variable "fabric_capacity_details" {
+  description = "Specifies the fabric capacity configuration."
+  type = object({
+    enabled      = optional(bool, false)
+    admin_emails = optional(list(string), [])
+    sku          = optional(string, "F2")
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+  validation {
+    condition     = contains(["F2", "F4", "F8", "F16", "F32", "F64", "F128", "F256", "F512", "F1024", "F2048"], var.fabric_capacity_details.sku)
+    error_message = "Please specify a valid fabric capacity sku."
+  }
+}
+
 # HA/DR variables
 variable "zone_redundancy_enabled" {
   description = "Specifies whether zone-redundancy should be enabled for all resources."
@@ -244,7 +260,18 @@ variable "private_dns_zone_id_cognitive_account" {
   sensitive   = false
   default     = ""
   validation {
-    condition     = var.private_dns_zone_id_cognitive_account == "" || (length(split("/", var.private_dns_zone_id_cognitive_account)) == 9 && (endswith(var.private_dns_zone_id_cognitive_account, "privatelink.cognitiveservices.azure.com") || endswith(var.private_dns_zone_id_cognitive_account, "privatelink.openai.azure.com")))
+    condition     = var.private_dns_zone_id_cognitive_account == "" || (length(split("/", var.private_dns_zone_id_cognitive_account)) == 9 && (endswith(var.private_dns_zone_id_cognitive_account, "privatelink.cognitiveservices.azure.com")))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
+variable "private_dns_zone_id_open_ai" {
+  description = "Specifies the resource ID of the private DNS zone for Azure Open AI. Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_open_ai == "" || (length(split("/", var.private_dns_zone_id_open_ai)) == 9 && (endswith(var.private_dns_zone_id_open_ai, "privatelink.openai.azure.com")))
     error_message = "Please specify a valid resource ID for the private DNS Zone."
   }
 }

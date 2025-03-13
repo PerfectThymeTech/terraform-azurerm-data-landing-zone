@@ -13,6 +13,11 @@ databricks_cluster_policy_file_variables         = {}
 databricks_account_id                            = "515f13c1-53bb-48fb-a2c9-75e3f5d943f5"
 databricks_network_connectivity_config_name      = "ncc-northeurope-test"
 databricks_compliance_security_profile_standards = ["PCI_DSS"]
+fabric_capacity_details = {
+  enabled      = true
+  admin_emails = []
+  sku          = "F2"
+}
 
 # HA/DR variables
 zone_redundancy_enabled = false
@@ -42,6 +47,7 @@ private_dns_zone_id_dfs               = "/subscriptions/e82c5267-9dc4-4f45-ac13-
 private_dns_zone_id_vault             = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.vaultcore.azure.net"
 private_dns_zone_id_databricks        = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.azuredatabricks.net"
 private_dns_zone_id_cognitive_account = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.cognitiveservices.azure.com"
+private_dns_zone_id_open_ai           = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.openai.azure.com"
 private_dns_zone_id_data_factory      = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.datafactory.azure.net"
 private_dns_zone_id_search_service    = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.search.windows.net"
 

@@ -55,6 +55,22 @@ variable "databricks_compliance_security_profile_standards" {
   }
 }
 
+variable "fabric_capacity_details" {
+  description = "Specifies the fabric capacity configuration."
+  type = object({
+    enabled      = optional(bool, false)
+    admin_emails = optional(list(string), [])
+    sku          = optional(string, "F2")
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+  validation {
+    condition     = contains(["F2", "F4", "F8", "F16", "F32", "F64", "F128", "F256", "F512", "F1024", "F2048"], var.fabric_capacity_details.sku)
+    error_message = "Please specify a valid fabric capacity sku."
+  }
+}
+
 # HA/DR variables
 variable "zone_redundancy_enabled" {
   description = "Specifies whether zone-redundancy should be enabled for all resources."

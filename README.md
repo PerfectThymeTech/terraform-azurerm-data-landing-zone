@@ -330,6 +330,22 @@ Type: `string`
 
 Default: `"dev"`
 
+### <a name="input_fabric_capacity_details"></a> [fabric\_capacity\_details](#input\_fabric\_capacity\_details)
+
+Description: Specifies the fabric capacity configuration.
+
+Type:
+
+```hcl
+object({
+    enabled      = optional(bool, false)
+    admin_emails = optional(list(string), [])
+    sku          = optional(string, "F2")
+  })
+```
+
+Default: `{}`
+
 ### <a name="input_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#input\_log\_analytics\_workspace\_id)
 
 Description: Specifies the resource ID of a log analytics workspace for all diagnostic logs.
@@ -373,6 +389,14 @@ Default: `""`
 ### <a name="input_private_dns_zone_id_dfs"></a> [private\_dns\_zone\_id\_dfs](#input\_private\_dns\_zone\_id\_dfs)
 
 Description: Specifies the resource ID of the private DNS zone for Azure Storage dfs endpoints. Not required if DNS A-records get created via Azue Policy.
+
+Type: `string`
+
+Default: `""`
+
+### <a name="input_private_dns_zone_id_open_ai"></a> [private\_dns\_zone\_id\_open\_ai](#input\_private\_dns\_zone\_id\_open\_ai)
+
+Description: Specifies the resource ID of the private DNS zone for Azure Open AI. Not required if DNS A-records get created via Azure Policy.
 
 Type: `string`
 
