@@ -254,6 +254,8 @@ jobs:
         working-directory: ${{ inputs.working_directory }}
         run: |
           terraform apply -var-file="vars.tfvars" -auto-approve -input=false
+        env:
+          TF_LOG: 1
 
       # Terraform Export Outputs
       - name: Terraform Export Outputs
