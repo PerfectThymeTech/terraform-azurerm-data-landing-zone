@@ -14,7 +14,7 @@ terraform {
     }
     fabric = {
       source  = "microsoft/fabric"
-      version = "0.1.0-beta.10"
+      version = "0.1.0-rc.1"
     }
     time = {
       source  = "hashicorp/time"
