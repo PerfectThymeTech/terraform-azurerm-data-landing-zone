@@ -58,6 +58,9 @@ module "core" {
   # Logging and monitoring variables
   diagnostics_configurations = local.diagnostics_configurations
 
+  # Identity variables
+  service_principal_name_terraform_plan = var.service_principal_name_terraform_plan
+
   # Network variables
   vnet_id                       = var.vnet_id
   subnet_id_storage             = module.platform.subnet_id_storage
