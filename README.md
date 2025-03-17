@@ -148,7 +148,7 @@ The following requirements are needed by this module:
 
 - <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) (~> 1.69)
 
-- <a name="requirement_fabric"></a> [fabric](#requirement\_fabric) (0.1.0-beta.10)
+- <a name="requirement_fabric"></a> [fabric](#requirement\_fabric) (0.1.0-rc.1)
 
 - <a name="requirement_null"></a> [null](#requirement\_null) (~> 3.2)
 
