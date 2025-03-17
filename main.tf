@@ -113,7 +113,10 @@ module "data_application" {
       root_folder     = try(each.value.repository.github.data_factory_root_folder, "")
     }
   }
-  fabric_capacity_name = module.core.fabric_capacity_name
+  fabric_capacity_details = {
+    enabled = var.fabric_capacity_details.enabled
+    name    = module.core.fabric_capacity_name
+  }
   fabric_workspace_details = {
     enabled = try(each.value.fabric.enabled, false)
     github_repo = {

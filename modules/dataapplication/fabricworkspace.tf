@@ -4,9 +4,9 @@ module "fabric_workspace" {
     fabric = fabric
   }
 
-  count = var.fabric_workspace_details.enabled && var.fabric_capacity_name != "" ? 1 : 0
+  count = var.fabric_workspace_details.enabled && var.fabric_capacity_details.enabled ? 1 : 0
 
-  workspace_capacity_name    = var.fabric_capacity_name
+  workspace_capacity_name    = var.fabric_capacity_details.name
   workspace_display_name     = "${local.prefix}-wsp001"
   workspace_description      = "Fabric workspace for stamp '${var.prefix}' and app '${var.app_name}'"
   workspace_identity_enabled = true

@@ -176,12 +176,15 @@ variable "search_service_details" {
   }
 }
 
-variable "fabric_capacity_name" {
-  description = "Specifies the name of the fabric capacity."
-  type        = string
-  sensitive   = false
-  nullable    = false
-  default     = ""
+variable "fabric_capacity_details" {
+  description = "Specifies the detail of the fabric capacity."
+  type = object({
+    enabled = bool
+    name    = string
+  })
+  sensitive = false
+  nullable  = false
+  default   = ""
 }
 
 variable "fabric_workspace_details" {
