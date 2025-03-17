@@ -1,5 +1,5 @@
 module "fabric_workspace" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/fabricworkspace?ref=main"
+  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/fabricworkspace?ref=fix_workspace_settings"
   providers = {
     fabric = fabric
   }
@@ -10,7 +10,8 @@ module "fabric_workspace" {
   workspace_display_name     = "${local.prefix}-wsp001"
   workspace_description      = "Fabric workspace for stamp '${var.prefix}' and app '${var.app_name}'"
   workspace_identity_enabled = true
-  workspace_settings = {
+  workspace_spark_settings = {
+    enabled = var.fabric_capacity_details.enabled
     automatic_log = {
       enabled = true
     }
