@@ -104,6 +104,17 @@ resource "azurerm_role_assignment" "role_assignment_data_factory_data_factory_co
   principal_type       = "ServicePrincipal"
 }
 
+# Fabric role assignments
+resource "fabric_workspace_role_assignment" "workspace_role_assignment_contributor_service_principal" {
+  count = var.service_principal_name != "" && var.fabric_workspace_details.enabled && var.fabric_capacity_details.enabled ? 1 : 0
+
+  workspace_id = one(module.fabric_workspace[*].fabric_workspace_id)
+
+  principal_id   = one(data.azuread_service_principal.service_principal[*].object_id)
+  principal_type = "ServicePrincipal"
+  role           = "Contributor"
+}
+
 # Storage role assignments
 resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_owner_service_principal" {
   for_each = var.service_principal_name == "" ? {} : var.data_provider_details

@@ -44,6 +44,21 @@ resource "azurerm_role_assignment" "role_assignment_databricks_workspace_reader_
 
 # AI service role assignments
 
+# AI search service role assignment
+
+# Data factory role assignments
+
+# Fabric role assignments
+resource "fabric_workspace_role_assignment" "workspace_role_assignment_viewer_reader" {
+  count = var.reader_group_name == "" && var.fabric_workspace_details.enabled && var.fabric_capacity_details.enabled ? 1 : 0
+
+  workspace_id = one(module.fabric_workspace[*].fabric_workspace_id)
+
+  principal_id   = one(data.azuread_group.group_reader[*].object_id)
+  principal_type = "Group"
+  role           = "Viewer"
+}
+
 # Storage role assignments
 resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_reader_reader" {
   for_each = var.reader_group_name == "" ? {} : var.data_provider_details
