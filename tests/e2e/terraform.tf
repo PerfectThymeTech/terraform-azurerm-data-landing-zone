@@ -14,6 +14,10 @@ terraform {
       source  = "hashicorp/azuread"
       version = "3.1.0"
     }
+    fabric = {
+      source  = "microsoft/fabric"
+      version = "0.1.0-beta.10"
+    }
     databricks = {
       source  = "databricks/databricks"
       version = "1.69.0"

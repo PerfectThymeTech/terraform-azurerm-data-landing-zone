@@ -176,6 +176,31 @@ variable "search_service_details" {
   }
 }
 
+variable "fabric_capacity_name" {
+  description = "Specifies the name of the fabric capacity."
+  type        = string
+  sensitive   = false
+  nullable    = false
+  default     = ""
+}
+
+variable "fabric_workspace_details" {
+  description = "Specifies the fabric workspace details."
+  type = object({
+    enabled = optional(bool, true)
+    github_repo = optional(object({
+      account_name    = optional(string, "")
+      branch_name     = optional(string, "")
+      git_url         = optional(string, "")
+      repository_name = optional(string, "")
+      root_folder     = optional(string, "")
+    }), {})
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+}
+
 variable "storage_dependencies" {
   description = "Specifies a list of dependencies for storage resources."
   type        = list(bool)

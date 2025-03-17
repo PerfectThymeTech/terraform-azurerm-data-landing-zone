@@ -4,6 +4,7 @@ module "data_landing_zone" {
     azurerm = azurerm
     azapi   = azapi
     azuread = azuread
+    fabric  = fabric
     # databricks         = databricks.account
     # databricks.account = databricks.account
     null = null

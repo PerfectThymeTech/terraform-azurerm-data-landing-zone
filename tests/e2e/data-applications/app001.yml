@@ -61,6 +61,9 @@ ai_search:
 data_factory:
   enabled: true
 
+fabric:
+  enabled: true
+
 private_endpoints:
   stg:
     resource_id: "/subscriptions/1fdab118-1638-419a-8b12-06c9543714a0/resourceGroups/tfmodule-test-rg/providers/Microsoft.Storage/storageAccounts/mytfteststg"
