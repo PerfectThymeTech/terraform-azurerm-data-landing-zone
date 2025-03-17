@@ -184,7 +184,6 @@ variable "fabric_capacity_details" {
   })
   sensitive = false
   nullable  = false
-  default   = ""
 }
 
 variable "fabric_workspace_details" {
