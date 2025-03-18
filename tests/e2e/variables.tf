@@ -99,6 +99,16 @@ variable "databricks_compliance_security_profile_standards" {
   }
 }
 
+variable "databricks_workspace_binding_catalog" {
+  description = "Specifies the workspace ids of the databricks workspaces to which the catalog should be connected."
+  type = map(object({
+    workspace_id = string
+  }))
+  sensitive = false
+  nullable  = false
+  default   = {}
+}
+
 variable "fabric_capacity_details" {
   description = "Specifies the fabric capacity configuration."
   type = object({
