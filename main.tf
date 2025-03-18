@@ -58,6 +58,9 @@ module "core" {
   # Logging and monitoring variables
   diagnostics_configurations = local.diagnostics_configurations
 
+  # Identity variables
+  service_principal_name_terraform_plan = var.service_principal_name_terraform_plan
+
   # Network variables
   vnet_id                       = var.vnet_id
   subnet_id_storage             = module.platform.subnet_id_storage
@@ -85,6 +88,7 @@ module "data_application" {
     azurerm = azurerm
     azapi   = azapi
     azuread = azuread
+    fabric  = fabric
     time    = time
   }
 
@@ -110,6 +114,20 @@ module "data_application" {
       git_url         = try(each.value.repository.github.git_url, "")
       repository_name = try(each.value.repository.github.repository_name, "")
       root_folder     = try(each.value.repository.github.data_factory_root_folder, "")
+    }
+  }
+  fabric_capacity_details = {
+    enabled = var.fabric_capacity_details.enabled
+    name    = module.core.fabric_capacity_name
+  }
+  fabric_workspace_details = {
+    enabled = try(each.value.fabric.enabled, false)
+    github_repo = {
+      account_name    = try(each.value.repository.github.account_name, "")
+      branch_name     = try(each.value.repository.github.branch_name, "")
+      git_url         = try(each.value.repository.github.git_url, "")
+      repository_name = try(each.value.repository.github.repository_name, "")
+      root_folder     = try(each.value.repository.github.fabric_root_folder, "")
     }
   }
   storage_dependencies = module.core.storage_dependencies

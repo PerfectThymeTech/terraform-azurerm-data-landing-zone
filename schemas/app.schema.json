@@ -127,6 +127,11 @@
               "description": "Specifies the git root folder for data factory artifacts.",
               "type": "string",
               "default": "/code/datafactory"
+            },
+            "fabric_root_folder": {
+              "description": "Specifies the git root folder for fabric artifacts.",
+              "type": "string",
+              "default": "/code/fabric"
             }
           },
           "required": [],
@@ -404,6 +409,19 @@
           "description": "Specifies whether data factory should be enabled.",
           "type": "boolean",
           "default": true
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "fabric": {
+      "description": "Specifies the fabric section of the application.",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "description": "Specifies whether fabric should be enabled.",
+          "type": "boolean",
+          "default": false
         }
       },
       "required": [],

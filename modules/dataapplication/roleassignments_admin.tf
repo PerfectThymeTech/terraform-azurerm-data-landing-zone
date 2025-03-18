@@ -92,6 +92,17 @@ resource "azurerm_role_assignment" "role_assignment_data_factory_data_factory_co
   principal_type       = "Group"
 }
 
+# Fabric role assignments
+resource "fabric_workspace_role_assignment" "workspace_role_assignment_contributor_admin" {
+  count = var.fabric_workspace_details.enabled && var.fabric_capacity_details.enabled ? 1 : 0
+
+  workspace_id = one(module.fabric_workspace[*].fabric_workspace_id)
+
+  principal_id   = data.azuread_group.group_admin.object_id
+  principal_type = "Group"
+  role           = "Contributor"
+}
+
 # Storage role assignments
 resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_owner_admin" {
   for_each = var.data_provider_details
