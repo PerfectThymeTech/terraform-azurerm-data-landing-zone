@@ -99,7 +99,7 @@ resource "databricks_permissions" "permissions_cluster_policy" {
 resource "databricks_permissions" "permissions_sql_endpoint" {
   for_each = var.databricks_sql_endpoint_details
 
-  sql_endpoint_id = databricks_sql_endpoint.sql_endpoint.id
+  sql_endpoint_id = databricks_sql_endpoint.sql_endpoint[each.key].id
 
   # Admin permissions
   access_control {
