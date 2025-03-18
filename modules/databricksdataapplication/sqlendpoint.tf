@@ -1,7 +1,7 @@
 resource "databricks_sql_endpoint" "sql_endpoint" {
   for_each = var.databricks_sql_endpoint_details
 
-  name = each.key
+  name = "${local.prefix}-${each.key}"
 
   auto_stop_mins = each.value.auto_stop_mins
   channel {
