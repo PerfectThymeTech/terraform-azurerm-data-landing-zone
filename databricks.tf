@@ -45,12 +45,15 @@ module "databricks_data_application" {
   tags        = merge(var.tags, try(each.value.tags, {}))
 
   # Service variables
-  app_name                                 = each.key
-  databricks_workspace_workspace_id        = module.core.databricks_workspace_details.engineering.workspace_id
-  databricks_access_connector_id           = module.data_application[each.key].databricks_access_connector_id
-  databricks_cluster_policy_library_path   = var.databricks_cluster_policy_library_path
-  databricks_cluster_policy_file_variables = var.databricks_cluster_policy_file_variables
-  databricks_keyvault_secret_scope_details = try(module.data_application[each.key].key_vault_details, {})
+  app_name                                  = each.key
+  databricks_workspace_workspace_id         = module.core.databricks_workspace_details.engineering.workspace_id
+  databricks_access_connector_id            = module.data_application[each.key].databricks_access_connector_id
+  databricks_cluster_policy_library_path    = var.databricks_cluster_policy_library_path
+  databricks_cluster_policy_file_variables  = var.databricks_cluster_policy_file_variables
+  databricks_keyvault_secret_scope_details  = try(module.data_application[each.key].key_vault_details, {})
+  databricks_user_assigned_identity_details = module.data_application[each.key].user_assigned_identity_details
+  databricks_sql_endpoint_details           = try(module.data_application[each.key].databricks.sql_endpoints, {})
+  databricks_workspace_binding_catalog      = var.databricks_workspace_binding_catalog
   databricks_data_factory_details = {
     data_factory_enabled      = try(each.value.data_factory.enabled, false)
     data_factory_id           = try(module.data_application[each.key].data_factory_details.data_factory_id, {})

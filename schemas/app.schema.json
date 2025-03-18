@@ -342,6 +342,63 @@
         }
       }
     },
+    "databricks": {
+      "description": "Specifies the databricks configuration to be deployed for the application.",
+      "type": "object",
+      "properties": {
+        "sql_endpoints": {
+          "description": "Specifies the databricks sql endpoints configuration to be deployed for the application.",
+          "type": "object",
+          "patternProperties": {
+            "^.*$": {
+              "properties": {
+                "auto_stop_mins": {
+                  "description": "Specifies the auto stop in minutes of sql endpoint.",
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 200,
+                  "default": 60
+                },
+                "cluster_size": {
+                  "description": "Specifies the cluster size of the sql endpoint.",
+                  "type": "string",
+                  "enum": [
+                    "2X-Small",
+                    "X-Small",
+                    "Small",
+                    "Medium",
+                    "Large",
+                    "X-Large",
+                    "2X-Large",
+                    "3X-Large",
+                    "4X-Large"
+                  ],
+                  "default": "2X-Small"
+                },
+                "min_num_clusters": {
+                  "description": "Specifies the minimum number of clusters of the sql endpoint.",
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100,
+                  "default": 1
+                },
+                "max_num_clusters": {
+                  "description": "Specifies the maximum number of clusters of the sql endpoint.",
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100,
+                  "default": 1
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            }
+          }
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
     "private_endpoints": {
       "description": "Specifies the private endpoints to be deployed for the application.",
       "type": "object",
