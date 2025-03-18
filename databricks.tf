@@ -52,7 +52,7 @@ module "databricks_data_application" {
   databricks_cluster_policy_file_variables  = var.databricks_cluster_policy_file_variables
   databricks_keyvault_secret_scope_details  = try(module.data_application[each.key].key_vault_details, {})
   databricks_user_assigned_identity_details = module.data_application[each.key].user_assigned_identity_details
-  databricks_sql_endpoint_details           = try(module.data_application[each.key].databricks.sql_endpoints, {})
+  databricks_sql_endpoint_details           = try(each.value.databricks.sql_endpoints, {})
   databricks_workspace_binding_catalog      = var.databricks_workspace_binding_catalog
   databricks_data_factory_details = {
     data_factory_enabled      = try(each.value.data_factory.enabled, false)
