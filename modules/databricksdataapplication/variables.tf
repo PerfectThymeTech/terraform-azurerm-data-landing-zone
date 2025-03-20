@@ -44,6 +44,12 @@ variable "app_name" {
   }
 }
 
+variable "databricks_account_id" {
+  description = "Specifies the databricks account id."
+  type        = string
+  sensitive   = false
+}
+
 variable "databricks_workspace_workspace_id" {
   description = "Specifies the workspace id of the databricks workspace."
   type        = string

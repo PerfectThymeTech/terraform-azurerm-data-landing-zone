@@ -37,6 +37,10 @@ definition:
     type: fixed
     value: "${costCenter}"
     hidden: false
+  custom_tags.appName:
+    type: fixed
+    value: "${appName}"
+    hidden: false
   data_security_mode:
     type: fixed
     value: "SINGLE_USER"

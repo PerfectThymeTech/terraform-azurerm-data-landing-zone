@@ -10,7 +10,7 @@ module "data_factory" {
 
   location                                          = var.location
   resource_group_name                               = azurerm_resource_group.resource_group_app.name
-  tags                                              = var.tags
+  tags                                              = local.tags
   data_factory_name                                 = "${local.prefix}-adf001"
   data_factory_purview_id                           = null
   data_factory_azure_devops_repo                    = {}

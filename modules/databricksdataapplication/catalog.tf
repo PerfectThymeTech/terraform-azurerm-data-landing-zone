@@ -7,10 +7,8 @@ resource "databricks_catalog" "catalog_internal" {
   isolation_mode                 = "ISOLATED"
   properties = merge({
     location    = var.location
-    environment = var.environment
-    app_name    = var.app_name
     use         = "internal"
-  }, var.tags)
+  }, local.tags)
   storage_root = one(databricks_external_location.external_location_curated[*].url)
 }
 
@@ -23,10 +21,8 @@ resource "databricks_catalog" "catalog_external" {
   isolation_mode                 = "OPEN"
   properties = merge({
     location    = var.location
-    environment = var.environment
-    app_name    = var.app_name
     use         = "external"
-  }, var.tags)
+  }, local.tags)
   storage_root = one(databricks_external_location.external_location_curated[*].url)
 }
 

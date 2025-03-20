@@ -16,7 +16,7 @@ resource "databricks_sql_endpoint" "sql_endpoint" {
   spot_instance_policy      = "RELIABILITY_OPTIMIZED"
   tags {
     dynamic "custom_tags" {
-      for_each = merge(var.tags, { prefix = local.prefix })
+      for_each = local.tags
       iterator = entry
       content {
         key   = entry.key

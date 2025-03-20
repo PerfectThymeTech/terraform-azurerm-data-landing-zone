@@ -7,10 +7,7 @@ resource "azurerm_storage_container" "storage_container_external" {
   container_access_type             = "private"
   default_encryption_scope          = null
   encryption_scope_override_enabled = null
-  metadata = {
-    app_name    = var.app_name
-    environment = var.environment
-  }
+  metadata                          = local.tags
 
   depends_on = [
     var.storage_dependencies,
@@ -24,10 +21,7 @@ resource "azurerm_storage_container" "storage_container_raw" {
   container_access_type             = "private"
   default_encryption_scope          = null
   encryption_scope_override_enabled = null
-  metadata = {
-    app_name    = var.app_name
-    environment = var.environment
-  }
+  metadata                          = local.tags
 
   depends_on = [
     var.storage_dependencies,
@@ -41,10 +35,7 @@ resource "azurerm_storage_container" "storage_container_enriched" {
   container_access_type             = "private"
   default_encryption_scope          = null
   encryption_scope_override_enabled = null
-  metadata = {
-    app_name    = var.app_name
-    environment = var.environment
-  }
+  metadata                          = local.tags
 
   depends_on = [
     var.storage_dependencies,
@@ -58,10 +49,7 @@ resource "azurerm_storage_container" "storage_container_curated" {
   container_access_type             = "private"
   default_encryption_scope          = null
   encryption_scope_override_enabled = null
-  metadata = {
-    app_name    = var.app_name
-    environment = var.environment
-  }
+  metadata                          = local.tags
 
   depends_on = [
     var.storage_dependencies,
@@ -75,10 +63,7 @@ resource "azurerm_storage_container" "storage_container_workspace" {
   container_access_type             = "private"
   default_encryption_scope          = null
   encryption_scope_override_enabled = null
-  metadata = {
-    app_name    = var.app_name
-    environment = var.environment
-  }
+  metadata                          = local.tags
 
   depends_on = [
     var.storage_dependencies,

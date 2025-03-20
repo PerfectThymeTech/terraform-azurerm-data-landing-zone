@@ -1,6 +1,14 @@
 locals {
   # General locals
   prefix = "${lower(var.prefix)}-${var.environment}-${lower(var.app_name)}"
+  tags = merge(
+    var.tags,
+    {
+      prefix      = local.prefix
+      appName     = var.app_name
+      environment = var.environment
+    }
+  )
 
   # Storage locals
   storage_container_external = {
@@ -38,10 +46,7 @@ locals {
   # Create file variables
   databricks_cluster_policy_file_variables = merge(
     var.databricks_cluster_policy_file_variables,
-    var.tags,
-    {
-      prefix = local.prefix
-    }
+    local.tags,
   )
 
   # Load file content
