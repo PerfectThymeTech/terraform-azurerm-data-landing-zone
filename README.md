@@ -324,6 +324,20 @@ Type: `list(string)`
 
 Default: `[]`
 
+### <a name="input_databricks_workspace_binding_catalog"></a> [databricks\_workspace\_binding\_catalog](#input\_databricks\_workspace\_binding\_catalog)
+
+Description: Specifies the workspace ids of the databricks workspaces to which the catalog should be connected.
+
+Type:
+
+```hcl
+map(object({
+    workspace_id = string
+  }))
+```
+
+Default: `{}`
+
 ### <a name="input_environment"></a> [environment](#input\_environment)
 
 Description: Specifies the environment of the deployment.

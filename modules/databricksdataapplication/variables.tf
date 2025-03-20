@@ -138,6 +138,28 @@ variable "databricks_user_assigned_identity_details" {
   }
 }
 
+variable "databricks_sql_endpoint_details" {
+  description = "Specifies the databricks sql endpoint details to create pro SQL warehouses."
+  type = map(object({
+    auto_stop_mins   = optional(number, 60)
+    cluster_size     = optional(string, "2X-Small")
+    min_num_clusters = optional(number, 1)
+    max_num_clusters = optional(number, 1)
+  }))
+  sensitive = false
+  nullable  = false
+  default   = {}
+  validation {
+    condition = alltrue([
+      length([for auto_stop_mins in values(var.databricks_sql_endpoint_details)[*].auto_stop_mins : auto_stop_mins if auto_stop_mins < 0 || auto_stop_mins > 120]) <= 0,
+      length([for cluster_size in values(var.databricks_sql_endpoint_details)[*].cluster_size : cluster_size if !contains(["2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large"], cluster_size)]) <= 0,
+      length([for min_num_clusters in values(var.databricks_sql_endpoint_details)[*].min_num_clusters : min_num_clusters if min_num_clusters < 1]) <= 0,
+      length([for max_num_clusters in values(var.databricks_sql_endpoint_details)[*].max_num_clusters : max_num_clusters if max_num_clusters < 1]) <= 0,
+    ])
+    error_message = "Please specify a valid sql endpoint configuration."
+  }
+}
+
 variable "storage_container_ids" {
   description = "Specifies the databricks key vault secret scope details that should be added to the workspace."
   type = object({

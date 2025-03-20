@@ -22,7 +22,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_contributor_s
 
 # Fabric role assignments
 resource "fabric_workspace_role_assignment" "workspace_role_assignment_viewer_service_principal_terraform_plan" {
-  count = var.service_principal_name_terraform_plan == "" && var.fabric_workspace_details.enabled && var.fabric_capacity_details.enabled ? 1 : 0
+  count = var.service_principal_name_terraform_plan != "" && var.fabric_workspace_details.enabled && var.fabric_capacity_details.enabled ? 1 : 0
 
   workspace_id = one(module.fabric_workspace[*].fabric_workspace_id)
 

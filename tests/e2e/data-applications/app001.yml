@@ -58,6 +58,14 @@ ai_search:
   partition_count: 1
   replica_count: 1
 
+databricks:
+  sql_endpoints:
+    dw01:
+      auto_stop_mins: 60
+      cluster_size: "2X-Small"
+      min_num_clusters: 1
+      max_num_clusters: 1
+
 data_factory:
   enabled: true
 
