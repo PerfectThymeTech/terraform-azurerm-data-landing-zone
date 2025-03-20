@@ -167,7 +167,7 @@ resource "databricks_access_control_rule_set" "budget_policy_usage" {
       one(databricks_service_principal.service_principal_data_factory[*].application_id),
       databricks_service_principal.service_principal_uai.application_id,
     ])
-    role       = "roles/budgetPolicy.user"
+    role = "roles/budgetPolicy.user"
   }
 
   depends_on = [
