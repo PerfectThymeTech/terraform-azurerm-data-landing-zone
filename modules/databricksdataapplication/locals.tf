@@ -5,7 +5,7 @@ locals {
     var.tags,
     {
       prefix      = local.prefix
-      appName     = var.app_name
+      app_name    = var.app_name
       environment = var.environment
     }
   )

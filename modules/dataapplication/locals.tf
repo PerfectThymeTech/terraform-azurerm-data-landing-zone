@@ -6,13 +6,13 @@ locals {
     var.tags,
     {
       prefix      = local.prefix
-      appName     = var.app_name
+      app_name    = var.app_name
       environment = var.environment
     }
   )
   tags_cost = {
-    appName    = var.app_name
-    costCenter = var.tags["costCenter"]
+    app_name    = var.app_name
+    cost_center = var.tags["cost_center"]
   }
 
   # Databricks locals

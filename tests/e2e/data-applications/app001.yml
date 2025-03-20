@@ -1,7 +1,7 @@
 name: "dptest"
 environment: "prd"
 tags:
-  costCenter: "ABCD1234"
+  cost_center: "ABCD1234"
 
 identity:
   admin_group_name: "app001-admin"
