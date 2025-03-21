@@ -1,6 +1,6 @@
 resource "databricks_workspace_conf" "workspace_conf" {
   custom_config = {
-    allow_downloads                                  = false
+    # allow_downloads                                  = false
     customerApprovedWSLoginExpirationTime            = "1998-01-01T00:00:00.000Z"
     enableIpAccessLists                              = true
     enableExportNotebook                             = false
