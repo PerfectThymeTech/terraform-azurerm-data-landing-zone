@@ -13,5 +13,5 @@ data "azuread_service_principal" "service_principal_terraform_plan" {
 }
 
 data "databricks_sql_warehouse" "sql_endpoint_starter" {
-  name = "Starter Warehouse"
+  name = contains(var.databricks_compliance_security_profile_standards, "PCI_DSS") ? "Starter Warehouse" : "Serverless Starter Warehouse"
 }

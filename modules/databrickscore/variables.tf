@@ -82,6 +82,20 @@ variable "databricks_network_connectivity_config_name" {
   }
 }
 
+variable "databricks_compliance_security_profile_standards" {
+  description = "Specifies which enhanced compliance security profiles ('HIPAA', 'PCI_DSS') should be enabled for the Azure Databricks workspace."
+  type        = list(string)
+  sensitive   = false
+  nullable    = false
+  default     = []
+  validation {
+    condition = alltrue([
+      length([for compliance_security_profile_standard in toset(var.databricks_compliance_security_profile_standards) : compliance_security_profile_standard if !contains(["HIPAA", "PCI_DSS"], compliance_security_profile_standard)]) <= 0
+    ])
+    error_message = "Please specify a valid compliance security profile."
+  }
+}
+
 # Identity variables
 variable "service_principal_name_terraform_plan" {
   description = "Specifies the name of the service principal used for the Terraform plan in PRs."
