@@ -154,8 +154,7 @@ resource "databricks_permissions" "permissions_sql_endpoint" {
   ]
 }
 
-
-resource "databricks_access_control_rule_set" "budget_policy_usage" {
+resource "databricks_access_control_rule_set" "access_control_rule_set_budget_policy" {
   name = "accounts/${var.databricks_account_id}/budgetPolicies/${databricks_budget_policy.budget_policy.policy_id}/ruleSets/default"
 
   grant_rules {
@@ -164,8 +163,8 @@ resource "databricks_access_control_rule_set" "budget_policy_usage" {
       one(data.databricks_group.group_developer[*].acl_principal_id),
       one(data.databricks_group.group_reader[*].acl_principal_id),
       one(databricks_service_principal.service_principal[*].acl_principal_id),
-      one(databricks_service_principal.service_principal_data_factory[*].application_id),
-      databricks_service_principal.service_principal_uai.application_id,
+      one(databricks_service_principal.service_principal_data_factory[*].acl_principal_id),
+      databricks_service_principal.service_principal_uai.acl_principal_id,
     ])
     role = "roles/budgetPolicy.user"
   }
