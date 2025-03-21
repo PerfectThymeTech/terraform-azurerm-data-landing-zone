@@ -14,11 +14,12 @@ module "databricks_core" {
   tags        = var.tags
 
   # Service variables
-  databricks_workspace_details                = local.databricks_workspace_details
-  databricks_private_endpoint_rules           = local.databricks_private_endpoint_rules
-  databricks_ip_access_list_allow             = []
-  databricks_ip_access_list_deny              = []
-  databricks_network_connectivity_config_name = var.databricks_network_connectivity_config_name
+  databricks_workspace_details                     = local.databricks_workspace_details
+  databricks_private_endpoint_rules                = local.databricks_private_endpoint_rules
+  databricks_ip_access_list_allow                  = []
+  databricks_ip_access_list_deny                   = []
+  databricks_network_connectivity_config_name      = var.databricks_network_connectivity_config_name
+  databricks_compliance_security_profile_standards = var.databricks_compliance_security_profile_standards
 
   # Identity variables
   service_principal_name_terraform_plan = var.service_principal_name_terraform_plan
