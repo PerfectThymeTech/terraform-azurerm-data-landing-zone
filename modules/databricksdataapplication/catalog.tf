@@ -6,11 +6,9 @@ resource "databricks_catalog" "catalog_internal" {
   force_destroy                  = true
   isolation_mode                 = "ISOLATED"
   properties = merge({
-    location    = var.location
-    environment = var.environment
-    app_name    = var.app_name
-    use         = "internal"
-  }, var.tags)
+    location = var.location
+    use      = "internal"
+  }, local.tags)
   storage_root = one(databricks_external_location.external_location_curated[*].url)
 }
 
@@ -22,11 +20,9 @@ resource "databricks_catalog" "catalog_external" {
   force_destroy                  = true
   isolation_mode                 = "OPEN"
   properties = merge({
-    location    = var.location
-    environment = var.environment
-    app_name    = var.app_name
-    use         = "external"
-  }, var.tags)
+    location = var.location
+    use      = "external"
+  }, local.tags)
   storage_root = one(databricks_external_location.external_location_curated[*].url)
 }
 

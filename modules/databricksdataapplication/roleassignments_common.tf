@@ -154,59 +154,27 @@ resource "databricks_permissions" "permissions_sql_endpoint" {
   ]
 }
 
-# resource "databricks_permissions" "permissions_budget" { # Not supported yet by provider because of missing APIs: https://github.com/databricks/terraform-provider-databricks/issues/4180
-#   budget_id = databricks_budget.budget.id
+resource "databricks_access_control_rule_set" "access_control_rule_set_budget_policy" {
+  name = "accounts/${var.databricks_account_id}/budgetPolicies/${databricks_budget_policy.budget_policy.policy_id}/ruleSets/default"
 
-#   # Admin permissions
-#   access_control {
-#     group_name       = data.databricks_group.group_admin.display_name
-#     permission_level = "CAN_USE"
-#   }
-#   # Developer permissions
-#   dynamic "access_control" {
-#     for_each = var.developer_group_name == "" ? [] : [1]
-#     content {
-#       group_name       = one(data.databricks_group.group_developer[*].display_name)
-#       permission_level = "CAN_USE"
-#     }
-#   }
-#   # Reader permissions
-#   dynamic "access_control" {
-#     for_each = var.reader_group_name == "" ? [] : [1]
-#     content {
-#       group_name       = one(data.databricks_group.group_reader[*].display_name)
-#       permission_level = "CAN_USE"
-#     }
-#   }
-#   # Service principal permissions
-#   dynamic "access_control" {
-#     for_each = var.service_principal_name == "" ? [] : [1]
-#     content {
-#       service_principal_name = one(databricks_service_principal.service_principal[*].application_id)
-#       permission_level       = "CAN_USE"
-#     }
-#   }
-#   # Service principal data factory permissions
-#   dynamic "access_control" {
-#     for_each = var.databricks_data_factory_details.data_factory_enabled ? [1] : [0]
-#     content {
-#       service_principal_name = one(databricks_service_principal.service_principal_data_factory[*].application_id)
-#       permission_level       = "CAN_USE"
-#     }
-#   }
-#   # UAI permissions
-#   access_control {
-#     service_principal_name = databricks_service_principal.service_principal_uai.application_id
-#     permission_level       = "CAN_USE"
-#   }
+  grant_rules {
+    principals = compact([
+      data.databricks_group.group_admin.acl_principal_id,
+      one(data.databricks_group.group_developer[*].acl_principal_id),
+      one(data.databricks_group.group_reader[*].acl_principal_id),
+      one(databricks_service_principal.service_principal[*].acl_principal_id),
+      one(databricks_service_principal.service_principal_data_factory[*].acl_principal_id),
+      databricks_service_principal.service_principal_uai.acl_principal_id,
+    ])
+    role = "roles/budgetPolicy.user"
+  }
 
-
-#   depends_on = [
-#     databricks_permission_assignment.permission_assignment_admin,
-#     databricks_permission_assignment.permission_assignment_developer,
-#     databricks_permission_assignment.permission_assignment_reader,
-#     databricks_permission_assignment.permission_assignment_service_principal,
-#     databricks_permission_assignment.permission_assignment_service_principal_data_factory,
-#     databricks_permission_assignment.permission_assignment_uai,
-#   ]
-# }
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_admin,
+    databricks_permission_assignment.permission_assignment_developer,
+    databricks_permission_assignment.permission_assignment_reader,
+    databricks_permission_assignment.permission_assignment_service_principal,
+    databricks_permission_assignment.permission_assignment_service_principal_data_factory,
+    databricks_permission_assignment.permission_assignment_uai,
+  ]
+}

@@ -6,6 +6,6 @@ module "databricks_access_connector" {
 
   location                         = var.location
   resource_group_name              = azurerm_resource_group.resource_group_app.name
-  tags                             = var.tags
+  tags                             = local.tags
   databricks_access_connector_name = "${local.prefix}-dbac001"
 }

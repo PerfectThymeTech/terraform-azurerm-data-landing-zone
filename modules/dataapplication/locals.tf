@@ -2,6 +2,18 @@ locals {
   # General locals
   prefix                           = "${lower(var.prefix)}-${var.environment}-${lower(var.app_name)}"
   budget_start_date_rotation_years = 9
+  tags = merge(
+    var.tags,
+    {
+      prefix      = local.prefix
+      app_name    = var.app_name
+      environment = var.environment
+    }
+  )
+  tags_cost = {
+    app_name    = var.app_name
+    cost_center = var.tags["cost_center"]
+  }
 
   # Databricks locals
   databricks_enterprise_application_id = "2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"

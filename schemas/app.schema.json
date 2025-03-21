@@ -359,6 +359,11 @@
                   "maximum": 200,
                   "default": 60
                 },
+                "enable_serverless_compute": {
+                  "description": "Specifies whether the sql endpoint should be of type serverless.",
+                  "type": "boolean",
+                  "default": false
+                },
                 "cluster_size": {
                   "description": "Specifies the cluster size of the sql endpoint.",
                   "type": "string",

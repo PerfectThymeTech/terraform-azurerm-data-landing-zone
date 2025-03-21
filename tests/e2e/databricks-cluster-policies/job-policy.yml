@@ -40,9 +40,13 @@ definition:
     type: fixed
     value: dbfs:/cluster-logs
     hidden: true
-  custom_tags.costCenter:
+  custom_tags.cost_center:
     type: fixed
-    value: "${costCenter}"
+    value: "${cost_center}"
+    hidden: false
+  custom_tags.app_name:
+    type: fixed
+    value: "${app_name}"
     hidden: false
   data_security_mode:
     type: allowlist

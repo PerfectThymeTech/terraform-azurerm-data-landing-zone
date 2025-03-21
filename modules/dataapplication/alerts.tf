@@ -2,7 +2,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_activity_log_alert_servic
   name                = "${local.prefix}-alert-servicehealth"
   location            = "global"
   resource_group_name = azurerm_resource_group.resource_group_app_monitoring.name
-  tags                = var.tags
+  tags                = local.tags
 
   enabled     = true
   description = "Alerts for service health and maintenance events."

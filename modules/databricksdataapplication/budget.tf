@@ -31,7 +31,7 @@ resource "databricks_budget_policy" "budget_policy" {
   policy_name = "${local.prefix}-budget"
 
   custom_tags = [
-    for key, value in merge(var.tags, { prefix = local.prefix }) :
+    for key, value in local.tags :
     {
       key   = key
       value = value

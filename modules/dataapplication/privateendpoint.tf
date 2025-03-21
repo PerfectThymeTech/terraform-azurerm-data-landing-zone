@@ -4,6 +4,7 @@ resource "azurerm_private_endpoint" "private_endpoint" {
   name                = "${local.prefix}-${each.key}-pe"
   resource_group_name = azurerm_resource_group.resource_group_app.name
   location            = var.location
+  tags                = local.tags
 
   custom_network_interface_name = "${local.prefix}-${each.key}-nic"
   private_service_connection {

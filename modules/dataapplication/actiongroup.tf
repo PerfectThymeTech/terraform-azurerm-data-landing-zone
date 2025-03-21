@@ -1,7 +1,7 @@
 resource "azurerm_monitor_action_group" "monitor_action_group" {
   name                = "${local.prefix}-ag001"
   resource_group_name = azurerm_resource_group.resource_group_app_monitoring.name
-  tags                = var.tags
+  tags                = local.tags
 
   enabled    = true
   short_name = substr("${local.prefix}", 0, 11)
