@@ -9,7 +9,7 @@ resource "databricks_sql_endpoint" "sql_endpoint" {
   }
   cluster_size              = each.value.cluster_size
   enable_photon             = true
-  enable_serverless_compute = false
+  enable_serverless_compute = each.value.enable_serverless_compute
   max_num_clusters          = each.value.max_num_clusters
   min_num_clusters          = each.value.min_num_clusters
   warehouse_type            = "PRO"

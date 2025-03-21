@@ -62,6 +62,7 @@ databricks:
   sql_endpoints:
     dw01:
       auto_stop_mins: 60
+      enable_serverless_compute: false
       cluster_size: "2X-Small"
       min_num_clusters: 1
       max_num_clusters: 1

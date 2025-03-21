@@ -147,10 +147,11 @@ variable "databricks_user_assigned_identity_details" {
 variable "databricks_sql_endpoint_details" {
   description = "Specifies the databricks sql endpoint details to create pro SQL warehouses."
   type = map(object({
-    auto_stop_mins   = optional(number, 60)
-    cluster_size     = optional(string, "2X-Small")
-    min_num_clusters = optional(number, 1)
-    max_num_clusters = optional(number, 1)
+    auto_stop_mins            = optional(number, 60)
+    enable_serverless_compute = optional(bool, false)
+    cluster_size              = optional(string, "2X-Small")
+    min_num_clusters          = optional(number, 1)
+    max_num_clusters          = optional(number, 1)
   }))
   sensitive = false
   nullable  = false
