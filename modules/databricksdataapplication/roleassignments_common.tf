@@ -165,6 +165,7 @@ resource "databricks_access_control_rule_set" "access_control_rule_set_budget_po
       one(databricks_service_principal.service_principal[*].acl_principal_id),
       one(databricks_service_principal.service_principal_data_factory[*].acl_principal_id),
       databricks_service_principal.service_principal_uai.acl_principal_id,
+      var.databricks_service_principal_terraform_plan_details.acl_principal_id,
     ])
     role = "roles/budgetPolicy.user"
   }
