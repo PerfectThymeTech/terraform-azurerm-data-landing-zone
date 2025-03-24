@@ -256,14 +256,21 @@ variable "service_principal_name" {
   }
 }
 
-variable "databricks_service_principal_terraform_plan_application_id" {
+variable "databricks_service_principal_terraform_plan_details" {
   description = "Specifies the application id of the service principal used for Terraform Plan."
-  type        = string
-  sensitive   = false
-  default     = ""
+  type = object({
+    application_id   = optional(string, "")
+    acl_principal_id = optional(string, "")
+  })
+  sensitive = false
+  default   = {}
   validation {
-    condition     = var.databricks_service_principal_terraform_plan_application_id == "" || length(var.databricks_service_principal_terraform_plan_application_id) >= 2
-    error_message = "Please specify a valid name."
+    condition     = var.databricks_service_principal_terraform_plan_details.application_id == "" || length(var.databricks_service_principal_terraform_plan_details.application_id) >= 2
+    error_message = "Please specify a valid application id."
+  }
+  validation {
+    condition     = var.databricks_service_principal_terraform_plan_details.acl_principal_id == "" || length(var.databricks_service_principal_terraform_plan_details.acl_principal_id) >= 2
+    error_message = "Please specify a valid acl principal id."
   }
 }
 
