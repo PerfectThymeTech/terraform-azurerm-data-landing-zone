@@ -11,7 +11,7 @@ module "fabric_workspace" {
   workspace_description      = "Fabric workspace for stamp '${var.prefix}' and app '${var.app_name}'"
   workspace_identity_enabled = true
   workspace_spark_settings = {
-    enabled = var.fabric_capacity_details.enabled
+    enabled = false
     automatic_log = {
       enabled = true
     }

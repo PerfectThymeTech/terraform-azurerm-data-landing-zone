@@ -54,9 +54,11 @@ resource "fabric_workspace_role_assignment" "workspace_role_assignment_viewer_re
 
   workspace_id = one(module.fabric_workspace[*].fabric_workspace_id)
 
-  principal_id   = one(data.azuread_group.group_reader[*].object_id)
-  principal_type = "Group"
-  role           = "Viewer"
+  principal = {
+    id   = one(data.azuread_group.group_reader[*].object_id)
+    type = "Group"
+  }
+  role = "Viewer"
 }
 
 # Storage role assignments
