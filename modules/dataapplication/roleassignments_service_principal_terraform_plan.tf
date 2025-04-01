@@ -30,5 +30,5 @@ resource "fabric_workspace_role_assignment" "workspace_role_assignment_viewer_se
     id   = one(data.azuread_service_principal.service_principal_terraform_plan[*].object_id)
     type = "ServicePrincipal"
   }
-  role = "Viewer"
+  role = "Member"
 }
