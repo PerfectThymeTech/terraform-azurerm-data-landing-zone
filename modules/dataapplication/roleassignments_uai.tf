@@ -98,9 +98,11 @@ resource "fabric_workspace_role_assignment" "workspace_role_assignment_contribut
 
   workspace_id = one(module.fabric_workspace[*].fabric_workspace_id)
 
-  principal_id   = module.user_assigned_identity.user_assigned_identity_principal_id
-  principal_type = "ServicePrincipal"
-  role           = "Contributor"
+  principal = {
+    id   = module.user_assigned_identity.user_assigned_identity_principal_id
+    type = "ServicePrincipal"
+  }
+  role = "Contributor"
 }
 
 # Storage role assignments

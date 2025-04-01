@@ -98,9 +98,11 @@ resource "fabric_workspace_role_assignment" "workspace_role_assignment_contribut
 
   workspace_id = one(module.fabric_workspace[*].fabric_workspace_id)
 
-  principal_id   = data.azuread_group.group_admin.object_id
-  principal_type = "Group"
-  role           = "Contributor"
+  principal = {
+    id   = data.azuread_group.group_admin.object_id
+    type = "Group"
+  }
+  role = "Contributor"
 }
 
 # Storage role assignments

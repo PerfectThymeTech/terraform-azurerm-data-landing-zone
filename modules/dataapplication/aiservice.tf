@@ -8,10 +8,11 @@ module "ai_service" {
 
   for_each = var.ai_services
 
-  location                                                = var.location
+  location                                                = each.value.location
+  location_private_endpoint                               = var.location
   resource_group_name                                     = azurerm_resource_group.resource_group_app.name
   tags                                                    = local.tags
-  cognitive_account_name                                  = "${local.prefix}-${each.key}-kv001"
+  cognitive_account_name                                  = "${local.prefix}-${each.key}-ai001"
   cognitive_account_kind                                  = each.value.kind
   cognitive_account_sku                                   = each.value.sku
   cognitive_account_firewall_bypass_azure_services        = contains(local.ai_service_kind_firewall_bypass_azure_services_list, each.value.kind) ? true : false
