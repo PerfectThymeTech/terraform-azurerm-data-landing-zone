@@ -29,7 +29,7 @@ jobs:
     with:
       environment: ${{ inputs.environment }}
       config: ${{ inputs.config }}
-      terraform_version: "1.10.4"
+      terraform_version: "1.11.4"
       node_version: 20
       working_directory: "./tests/e2e"
       tenant_id: "37963dd4-f4e6-40f8-a7d6-24b97919e452"
