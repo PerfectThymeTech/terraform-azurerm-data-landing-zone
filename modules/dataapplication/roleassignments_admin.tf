@@ -1,5 +1,5 @@
 # Subscription role assignments
-resource "azurerm_role_assignment" "role_assignment_budget_cost_management_reader" {
+resource "azurerm_role_assignment" "role_assignment_budget_cost_management_reader_admin" {
   description          = "Role assignment to budget to read consumption."
   scope                = azurerm_consumption_budget_subscription.consumption_budget_subscription.id
   role_definition_name = "Cost Management Reader"
