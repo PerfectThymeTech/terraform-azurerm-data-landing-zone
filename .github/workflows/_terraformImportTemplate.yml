@@ -53,7 +53,7 @@ permissions:
 jobs:
   deployment:
     name: Terraform Import
-    runs-on: [ubuntu-latest]
+    runs-on: [self-hosted]
     continue-on-error: false
     environment: ${{ inputs.environment }}
     # if: github.event_name == 'push' || github.event_name == 'release'

@@ -175,6 +175,8 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_curated_bl
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_account_workspace_event_subscription_contributor_datafactory" {
+  count = var.data_factory_details.enabled ? 1 : 0
+
   description          = "Role assignment to workspace storage account to create event triggers."
   scope                = var.storage_account_ids.workspace
   role_definition_name = "EventGrid EventSubscription Contributor"

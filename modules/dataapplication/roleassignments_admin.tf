@@ -1,3 +1,12 @@
+# Subscription role assignments
+resource "azurerm_role_assignment" "role_assignment_budget_cost_management_reader_admin" {
+  description          = "Role assignment to budget to read consumption."
+  scope                = azurerm_consumption_budget_subscription.consumption_budget_subscription.id
+  role_definition_name = "Cost Management Reader"
+  principal_id         = data.azuread_group.group_admin.object_id
+  principal_type       = "Group"
+}
+
 # Resource group role assignments
 resource "azurerm_role_assignment" "role_assignment_resource_group_app_reader_admin" {
   description          = "Role assignment to app resource group."

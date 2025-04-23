@@ -1,3 +1,14 @@
+# Subscription role assignments
+resource "azurerm_role_assignment" "role_assignment_budget_cost_management_reader_reader" {
+  count = var.reader_group_name == "" ? 0 : 1
+
+  description          = "Role assignment to budget to read consumption."
+  scope                = azurerm_consumption_budget_subscription.consumption_budget_subscription.id
+  role_definition_name = "Cost Management Reader"
+  principal_id         = one(data.azuread_group.group_reader[*].object_id)
+  principal_type       = "Group"
+}
+
 # Resource group role assignments
 resource "azurerm_role_assignment" "role_assignment_resource_group_app_reader_reader" {
   count = var.reader_group_name == "" ? 0 : 1

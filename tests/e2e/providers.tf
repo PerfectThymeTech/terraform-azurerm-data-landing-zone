@@ -13,6 +13,9 @@ provider "azurerm" {
     cognitive_account {
       purge_soft_delete_on_destroy = true
     }
+    databricks_workspace {
+      force_delete = true
+    }
     key_vault {
       purge_soft_delete_on_destroy               = false
       purge_soft_deleted_certificates_on_destroy = false
