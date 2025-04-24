@@ -68,7 +68,7 @@ databricks:
       max_num_clusters: 1
 
 data_factory:
-  enabled: false
+  enabled: true
 
 fabric:
   enabled: true
