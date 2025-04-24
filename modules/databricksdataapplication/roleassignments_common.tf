@@ -32,7 +32,7 @@ resource "databricks_permissions" "permissions_directory" {
   }
   # Service principal data factory permissions
   dynamic "access_control" {
-    for_each = var.databricks_data_factory_details.data_factory_enabled ? [1] : [0]
+    for_each = var.databricks_data_factory_details.data_factory_enabled ? [1] : []
     content {
       service_principal_name = one(databricks_service_principal.service_principal_data_factory[*].application_id)
       permission_level       = "CAN_MANAGE"
@@ -74,7 +74,7 @@ resource "databricks_permissions" "permissions_cluster_policy" {
   }
   # Service principal data factory permissions
   dynamic "access_control" {
-    for_each = var.databricks_data_factory_details.data_factory_enabled ? [1] : [0]
+    for_each = var.databricks_data_factory_details.data_factory_enabled ? [1] : []
     content {
       service_principal_name = one(databricks_service_principal.service_principal_data_factory[*].application_id)
       permission_level       = "CAN_USE"
@@ -132,7 +132,7 @@ resource "databricks_permissions" "permissions_sql_endpoint" {
   }
   # Service principal data factory permissions
   dynamic "access_control" {
-    for_each = var.databricks_data_factory_details.data_factory_enabled ? [1] : [0]
+    for_each = var.databricks_data_factory_details.data_factory_enabled ? [1] : []
     content {
       service_principal_name = one(databricks_service_principal.service_principal_data_factory[*].application_id)
       permission_level       = "CAN_MONITOR"
