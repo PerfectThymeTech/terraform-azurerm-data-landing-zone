@@ -14,7 +14,7 @@ resource "databricks_catalog" "catalog_provider" {
     location = var.location
     use      = "data-provider-${each.key}"
   }, local.tags)
-  storage_root = one(databricks_provider_location.external_location_curated[*].url)
+  storage_root = databricks_external_location.external_location_provider[each.key].url
 }
 
 resource "databricks_catalog" "catalog_internal" {
@@ -28,7 +28,7 @@ resource "databricks_catalog" "catalog_internal" {
     location = var.location
     use      = "internal"
   }, local.tags)
-  storage_root = one(databricks_provider_location.external_location_curated[*].url)
+  storage_root = one(databricks_external_location.external_location_curated[*].url)
 }
 
 resource "databricks_catalog" "catalog_published" {
@@ -42,7 +42,7 @@ resource "databricks_catalog" "catalog_published" {
     location = var.location
     use      = "published"
   }, local.tags)
-  storage_root = one(databricks_provider_location.external_location_curated[*].url)
+  storage_root = one(databricks_external_location.external_location_curated[*].url)
 }
 
 resource "databricks_workspace_binding" "workspace_binding_catalog_internal" {
