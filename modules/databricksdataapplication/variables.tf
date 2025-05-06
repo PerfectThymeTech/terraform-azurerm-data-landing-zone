@@ -170,7 +170,7 @@ variable "databricks_sql_endpoint_details" {
 variable "storage_container_ids" {
   description = "Specifies the databricks key vault secret scope details that should be added to the workspace."
   type = object({
-    external  = optional(map(string), {})
+    provider  = optional(map(string), {})
     raw       = optional(string, "")
     enriched  = optional(string, "")
     curated   = optional(string, "")
@@ -181,9 +181,9 @@ variable "storage_container_ids" {
   default   = {}
   validation {
     condition = alltrue([
-      length([for id in values(var.storage_container_ids.external)[*] : id if length(split("/", id)) != 13]) <= 0,
+      length([for id in values(var.storage_container_ids.provider)[*] : id if length(split("/", id)) != 13]) <= 0,
     ])
-    error_message = "Please provide valid external storage container id."
+    error_message = "Please provide valid provider storage container id."
   }
   validation {
     condition     = var.storage_container_ids.raw == "" || length(split("/", var.storage_container_ids.raw)) == 13

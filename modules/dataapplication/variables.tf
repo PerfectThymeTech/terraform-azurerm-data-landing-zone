@@ -47,7 +47,7 @@ variable "app_name" {
 variable "storage_account_ids" {
   description = "Specifies the ids of the storage accounts in the core layer."
   type = object({
-    external  = string
+    provider  = string
     raw       = string
     enriched  = string
     curated   = string
@@ -56,7 +56,7 @@ variable "storage_account_ids" {
   sensitive = false
   validation {
     condition     = length(split("/", var.storage_account_ids.external)) == 9
-    error_message = "Please specify a valid external storage account id."
+    error_message = "Please specify a valid provider storage account id."
   }
   validation {
     condition     = length(split("/", var.storage_account_ids.raw)) == 9

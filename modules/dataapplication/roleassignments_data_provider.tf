@@ -22,7 +22,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_provider_b
     }
   ]...)
 
-  description          = "Role assignment to the external storage container for data provider."
+  description          = "Role assignment to the provider storage container for data provider."
   scope                = azurerm_storage_container.storage_container_provider[each.value.key].id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = data.azuread_service_principal.service_principal_data_provider[each.key].object_id
@@ -40,7 +40,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_provider_b
     }
   ]...)
 
-  description          = "Role assignment to the external storage container for data provider."
+  description          = "Role assignment to the provider storage container for data provider."
   scope                = azurerm_storage_container.storage_container_provider[each.value.key].id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = data.azuread_group.group_data_provider[each.key].object_id

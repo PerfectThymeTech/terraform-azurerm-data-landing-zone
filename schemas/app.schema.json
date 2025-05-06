@@ -264,21 +264,21 @@
           "type": "object",
           "properties": {
             "service_principal_names": {
-              "description": "Specifies service principal names that will be granted storage blob data contributor rights to the external storage account container name.",
+              "description": "Specifies service principal names that will be granted storage blob data contributor rights to the provider storage account container name.",
               "type": "array",
               "items": {
                 "type": "string"
               }
             },
             "group_names": {
-              "description": "Specifies Entra ID group names that will be granted storage blob data contributor rights to the external storage account container name.",
+              "description": "Specifies Entra ID group names that will be granted storage blob data contributor rights to the provider storage account container name.",
               "type": "array",
               "items": {
                 "type": "string"
               }
             },
             "databricks_catalog": {
-              "description": "Specifies Entra ID group names that will be granted storage blob data contributor rights to the external storage account container name.",
+              "description": "Specifies Databricks Catalog configuration for the data provider.",
               "type": "object",
               "properties": {
                 "enabled": {

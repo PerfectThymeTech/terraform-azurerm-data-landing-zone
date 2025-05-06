@@ -28,7 +28,7 @@ resource "azurerm_role_assignment" "role_assignment_ai_service_search" {
 resource "azurerm_role_assignment" "role_assignment_storage_container_provider_blob_data_contributor_search" {
   for_each = var.search_service_details.enabled ? var.data_provider_details : {}
 
-  description          = "Role assignment to external storage account container to read and write data."
+  description          = "Role assignment to provider storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_provider[each.key].id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = one(module.ai_search[*].search_service_principal_id)

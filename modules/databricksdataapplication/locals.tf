@@ -14,8 +14,8 @@ locals {
   storage_container_provider = {
     for key, value in var.data_provider_details :
     key => {
-      storage_account_name   = split("/", var.storage_container_ids.external[key])[8]
-      storage_container_name = reverse(split("/", var.storage_container_ids.external[key]))[0]
+      storage_account_name   = split("/", var.storage_container_ids.provider[key])[8]
+      storage_container_name = reverse(split("/", var.storage_container_ids.provider[key]))[0]
     }
   }
   storage_container_raw = {

@@ -49,11 +49,11 @@ locals {
     }
   }
   databricks_private_endpoint_rules = {
-    "storage-account-external-blob" = {
+    "storage-account-provider-blob" = {
       resource_id = module.storage_account_provider.storage_account_id
       group_id    = "blob"
     }
-    "storage-account-external-dfs" = {
+    "storage-account-provider-dfs" = {
       resource_id = module.storage_account_provider.storage_account_id
       group_id    = "dfs"
     }

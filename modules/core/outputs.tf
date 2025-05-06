@@ -27,7 +27,7 @@ output "databricks_dependencies" {
 output "storage_account_ids" {
   description = "Specifies the ids of the storage accounts in the core layer."
   value = {
-    external  = module.storage_account_provider.storage_account_id
+    provider  = module.storage_account_provider.storage_account_id
     raw       = module.storage_account_raw.storage_account_id
     enriched  = module.storage_account_enriched.storage_account_id
     curated   = module.storage_account_curated.storage_account_id

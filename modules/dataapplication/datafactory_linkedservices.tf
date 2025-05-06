@@ -41,7 +41,7 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
 
   additional_properties = {}
   annotations           = []
-  description           = "Blob storage connection for external storage account."
+  description           = "Blob storage connection for provider storage account."
   # integration_runtime_name = local.data_factory_default_integration_runtime_name
   parameters           = {}
   storage_kind         = "StorageV2"
@@ -122,7 +122,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
 
   additional_properties = {}
   annotations           = []
-  description           = "Datalake storage connection for external storage account."
+  description           = "Datalake storage connection for provider storage account."
   # integration_runtime_name = local.data_factory_default_integration_runtime_name
   parameters           = {}
   url                  = "https://${split("/", var.storage_account_ids.external)[8]}.dfs.core.windows.net/"
