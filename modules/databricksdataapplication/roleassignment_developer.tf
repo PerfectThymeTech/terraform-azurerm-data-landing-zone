@@ -60,10 +60,10 @@ resource "databricks_grant" "grant_catalog_internal_developer" {
   ]
 }
 
-resource "databricks_grant" "grant_catalog_provider_developer" {
+resource "databricks_grant" "grant_catalog_published_developer" {
   count = var.developer_group_name == "" ? 0 : 1
 
-  catalog   = databricks_catalog.catalog_provider.id
+  catalog   = databricks_catalog.catalog_published.id
   principal = one(data.databricks_group.group_developer[*].display_name)
   privileges = [
     # General

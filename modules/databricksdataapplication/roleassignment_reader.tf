@@ -48,10 +48,10 @@ resource "databricks_grant" "grant_catalog_internal_reader" {
   ]
 }
 
-resource "databricks_grant" "grant_catalog_provider_reader" {
+resource "databricks_grant" "grant_catalog_published_reader" {
   count = var.reader_group_name == "" ? 0 : 1
 
-  catalog   = databricks_catalog.catalog_provider.id
+  catalog   = databricks_catalog.catalog_published.id
   principal = one(data.databricks_group.group_reader[*].display_name)
   privileges = [
     # General

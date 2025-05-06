@@ -54,8 +54,8 @@ resource "databricks_grant" "grant_catalog_internal_admin" {
   ]
 }
 
-resource "databricks_grant" "grant_catalog_provider_admin" {
-  catalog   = databricks_catalog.catalog_provider.id
+resource "databricks_grant" "grant_catalog_published_admin" {
+  catalog   = databricks_catalog.catalog_published.id
   principal = data.databricks_group.group_admin.display_name
   privileges = [
     # General

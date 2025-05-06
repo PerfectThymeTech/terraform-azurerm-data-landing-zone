@@ -54,8 +54,8 @@ resource "databricks_grant" "grant_catalog_internal_uai" {
   ]
 }
 
-resource "databricks_grant" "grant_catalog_provider_uai" {
-  catalog   = databricks_catalog.catalog_provider.id
+resource "databricks_grant" "grant_catalog_published_uai" {
+  catalog   = databricks_catalog.catalog_published.id
   principal = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General

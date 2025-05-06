@@ -60,10 +60,10 @@ resource "databricks_grant" "grant_catalog_internal_service_principal" {
   ]
 }
 
-resource "databricks_grant" "grant_catalog_provider_service_principal" {
+resource "databricks_grant" "grant_catalog_published_service_principal" {
   count = var.service_principal_name == "" ? 0 : 1
 
-  catalog   = databricks_catalog.catalog_provider.id
+  catalog   = databricks_catalog.catalog_published.id
   principal = one(databricks_service_principal.service_principal[*].application_id)
   privileges = [
     # General

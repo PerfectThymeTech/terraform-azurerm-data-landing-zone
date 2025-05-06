@@ -45,10 +45,10 @@ resource "databricks_grant" "grant_catalog_internal_service_principal_terraform_
   ]
 }
 
-resource "databricks_grant" "grant_catalog_provider_service_principal_terraform_plan" {
+resource "databricks_grant" "grant_catalog_published_service_principal_terraform_plan" {
   count = var.service_principal_name_terraform_plan == "" ? 0 : 1
 
-  catalog   = databricks_catalog.catalog_provider.id
+  catalog   = databricks_catalog.catalog_published.id
   principal = var.databricks_service_principal_terraform_plan_details.application_id
   privileges = [
     # General
