@@ -23,7 +23,7 @@ resource "azurerm_role_assignment" "role_assignment_resource_group_storage_reade
   count = var.data_factory_details.enabled ? 1 : 0
 
   description          = "Role assignment to storage resource group."
-  scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.external)[4]}"
+  scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.provider)[4]}"
   role_definition_name = "Reader"
   principal_id         = one(module.data_factory[*].data_factory_principal_id)
   principal_type       = "ServicePrincipal"
@@ -98,7 +98,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_account_provider_eve
   count = var.data_factory_details.enabled ? 1 : 0
 
   description          = "Role assignment to provider storage account to create event triggers."
-  scope                = var.storage_account_ids.external
+  scope                = var.storage_account_ids.provider
   role_definition_name = "EventGrid EventSubscription Contributor"
   principal_id         = one(module.data_factory[*].data_factory_principal_id)
   principal_type       = "ServicePrincipal"

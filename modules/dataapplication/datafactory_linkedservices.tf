@@ -45,7 +45,7 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
   # integration_runtime_name = local.data_factory_default_integration_runtime_name
   parameters           = {}
   storage_kind         = "StorageV2"
-  service_endpoint     = "https://${split("/", var.storage_account_ids.external)[8]}.blob.core.windows.net/"
+  service_endpoint     = "https://${split("/", var.storage_account_ids.provider)[8]}.blob.core.windows.net/"
   use_managed_identity = true
 }
 
@@ -125,7 +125,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
   description           = "Datalake storage connection for provider storage account."
   # integration_runtime_name = local.data_factory_default_integration_runtime_name
   parameters           = {}
-  url                  = "https://${split("/", var.storage_account_ids.external)[8]}.dfs.core.windows.net/"
+  url                  = "https://${split("/", var.storage_account_ids.provider)[8]}.dfs.core.windows.net/"
   use_managed_identity = true
 }
 
@@ -140,7 +140,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
   description           = "Datalake storage connection for raw storage account."
   # integration_runtime_name = local.data_factory_default_integration_runtime_name
   parameters           = {}
-  url                  = "https://${split("/", var.storage_account_ids.external)[8]}.dfs.core.windows.net/"
+  url                  = "https://${split("/", var.storage_account_ids.provider)[8]}.dfs.core.windows.net/"
   use_managed_identity = true
 }
 

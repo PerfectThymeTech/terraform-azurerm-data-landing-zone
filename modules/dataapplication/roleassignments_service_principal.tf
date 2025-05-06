@@ -23,7 +23,7 @@ resource "azurerm_role_assignment" "role_assignment_resource_group_storage_reade
   count = var.service_principal_name == "" ? 0 : 1
 
   description          = "Role assignment to storage resource group."
-  scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.external)[4]}"
+  scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.provider)[4]}"
   role_definition_name = "Reader"
   principal_id         = one(data.azuread_service_principal.service_principal[*].object_id)
   principal_type       = "ServicePrincipal"

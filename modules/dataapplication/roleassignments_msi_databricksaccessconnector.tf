@@ -17,7 +17,7 @@ resource "azurerm_role_assignment" "role_assignment_resource_group_app_monitorin
 
 resource "azurerm_role_assignment" "role_assignment_resource_group_storage_reader_accessconnector" {
   description          = "Role assignment to storage resource group."
-  scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.external)[4]}"
+  scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.provider)[4]}"
   role_definition_name = "Reader"
   principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
   principal_type       = "ServicePrincipal"
@@ -84,7 +84,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_contributor_a
 # Storage Role Assignments
 resource "azurerm_role_assignment" "role_assignment_storage_account_provider_blob_delegator_accessconnector" {
   description          = "Role assignment to provider storage account to create SAS keys."
-  scope                = var.storage_account_ids.external
+  scope                = var.storage_account_ids.provider 
   role_definition_name = "Storage Blob Delegator"
   principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
   principal_type       = "ServicePrincipal"

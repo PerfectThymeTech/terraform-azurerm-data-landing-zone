@@ -17,7 +17,7 @@ resource "azurerm_role_assignment" "role_assignment_resource_group_app_monitorin
 
 resource "azurerm_role_assignment" "role_assignment_resource_group_storage_reader_uai" {
   description          = "Role assignment to storage resource group."
-  scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.external)[4]}"
+  scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.provider)[4]}"
   role_definition_name = "Reader"
   principal_id         = module.user_assigned_identity.user_assigned_identity_principal_id
   principal_type       = "ServicePrincipal"
