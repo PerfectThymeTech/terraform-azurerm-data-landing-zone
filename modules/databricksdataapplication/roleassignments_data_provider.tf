@@ -1,4 +1,4 @@
-resource "databricks_grant" "grant_catalog_provider_data_provider_group" {
+resource "databricks_grant" "grant_catalog_provider_data_provider_service_principal" {
   for_each = merge([
     for key, value in var.data_provider_details : {
       for service_principal_name in value.service_principal_names :
