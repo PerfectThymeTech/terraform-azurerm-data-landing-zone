@@ -13,6 +13,52 @@ resource "databricks_secret_acl" "secret_acl_admin" {
   ]
 }
 
+resource "databricks_grant" "grant_catalog_provider_admin" {
+  for_each = {
+    for key, value in var.data_provider_details :
+    key => value if value.databricks_catalog.enabled
+  }
+
+  catalog   = databricks_catalog.catalog_provider[each.key].id
+  principal = data.databricks_group.group_admin.display_name
+  privileges = [
+    # General
+    # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
+    # "EXTERNAL_USE_SCHEMA", # Not allowed as these users should not be external
+    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+
+    # Prerequisite
+    "USE_CATALOG",
+    "USE_SCHEMA",
+
+    # Metadata
+    "BROWSE",
+    # "APPLY_TAG", # Only allow system assigned tags at catalog level
+
+    # Read
+    "EXECUTE",
+    "READ_VOLUME",
+    "SELECT",
+
+    # Edit
+    "MODIFY",
+    "REFRESH",
+    "WRITE_VOLUME",
+
+    # Create
+    "CREATE_FUNCTION",
+    "CREATE_MATERIALIZED_VIEW",
+    "CREATE_MODEL",
+    "CREATE_SCHEMA",
+    "CREATE_TABLE",
+    "CREATE_VOLUME",
+  ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_admin,
+  ]
+}
+
 resource "databricks_grant" "grant_catalog_internal_admin" {
   catalog   = databricks_catalog.catalog_internal.id
   principal = data.databricks_group.group_admin.display_name
