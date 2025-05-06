@@ -10,7 +10,7 @@ resource "databricks_grant" "grant_catalog_provider_data_provider_service_princi
   ]...)
 
   catalog   = databricks_catalog.catalog_provider[each.value.key].id
-  principal = each.value.service_principal_name
+  principal = data.databricks_service_principal.service_principal_data_provider[each.key].application_id # each.value.service_principal_name
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -57,7 +57,7 @@ resource "databricks_grant" "grant_catalog_provider_data_provider_group" {
   ]...)
 
   catalog   = databricks_catalog.catalog_provider[each.value.key].id
-  principal = each.value.group_name
+  principal = data.databricks_group.group_data_provider[each.key].display_name # each.value.group_name
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
