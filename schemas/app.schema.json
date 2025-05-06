@@ -276,6 +276,26 @@
               "items": {
                 "type": "string"
               }
+            },
+            "databricks_catalog": {
+              "description": "Specifies Entra ID group names that will be granted storage blob data contributor rights to the external storage account container name.",
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "description": "Specifies whether unity catalog should be enabled for this data provider.",
+                  "type": "boolean",
+                  "default": false
+                },
+                "workspace_binding_catalog": {
+                  "description": "Specifies the workspace binding for this catalog.",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [],
+              "additionalProperties": false
             }
           },
           "required": [],

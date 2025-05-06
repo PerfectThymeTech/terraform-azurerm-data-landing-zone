@@ -1,4 +1,4 @@
-resource "azurerm_storage_container" "storage_container_external" {
+resource "azurerm_storage_container" "storage_container_provider" {
   for_each = var.data_provider_details
 
   storage_account_id = var.storage_account_ids.external

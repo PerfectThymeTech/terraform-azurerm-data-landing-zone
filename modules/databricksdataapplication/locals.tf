@@ -11,7 +11,7 @@ locals {
   )
 
   # Storage locals
-  storage_container_external = {
+  storage_container_provider = {
     for key, value in var.data_provider_details :
     key => {
       storage_account_name   = split("/", var.storage_container_ids.external[key])[8]

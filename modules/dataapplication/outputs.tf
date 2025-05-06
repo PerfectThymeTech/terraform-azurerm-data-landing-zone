@@ -4,12 +4,12 @@ output "databricks_access_connector_id" {
   value       = module.databricks_access_connector.databricks_access_connector_id
   sensitive   = false
   depends_on = [
-    azurerm_role_assignment.role_assignment_storage_account_external_blob_delegator_accessconnector,
+    azurerm_role_assignment.role_assignment_storage_account_provider_blob_delegator_accessconnector,
     azurerm_role_assignment.role_assignment_storage_account_raw_blob_delegator_accessconnector,
     azurerm_role_assignment.role_assignment_storage_account_curated_blob_delegator_accessconnector,
     azurerm_role_assignment.role_assignment_storage_account_enriched_blob_delegator_accessconnector,
     azurerm_role_assignment.role_assignment_storage_account_workspace_blob_delegator_accessconnector,
-    azurerm_role_assignment.role_assignment_storage_container_external_blob_data_contributor_accessconnector,
+    azurerm_role_assignment.role_assignment_storage_container_provider_blob_data_contributor_accessconnector,
     azurerm_role_assignment.role_assignment_storage_container_raw_blob_data_contributor_accessconnector,
     azurerm_role_assignment.role_assignment_storage_container_curated_blob_data_contributor_accessconnector,
     azurerm_role_assignment.role_assignment_storage_container_enriched_blob_data_contributor_accessconnector,
@@ -45,7 +45,7 @@ output "storage_container_ids" {
   value = {
     external = {
       for key, value in var.data_provider_details :
-      key => azurerm_storage_container.storage_container_external[key].id
+      key => azurerm_storage_container.storage_container_provider[key].id
     }
     raw       = azurerm_storage_container.storage_container_raw.id
     enriched  = azurerm_storage_container.storage_container_enriched.id

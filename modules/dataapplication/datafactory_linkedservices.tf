@@ -33,7 +33,7 @@ resource "azurerm_data_factory_linked_service_azure_databricks" "data_factory_li
 }
 
 # Blob storage linked services
-resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_linked_service_azure_blob_storage_external" {
+resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_linked_service_azure_blob_storage_provider" {
   count = var.data_factory_details.enabled ? 1 : 0
 
   data_factory_id = one(module.data_factory[*].data_factory_id)
@@ -114,7 +114,7 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
 }
 
 # Datalake storage linked services
-resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_external" {
+resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_provider" {
   count = var.data_factory_details.enabled ? 1 : 0
 
   data_factory_id = one(module.data_factory[*].data_factory_id)

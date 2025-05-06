@@ -118,11 +118,11 @@ resource "fabric_workspace_role_assignment" "workspace_role_assignment_contribut
 }
 
 # Storage role assignments
-resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_owner_service_principal" {
+resource "azurerm_role_assignment" "role_assignment_storage_container_provider_blob_data_owner_service_principal" {
   for_each = var.service_principal_name == "" ? {} : var.data_provider_details
 
   description          = "Role assignment to the external storage container."
-  scope                = azurerm_storage_container.storage_container_external[each.key].id
+  scope                = azurerm_storage_container.storage_container_provider[each.key].id
   role_definition_name = "Storage Blob Data Owner"
   principal_id         = one(data.azuread_service_principal.service_principal[*].object_id)
   principal_type       = "ServicePrincipal"

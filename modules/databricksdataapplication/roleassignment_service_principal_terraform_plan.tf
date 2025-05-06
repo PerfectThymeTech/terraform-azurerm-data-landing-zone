@@ -45,10 +45,10 @@ resource "databricks_grant" "grant_catalog_internal_service_principal_terraform_
   ]
 }
 
-resource "databricks_grant" "grant_catalog_external_service_principal_terraform_plan" {
+resource "databricks_grant" "grant_catalog_provider_service_principal_terraform_plan" {
   count = var.service_principal_name_terraform_plan == "" ? 0 : 1
 
-  catalog   = databricks_catalog.catalog_external.id
+  catalog   = databricks_catalog.catalog_provider.id
   principal = var.databricks_service_principal_terraform_plan_details.application_id
   privileges = [
     # General
@@ -84,10 +84,10 @@ resource "databricks_grant" "grant_catalog_external_service_principal_terraform_
   ]
 }
 
-resource "databricks_grant" "grant_external_location_external_service_principal_terraform_plan" {
+resource "databricks_grant" "grant_external_location_provider_service_principal_terraform_plan" {
   for_each = var.service_principal_name_terraform_plan == "" ? {} : var.data_provider_details
 
-  external_location = databricks_external_location.external_location_external[each.key].id
+  external_location = databricks_external_location.external_location_provider[each.key].id
   principal         = var.databricks_service_principal_terraform_plan_details.application_id
   privileges = [
     # General

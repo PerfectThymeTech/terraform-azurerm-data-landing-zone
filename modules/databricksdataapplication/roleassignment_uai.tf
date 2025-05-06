@@ -54,8 +54,8 @@ resource "databricks_grant" "grant_catalog_internal_uai" {
   ]
 }
 
-resource "databricks_grant" "grant_catalog_external_uai" {
-  catalog   = databricks_catalog.catalog_external.id
+resource "databricks_grant" "grant_catalog_provider_uai" {
+  catalog   = databricks_catalog.catalog_provider.id
   principal = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General
@@ -95,10 +95,10 @@ resource "databricks_grant" "grant_catalog_external_uai" {
   ]
 }
 
-resource "databricks_grant" "grant_external_location_external_uai" {
+resource "databricks_grant" "grant_external_location_provider_uai" {
   for_each = var.data_provider_details
 
-  external_location = databricks_external_location.external_location_external[each.key].id
+  external_location = databricks_external_location.external_location_provider[each.key].id
   principal         = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General

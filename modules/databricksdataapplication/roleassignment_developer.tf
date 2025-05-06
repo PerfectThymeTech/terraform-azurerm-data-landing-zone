@@ -60,10 +60,10 @@ resource "databricks_grant" "grant_catalog_internal_developer" {
   ]
 }
 
-resource "databricks_grant" "grant_catalog_external_developer" {
+resource "databricks_grant" "grant_catalog_provider_developer" {
   count = var.developer_group_name == "" ? 0 : 1
 
-  catalog   = databricks_catalog.catalog_external.id
+  catalog   = databricks_catalog.catalog_provider.id
   principal = one(data.databricks_group.group_developer[*].display_name)
   privileges = [
     # General
@@ -103,10 +103,10 @@ resource "databricks_grant" "grant_catalog_external_developer" {
   ]
 }
 
-resource "databricks_grant" "grant_external_location_external_developer" {
+resource "databricks_grant" "grant_external_location_provider_developer" {
   for_each = var.developer_group_name == "" ? {} : var.data_provider_details
 
-  external_location = databricks_external_location.external_location_external[each.key].id
+  external_location = databricks_external_location.external_location_provider[each.key].id
   principal         = one(data.databricks_group.group_developer[*].display_name)
   privileges = [
     # General

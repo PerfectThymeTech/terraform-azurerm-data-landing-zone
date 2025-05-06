@@ -36,6 +36,10 @@ data_providers:
     service_principal_names: []
     group_names:
     - data-provider-001
+    databricks_catalog:
+      enabled: true
+      workspace_binding_catalog:
+      - /subscriptions/1fdab118-1638-419a-8b12-06c9543714a0/resourceGroups/adb-test-rg/providers/Microsoft.Databricks/workspaces/mymabussadb
 
 budget:
   categories:

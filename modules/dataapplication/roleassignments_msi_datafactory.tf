@@ -94,7 +94,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_contributor_d
 }
 
 # Storage Role Assignments
-resource "azurerm_role_assignment" "role_assignment_storage_account_external_event_subscription_contributor_datafactory" {
+resource "azurerm_role_assignment" "role_assignment_storage_account_provider_event_subscription_contributor_datafactory" {
   count = var.data_factory_details.enabled ? 1 : 0
 
   description          = "Role assignment to external storage account to create event triggers."
@@ -104,11 +104,11 @@ resource "azurerm_role_assignment" "role_assignment_storage_account_external_eve
   principal_type       = "ServicePrincipal"
 }
 
-resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_contributor_datafactory" {
+resource "azurerm_role_assignment" "role_assignment_storage_container_provider_blob_data_contributor_datafactory" {
   for_each = var.data_factory_details.enabled ? var.data_provider_details : {}
 
   description          = "Role assignment to external storage account container to read and write data."
-  scope                = azurerm_storage_container.storage_container_external[each.key].id
+  scope                = azurerm_storage_container.storage_container_provider[each.key].id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = one(module.data_factory[*].data_factory_principal_id)
   principal_type       = "ServicePrincipal"

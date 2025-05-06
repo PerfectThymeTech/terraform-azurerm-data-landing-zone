@@ -208,6 +208,10 @@ variable "data_provider_details" {
   type = map(object({
     service_principal_names = optional(list(string), [])
     group_names             = optional(list(string), [])
+    databricks_catalog = optional(object({
+      enabled                   = optional(bool, false)
+      workspace_binding_catalog = optional(list(string), [])
+    }), {})
   }))
   sensitive = false
   default   = {}

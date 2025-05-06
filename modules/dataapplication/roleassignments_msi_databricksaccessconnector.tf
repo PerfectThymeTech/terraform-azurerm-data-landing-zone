@@ -82,7 +82,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_contributor_a
 }
 
 # Storage Role Assignments
-resource "azurerm_role_assignment" "role_assignment_storage_account_external_blob_delegator_accessconnector" {
+resource "azurerm_role_assignment" "role_assignment_storage_account_provider_blob_delegator_accessconnector" {
   description          = "Role assignment to external storage account to create SAS keys."
   scope                = var.storage_account_ids.external
   role_definition_name = "Storage Blob Delegator"
@@ -90,11 +90,11 @@ resource "azurerm_role_assignment" "role_assignment_storage_account_external_blo
   principal_type       = "ServicePrincipal"
 }
 
-resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_contributor_accessconnector" {
+resource "azurerm_role_assignment" "role_assignment_storage_container_provider_blob_data_contributor_accessconnector" {
   for_each = var.data_provider_details
 
   description          = "Role assignment to external storage account container to read and write data."
-  scope                = azurerm_storage_container.storage_container_external[each.key].id
+  scope                = azurerm_storage_container.storage_container_provider[each.key].id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
   principal_type       = "ServicePrincipal"
