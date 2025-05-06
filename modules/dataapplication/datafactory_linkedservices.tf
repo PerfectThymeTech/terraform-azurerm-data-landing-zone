@@ -37,7 +37,7 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
   count = var.data_factory_details.enabled ? 1 : 0
 
   data_factory_id = one(module.data_factory[*].data_factory_id)
-  name            = "BlobStorageExternal"
+  name            = "BlobStorageProvider"
 
   additional_properties = {}
   annotations           = []
@@ -118,7 +118,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
   count = var.data_factory_details.enabled ? 1 : 0
 
   data_factory_id = one(module.data_factory[*].data_factory_id)
-  name            = "DatalakeStorageExternal"
+  name            = "DatalakeStorageProvider"
 
   additional_properties = {}
   annotations           = []

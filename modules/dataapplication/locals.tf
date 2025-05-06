@@ -69,11 +69,11 @@ locals {
   # Data factory locals
   data_factory_default_integration_runtime_name = "AutoResolveIntegrationRuntime"
   data_factory_default_managed_private_endpoints = {
-    "storage-external-blob" = {
+    "storage-provider-blob" = {
       subresource_name   = "blob"
       target_resource_id = var.storage_account_ids.provider
     }
-    "storage-external-dfs" = {
+    "storage-provider-dfs" = {
       subresource_name   = "dfs"
       target_resource_id = var.storage_account_ids.provider
     }

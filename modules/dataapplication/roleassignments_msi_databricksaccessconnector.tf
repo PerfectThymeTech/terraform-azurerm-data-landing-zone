@@ -84,7 +84,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_contributor_a
 # Storage Role Assignments
 resource "azurerm_role_assignment" "role_assignment_storage_account_provider_blob_delegator_accessconnector" {
   description          = "Role assignment to provider storage account to create SAS keys."
-  scope                = var.storage_account_ids.provider 
+  scope                = var.storage_account_ids.provider
   role_definition_name = "Storage Blob Delegator"
   principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
   principal_type       = "ServicePrincipal"
