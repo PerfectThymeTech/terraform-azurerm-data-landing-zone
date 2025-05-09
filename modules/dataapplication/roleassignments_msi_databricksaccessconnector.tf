@@ -17,7 +17,7 @@ resource "azurerm_role_assignment" "role_assignment_resource_group_app_monitorin
 
 resource "azurerm_role_assignment" "role_assignment_resource_group_storage_reader_accessconnector" {
   description          = "Role assignment to storage resource group."
-  scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.external)[4]}"
+  scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.provider)[4]}"
   role_definition_name = "Reader"
   principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
   principal_type       = "ServicePrincipal"
@@ -82,19 +82,19 @@ resource "azurerm_role_assignment" "role_assignment_search_service_contributor_a
 }
 
 # Storage Role Assignments
-resource "azurerm_role_assignment" "role_assignment_storage_account_external_blob_delegator_accessconnector" {
-  description          = "Role assignment to external storage account to create SAS keys."
-  scope                = var.storage_account_ids.external
+resource "azurerm_role_assignment" "role_assignment_storage_account_provider_blob_delegator_accessconnector" {
+  description          = "Role assignment to provider storage account to create SAS keys."
+  scope                = var.storage_account_ids.provider
   role_definition_name = "Storage Blob Delegator"
   principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
   principal_type       = "ServicePrincipal"
 }
 
-resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_contributor_accessconnector" {
+resource "azurerm_role_assignment" "role_assignment_storage_container_provider_blob_data_contributor_accessconnector" {
   for_each = var.data_provider_details
 
-  description          = "Role assignment to external storage account container to read and write data."
-  scope                = azurerm_storage_container.storage_container_external[each.key].id
+  description          = "Role assignment to provider storage account container to read and write data."
+  scope                = azurerm_storage_container.storage_container_provider[each.key].id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
   principal_type       = "ServicePrincipal"

@@ -13,6 +13,52 @@ resource "databricks_permission_assignment" "permission_assignment_uai" {
 #   ]
 # }
 
+resource "databricks_grant" "grant_catalog_provider_uai" {
+  for_each = {
+    for key, value in var.data_provider_details :
+    key => value if value.databricks_catalog.enabled
+  }
+
+  catalog   = databricks_catalog.catalog_provider[each.key].id
+  principal = databricks_service_principal.service_principal_uai.application_id
+  privileges = [
+    # General
+    # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
+    # "EXTERNAL_USE_SCHEMA", # Not allowed as these users should not be external
+    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+
+    # Prerequisite
+    "USE_CATALOG",
+    "USE_SCHEMA",
+
+    # Metadata
+    "BROWSE",
+    # "APPLY_TAG", # Only allow system assigned tags at catalog level
+
+    # Read
+    "EXECUTE",
+    "READ_VOLUME",
+    "SELECT",
+
+    # Edit
+    "MODIFY",
+    "REFRESH",
+    "WRITE_VOLUME",
+
+    # Create
+    "CREATE_FUNCTION",
+    "CREATE_MATERIALIZED_VIEW",
+    "CREATE_MODEL",
+    "CREATE_SCHEMA",
+    "CREATE_TABLE",
+    "CREATE_VOLUME",
+  ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_uai,
+  ]
+}
+
 resource "databricks_grant" "grant_catalog_internal_uai" {
   catalog   = databricks_catalog.catalog_internal.id
   principal = databricks_service_principal.service_principal_uai.application_id
@@ -54,8 +100,8 @@ resource "databricks_grant" "grant_catalog_internal_uai" {
   ]
 }
 
-resource "databricks_grant" "grant_catalog_external_uai" {
-  catalog   = databricks_catalog.catalog_external.id
+resource "databricks_grant" "grant_catalog_published_uai" {
+  catalog   = databricks_catalog.catalog_published.id
   principal = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General
@@ -95,10 +141,10 @@ resource "databricks_grant" "grant_catalog_external_uai" {
   ]
 }
 
-resource "databricks_grant" "grant_external_location_external_uai" {
+resource "databricks_grant" "grant_external_location_provider_uai" {
   for_each = var.data_provider_details
 
-  external_location = databricks_external_location.external_location_external[each.key].id
+  external_location = databricks_external_location.external_location_provider[each.key].id
   principal         = databricks_service_principal.service_principal_uai.application_id
   privileges = [
     # General

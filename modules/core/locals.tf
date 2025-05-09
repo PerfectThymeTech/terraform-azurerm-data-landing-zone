@@ -3,7 +3,7 @@ locals {
   prefix = "${lower(var.prefix)}-${var.environment}-core"
 
   # Storage locals
-  storage_external_network_private_link_access = [
+  storage_provider_network_private_link_access = [
     "/subscriptions/${data.azurerm_client_config.current.subscription_id}/providers/Microsoft.Security/datascanners/storageDataScanner",
     "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/*/providers/Microsoft.Synapse/workspaces/*",
     "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/*/providers/Microsoft.CognitiveServices/accounts/*",
@@ -49,12 +49,12 @@ locals {
     }
   }
   databricks_private_endpoint_rules = {
-    "storage-account-external-blob" = {
-      resource_id = module.storage_account_external.storage_account_id
+    "storage-account-provider-blob" = {
+      resource_id = module.storage_account_provider.storage_account_id
       group_id    = "blob"
     }
-    "storage-account-external-dfs" = {
-      resource_id = module.storage_account_external.storage_account_id
+    "storage-account-provider-dfs" = {
+      resource_id = module.storage_account_provider.storage_account_id
       group_id    = "dfs"
     }
     "storage-account-raw-blob" = {

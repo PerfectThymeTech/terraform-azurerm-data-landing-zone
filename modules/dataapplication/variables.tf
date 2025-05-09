@@ -47,7 +47,7 @@ variable "app_name" {
 variable "storage_account_ids" {
   description = "Specifies the ids of the storage accounts in the core layer."
   type = object({
-    external  = string
+    provider  = string
     raw       = string
     enriched  = string
     curated   = string
@@ -55,8 +55,8 @@ variable "storage_account_ids" {
   })
   sensitive = false
   validation {
-    condition     = length(split("/", var.storage_account_ids.external)) == 9
-    error_message = "Please specify a valid external storage account id."
+    condition     = length(split("/", var.storage_account_ids.provider)) == 9
+    error_message = "Please specify a valid provider storage account id."
   }
   validation {
     condition     = length(split("/", var.storage_account_ids.raw)) == 9
@@ -81,6 +81,10 @@ variable "data_provider_details" {
   type = map(object({
     service_principal_names = optional(list(string), [])
     group_names             = optional(list(string), [])
+    databricks_catalog = optional(object({
+      enabled                   = optional(bool, false)
+      workspace_binding_catalog = optional(list(string), [])
+    }), {})
   }))
   sensitive = false
   default   = {}

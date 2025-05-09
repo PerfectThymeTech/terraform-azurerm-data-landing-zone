@@ -17,7 +17,7 @@ resource "azurerm_role_assignment" "role_assignment_resource_group_app_monitorin
 
 resource "azurerm_role_assignment" "role_assignment_resource_group_storage_reader_uai" {
   description          = "Role assignment to storage resource group."
-  scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.external)[4]}"
+  scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.provider)[4]}"
   role_definition_name = "Reader"
   principal_id         = module.user_assigned_identity.user_assigned_identity_principal_id
   principal_type       = "ServicePrincipal"
@@ -106,11 +106,11 @@ resource "fabric_workspace_role_assignment" "workspace_role_assignment_contribut
 }
 
 # Storage role assignments
-resource "azurerm_role_assignment" "role_assignment_storage_container_external_blob_data_owner_uai" {
+resource "azurerm_role_assignment" "role_assignment_storage_container_provider_blob_data_owner_uai" {
   for_each = var.data_provider_details
 
-  description          = "Role assignment to the external storage container."
-  scope                = azurerm_storage_container.storage_container_external[each.key].id
+  description          = "Role assignment to the provider storage container."
+  scope                = azurerm_storage_container.storage_container_provider[each.key].id
   role_definition_name = "Storage Blob Data Owner"
   principal_id         = module.user_assigned_identity.user_assigned_identity_principal_id
   principal_type       = "ServicePrincipal"

@@ -17,6 +17,52 @@ resource "databricks_secret_acl" "secret_acl_service_principal_data_factory" {
   ]
 }
 
+resource "databricks_grant" "grant_catalog_provider_service_principal_data_factory" {
+  for_each = {
+    for key, value in var.data_provider_details :
+    key => value if value.databricks_catalog.enabled && var.databricks_data_factory_details.data_factory_enabled
+  }
+
+  catalog   = databricks_catalog.catalog_provider[each.key].id
+  principal = one(databricks_service_principal.service_principal_data_factory[*].application_id)
+  privileges = [
+    # General
+    # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
+    # "EXTERNAL_USE_SCHEMA", # Not allowed as these users should not be external
+    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+
+    # Prerequisite
+    "USE_CATALOG",
+    "USE_SCHEMA",
+
+    # Metadata
+    "BROWSE",
+    # "APPLY_TAG", # Only allow system assigned tags at catalog level
+
+    # Read
+    "EXECUTE",
+    "READ_VOLUME",
+    "SELECT",
+
+    # Edit
+    "MODIFY",
+    "REFRESH",
+    "WRITE_VOLUME",
+
+    # Create
+    "CREATE_FUNCTION",
+    "CREATE_MATERIALIZED_VIEW",
+    "CREATE_MODEL",
+    "CREATE_SCHEMA",
+    "CREATE_TABLE",
+    "CREATE_VOLUME",
+  ]
+
+  depends_on = [
+    databricks_permission_assignment.permission_assignment_service_principal_data_factory,
+  ]
+}
+
 resource "databricks_grant" "grant_catalog_internal_service_principal_data_factory" {
   count = var.databricks_data_factory_details.data_factory_enabled ? 1 : 0
 
@@ -60,10 +106,10 @@ resource "databricks_grant" "grant_catalog_internal_service_principal_data_facto
   ]
 }
 
-resource "databricks_grant" "grant_catalog_external_service_principal_data_factory" {
+resource "databricks_grant" "grant_catalog_published_service_principal_data_factory" {
   count = var.databricks_data_factory_details.data_factory_enabled ? 1 : 0
 
-  catalog   = databricks_catalog.catalog_external.id
+  catalog   = databricks_catalog.catalog_published.id
   principal = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
     # General
@@ -103,10 +149,10 @@ resource "databricks_grant" "grant_catalog_external_service_principal_data_facto
   ]
 }
 
-resource "databricks_grant" "grant_external_location_external_service_principal_data_factory" {
+resource "databricks_grant" "grant_external_location_provider_service_principal_data_factory" {
   for_each = var.databricks_data_factory_details.data_factory_enabled ? var.data_provider_details : {}
 
-  external_location = databricks_external_location.external_location_external[each.key].id
+  external_location = databricks_external_location.external_location_provider[each.key].id
   principal         = one(databricks_service_principal.service_principal_data_factory[*].application_id)
   privileges = [
     # General
