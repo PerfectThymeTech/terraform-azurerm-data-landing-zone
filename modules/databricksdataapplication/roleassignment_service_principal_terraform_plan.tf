@@ -18,7 +18,7 @@ resource "databricks_grant" "grant_catalog_provider_service_principal_terraform_
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
     # "EXTERNAL_USE_SCHEMA", # Not allowed as these users should not be external
-    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+    "MANAGE", # Required to read workspace binding
 
     # Prerequisite
     "USE_CATALOG",
