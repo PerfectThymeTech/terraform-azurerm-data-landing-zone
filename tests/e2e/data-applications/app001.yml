@@ -36,6 +36,10 @@ data_providers:
     service_principal_names: []
     group_names:
     - data-provider-001
+    databricks_catalog:
+      enabled: true
+      workspace_binding_catalog:
+      - "772046891226939"
 
 budget:
   categories:
