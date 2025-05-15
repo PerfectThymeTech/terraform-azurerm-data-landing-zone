@@ -1,4 +1,4 @@
-resource "databricks_permission_assignment" "permission_assignment_service_principal_terraform_plan" {
+resource "databricks_permission_assignment" "permission_assignment_engineering_service_principal_terraform_plan" {
   count = var.service_principal_name_terraform_plan == "" ? 0 : 1
 
   principal_id = one(databricks_service_principal.service_principal_terraform_plan[*].id)

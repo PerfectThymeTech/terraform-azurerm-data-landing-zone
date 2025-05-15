@@ -1,4 +1,4 @@
-resource "databricks_permissions" "permissions_sql_endpoint_starter" {
+resource "databricks_permissions" "permissions_engineering_sql_endpoint_starter" {
   sql_endpoint_id = data.databricks_sql_warehouse.sql_endpoint_starter.id
 
   # Admin permissions
