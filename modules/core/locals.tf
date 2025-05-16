@@ -36,16 +36,18 @@ locals {
   databricks_consumption_public_subnet_name  = reverse(split("/", var.subnet_id_consumption_public))[0]
   databricks_workspace_details = {
     engineering = {
-      id                  = module.databricks_workspace_engineering.databricks_workspace_id
-      workspace_id        = module.databricks_workspace_engineering.databricks_workspace_workspace_id
-      workspace_url       = module.databricks_workspace_engineering.databricks_workspace_workspace_url
-      access_connector_id = module.databricks_access_connector_engineering.databricks_access_connector_id
+      id                            = module.databricks_workspace_engineering.databricks_workspace_id
+      workspace_id                  = module.databricks_workspace_engineering.databricks_workspace_workspace_id
+      workspace_url                 = module.databricks_workspace_engineering.databricks_workspace_workspace_url
+      access_connector_id           = module.databricks_access_connector_engineering.databricks_access_connector_id
+      access_connector_principal_id = module.databricks_access_connector_engineering.databricks_access_connector_principal_id
     }
     consumption = {
-      id                  = module.databricks_workspace_consumption.databricks_workspace_id
-      workspace_id        = module.databricks_workspace_consumption.databricks_workspace_workspace_id
-      workspace_url       = module.databricks_workspace_consumption.databricks_workspace_workspace_url
-      access_connector_id = module.databricks_access_connector_consumption.databricks_access_connector_id
+      id                            = module.databricks_workspace_consumption.databricks_workspace_id
+      workspace_id                  = module.databricks_workspace_consumption.databricks_workspace_workspace_id
+      workspace_url                 = module.databricks_workspace_consumption.databricks_workspace_workspace_url
+      access_connector_id           = module.databricks_access_connector_consumption.databricks_access_connector_id
+      access_connector_principal_id = module.databricks_access_connector_consumption.databricks_access_connector_principal_id
     }
   }
   databricks_private_endpoint_rules = {
