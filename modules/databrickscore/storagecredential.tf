@@ -10,4 +10,9 @@ resource "databricks_storage_credential" "storage_credential_engineering_default
   isolation_mode  = "ISOLATION_MODE_ISOLATED"
   read_only       = false
   skip_validation = false
+
+  depends_on = [
+    azurerm_role_assignment.role_assignment_storage_account_raw_blob_delegator_accessconnector,
+    azurerm_role_assignment.role_assignment_storage_container_raw_blob_data_contributor_accessconnector,
+  ]
 }
