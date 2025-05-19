@@ -168,7 +168,7 @@ variable "databricks_sql_endpoint_details" {
 }
 
 variable "storage_container_ids" {
-  description = "Specifies the databricks key vault secret scope details that should be added to the workspace."
+  description = "Specifies the storage container ids that will be used for the external locations."
   type = object({
     provider  = optional(map(string), {})
     raw       = optional(string, "")
@@ -200,6 +200,42 @@ variable "storage_container_ids" {
   validation {
     condition     = var.storage_container_ids.workspace == "" || length(split("/", var.storage_container_ids.workspace)) == 13
     error_message = "Please provide valid workspace storage container id."
+  }
+}
+
+variable "storage_queue_ids" {
+  description = "Specifies the storage queue ids that will be used for the external locations."
+  type = object({
+    provider  = optional(map(string), {})
+    raw       = optional(string, "")
+    enriched  = optional(string, "")
+    curated   = optional(string, "")
+    workspace = optional(string, "")
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+  validation {
+    condition = alltrue([
+      length([for id in values(var.storage_queue_ids.provider)[*] : id if length(split("/", id)) != 13]) <= 0,
+    ])
+    error_message = "Please provide valid provider storage queue id."
+  }
+  validation {
+    condition     = var.storage_queue_ids.raw == "" || length(split("/", var.storage_queue_ids.raw)) == 13
+    error_message = "Please provide valid raw storage queue id."
+  }
+  validation {
+    condition     = var.storage_queue_ids.enriched == "" || length(split("/", var.storage_queue_ids.enriched)) == 13
+    error_message = "Please provide valid curated storage queue id."
+  }
+  validation {
+    condition     = var.storage_queue_ids.curated == "" || length(split("/", var.storage_queue_ids.curated)) == 13
+    error_message = "Please provide valid curated storage queue id."
+  }
+  validation {
+    condition     = var.storage_queue_ids.workspace == "" || length(split("/", var.storage_queue_ids.workspace)) == 13
+    error_message = "Please provide valid workspace storage queue id."
   }
 }
 
