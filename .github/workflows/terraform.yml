@@ -34,7 +34,7 @@ jobs:
       tenant_id: "37963dd4-f4e6-40f8-a7d6-24b97919e452"
       subscription_id: "9842be63-c8c0-4647-a5d1-0c5e7f8bbb25"
     secrets:
-      CLIENT_ID_PLAN: ${{ secrets.CLIENT_ID_PLAN }}
+      CLIENT_ID_PLAN: ${{ secrets.CLIENT_ID }}
       CLIENT_ID_APPLY: ${{ secrets.CLIENT_ID }}
 
   terraform_destroy:
