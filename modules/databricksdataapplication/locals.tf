@@ -50,8 +50,8 @@ locals {
     node_types                = jsonencode(["Standard_DS3_v2", "Standard_DS4_v2", "Standard_DS5_v2", ])
   }
   databricks_cluster_policy_file_variables = merge(
-    var.databricks_cluster_policy_file_variables,
-    # local.databricks_cluster_policy_file_variables_default,
+    # var.databricks_cluster_policy_file_variables,
+    local.databricks_cluster_policy_file_variables_default,
     local.tags,
   )
 
