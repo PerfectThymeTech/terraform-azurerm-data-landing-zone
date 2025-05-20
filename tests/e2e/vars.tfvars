@@ -5,11 +5,11 @@ prefix      = "mydlz01"
 tags        = {}
 
 # Service
-data_platform_subscription_ids                   = []
-data_application_library_path                    = "./data-applications"
-data_application_file_variables                  = {}
-databricks_cluster_policy_library_path           = "./databricks-cluster-policies"
-databricks_cluster_policy_file_variables         = {
+data_platform_subscription_ids         = []
+data_application_library_path          = "./data-applications"
+data_application_file_variables        = {}
+databricks_cluster_policy_library_path = "./databricks-cluster-policies"
+databricks_cluster_policy_file_variables = {
   driver_node_types = [
     "Standard_DS3_v2",
     "Standard_DS4_v2",
