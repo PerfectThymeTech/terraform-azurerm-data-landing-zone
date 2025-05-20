@@ -44,6 +44,9 @@ locals {
   databricks_cluster_policy_filepaths_yaml = local.databricks_cluster_policy_library_path == "" ? [] : tolist(fileset(local.databricks_cluster_policy_library_path, "**/*.{yml,yml.tftpl,yaml,yaml.tftpl}"))
 
   # Create file variables
+  databricks_cluster_policy_file_variables_default = {
+    default_catalog_namespace = databricks_catalog.catalog_internal.name
+  }
   databricks_cluster_policy_file_variables = merge(
     var.databricks_cluster_policy_file_variables,
     local.tags,
