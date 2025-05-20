@@ -49,6 +49,7 @@ locals {
   }
   databricks_cluster_policy_file_variables = merge(
     var.databricks_cluster_policy_file_variables,
+    local.databricks_cluster_policy_file_variables_default,
     local.tags,
   )
 
