@@ -46,10 +46,12 @@ locals {
   # Create file variables
   databricks_cluster_policy_file_variables_default = {
     default_catalog_namespace = databricks_catalog.catalog_internal.name
+    driver_node_types         = jsondecode(["Standard_DS3_v2", "Standard_DS4_v2", "Standard_DS5_v2", ])
+    node_types                = jsondecode(["Standard_DS3_v2", "Standard_DS4_v2", "Standard_DS5_v2", ])
   }
   databricks_cluster_policy_file_variables = merge(
     var.databricks_cluster_policy_file_variables,
-    local.databricks_cluster_policy_file_variables_default,
+    # local.databricks_cluster_policy_file_variables_default,
     local.tags,
   )
 
