@@ -419,6 +419,10 @@
               "additionalProperties": false
             }
           }
+        },
+        "cluster_policy_file_variables": {
+          "description": "Specifies the cluster policy file variables.",
+          "type": "object"
         }
       },
       "required": [],

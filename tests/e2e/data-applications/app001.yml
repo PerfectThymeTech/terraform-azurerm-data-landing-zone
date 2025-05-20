@@ -70,6 +70,19 @@ databricks:
       cluster_size: "2X-Small"
       min_num_clusters: 1
       max_num_clusters: 1
+  cluster_policy_file_variables:
+    driver_node_types:
+    - Standard_DS3_v2
+    - Standard_DS4_v2
+    - Standard_DS5_v2
+    - Standard_D4s_v3
+    - Standard_D8s_v3
+    node_types:
+    - Standard_DS3_v2
+    - Standard_DS4_v2
+    - Standard_DS5_v2
+    - Standard_D4s_v3
+    - Standard_D8s_v3
 
 data_factory:
   enabled: true
