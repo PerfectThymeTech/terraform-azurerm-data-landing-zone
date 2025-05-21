@@ -54,6 +54,7 @@ module "databricks_data_application" {
   databricks_access_connector_id            = module.data_application[each.key].databricks_access_connector_id
   databricks_cluster_policy_library_path    = var.databricks_cluster_policy_library_path
   databricks_cluster_policy_file_variables  = merge(var.databricks_cluster_policy_file_variables, try(each.value.databricks.cluster_policy_file_variables, {}))
+  databricks_cluster_policy_file_overwrites = try(each.value.databricks.cluster_policy_file_overwrites, {})
   databricks_keyvault_secret_scope_details  = try(module.data_application[each.key].key_vault_details, {})
   databricks_user_assigned_identity_details = module.data_application[each.key].user_assigned_identity_details
   databricks_sql_endpoint_details           = try(each.value.databricks.sql_endpoints, {})

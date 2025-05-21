@@ -63,13 +63,19 @@ definition:
   driver_node_type_id:
     type: allowlist
     defaultValue: Standard_DS3_v2
-    values: "${driver_node_types}"
+    values:
+      - Standard_DS3_v2
+      - Standard_DS4_v2
+      - Standard_DS5_v2
     isOptional: true
     hidden: false
   node_type_id:
     type: allowlist
     defaultValue: Standard_DS3_v2
-    values: "${node_types}"
+    values:
+      - Standard_DS3_v2
+      - Standard_DS4_v2
+      - Standard_DS5_v2
     isOptional: false
     hidden: false
   spark_version:

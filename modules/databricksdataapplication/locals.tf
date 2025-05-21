@@ -46,11 +46,9 @@ locals {
   # Create file variables
   databricks_cluster_policy_file_variables_default = {
     default_catalog_namespace = databricks_catalog.catalog_internal.name
-    driver_node_types         = yamlencode(["Standard_DS3_v2", "Standard_DS4_v2", "Standard_DS5_v2", ])
-    node_types                = yamlencode(["Standard_DS3_v2", "Standard_DS4_v2", "Standard_DS5_v2", ])
   }
   databricks_cluster_policy_file_variables = merge(
-    # var.databricks_cluster_policy_file_variables,
+    var.databricks_cluster_policy_file_variables,
     local.databricks_cluster_policy_file_variables_default,
     local.tags,
   )
@@ -71,9 +69,20 @@ locals {
     local.databricks_cluster_policy_definitions_yaml
   )
 
+  # Databricks cluster policies with overwritten definition
+  databricks_cluster_policy_definitions_overwritten = {
+    for key, value in local.databricks_cluster_policy_definitions_merged :
+    key => {
+      name               = value.name
+      description        = value.description
+      maxClustersPerUser = value.maxClustersPerUser
+      definition         = merge(value.definition, var.databricks_cluster_policy_file_overwrites)
+    }
+  }
+
   # Databricks cluster policies by name
   databricks_cluster_policy_definitions = {
-    for key, value in local.databricks_cluster_policy_definitions_merged :
+    for key, value in local.databricks_cluster_policy_definitions_overwritten :
     try(value.name, "unknown") => value
   }
 }
