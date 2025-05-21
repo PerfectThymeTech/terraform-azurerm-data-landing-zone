@@ -89,3 +89,7 @@ definition:
     type: fixed
     value: singleNode
     hidden: true
+  spark_conf.spark.databricks.sql.initial.catalog.namespace:
+    type: fixed
+    value: "${default_catalog_namespace}"
+    hidden: false

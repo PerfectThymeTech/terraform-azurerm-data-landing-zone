@@ -11,4 +11,10 @@ locals {
     "serving",
     "storage",
   ]
+
+  # Databricks locals
+  databricks_access_connector_engineering = {
+    resource_group_name = try(split("/", var.databricks_workspace_details.engineering.access_connector_id)[4], "")
+    name                = try(split("/", var.databricks_workspace_details.engineering.access_connector_id)[8], "")
+  }
 }

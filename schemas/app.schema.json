@@ -419,6 +419,54 @@
               "additionalProperties": false
             }
           }
+        },
+        "cluster_policy_file_variables": {
+          "description": "Specifies the cluster policy file variables.",
+          "type": "object"
+        },
+        "cluster_policy_file_overwrites": {
+          "description": "Specifies the cluster policy properties that must be overwritten.",
+          "type": "object",
+          "patternProperties": {
+            "^.*$": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "description": "Specifies type of restriction.",
+                  "type": "string",
+                  "enum": [
+                    "fixed",
+                    "forbidden",
+                    "allowlist",
+                    "blocklist",
+                    "regex",
+                    "range",
+                    "unlimited"
+                  ]
+                },
+                "isOptional": {
+                  "description": "Specifies whether the restriction is optional.",
+                  "type": "boolean"
+                },
+                "hidden": {
+                  "description": "Specifies whether the restriction should be hidden.",
+                  "type": "boolean"
+                },
+                "minValue": {
+                  "description": "Specifies the minimum value for the restriction.",
+                  "type": "integer"
+                },
+                "maxValue": {
+                  "description": "Specifies the maximum value for the restriction.",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "additionalProperties": true
+            }
+          }
         }
       },
       "required": [],
