@@ -2,6 +2,18 @@ name: PersonalComputePolicy
 description: Policy for Personal Computes
 maxClustersPerUser: 1
 definition:
+  autoscale.min_workers:
+    type: range
+    defaultValue: 1
+    maxValue: 10
+    isOptional: false
+    hidden: false
+  autoscale.max_workers:
+    type: range
+    defaultValue: 5
+    maxValue: 10
+    isOptional: false
+    hidden: false
   autotermination_minutes:
     type: range
     defaultValue: 60
@@ -58,10 +70,6 @@ definition:
   instance_pool_id:
     type: forbidden
     hidden: true
-  num_workers:
-    type: fixed
-    value: 0
-    hidden: true
   driver_node_type_id:
     type: allowlist
     defaultValue: Standard_DS3_v2
@@ -85,10 +93,6 @@ definition:
     defaultValue: auto:latest-lts
     isOptional: false
     hidden: false
-  spark_conf.spark.databricks.cluster.profile:
-    type: fixed
-    value: singleNode
-    hidden: true
   spark_conf.spark.databricks.sql.initial.catalog.namespace:
     type: fixed
     value: "${default_catalog_namespace}"
