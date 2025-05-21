@@ -89,6 +89,13 @@ variable "databricks_cluster_policy_library_path" {
 
 variable "databricks_cluster_policy_file_variables" {
   description = "Specifies custom template variables used when reading in databricks policy template files from the library path."
+  type        = map(string)
+  sensitive   = false
+  default     = {}
+}
+
+variable "databricks_cluster_policy_file_overwrites" {
+  description = "Specifies policy properties which must be overwritten in the databricks policy template files from the library path."
   type        = any
   sensitive   = false
   default     = {}
@@ -170,7 +177,7 @@ variable "databricks_sql_endpoint_details" {
 variable "storage_container_ids" {
   description = "Specifies the databricks key vault secret scope details that should be added to the workspace."
   type = object({
-    external  = optional(map(string), {})
+    provider  = optional(map(string), {})
     raw       = optional(string, "")
     enriched  = optional(string, "")
     curated   = optional(string, "")
@@ -181,9 +188,9 @@ variable "storage_container_ids" {
   default   = {}
   validation {
     condition = alltrue([
-      length([for id in values(var.storage_container_ids.external)[*] : id if length(split("/", id)) != 13]) <= 0,
+      length([for id in values(var.storage_container_ids.provider)[*] : id if length(split("/", id)) != 13]) <= 0,
     ])
-    error_message = "Please provide valid external storage container id."
+    error_message = "Please provide valid provider storage container id."
   }
   validation {
     condition     = var.storage_container_ids.raw == "" || length(split("/", var.storage_container_ids.raw)) == 13
@@ -208,6 +215,10 @@ variable "data_provider_details" {
   type = map(object({
     service_principal_names = optional(list(string), [])
     group_names             = optional(list(string), [])
+    databricks_catalog = optional(object({
+      enabled                   = optional(bool, false)
+      workspace_binding_catalog = optional(list(string), [])
+    }), {})
   }))
   sensitive = false
   default   = {}

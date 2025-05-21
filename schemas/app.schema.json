@@ -264,18 +264,38 @@
           "type": "object",
           "properties": {
             "service_principal_names": {
-              "description": "Specifies service principal names that will be granted storage blob data contributor rights to the external storage account container name.",
+              "description": "Specifies service principal names that will be granted storage blob data contributor rights to the provider storage account container name.",
               "type": "array",
               "items": {
                 "type": "string"
               }
             },
             "group_names": {
-              "description": "Specifies Entra ID group names that will be granted storage blob data contributor rights to the external storage account container name.",
+              "description": "Specifies Entra ID group names that will be granted storage blob data contributor rights to the provider storage account container name.",
               "type": "array",
               "items": {
                 "type": "string"
               }
+            },
+            "databricks_catalog": {
+              "description": "Specifies Databricks Catalog configuration for the data provider.",
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "description": "Specifies whether unity catalog should be enabled for this data provider.",
+                  "type": "boolean",
+                  "default": false
+                },
+                "workspace_binding_catalog": {
+                  "description": "Specifies the workspace binding for this catalog.",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [],
+              "additionalProperties": false
             }
           },
           "required": [],
@@ -397,6 +417,54 @@
               },
               "required": [],
               "additionalProperties": false
+            }
+          }
+        },
+        "cluster_policy_file_variables": {
+          "description": "Specifies the cluster policy file variables.",
+          "type": "object"
+        },
+        "cluster_policy_file_overwrites": {
+          "description": "Specifies the cluster policy properties that must be overwritten.",
+          "type": "object",
+          "patternProperties": {
+            "^.*$": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "description": "Specifies type of restriction.",
+                  "type": "string",
+                  "enum": [
+                    "fixed",
+                    "forbidden",
+                    "allowlist",
+                    "blocklist",
+                    "regex",
+                    "range",
+                    "unlimited"
+                  ]
+                },
+                "isOptional": {
+                  "description": "Specifies whether the restriction is optional.",
+                  "type": "boolean"
+                },
+                "hidden": {
+                  "description": "Specifies whether the restriction should be hidden.",
+                  "type": "boolean"
+                },
+                "minValue": {
+                  "description": "Specifies the minimum value for the restriction.",
+                  "type": "integer"
+                },
+                "maxValue": {
+                  "description": "Specifies the maximum value for the restriction.",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "additionalProperties": true
             }
           }
         }

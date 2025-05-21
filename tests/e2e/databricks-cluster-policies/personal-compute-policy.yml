@@ -93,3 +93,7 @@ definition:
     defaultValue: auto:latest-lts
     isOptional: false
     hidden: false
+  spark_conf.spark.databricks.sql.initial.catalog.namespace:
+    type: fixed
+    value: "${default_catalog_namespace}"
+    hidden: false

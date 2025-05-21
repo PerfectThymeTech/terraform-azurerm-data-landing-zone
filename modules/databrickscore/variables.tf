@@ -34,13 +34,53 @@ variable "tags" {
 }
 
 # Service variables
+variable "storage_account_ids" {
+  description = "Specifies the ids of the storage accounts in the core layer."
+  type = object({
+    provider  = string
+    raw       = string
+    enriched  = string
+    curated   = string
+    workspace = string
+  })
+  sensitive = false
+  validation {
+    condition     = length(split("/", var.storage_account_ids.provider)) == 9
+    error_message = "Please specify a valid provider storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.raw)) == 9
+    error_message = "Please specify a valid raw storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.enriched)) == 9
+    error_message = "Please specify a valid enriched storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.curated)) == 9
+    error_message = "Please specify a valid curated storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.workspace)) == 9
+    error_message = "Please specify a valid workspace storage account id."
+  }
+}
+
+variable "storage_dependencies" {
+  description = "Specifies a list of dependencies for storage resources."
+  type        = list(bool)
+  sensitive   = false
+  default     = []
+}
+
 variable "databricks_workspace_details" {
   description = "Specifies the workspace details of databricks workspaces."
   type = map(object({
-    id                  = string
-    workspace_id        = string
-    workspace_url       = string
-    access_connector_id = string
+    id                            = string
+    workspace_id                  = string
+    workspace_url                 = string
+    access_connector_id           = string
+    access_connector_principal_id = string
   }))
   sensitive = false
   nullable  = false
