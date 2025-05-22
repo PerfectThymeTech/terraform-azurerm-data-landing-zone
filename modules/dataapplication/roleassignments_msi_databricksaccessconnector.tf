@@ -82,6 +82,14 @@ resource "azurerm_role_assignment" "role_assignment_search_service_contributor_a
 }
 
 # Storage Role Assignments
+resource "azurerm_role_assignment" "role_assignment_storage_account_provider_event_subscription_contributor_accessconnector" {
+  description          = "Role assignment to provider storage account to create event triggers."
+  scope                = var.storage_account_ids.provider
+  role_definition_name = "EventGrid EventSubscription Contributor"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
 resource "azurerm_role_assignment" "role_assignment_storage_account_provider_blob_delegator_accessconnector" {
   description          = "Role assignment to provider storage account to create SAS keys."
   scope                = var.storage_account_ids.provider
@@ -96,6 +104,24 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_provider_b
   description          = "Role assignment to provider storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_provider[each.key].id
   role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_storage_queue_provider_queue_data_contributor_accessconnector" {
+  for_each = var.data_provider_details
+
+  description          = "Role assignment to provider storage account queue to read and write data for file events."
+  scope                = azurerm_storage_queue.storage_queue_provider[each.key].resource_manager_id
+  role_definition_name = "Storage Queue Data Contributor"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_storage_account_raw_event_subscription_contributor_accessconnector" {
+  description          = "Role assignment to raw storage account to create event triggers."
+  scope                = var.storage_account_ids.raw
+  role_definition_name = "EventGrid EventSubscription Contributor"
   principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
   principal_type       = "ServicePrincipal"
 }
@@ -116,6 +142,22 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_raw_blob_d
   principal_type       = "ServicePrincipal"
 }
 
+resource "azurerm_role_assignment" "role_assignment_storage_queue_raw_queue_data_contributor_accessconnector" {
+  description          = "Role assignment to raw storage account queue to read and write data for file events."
+  scope                = azurerm_storage_queue.storage_queue_raw.resource_manager_id
+  role_definition_name = "Storage Queue Data Contributor"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_storage_account_enriched_event_subscription_contributor_accessconnector" {
+  description          = "Role assignment to enriched storage account to create event triggers."
+  scope                = var.storage_account_ids.enriched
+  role_definition_name = "EventGrid EventSubscription Contributor"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
 resource "azurerm_role_assignment" "role_assignment_storage_account_enriched_blob_delegator_accessconnector" {
   description          = "Role assignment to enriched storage account to create SAS keys."
   scope                = var.storage_account_ids.enriched
@@ -128,6 +170,22 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_enriched_b
   description          = "Role assignment to enriched storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_enriched.id
   role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_storage_queue_enriched_queue_data_contributor_accessconnector" {
+  description          = "Role assignment to enriched storage account queue to read and write data for file events."
+  scope                = azurerm_storage_queue.storage_queue_enriched.resource_manager_id
+  role_definition_name = "Storage Queue Data Contributor"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_storage_account_curated_event_subscription_contributor_accessconnector" {
+  description          = "Role assignment to curated storage account to create event triggers."
+  scope                = var.storage_account_ids.curated
+  role_definition_name = "EventGrid EventSubscription Contributor"
   principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
   principal_type       = "ServicePrincipal"
 }
@@ -148,6 +206,22 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_curated_bl
   principal_type       = "ServicePrincipal"
 }
 
+resource "azurerm_role_assignment" "role_assignment_storage_queue_curated_queue_data_contributor_accessconnector" {
+  description          = "Role assignment to curated storage account queue to read and write data for file events."
+  scope                = azurerm_storage_queue.storage_queue_curated.resource_manager_id
+  role_definition_name = "Storage Queue Data Contributor"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_storage_account_workspace_event_subscription_contributor_accessconnector" {
+  description          = "Role assignment to workspace storage account to create event triggers."
+  scope                = var.storage_account_ids.workspace
+  role_definition_name = "EventGrid EventSubscription Contributor"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
 resource "azurerm_role_assignment" "role_assignment_storage_account_workspace_blob_delegator_accessconnector" {
   description          = "Role assignment to workspace storage account to create SAS keys."
   scope                = var.storage_account_ids.workspace
@@ -160,6 +234,14 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_workspace_
   description          = "Role assignment to workspace storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_workspace.id
   role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_storage_queue_workspace_queue_data_contributor_accessconnector" {
+  description          = "Role assignment to workspace storage account queue to read and write data for file events."
+  scope                = azurerm_storage_queue.storage_queue_workspace.resource_manager_id
+  role_definition_name = "Storage Queue Data Contributor"
   principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
   principal_type       = "ServicePrincipal"
 }
