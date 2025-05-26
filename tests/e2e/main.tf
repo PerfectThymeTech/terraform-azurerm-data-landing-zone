@@ -25,7 +25,7 @@ module "data_landing_zone" {
   databricks_cluster_policy_file_variables         = var.databricks_cluster_policy_file_variables
   databricks_account_id                            = var.databricks_account_id
   databricks_network_connectivity_config_name      = var.databricks_network_connectivity_config_name
-  databricks_network_policy_details = var.databricks_network_policy_details
+  databricks_network_policy_details                = var.databricks_network_policy_details
   databricks_compliance_security_profile_standards = var.databricks_compliance_security_profile_standards
   databricks_workspace_binding_catalog             = var.databricks_workspace_binding_catalog
   fabric_capacity_details                          = var.fabric_capacity_details
