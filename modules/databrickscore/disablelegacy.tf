@@ -9,3 +9,9 @@ resource "databricks_disable_legacy_access_setting" "disable_legacy_access_setti
 #     value = true
 #   }
 # }
+
+# resource "databricks_disable_legacy_features_setting" "disable_legacy_features_setting_engineering" { # Currently in private preview
+#   disable_legacy_features {
+#     value = true
+#   }
+# }
