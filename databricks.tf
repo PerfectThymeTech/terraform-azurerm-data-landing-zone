@@ -16,6 +16,7 @@ module "databricks_core" {
   # Service variables
   storage_account_ids                              = module.core.storage_account_ids
   storage_dependencies                             = module.core.storage_dependencies
+  databricks_account_id                            = var.databricks_account_id
   databricks_workspace_details                     = local.databricks_workspace_details
   databricks_private_endpoint_rules                = local.databricks_private_endpoint_rules
   databricks_ip_access_list_allow                  = []

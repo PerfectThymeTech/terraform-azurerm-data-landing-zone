@@ -73,6 +73,12 @@ variable "storage_dependencies" {
   default     = []
 }
 
+variable "databricks_account_id" {
+  description = "Specifies the databricks account id."
+  type        = string
+  sensitive   = false
+}
+
 variable "databricks_workspace_details" {
   description = "Specifies the workspace details of databricks workspaces."
   type = map(object({
@@ -119,6 +125,35 @@ variable "databricks_network_connectivity_config_name" {
   validation {
     condition     = length(var.databricks_network_connectivity_config_name) > 2
     error_message = "Please provide a valid name for the databricks connectivity config."
+  }
+}
+
+variable "databricks_network_policy_details" {
+  description = "Specifies the name of the ncc connectivity config name that should be attached to the databricks workspace."
+  type = object({
+    allowed_internet_destinations = optional(list(object({
+      destination               = string
+      internet_destination_type = optional(string, "DNS_NAME")
+    })), [])
+    allowed_storage_destinations = optional(list(object({
+      azure_storage_account    = string
+      storage_destination_type = string
+    })), [])
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+  validation {
+    condition = alltrue([
+      length([for allowed_internet_destination in toset(var.databricks_network_policy_details.allowed_internet_destinations) : true if !contains(["DNS_NAME"], allowed_internet_destination.internet_destination_type)]) <= 0
+    ])
+    error_message = "Please specify a valid internet destination type for all allowed internet destionations."
+  }
+  validation {
+    condition = alltrue([
+      length([for allowed_storage_destination in toset(var.databricks_network_policy_details.allowed_storage_destinations) : true if !contains(["blob", "dfs"], allowed_storage_destination.storage_destination_type)]) <= 0
+    ])
+    error_message = "Please specify a valid storage destination type for all allowed storage destionations."
   }
 }
 
