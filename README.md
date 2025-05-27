@@ -268,6 +268,7 @@ Type:
 ```hcl
 object({
     key_vault_id                     = string,
+    key_vault_key_id                 = string,
     key_vault_key_versionless_id     = string,
     user_assigned_identity_id        = string,
     user_assigned_identity_client_id = string,
