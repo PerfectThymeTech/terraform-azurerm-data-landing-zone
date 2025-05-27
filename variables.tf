@@ -342,6 +342,7 @@ variable "customer_managed_key" {
   description = "Specifies the customer managed key configurations."
   type = object({
     key_vault_id                     = string,
+    key_vault_key_id                 = string,
     key_vault_key_versionless_id     = string,
     user_assigned_identity_id        = string,
     user_assigned_identity_client_id = string,
@@ -352,6 +353,7 @@ variable "customer_managed_key" {
   validation {
     condition = alltrue([
       var.customer_managed_key == null || length(split("/", try(var.customer_managed_key.key_vault_id, ""))) == 9,
+      var.customer_managed_key == null || startswith(try(var.customer_managed_key.key_vault_key_id, ""), "https://"),
       var.customer_managed_key == null || startswith(try(var.customer_managed_key.key_vault_key_versionless_id, ""), "https://"),
       var.customer_managed_key == null || length(split("/", try(var.customer_managed_key.user_assigned_identity_id, ""))) == 9,
       var.customer_managed_key == null || length(try(var.customer_managed_key.user_assigned_identity_client_id, "")) >= 2,
