@@ -48,6 +48,7 @@ module "data_landing_zone" {
   # DNS variables
   private_dns_zone_id_blob              = var.private_dns_zone_id_blob
   private_dns_zone_id_dfs               = var.private_dns_zone_id_dfs
+  private_dns_zone_id_queue             = var.private_dns_zone_id_queue
   private_dns_zone_id_vault             = var.private_dns_zone_id_vault
   private_dns_zone_id_databricks        = var.private_dns_zone_id_databricks
   private_dns_zone_id_cognitive_account = var.private_dns_zone_id_cognitive_account
