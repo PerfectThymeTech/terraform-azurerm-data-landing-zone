@@ -146,7 +146,7 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
 
-- <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) (~> 1.73)
+- <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) (~> 1.81)
 
 - <a name="requirement_fabric"></a> [fabric](#requirement\_fabric) (~> 1.0)
 
@@ -268,6 +268,7 @@ Type:
 ```hcl
 object({
     key_vault_id                     = string,
+    key_vault_key_id                 = string,
     key_vault_key_versionless_id     = string,
     user_assigned_identity_id        = string,
     user_assigned_identity_client_id = string,
@@ -323,6 +324,27 @@ Description: Specifies which enhanced compliance security profiles ('HIPAA', 'PC
 Type: `list(string)`
 
 Default: `[]`
+
+### <a name="input_databricks_network_policy_details"></a> [databricks\_network\_policy\_details](#input\_databricks\_network\_policy\_details)
+
+Description: Specifies the name of the ncc connectivity config name that should be attached to the databricks workspace.
+
+Type:
+
+```hcl
+object({
+    allowed_internet_destinations = optional(list(object({
+      destination               = string
+      internet_destination_type = optional(string, "DNS_NAME")
+    })), [])
+    allowed_storage_destinations = optional(list(object({
+      azure_storage_account    = string
+      storage_destination_type = string
+    })), [])
+  })
+```
+
+Default: `{}`
 
 ### <a name="input_databricks_workspace_binding_catalog"></a> [databricks\_workspace\_binding\_catalog](#input\_databricks\_workspace\_binding\_catalog)
 

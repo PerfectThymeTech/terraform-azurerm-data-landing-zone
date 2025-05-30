@@ -14,6 +14,9 @@ module "databricks_core" {
   tags        = var.tags
 
   # Service variables
+  storage_account_ids                              = module.core.storage_account_ids
+  storage_dependencies                             = module.core.storage_dependencies
+  databricks_account_id                            = var.databricks_account_id
   databricks_workspace_details                     = local.databricks_workspace_details
   databricks_private_endpoint_rules                = local.databricks_private_endpoint_rules
   databricks_ip_access_list_allow                  = []
@@ -51,7 +54,8 @@ module "databricks_data_application" {
   databricks_workspace_workspace_id         = module.core.databricks_workspace_details.engineering.workspace_id
   databricks_access_connector_id            = module.data_application[each.key].databricks_access_connector_id
   databricks_cluster_policy_library_path    = var.databricks_cluster_policy_library_path
-  databricks_cluster_policy_file_variables  = var.databricks_cluster_policy_file_variables
+  databricks_cluster_policy_file_variables  = merge(var.databricks_cluster_policy_file_variables, try(each.value.databricks.cluster_policy_file_variables, {}))
+  databricks_cluster_policy_file_overwrites = try(each.value.databricks.cluster_policy_file_overwrites, {})
   databricks_keyvault_secret_scope_details  = try(module.data_application[each.key].key_vault_details, {})
   databricks_user_assigned_identity_details = module.data_application[each.key].user_assigned_identity_details
   databricks_sql_endpoint_details           = try(each.value.databricks.sql_endpoints, {})

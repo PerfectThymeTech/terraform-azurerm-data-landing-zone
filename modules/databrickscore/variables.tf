@@ -34,13 +34,59 @@ variable "tags" {
 }
 
 # Service variables
+variable "storage_account_ids" {
+  description = "Specifies the ids of the storage accounts in the core layer."
+  type = object({
+    provider  = string
+    raw       = string
+    enriched  = string
+    curated   = string
+    workspace = string
+  })
+  sensitive = false
+  validation {
+    condition     = length(split("/", var.storage_account_ids.provider)) == 9
+    error_message = "Please specify a valid provider storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.raw)) == 9
+    error_message = "Please specify a valid raw storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.enriched)) == 9
+    error_message = "Please specify a valid enriched storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.curated)) == 9
+    error_message = "Please specify a valid curated storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.workspace)) == 9
+    error_message = "Please specify a valid workspace storage account id."
+  }
+}
+
+variable "storage_dependencies" {
+  description = "Specifies a list of dependencies for storage resources."
+  type        = list(bool)
+  sensitive   = false
+  default     = []
+}
+
+variable "databricks_account_id" {
+  description = "Specifies the databricks account id."
+  type        = string
+  sensitive   = false
+}
+
 variable "databricks_workspace_details" {
   description = "Specifies the workspace details of databricks workspaces."
   type = map(object({
-    id                  = string
-    workspace_id        = string
-    workspace_url       = string
-    access_connector_id = string
+    id                            = string
+    workspace_id                  = string
+    workspace_url                 = string
+    access_connector_id           = string
+    access_connector_principal_id = string
   }))
   sensitive = false
   nullable  = false
@@ -79,6 +125,35 @@ variable "databricks_network_connectivity_config_name" {
   validation {
     condition     = length(var.databricks_network_connectivity_config_name) > 2
     error_message = "Please provide a valid name for the databricks connectivity config."
+  }
+}
+
+variable "databricks_network_policy_details" {
+  description = "Specifies the name of the ncc connectivity config name that should be attached to the databricks workspace."
+  type = object({
+    allowed_internet_destinations = optional(list(object({
+      destination               = string
+      internet_destination_type = optional(string, "DNS_NAME")
+    })), [])
+    allowed_storage_destinations = optional(list(object({
+      azure_storage_account    = string
+      storage_destination_type = string
+    })), [])
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+  validation {
+    condition = alltrue([
+      length([for allowed_internet_destination in toset(var.databricks_network_policy_details.allowed_internet_destinations) : true if !contains(["DNS_NAME"], allowed_internet_destination.internet_destination_type)]) <= 0
+    ])
+    error_message = "Please specify a valid internet destination type for all allowed internet destionations."
+  }
+  validation {
+    condition = alltrue([
+      length([for allowed_storage_destination in toset(var.databricks_network_policy_details.allowed_storage_destinations) : true if !contains(["blob", "dfs"], allowed_storage_destination.storage_destination_type)]) <= 0
+    ])
+    error_message = "Please specify a valid storage destination type for all allowed storage destionations."
   }
 }
 

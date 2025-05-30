@@ -89,6 +89,13 @@ variable "databricks_cluster_policy_library_path" {
 
 variable "databricks_cluster_policy_file_variables" {
   description = "Specifies custom template variables used when reading in databricks policy template files from the library path."
+  type        = map(string)
+  sensitive   = false
+  default     = {}
+}
+
+variable "databricks_cluster_policy_file_overwrites" {
+  description = "Specifies policy properties which must be overwritten in the databricks policy template files from the library path."
   type        = any
   sensitive   = false
   default     = {}
