@@ -229,19 +229,19 @@ variable "storage_queue_ids" {
     error_message = "Please provide valid provider storage queue id."
   }
   validation {
-    condition     = var.storage_queue_ids.raw == "" || length(split("/", var.storage_queue_ids.raw)) == 13
+    condition     = var.storage_queue_ids.raw == "" || (startswith(var.storage_queue_ids.raw, "https://") && strcontains(var.storage_queue_ids.raw, ".queue.core.windows.net/"))
     error_message = "Please provide valid raw storage queue id."
   }
   validation {
-    condition     = var.storage_queue_ids.enriched == "" || length(split("/", var.storage_queue_ids.enriched)) == 13
+    condition     = var.storage_queue_ids.enriched == "" || (startswith(var.storage_queue_ids.enriched, "https://") && strcontains(var.storage_queue_ids.enriched, ".queue.core.windows.net/"))
     error_message = "Please provide valid curated storage queue id."
   }
   validation {
-    condition     = var.storage_queue_ids.curated == "" || length(split("/", var.storage_queue_ids.curated)) == 13
+    condition     = var.storage_queue_ids.curated == "" || (startswith(var.storage_queue_ids.curated, "https://") && strcontains(var.storage_queue_ids.curated, ".queue.core.windows.net/"))
     error_message = "Please provide valid curated storage queue id."
   }
   validation {
-    condition     = var.storage_queue_ids.workspace == "" || length(split("/", var.storage_queue_ids.workspace)) == 13
+    condition     = var.storage_queue_ids.workspace == "" || (startswith(var.storage_queue_ids.workspace, "https://") && strcontains(var.storage_queue_ids.workspace, ".queue.core.windows.net/"))
     error_message = "Please provide valid workspace storage queue id."
   }
 }
