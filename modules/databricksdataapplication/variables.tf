@@ -224,7 +224,7 @@ variable "storage_queue_ids" {
   default   = {}
   validation {
     condition = alltrue([
-      length([for id in values(var.storage_queue_ids.provider)[*] : id if length(split("/", id)) != 13]) <= 0,
+      length([for id in values(var.storage_queue_ids.provider)[*] : id if !(startswith(var.storage_queue_ids.raw, "https://") && strcontains(var.storage_queue_ids.raw, ".queue.core.windows.net/"))]) <= 0,
     ])
     error_message = "Please provide valid provider storage queue id."
   }
