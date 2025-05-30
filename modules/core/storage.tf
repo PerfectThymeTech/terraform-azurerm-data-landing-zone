@@ -32,7 +32,7 @@ module "storage_account_provider" {
   diagnostics_configurations                      = var.diagnostics_configurations
   subnet_id                                       = var.subnet_id_storage
   connectivity_delay_in_seconds                   = var.connectivity_delay_in_seconds
-  private_endpoint_subresource_names              = ["blob", "dfs", ]
+  private_endpoint_subresource_names              = ["blob", "dfs", "queue", ]
   private_dns_zone_id_blob                        = var.private_dns_zone_id_blob
   private_dns_zone_id_file                        = ""
   private_dns_zone_id_table                       = ""
@@ -76,7 +76,7 @@ module "storage_account_raw" {
   diagnostics_configurations                      = var.diagnostics_configurations
   subnet_id                                       = var.subnet_id_storage
   connectivity_delay_in_seconds                   = var.connectivity_delay_in_seconds
-  private_endpoint_subresource_names              = ["blob", "dfs", ]
+  private_endpoint_subresource_names              = ["blob", "dfs", "queue", ]
   private_dns_zone_id_blob                        = var.private_dns_zone_id_blob
   private_dns_zone_id_file                        = ""
   private_dns_zone_id_table                       = ""
@@ -120,7 +120,7 @@ module "storage_account_enriched" {
   diagnostics_configurations                      = var.diagnostics_configurations
   subnet_id                                       = var.subnet_id_storage
   connectivity_delay_in_seconds                   = var.connectivity_delay_in_seconds
-  private_endpoint_subresource_names              = ["blob", "dfs", ]
+  private_endpoint_subresource_names              = ["blob", "dfs", "queue", ]
   private_dns_zone_id_blob                        = var.private_dns_zone_id_blob
   private_dns_zone_id_file                        = ""
   private_dns_zone_id_table                       = ""
@@ -164,7 +164,7 @@ module "storage_account_curated" {
   diagnostics_configurations                      = var.diagnostics_configurations
   subnet_id                                       = var.subnet_id_storage
   connectivity_delay_in_seconds                   = var.connectivity_delay_in_seconds
-  private_endpoint_subresource_names              = ["blob", "dfs", ]
+  private_endpoint_subresource_names              = ["blob", "dfs", "queue", ]
   private_dns_zone_id_blob                        = var.private_dns_zone_id_blob
   private_dns_zone_id_file                        = ""
   private_dns_zone_id_table                       = ""
@@ -208,7 +208,7 @@ module "storage_account_workspace" {
   diagnostics_configurations                      = var.diagnostics_configurations
   subnet_id                                       = var.subnet_id_storage
   connectivity_delay_in_seconds                   = var.connectivity_delay_in_seconds
-  private_endpoint_subresource_names              = ["blob", "dfs", ]
+  private_endpoint_subresource_names              = ["blob", "dfs", "queue", ]
   private_dns_zone_id_blob                        = var.private_dns_zone_id_blob
   private_dns_zone_id_file                        = ""
   private_dns_zone_id_table                       = ""
