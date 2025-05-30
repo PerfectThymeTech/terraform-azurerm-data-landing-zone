@@ -44,8 +44,12 @@ locals {
   databricks_cluster_policy_filepaths_yaml = local.databricks_cluster_policy_library_path == "" ? [] : tolist(fileset(local.databricks_cluster_policy_library_path, "**/*.{yml,yml.tftpl,yaml,yaml.tftpl}"))
 
   # Create file variables
+  databricks_cluster_policy_file_variables_default = {
+    default_catalog_namespace = databricks_catalog.catalog_internal.name
+  }
   databricks_cluster_policy_file_variables = merge(
     var.databricks_cluster_policy_file_variables,
+    local.databricks_cluster_policy_file_variables_default,
     local.tags,
   )
 
@@ -65,9 +69,20 @@ locals {
     local.databricks_cluster_policy_definitions_yaml
   )
 
+  # Databricks cluster policies with overwritten definition
+  databricks_cluster_policy_definitions_overwritten = {
+    for key, value in local.databricks_cluster_policy_definitions_merged :
+    key => {
+      name               = value.name
+      description        = value.description
+      maxClustersPerUser = value.maxClustersPerUser
+      definition         = merge(value.definition, var.databricks_cluster_policy_file_overwrites)
+    }
+  }
+
   # Databricks cluster policies by name
   databricks_cluster_policy_definitions = {
-    for key, value in local.databricks_cluster_policy_definitions_merged :
+    for key, value in local.databricks_cluster_policy_definitions_overwritten :
     try(value.name, "unknown") => value
   }
 }

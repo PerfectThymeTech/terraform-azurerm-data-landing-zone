@@ -85,6 +85,35 @@ variable "databricks_network_connectivity_config_name" {
   }
 }
 
+variable "databricks_network_policy_details" {
+  description = "Specifies the name of the ncc connectivity config name that should be attached to the databricks workspace."
+  type = object({
+    allowed_internet_destinations = optional(list(object({
+      destination               = string
+      internet_destination_type = optional(string, "DNS_NAME")
+    })), [])
+    allowed_storage_destinations = optional(list(object({
+      azure_storage_account    = string
+      storage_destination_type = string
+    })), [])
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+  validation {
+    condition = alltrue([
+      length([for allowed_internet_destination in toset(var.databricks_network_policy_details.allowed_internet_destinations) : true if !contains(["DNS_NAME"], allowed_internet_destination.internet_destination_type)]) <= 0
+    ])
+    error_message = "Please specify a valid internet destination type for all allowed internet destionations."
+  }
+  validation {
+    condition = alltrue([
+      length([for allowed_storage_destination in toset(var.databricks_network_policy_details.allowed_storage_destinations) : true if !contains(["blob", "dfs"], allowed_storage_destination.storage_destination_type)]) <= 0
+    ])
+    error_message = "Please specify a valid storage destination type for all allowed storage destionations."
+  }
+}
+
 variable "databricks_compliance_security_profile_standards" {
   description = "Specifies which enhanced compliance security profiles ('HIPAA', 'PCI_DSS') should be enabled for the Azure Databricks workspace."
   type        = list(string)
@@ -313,6 +342,7 @@ variable "customer_managed_key" {
   description = "Specifies the customer managed key configurations."
   type = object({
     key_vault_id                     = string,
+    key_vault_key_id                 = string,
     key_vault_key_versionless_id     = string,
     user_assigned_identity_id        = string,
     user_assigned_identity_client_id = string,
@@ -323,6 +353,7 @@ variable "customer_managed_key" {
   validation {
     condition = alltrue([
       var.customer_managed_key == null || length(split("/", try(var.customer_managed_key.key_vault_id, ""))) == 9,
+      var.customer_managed_key == null || startswith(try(var.customer_managed_key.key_vault_key_id, ""), "https://"),
       var.customer_managed_key == null || startswith(try(var.customer_managed_key.key_vault_key_versionless_id, ""), "https://"),
       var.customer_managed_key == null || length(split("/", try(var.customer_managed_key.user_assigned_identity_id, ""))) == 9,
       var.customer_managed_key == null || length(try(var.customer_managed_key.user_assigned_identity_client_id, "")) >= 2,
