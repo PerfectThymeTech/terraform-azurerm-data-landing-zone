@@ -36,7 +36,7 @@ module "storage_account_provider" {
   private_dns_zone_id_blob                        = var.private_dns_zone_id_blob
   private_dns_zone_id_file                        = ""
   private_dns_zone_id_table                       = ""
-  private_dns_zone_id_queue                       = ""
+  private_dns_zone_id_queue                       = var.private_dns_zone_id_queue
   private_dns_zone_id_web                         = ""
   private_dns_zone_id_dfs                         = var.private_dns_zone_id_dfs
   customer_managed_key                            = var.customer_managed_key
@@ -80,7 +80,7 @@ module "storage_account_raw" {
   private_dns_zone_id_blob                        = var.private_dns_zone_id_blob
   private_dns_zone_id_file                        = ""
   private_dns_zone_id_table                       = ""
-  private_dns_zone_id_queue                       = ""
+  private_dns_zone_id_queue                       = var.private_dns_zone_id_queue
   private_dns_zone_id_web                         = ""
   private_dns_zone_id_dfs                         = var.private_dns_zone_id_dfs
   customer_managed_key                            = var.customer_managed_key
@@ -124,7 +124,7 @@ module "storage_account_enriched" {
   private_dns_zone_id_blob                        = var.private_dns_zone_id_blob
   private_dns_zone_id_file                        = ""
   private_dns_zone_id_table                       = ""
-  private_dns_zone_id_queue                       = ""
+  private_dns_zone_id_queue                       = var.private_dns_zone_id_queue
   private_dns_zone_id_web                         = ""
   private_dns_zone_id_dfs                         = var.private_dns_zone_id_dfs
   customer_managed_key                            = var.customer_managed_key
@@ -168,7 +168,7 @@ module "storage_account_curated" {
   private_dns_zone_id_blob                        = var.private_dns_zone_id_blob
   private_dns_zone_id_file                        = ""
   private_dns_zone_id_table                       = ""
-  private_dns_zone_id_queue                       = ""
+  private_dns_zone_id_queue                       = var.private_dns_zone_id_queue
   private_dns_zone_id_web                         = ""
   private_dns_zone_id_dfs                         = var.private_dns_zone_id_dfs
   customer_managed_key                            = var.customer_managed_key
@@ -212,7 +212,7 @@ module "storage_account_workspace" {
   private_dns_zone_id_blob                        = var.private_dns_zone_id_blob
   private_dns_zone_id_file                        = ""
   private_dns_zone_id_table                       = ""
-  private_dns_zone_id_queue                       = ""
+  private_dns_zone_id_queue                       = var.private_dns_zone_id_queue
   private_dns_zone_id_web                         = ""
   private_dns_zone_id_dfs                         = var.private_dns_zone_id_dfs
   customer_managed_key                            = var.customer_managed_key
