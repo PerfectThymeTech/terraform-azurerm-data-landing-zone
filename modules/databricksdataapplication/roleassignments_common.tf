@@ -179,3 +179,39 @@ resource "databricks_access_control_rule_set" "access_control_rule_set_budget_po
     databricks_permission_assignment.permission_assignment_uai,
   ]
 }
+
+resource "databricks_access_control_rule_set" "access_control_rule_set_service_principal_uai" {
+  name = "accounts/${var.databricks_account_id}/servicePrincipals/${databricks_service_principal.service_principal_uai.application_id}/ruleSets/default"
+
+  grant_rules {
+    principals = compact([
+      data.databricks_group.group_admin.acl_principal_id,
+      one(data.databricks_group.group_developer[*].acl_principal_id),
+      one(data.databricks_group.group_reader[*].acl_principal_id),
+      one(databricks_service_principal.service_principal[*].acl_principal_id),
+      one(databricks_service_principal.service_principal_data_factory[*].acl_principal_id),
+      databricks_service_principal.service_principal_uai.acl_principal_id,
+      var.databricks_service_principal_terraform_plan_details.acl_principal_id,
+    ])
+    role = "roles/servicePrincipal.user"
+  }
+}
+
+resource "databricks_access_control_rule_set" "access_control_rule_set_service_principal" {
+  count = var.service_principal_name == "" ? 0 : 1
+
+  name = "accounts/${var.databricks_account_id}/servicePrincipals/${one(databricks_service_principal.service_principal[*].application_id)}/ruleSets/default"
+
+  grant_rules {
+    principals = compact([
+      data.databricks_group.group_admin.acl_principal_id,
+      one(data.databricks_group.group_developer[*].acl_principal_id),
+      one(data.databricks_group.group_reader[*].acl_principal_id),
+      one(databricks_service_principal.service_principal[*].acl_principal_id),
+      one(databricks_service_principal.service_principal_data_factory[*].acl_principal_id),
+      databricks_service_principal.service_principal_uai.acl_principal_id,
+      var.databricks_service_principal_terraform_plan_details.acl_principal_id,
+    ])
+    role = "roles/servicePrincipal.user"
+  }
+}
