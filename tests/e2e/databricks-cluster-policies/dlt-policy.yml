@@ -87,3 +87,7 @@ definition:
     type: fixed
     value: "${default_catalog_namespace}"
     hidden: false
+  spark_env_vars.DATABRICKS_DEFAULT_SERVICE_CREDENTIAL_NAME:
+    type: fixed
+    value: "${default_service_credential_name}"
+    hidden: false
