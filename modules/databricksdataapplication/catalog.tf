@@ -4,7 +4,7 @@ resource "databricks_catalog" "catalog_provider" {
     key => value if value.databricks_catalog.enabled
   }
 
-  name = "${local.prefix}-${each.key}-pro"
+  name = replace("${local.prefix}-${each.key}-pro", "-", "_")
 
   comment                        = "Data Applicaton Catalog - ${var.app_name}-${each.key} - Data Provider"
   enable_predictive_optimization = "DISABLE" # Consider enabling this property or use "INHERIT"
@@ -18,7 +18,7 @@ resource "databricks_catalog" "catalog_provider" {
 }
 
 resource "databricks_catalog" "catalog_internal" {
-  name = "${local.prefix}-int"
+  name = replace("${local.prefix}-int", "-", "_")
 
   comment                        = "Data Applicaton Catalog - ${var.app_name} - Internal"
   enable_predictive_optimization = "DISABLE" # Consider enabling this property or use "INHERIT"
@@ -32,7 +32,7 @@ resource "databricks_catalog" "catalog_internal" {
 }
 
 resource "databricks_catalog" "catalog_published" {
-  name = "${local.prefix}-pub"
+  name = replace("${local.prefix}-pub", "-", "_")
 
   comment                        = "Data Applicaton Catalog - ${var.app_name} - Published"
   enable_predictive_optimization = "DISABLE" # Consider enabling this property or use "INHERIT"

@@ -1,7 +1,7 @@
 resource "databricks_external_location" "external_location_provider" {
   for_each = var.data_provider_details
 
-  name = "${local.prefix}-${each.key}-pro"
+  name = replace("${local.prefix}-${each.key}-pro", "-", "_")
 
   comment         = "Default provider storage layer for '${var.app_name}-${each.key}' data application data provider."
   credential_name = one(databricks_storage_credential.storage_credential[*].name)
@@ -15,7 +15,7 @@ resource "databricks_external_location" "external_location_provider" {
 }
 
 resource "databricks_external_location" "external_location_raw" {
-  name = "${local.prefix}-raw"
+  name = replace("${local.prefix}-raw", "-", "_")
 
   comment         = "Default raw storage layer for '${var.app_name}' data application."
   credential_name = one(databricks_storage_credential.storage_credential[*].name)
@@ -29,7 +29,7 @@ resource "databricks_external_location" "external_location_raw" {
 }
 
 resource "databricks_external_location" "external_location_enriched" {
-  name = "${local.prefix}-enr"
+  name = replace("${local.prefix}-enr", "-", "_")
 
   comment         = "Default enriched storage layer for '${var.app_name}' data application."
   credential_name = one(databricks_storage_credential.storage_credential[*].name)
@@ -43,7 +43,7 @@ resource "databricks_external_location" "external_location_enriched" {
 }
 
 resource "databricks_external_location" "external_location_curated" {
-  name = "${local.prefix}-cur"
+  name = replace("${local.prefix}-cur", "-", "_")
 
   comment         = "Default curated storage layer for '${var.app_name}' data application."
   credential_name = one(databricks_storage_credential.storage_credential[*].name)
@@ -57,7 +57,7 @@ resource "databricks_external_location" "external_location_curated" {
 }
 
 resource "databricks_external_location" "external_location_workspace" {
-  name = "${local.prefix}-wks"
+  name = replace("${local.prefix}-wks", "-", "_")
 
   comment         = "Default workspace storage layer for '${var.app_name}' data application."
   credential_name = one(databricks_storage_credential.storage_credential[*].name)

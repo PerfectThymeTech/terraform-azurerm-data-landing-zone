@@ -1,5 +1,5 @@
 resource "databricks_credential" "credential" {
-  name = "${local.prefix}-cred"
+  name = replace("${local.prefix}-cred", "-", "_")
 
   azure_managed_identity {
     access_connector_id = var.databricks_access_connector_id
