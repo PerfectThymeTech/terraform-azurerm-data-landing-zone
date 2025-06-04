@@ -6,9 +6,9 @@ locals {
     # "billing", # billing system schema can only be enabled by Databricks
     "compute",
     "lakeflow",
-    "lineage",
+    # "lineage", # lineage system schema can only be enabled by Databricks
     "marketplace",
-    "query",
+    # "query", # query system schema can only be enabled by Databricks
     "serving",
     "storage",
   ]
