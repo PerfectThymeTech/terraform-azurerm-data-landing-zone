@@ -1,5 +1,5 @@
 resource "databricks_catalog" "catalog_engineering_default" {
-  name = "${local.prefix}-engnrng-default"
+  name = replace("${local.prefix}-engnrng-default", "-", "_")
 
   comment                        = "Default Catalog - '${local.prefix}-engnrng'"
   enable_predictive_optimization = "DISABLE" # Consider enabling this property or use "INHERIT"

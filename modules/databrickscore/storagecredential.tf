@@ -1,5 +1,5 @@
 resource "databricks_storage_credential" "storage_credential_engineering_default" {
-  name = "${local.prefix}-engnrng-default"
+  name = replace("${local.prefix}-engnrng-default", "-", "_")
 
   azure_managed_identity {
     access_connector_id = var.databricks_workspace_details.engineering.access_connector_id

@@ -1,5 +1,5 @@
 resource "databricks_external_location" "external_location_engineering_default" {
-  name = "${local.prefix}-engnrng-default"
+  name = replace("${local.prefix}-engnrng-default", "-", "_")
 
   comment         = "Default storage layer for default catalog '${local.prefix}'."
   credential_name = databricks_storage_credential.storage_credential_engineering_default.name
