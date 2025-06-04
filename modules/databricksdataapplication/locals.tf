@@ -45,7 +45,8 @@ locals {
 
   # Create file variables
   databricks_cluster_policy_file_variables_default = {
-    default_catalog_namespace = databricks_catalog.catalog_internal.name
+    default_catalog_namespace       = databricks_catalog.catalog_internal.name
+    default_service_credential_name = databricks_credential.credential.name
   }
   databricks_cluster_policy_file_variables = merge(
     var.databricks_cluster_policy_file_variables,

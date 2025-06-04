@@ -55,6 +55,21 @@ output "storage_container_ids" {
   sensitive = false
 }
 
+output "storage_queue_ids" {
+  description = "Specifies the storage queue ids of the app."
+  value = {
+    provider = {
+      for key, value in var.data_provider_details :
+      key => azurerm_storage_queue.storage_queue_provider[key].id
+    }
+    raw       = azurerm_storage_queue.storage_queue_raw.id
+    enriched  = azurerm_storage_queue.storage_queue_enriched.id
+    curated   = azurerm_storage_queue.storage_queue_curated.id
+    workspace = azurerm_storage_queue.storage_queue_workspace.id
+  }
+  sensitive = false
+}
+
 # User assigned identity outputs
 output "user_assigned_identity_details" {
   description = "Specifies the user assigned identity details of the app."
