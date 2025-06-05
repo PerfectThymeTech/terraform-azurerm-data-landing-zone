@@ -15,7 +15,7 @@ resource "azapi_update_resource" "virtual_network" {
           local.subnet_consumption_public,
         ],
         local.subnets_private_endpoint_applications,
-      ]) : flatten([
+        ]) : flatten([
         [
           local.subnet_storage,
           local.subnet_consumption,
