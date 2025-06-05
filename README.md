@@ -240,11 +240,12 @@ Type:
 object(
     {
       storage_subnet                        = string
+      consumption_subnet                    = string
       fabric_subnet                         = string
       databricks_engineering_private_subnet = string
       databricks_engineering_public_subnet  = string
-      databricks_consumption_private_subnet = string
-      databricks_consumption_public_subnet  = string
+      databricks_consumption_private_subnet = optional(string, "")
+      databricks_consumption_public_subnet  = optional(string, "")
     }
   )
 ```
@@ -359,6 +360,14 @@ map(object({
 ```
 
 Default: `{}`
+
+### <a name="input_databricks_workspace_consumption_enabled"></a> [databricks\_workspace\_consumption\_enabled](#input\_databricks\_workspace\_consumption\_enabled)
+
+Description: Specifies whether the consumption workspace should be enabled.
+
+Type: `bool`
+
+Default: `false`
 
 ### <a name="input_environment"></a> [environment](#input\_environment)
 
