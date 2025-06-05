@@ -11,8 +11,8 @@ resource "azapi_update_resource" "virtual_network" {
           local.subnet_fabric,
           local.subnet_engineering_private,
           local.subnet_engineering_public,
-          var.databricks_workspace_consumption_enabled ? local.subnet_consumption_private : null,
-          var.databricks_workspace_consumption_enabled ? local.subnet_consumption_public : null,
+          (var.databricks_workspace_consumption_enabled ? local.subnet_consumption_private : null),
+          (var.databricks_workspace_consumption_enabled ? local.subnet_consumption_public : null),
         ]),
         local.subnets_private_endpoint_applications,
       ])
