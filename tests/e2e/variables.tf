@@ -114,6 +114,14 @@ variable "databricks_network_policy_details" {
   }
 }
 
+variable "databricks_workspace_consumption_enabled" {
+  description = "Specifies whether the consumption workspace should be enabled."
+  type        = bool
+  sensitive   = false
+  nullable    = false
+  default     = false
+}
+
 variable "databricks_compliance_security_profile_standards" {
   description = "Specifies which enhanced compliance security profiles ('HIPAA', 'PCI_DSS') should be enabled for the Azure Databricks workspace."
   type        = list(string)
@@ -223,24 +231,42 @@ variable "subnet_cidr_ranges" {
   type = object(
     {
       storage_subnet                        = string
+      consumption_subnet                    = string
       fabric_subnet                         = string
       databricks_engineering_private_subnet = string
       databricks_engineering_public_subnet  = string
-      databricks_consumption_private_subnet = string
-      databricks_consumption_public_subnet  = string
+      databricks_consumption_private_subnet = optional(string, "")
+      databricks_consumption_public_subnet  = optional(string, "")
     }
   )
   sensitive = false
   validation {
-    condition = alltrue([
-      try(cidrnetmask(var.subnet_cidr_ranges.storage_subnet), "invalid") != "invalid",
-      try(cidrnetmask(var.subnet_cidr_ranges.fabric_subnet), "invalid") != "invalid",
-      try(cidrnetmask(var.subnet_cidr_ranges.databricks_engineering_private_subnet), "invalid") != "invalid",
-      try(cidrnetmask(var.subnet_cidr_ranges.databricks_engineering_public_subnet), "invalid") != "invalid",
-      try(cidrnetmask(var.subnet_cidr_ranges.databricks_consumption_private_subnet), "invalid") != "invalid",
-      try(cidrnetmask(var.subnet_cidr_ranges.databricks_consumption_public_subnet), "invalid") != "invalid",
-    ])
-    error_message = "Please specify a valid CIDR range for all subnets."
+    condition     = try(cidrnetmask(var.subnet_cidr_ranges.storage_subnet), "invalid") != "invalid"
+    error_message = "Please specify a valid CIDR range for the storage subnet."
+  }
+  validation {
+    condition     = try(cidrnetmask(var.subnet_cidr_ranges.consumption_subnet), "invalid") != "invalid"
+    error_message = "Please specify a valid CIDR range for the storage subnet."
+  }
+  validation {
+    condition     = try(cidrnetmask(var.subnet_cidr_ranges.fabric_subnet), "invalid") != "invalid"
+    error_message = "Please specify a valid CIDR range for the fabric subnet."
+  }
+  validation {
+    condition     = try(cidrnetmask(var.subnet_cidr_ranges.databricks_engineering_private_subnet), "invalid") != "invalid"
+    error_message = "Please specify a valid CIDR range for the databricks engineering subnet."
+  }
+  validation {
+    condition     = try(cidrnetmask(var.subnet_cidr_ranges.databricks_engineering_public_subnet), "invalid") != "invalid"
+    error_message = "Please specify a valid CIDR range for the databricks engineering subnet."
+  }
+  validation {
+    condition     = var.subnet_cidr_ranges.databricks_consumption_private_subnet == "" || try(cidrnetmask(var.subnet_cidr_ranges.databricks_consumption_private_subnet), "invalid") != "invalid"
+    error_message = "Please specify a valid CIDR range for the databricks engineering subnet."
+  }
+  validation {
+    condition     = var.subnet_cidr_ranges.databricks_consumption_public_subnet == "" || try(cidrnetmask(var.subnet_cidr_ranges.databricks_consumption_public_subnet), "invalid") != "invalid"
+    error_message = "Please specify a valid CIDR range for the databricks engineering subnet."
   }
 }
 

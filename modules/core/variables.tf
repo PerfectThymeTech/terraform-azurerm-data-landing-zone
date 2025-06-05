@@ -41,6 +41,14 @@ variable "data_platform_subscription_ids" {
   default     = []
 }
 
+variable "databricks_workspace_consumption_enabled" {
+  description = "Specifies whether the consumption workspace should be enabled."
+  type        = bool
+  sensitive   = false
+  nullable    = false
+  default     = false
+}
+
 variable "databricks_compliance_security_profile_standards" {
   description = "Specifies which enhanced compliance security profiles ('HIPAA', 'PCI_DSS') should be enabled for the Azure Databricks workspace."
   type        = list(string)
@@ -130,6 +138,16 @@ variable "subnet_id_storage" {
   }
 }
 
+variable "subnet_id_consumption" {
+  description = "Specifies the id of the consumption subnet used for the databricks workspaces."
+  type        = string
+  sensitive   = false
+  validation {
+    condition     = length(split("/", var.subnet_id_consumption)) == 11
+    error_message = "Please specify a valid resource ID."
+  }
+}
+
 variable "subnet_id_engineering_private" {
   description = "Specifies the id of the private subnet used for the databricks workspace for engineering."
   type        = string
@@ -154,8 +172,9 @@ variable "subnet_id_consumption_private" {
   description = "Specifies the id of the private subnet used for the databricks workspace for ad-hoc consumption."
   type        = string
   sensitive   = false
+  default     = ""
   validation {
-    condition     = length(split("/", var.subnet_id_consumption_private)) == 11
+    condition     = var.subnet_id_consumption_private == "" || length(split("/", var.subnet_id_consumption_private)) == 11
     error_message = "Please specify a valid resource ID."
   }
 }
@@ -164,8 +183,9 @@ variable "subnet_id_consumption_public" {
   description = "Specifies the id of the public subnet used for the databricks workspace for ad-hoc consumption."
   type        = string
   sensitive   = false
+  default     = ""
   validation {
-    condition     = length(split("/", var.subnet_id_consumption_public)) == 11
+    condition     = var.subnet_id_consumption_public == "" || length(split("/", var.subnet_id_consumption_public)) == 11
     error_message = "Please specify a valid resource ID."
   }
 }
