@@ -36,6 +36,25 @@ locals {
       serviceEndpoints        = []
     }
   }
+  subnet_consumption = {
+    name = "ConsumptionSubnet"
+    properties = {
+      addressPrefix         = var.subnet_cidr_range_consumption
+      defaultOutboundAccess = false
+      delegations           = []
+      ipAllocations         = []
+      networkSecurityGroup = {
+        id = data.azurerm_network_security_group.network_security_group.id
+      }
+      privateEndpointNetworkPolicies    = "Enabled"
+      privateLinkServiceNetworkPolicies = "Enabled"
+      routeTable = {
+        id = data.azurerm_route_table.route_table.id
+      }
+      serviceEndpointPolicies = []
+      serviceEndpoints        = []
+    }
+  }
   subnet_fabric = {
     name = "FabricSubnet"
     properties = {
@@ -188,62 +207,4 @@ locals {
       }
     }
   ]
-  # subnets_databricks_private_applications = [
-  #   for key, value in var.subnet_cidr_range_applications :
-  #   {
-  #     name = "DatabricksPrivateSubnet-${key}"
-  #     properties = {
-  #       addressPrefix         = value.databricks_private_subnet
-  #       defaultOutboundAccess = false
-  #       delegations = [
-  #         {
-  #           name = "DatabricksDelegation"
-  #           properties = {
-  #             serviceName = "Microsoft.Databricks/workspaces"
-  #           }
-  #         }
-  #       ]
-  #       ipAllocations = []
-  #       networkSecurityGroup = {
-  #         id = data.azurerm_network_security_group.network_security_group.id
-  #       }
-  #       privateEndpointNetworkPolicies    = "Enabled"
-  #       privateLinkServiceNetworkPolicies = "Enabled"
-  #       routeTable = {
-  #         id = data.azurerm_route_table.route_table.id
-  #       }
-  #       serviceEndpointPolicies = []
-  #       serviceEndpoints        = []
-  #     }
-  #   } if value.databricks_private_subnet != "" && value.databricks_public_subnet != ""
-  # ]
-  # subnets_databricks_public_applications = [
-  #   for key, value in var.subnet_cidr_range_applications :
-  #   {
-  #     name = "DatabricksPublicSubnet-${key}"
-  #     properties = {
-  #       addressPrefix         = value.databricks_public_subnet
-  #       defaultOutboundAccess = false
-  #       delegations = [
-  #         {
-  #           name = "DatabricksDelegation"
-  #           properties = {
-  #             serviceName = "Microsoft.Databricks/workspaces"
-  #           }
-  #         }
-  #       ]
-  #       ipAllocations = []
-  #       networkSecurityGroup = {
-  #         id = data.azurerm_network_security_group.network_security_group.id
-  #       }
-  #       privateEndpointNetworkPolicies    = "Enabled"
-  #       privateLinkServiceNetworkPolicies = "Enabled"
-  #       routeTable = {
-  #         id = data.azurerm_route_table.route_table.id
-  #       }
-  #       serviceEndpointPolicies = []
-  #       serviceEndpoints        = []
-  #     }
-  #   } if value.databricks_private_subnet != "" && value.databricks_public_subnet != ""
-  # ]
 }

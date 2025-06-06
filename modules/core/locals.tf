@@ -34,21 +34,25 @@ locals {
   databricks_engineering_public_subnet_name  = reverse(split("/", var.subnet_id_engineering_public))[0]
   databricks_consumption_private_subnet_name = reverse(split("/", var.subnet_id_consumption_private))[0]
   databricks_consumption_public_subnet_name  = reverse(split("/", var.subnet_id_consumption_public))[0]
-  databricks_workspace_details = {
-    engineering = {
-      id                            = module.databricks_workspace_engineering.databricks_workspace_id
-      workspace_id                  = module.databricks_workspace_engineering.databricks_workspace_workspace_id
-      workspace_url                 = module.databricks_workspace_engineering.databricks_workspace_workspace_url
-      access_connector_id           = module.databricks_access_connector_engineering.databricks_access_connector_id
-      access_connector_principal_id = module.databricks_access_connector_engineering.databricks_access_connector_principal_id
-    }
-    consumption = {
-      id                            = module.databricks_workspace_consumption.databricks_workspace_id
-      workspace_id                  = module.databricks_workspace_consumption.databricks_workspace_workspace_id
-      workspace_url                 = module.databricks_workspace_consumption.databricks_workspace_workspace_url
-      access_connector_id           = module.databricks_access_connector_consumption.databricks_access_connector_id
-      access_connector_principal_id = module.databricks_access_connector_consumption.databricks_access_connector_principal_id
-    }
+  databricks_workspace_details_engineering = {
+    id                            = module.databricks_workspace_engineering.databricks_workspace_id
+    workspace_id                  = module.databricks_workspace_engineering.databricks_workspace_workspace_id
+    workspace_url                 = module.databricks_workspace_engineering.databricks_workspace_workspace_url
+    access_connector_id           = module.databricks_access_connector_engineering.databricks_access_connector_id
+    access_connector_principal_id = module.databricks_access_connector_engineering.databricks_access_connector_principal_id
+  }
+  databricks_workspace_details_consumption = {
+    id                            = one(module.databricks_workspace_consumption[*].databricks_workspace_id)
+    workspace_id                  = one(module.databricks_workspace_consumption[*].databricks_workspace_workspace_id)
+    workspace_url                 = one(module.databricks_workspace_consumption[*].databricks_workspace_workspace_url)
+    access_connector_id           = one(module.databricks_access_connector_consumption[*].databricks_access_connector_id)
+    access_connector_principal_id = one(module.databricks_access_connector_consumption[*].databricks_access_connector_principal_id)
+  }
+  databricks_workspace_details = var.databricks_workspace_consumption_enabled ? {
+    engineering = local.databricks_workspace_details_engineering
+    consumption = local.databricks_workspace_details_consumption
+    } : {
+    engineering = local.databricks_workspace_details_engineering
   }
   databricks_private_endpoint_rules = {
     "storage-account-provider-blob" = {

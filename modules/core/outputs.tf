@@ -5,7 +5,7 @@ output "databricks_workspace_details" {
   sensitive   = false
   depends_on = [
     module.databricks_workspace_engineering.databricks_workspace_completed,
-    module.databricks_workspace_consumption.databricks_workspace_completed,
+    # one(module.databricks_workspace_consumption[*].databricks_workspace_completed),
   ]
 }
 
@@ -19,7 +19,7 @@ output "databricks_dependencies" {
   description = "Specifies the dependencies for Databricks."
   value = [
     module.databricks_workspace_engineering.databricks_workspace_completed,
-    module.databricks_workspace_consumption.databricks_workspace_completed,
+    var.databricks_workspace_consumption_enabled ? one(module.databricks_workspace_consumption[*].databricks_workspace_completed) : true,
   ]
 }
 

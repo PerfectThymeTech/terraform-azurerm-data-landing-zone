@@ -26,6 +26,7 @@ databricks_network_policy_details = {
     }
   ]
 }
+databricks_workspace_consumption_enabled         = false
 databricks_compliance_security_profile_standards = ["PCI_DSS"]
 databricks_workspace_binding_catalog             = {}
 fabric_capacity_details = {
@@ -49,11 +50,12 @@ nsg_id         = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGr
 route_table_id = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/routeTables/ptt-dev-default-rt001"
 subnet_cidr_ranges = {
   storage_subnet                        = "10.2.0.0/27"
-  fabric_subnet                         = "10.2.0.32/27"
+  consumption_subnet                    = "10.2.0.32/28"
+  fabric_subnet                         = "10.2.0.48/28"
   databricks_engineering_private_subnet = "10.2.0.64/26"
   databricks_engineering_public_subnet  = "10.2.0.128/26"
-  databricks_consumption_private_subnet = "10.2.0.192/26"
-  databricks_consumption_public_subnet  = "10.2.1.0/26"
+  # databricks_consumption_private_subnet = "10.2.0.192/26"
+  # databricks_consumption_public_subnet  = "10.2.1.0/26"
 }
 
 # DNS variables

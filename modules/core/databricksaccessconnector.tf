@@ -16,8 +16,10 @@ module "databricks_access_connector_consumption" {
     azurerm = azurerm
   }
 
+  count = var.databricks_workspace_consumption_enabled ? 1 : 0
+
   location                         = var.location
-  resource_group_name              = azurerm_resource_group.resource_group_consumption.name
+  resource_group_name              = one(azurerm_resource_group.resource_group_consumption[*].name)
   tags                             = var.tags
   databricks_access_connector_name = "${local.prefix}-cnsmptn-dbac001"
 }
