@@ -15,7 +15,7 @@ resource "databricks_external_location" "external_location_provider" {
   url                = "abfss://${local.storage_container_provider[each.key].storage_container_name}@${local.storage_container_provider[each.key].storage_account_name}.dfs.core.windows.net/"
   file_event_queue {
     provided_aqs {
-      queue_url = var.storage_queue_ids[each.key].provider
+      queue_url = var.storage_queue_ids.provider[each.key]
     }
   }
 }
