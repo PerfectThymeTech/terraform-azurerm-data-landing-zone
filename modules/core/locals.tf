@@ -5,11 +5,11 @@ locals {
   # Storage locals
   trusted_subscription_ids = distinct(concat(var.trusted_subscription_ids, [data.azurerm_client_config.current.subscription_id]))
   storage_network_private_link_access_fabric = [
-    for item in var.var.trusted_fabric_workspace_ids:
+    for item in var.var.trusted_fabric_workspace_ids :
     "/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/Fabric/providers/Microsoft.Fabric/workspaces/${item}"
   ]
   storage_network_private_link_access_azure = concat([
-    for item in local.var.trusted_subscription_ids: [
+    for item in local.var.trusted_subscription_ids : [
       "/subscriptions/${item}/providers/Microsoft.Security/datascanners/storageDataScanner",
       "/subscriptions/${item}/resourceGroups/*/providers/Microsoft.Synapse/workspaces/*",
       "/subscriptions/${item}/resourceGroups/*/providers/Microsoft.CognitiveServices/accounts/*",
