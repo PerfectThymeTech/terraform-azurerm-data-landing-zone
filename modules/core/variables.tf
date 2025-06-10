@@ -34,9 +34,16 @@ variable "tags" {
 }
 
 # Service variables
-variable "data_platform_subscription_ids" {
+variable "trusted_subscription_ids" {
   description = "Specifies the list of subscription IDs of your data platform."
   type        = list(string)
+  sensitive   = false
+  default     = []
+}
+
+variable "trusted_fabric_workspace_ids" {
+  description = "Specifies the list of fabric workspace IDs which should be trusted to bypass storage account firewalls."
+  type        = set(string)
   sensitive   = false
   default     = []
 }

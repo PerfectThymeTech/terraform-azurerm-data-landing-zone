@@ -22,7 +22,7 @@ module "storage_account_provider" {
   storage_blob_versioning_enabled                 = false
   storage_is_hns_enabled                          = true
   storage_network_bypass                          = ["AzureServices"]
-  storage_network_private_link_access             = local.storage_provider_network_private_link_access
+  storage_network_private_link_access             = local.storage_network_private_link_access
   storage_public_network_access_enabled           = true
   storage_nfsv3_enabled                           = false
   storage_sftp_enabled                            = false
