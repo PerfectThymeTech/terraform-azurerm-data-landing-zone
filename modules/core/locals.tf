@@ -8,7 +8,7 @@ locals {
     for item in var.trusted_fabric_workspace_ids :
     "/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/Fabric/providers/Microsoft.Fabric/workspaces/${item}"
   ]
-  storage_network_private_link_access_azure = concat([
+  storage_network_private_link_access_azure = flatten([
     for item in local.trusted_subscription_ids : [
       "/subscriptions/${item}/providers/Microsoft.Security/datascanners/storageDataScanner",
       "/subscriptions/${item}/resourceGroups/*/providers/Microsoft.Synapse/workspaces/*",
