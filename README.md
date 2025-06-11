@@ -294,14 +294,6 @@ Type: `string`
 
 Default: `""`
 
-### <a name="input_data_platform_subscription_ids"></a> [data\_platform\_subscription\_ids](#input\_data\_platform\_subscription\_ids)
-
-Description: Specifies the list of subscription IDs of your data platform.
-
-Type: `set(string)`
-
-Default: `[]`
-
 ### <a name="input_databricks_cluster_policy_file_variables"></a> [databricks\_cluster\_policy\_file\_variables](#input\_databricks\_cluster\_policy\_file\_variables)
 
 Description: Specifies custom template variables used when reading in databricks policy template files from the library path.
@@ -488,6 +480,22 @@ Description: Specifies the tags that you want to apply to all resources.
 Type: `map(string)`
 
 Default: `{}`
+
+### <a name="input_trusted_fabric_workspace_ids"></a> [trusted\_fabric\_workspace\_ids](#input\_trusted\_fabric\_workspace\_ids)
+
+Description: Specifies the list of fabric workspace IDs which should be trusted to bypass storage account firewalls.
+
+Type: `set(string)`
+
+Default: `[]`
+
+### <a name="input_trusted_subscription_ids"></a> [trusted\_subscription\_ids](#input\_trusted\_subscription\_ids)
+
+Description: Specifies the list of subscription IDs which should be trusted to bypass storage account firewalls.
+
+Type: `set(string)`
+
+Default: `[]`
 
 ### <a name="input_zone_redundancy_enabled"></a> [zone\_redundancy\_enabled](#input\_zone\_redundancy\_enabled)
 

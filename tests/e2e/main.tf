@@ -18,7 +18,8 @@ module "data_landing_zone" {
   tags        = var.tags
 
   # Service variables
-  data_platform_subscription_ids                   = var.data_platform_subscription_ids
+  trusted_subscription_ids                         = var.trusted_subscription_ids
+  trusted_fabric_workspace_ids                     = var.trusted_fabric_workspace_ids
   data_application_library_path                    = var.data_application_library_path
   data_application_file_variables                  = var.data_application_file_variables
   databricks_cluster_policy_library_path           = var.databricks_cluster_policy_library_path
