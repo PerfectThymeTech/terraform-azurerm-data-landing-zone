@@ -54,9 +54,12 @@ definition:
     value: "${app_name}"
     hidden: false
   data_security_mode:
-    type: fixed
-    value: "SINGLE_USER"
-    hidden: true
+    type: allowlist
+    defaultValue: SINGLE_USER
+    values:
+      - SINGLE_USER
+      - USER_ISOLATION
+    hidden: false
   dbus_per_hour:
     type: range
     maxValue: 10
