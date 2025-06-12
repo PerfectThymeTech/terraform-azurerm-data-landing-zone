@@ -31,7 +31,7 @@ databricks_workspace_consumption_enabled         = false
 databricks_compliance_security_profile_standards = ["PCI_DSS"]
 databricks_workspace_binding_catalog             = {}
 fabric_capacity_details = {
-  enabled      = true
+  enabled      = false
   admin_emails = []
   sku          = "F2"
 }
