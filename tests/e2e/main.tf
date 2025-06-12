@@ -42,10 +42,8 @@ module "data_landing_zone" {
   service_principal_name_terraform_plan = var.service_principal_name_terraform_plan
 
   # Network variables
-  vnet_id            = var.vnet_id
-  nsg_id             = var.nsg_id
-  route_table_id     = var.route_table_id
-  subnet_cidr_ranges = var.subnet_cidr_ranges
+  vnet_id    = var.vnet_id
+  subnet_ids = var.subnet_ids
 
   # DNS variables
   private_dns_zone_id_blob              = var.private_dns_zone_id_blob

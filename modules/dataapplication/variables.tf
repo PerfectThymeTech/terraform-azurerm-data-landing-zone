@@ -331,12 +331,12 @@ variable "vnet_id" {
   }
 }
 
-variable "subnet_id_app" {
+variable "subnet_id_private_endpoint" {
   description = "Specifies the id of the app subnet used for the private endpoints."
   type        = string
   sensitive   = false
   validation {
-    condition     = length(split("/", var.subnet_id_app)) == 11
+    condition     = length(split("/", var.subnet_id_private_endpoint)) == 11
     error_message = "Please specify a valid resource ID."
   }
 }

@@ -11,8 +11,8 @@ identity:
 
 network:
   private_endpoint_subnet:
-    cidr_range: "10.2.1.64/27"
-
+    id: "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001/subnets/PrivateEndpointSubnet-dptest"
+ 
 repository:
   type: github
   github:

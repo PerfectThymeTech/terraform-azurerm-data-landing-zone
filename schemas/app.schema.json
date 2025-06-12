@@ -53,28 +53,8 @@
           "description": "Specifies the private endpoint subnet config for the application.",
           "type": "object",
           "properties": {
-            "cidr_range": {
-              "description": "Specifies the cidr range of the subnet.",
-              "type": "string"
-            }
-          }
-        },
-        "databricks_private_subnet": {
-          "description": "Specifies the databricks private subnet config for the application.",
-          "type": "object",
-          "properties": {
-            "cidr_range": {
-              "description": "Specifies the cidr range of the subnet.",
-              "type": "string"
-            }
-          }
-        },
-        "databricks_public_subnet": {
-          "description": "Specifies the databricks public subnet config for the application.",
-          "type": "object",
-          "properties": {
-            "cidr_range": {
-              "description": "Specifies the cidr range of the subnet.",
+            "id": {
+              "description": "Specifies the id of the subnet.",
               "type": "string"
             }
           }
