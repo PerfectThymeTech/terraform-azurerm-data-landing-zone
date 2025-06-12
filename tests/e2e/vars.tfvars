@@ -43,7 +43,9 @@ zone_redundancy_enabled = false
 log_analytics_workspace_id = ""
 
 # Identity variables
-service_principal_name_terraform_plan = "ptt-dev-uai001-dlz-tfplan"
+service_principal_name_terraform_plan      = "ptt-dev-uai001-dlz-tfplan"
+service_principal_object_id_terraform_plan = "362a1893-647a-45de-a059-6feae3fdb7d2"
+databricks_resourceprovider_object_id      = "7f7c7b4a-704d-4531-b73e-45e16b388271"
 
 # Network variables
 vnet_id = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001"

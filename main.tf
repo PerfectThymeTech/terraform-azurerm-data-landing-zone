@@ -27,7 +27,7 @@ module "core" {
   diagnostics_configurations = local.diagnostics_configurations
 
   # Identity variables
-  service_principal_name_terraform_plan = var.service_principal_name_terraform_plan
+  service_principal_object_id_terraform_plan = var.service_principal_object_id_terraform_plan
 
   # Network variables
   vnet_id                       = var.vnet_id
@@ -110,11 +110,11 @@ module "data_application" {
   alerting                   = try(each.value.alerting, {})
 
   # Identity variables
-  admin_group_name                      = try(each.value.identity.admin_group_name, "")
-  developer_group_name                  = try(each.value.identity.developer_group_name, "")
-  reader_group_name                     = try(each.value.identity.reader_group_name, "")
-  service_principal_name                = try(each.value.identity.service_principal_name, "")
-  service_principal_name_terraform_plan = var.service_principal_name_terraform_plan
+  admin_group_object_id                      = try(each.value.identity.admin_group_object_id, "")
+  developer_group_object_id                  = try(each.value.identity.developer_group_object_id, "")
+  reader_group_object_id                     = try(each.value.identity.reader_group_object_id, "")
+  service_principal_object_id_terraform_plan = var.service_principal_object_id_terraform_plan
+  databricks_resourceprovider_object_id      = var.databricks_resourceprovider_object_id
 
   # Network variables
   vnet_id                       = var.vnet_id

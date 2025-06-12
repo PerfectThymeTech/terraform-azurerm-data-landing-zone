@@ -39,7 +39,9 @@ module "data_landing_zone" {
   log_analytics_workspace_id = var.log_analytics_workspace_id
 
   # Identity variables
-  service_principal_name_terraform_plan = var.service_principal_name_terraform_plan
+  service_principal_name_terraform_plan      = var.service_principal_name_terraform_plan
+  service_principal_object_id_terraform_plan = var.service_principal_object_id_terraform_plan
+  databricks_resourceprovider_object_id      = var.databricks_resourceprovider_object_id
 
   # Network variables
   vnet_id    = var.vnet_id

@@ -5,9 +5,13 @@ tags:
 
 identity:
   admin_group_name: "app001-admin"
+  admin_group_object_id: "app001-admin"
   developer_group_name: "app001-developer"
+  developer_group_object_id: "app001-developer"
   reader_group_name: "app001-reader"
+  reader_group_object_id: "app001-reader"
   # service_principal_name: "app001-sp"
+  # service_principal_object_id: "app001-sp"
 
 network:
   private_endpoint_subnet:
@@ -33,13 +37,9 @@ alerting:
 
 data_providers:
   p001:
-    service_principal_names: []
-    group_names:
+    service_principal_object_ids: []
+    group_object_ids:
     - data-provider-001
-    databricks_catalog:
-      enabled: true
-      workspace_binding_catalog:
-      - "772046891226939"
 
 budget:
   categories:

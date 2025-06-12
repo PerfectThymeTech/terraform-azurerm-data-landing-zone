@@ -27,21 +27,38 @@
           "description": "Specifies the name of the admin group.",
           "type": "string"
         },
+        "admin_group_object_id": {
+          "description": "Specifies the object id of the admin group.",
+          "type": "string"
+        },
         "developer_group_name": {
-          "description": "Specifies the name of the contributor group.",
+          "description": "Specifies the name of the developer group.",
+          "type": "string"
+        },
+        "developer_group_object_id": {
+          "description": "Specifies the object id of the developer group.",
           "type": "string"
         },
         "reader_group_name": {
           "description": "Specifies the name of the reader group.",
           "type": "string"
         },
+        "reader_group_object_id": {
+          "description": "Specifies the object id of the reader group.",
+          "type": "string"
+        },
         "service_principal_name": {
           "description": "Specifies the name of the service principal.",
+          "type": "string"
+        },
+        "service_principal_object_id": {
+          "description": "Specifies the object id of the service principal.",
           "type": "string"
         }
       },
       "required": [
-        "admin_group_name"
+        "admin_group_name",
+        "admin_group_object_id"
       ],
       "additionalProperties": false
     },
@@ -243,39 +260,19 @@
         "^.*$": {
           "type": "object",
           "properties": {
-            "service_principal_names": {
-              "description": "Specifies service principal names that will be granted storage blob data contributor rights to the provider storage account container name.",
+            "service_principal_object_ids": {
+              "description": "Specifies service principal object_ids that will be granted storage blob data contributor rights to the provider storage account container name.",
               "type": "array",
               "items": {
                 "type": "string"
               }
             },
-            "group_names": {
-              "description": "Specifies Entra ID group names that will be granted storage blob data contributor rights to the provider storage account container name.",
+            "group_object_ids": {
+              "description": "Specifies Entra ID group object ids that will be granted storage blob data contributor rights to the provider storage account container name.",
               "type": "array",
               "items": {
                 "type": "string"
               }
-            },
-            "databricks_catalog": {
-              "description": "Specifies Databricks Catalog configuration for the data provider.",
-              "type": "object",
-              "properties": {
-                "enabled": {
-                  "description": "Specifies whether unity catalog should be enabled for this data provider.",
-                  "type": "boolean",
-                  "default": false
-                },
-                "workspace_binding_catalog": {
-                  "description": "Specifies the workspace binding for this catalog.",
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "required": [],
-              "additionalProperties": false
             }
           },
           "required": [],

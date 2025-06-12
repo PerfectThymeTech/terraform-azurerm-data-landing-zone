@@ -202,6 +202,27 @@ variable "service_principal_name_terraform_plan" {
   }
 }
 
+variable "service_principal_object_id_terraform_plan" {
+  description = "Specifies the object id of the service principal used for the Terraform plan in PRs."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.service_principal_object_id_terraform_plan == "" || length(var.service_principal_object_id_terraform_plan) >= 2
+    error_message = "Please specify a valid name."
+  }
+}
+
+variable "databricks_resourceprovider_object_id" {
+  description = "Specifies the object id of the service principal of the databricks global enterprise app."
+  type        = string
+  sensitive   = false
+  validation {
+    condition     = length(var.databricks_resourceprovider_object_id) >= 2
+    error_message = "Please specify a valid object id."
+  }
+}
+
 # Network variables
 variable "vnet_id" {
   description = "Specifies the resource ID of the Vnet used for the Data Landing Zone."
