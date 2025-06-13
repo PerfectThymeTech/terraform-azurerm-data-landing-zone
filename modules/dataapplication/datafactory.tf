@@ -22,7 +22,7 @@ module "data_factory" {
   data_factory_pipelines_run                        = []
   data_factory_managed_private_endpoints            = local.data_factory_managed_private_endpoints
   diagnostics_configurations                        = var.diagnostics_configurations
-  subnet_id                                         = var.subnet_id_app
+  subnet_id                                         = var.subnet_id_private_endpoint
   connectivity_delay_in_seconds                     = var.connectivity_delay_in_seconds
   private_dns_zone_id_data_factory                  = var.private_dns_zone_id_data_factory
   customer_managed_key                              = var.customer_managed_key

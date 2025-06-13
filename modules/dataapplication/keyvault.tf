@@ -12,7 +12,7 @@ module "key_vault" {
   key_vault_sku_name                   = "standard"
   key_vault_soft_delete_retention_days = 7
   diagnostics_configurations           = var.diagnostics_configurations
-  subnet_id                            = var.subnet_id_app
+  subnet_id                            = var.subnet_id_private_endpoint
   connectivity_delay_in_seconds        = var.connectivity_delay_in_seconds
   private_dns_zone_id_vault            = var.private_dns_zone_id_vault
 }

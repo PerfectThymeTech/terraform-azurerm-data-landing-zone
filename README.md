@@ -182,12 +182,6 @@ Source: ./modules/databricksdataapplication
 
 Version:
 
-### <a name="module_platform"></a> [platform](#module\_platform)
-
-Source: ./modules/platform
-
-Version:
-
 <!-- markdownlint-disable MD013 -->
 <!-- markdownlint-disable MD034 -->
 ## Required Inputs
@@ -206,15 +200,15 @@ Description: Specifies the name of the ncc connectivity config name that should 
 
 Type: `string`
 
-### <a name="input_location"></a> [location](#input\_location)
+### <a name="input_databricks_resourceprovider_object_id"></a> [databricks\_resourceprovider\_object\_id](#input\_databricks\_resourceprovider\_object\_id)
 
-Description: Specifies the location for all Azure resources.
+Description: Specifies the object id of the service principal of the databricks global enterprise app.
 
 Type: `string`
 
-### <a name="input_nsg_id"></a> [nsg\_id](#input\_nsg\_id)
+### <a name="input_location"></a> [location](#input\_location)
 
-Description: Specifies the resource ID of the default network security group for the Data Landing Zone.
+Description: Specifies the location for all Azure resources.
 
 Type: `string`
 
@@ -224,30 +218,22 @@ Description: Specifies the prefix for all resources created in this deployment.
 
 Type: `string`
 
-### <a name="input_route_table_id"></a> [route\_table\_id](#input\_route\_table\_id)
+### <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids)
 
-Description: Specifies the resource ID of the default route table for the Data Landing Zone.
-
-Type: `string`
-
-### <a name="input_subnet_cidr_ranges"></a> [subnet\_cidr\_ranges](#input\_subnet\_cidr\_ranges)
-
-Description: Specifies the cidr ranges of the subnets used for the Data Management Zone. If not specified, the module will automatically define the right subnet cidr ranges. For this to work, the provided vnet must have no subnets.
+Description: Specifies the resource ID of the subnets used for the Data Landing Zone.
 
 Type:
 
 ```hcl
-object(
-    {
-      storage_subnet                        = string
-      consumption_subnet                    = string
-      fabric_subnet                         = string
-      databricks_engineering_private_subnet = string
-      databricks_engineering_public_subnet  = string
-      databricks_consumption_private_subnet = optional(string, "")
-      databricks_consumption_public_subnet  = optional(string, "")
-    }
-  )
+object({
+    subnet_id_storage             = string
+    subnet_id_consumption         = string
+    subnet_id_engineering_private = string
+    subnet_id_engineering_public  = string
+    subnet_id_consumption_private = optional(string, "")
+    subnet_id_consumption_public  = optional(string, "")
+    subnet_id_fabric              = string
+  })
 ```
 
 ### <a name="input_vnet_id"></a> [vnet\_id](#input\_vnet\_id)
@@ -468,6 +454,14 @@ Default: `""`
 ### <a name="input_service_principal_name_terraform_plan"></a> [service\_principal\_name\_terraform\_plan](#input\_service\_principal\_name\_terraform\_plan)
 
 Description: Specifies the name of the service principal used for the Terraform plan in PRs.
+
+Type: `string`
+
+Default: `""`
+
+### <a name="input_service_principal_object_id_terraform_plan"></a> [service\_principal\_object\_id\_terraform\_plan](#input\_service\_principal\_object\_id\_terraform\_plan)
+
+Description: Specifies the object id of the service principal used for the Terraform plan in PRs.
 
 Type: `string`
 

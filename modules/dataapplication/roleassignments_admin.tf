@@ -3,7 +3,7 @@ resource "azurerm_role_assignment" "role_assignment_budget_cost_management_reade
   description          = "Role assignment to budget to read consumption."
   scope                = azurerm_consumption_budget_subscription.consumption_budget_subscription.id
   role_definition_name = "Cost Management Reader"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -12,7 +12,7 @@ resource "azurerm_role_assignment" "role_assignment_resource_group_app_reader_ad
   description          = "Role assignment to app resource group."
   scope                = azurerm_resource_group.resource_group_app.id
   role_definition_name = "Reader"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -20,7 +20,7 @@ resource "azurerm_role_assignment" "role_assignment_resource_group_app_monitorin
   description          = "Role assignment to app resource group."
   scope                = azurerm_resource_group.resource_group_app_monitoring.id
   role_definition_name = "Reader"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -28,7 +28,7 @@ resource "azurerm_role_assignment" "role_assignment_resource_group_storage_reade
   description          = "Role assignment to storage resource group."
   scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${split("/", var.storage_account_ids.provider)[4]}"
   role_definition_name = "Reader"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -37,7 +37,7 @@ resource "azurerm_role_assignment" "role_assignment_key_vault_secrets_officer_ad
   description          = "Role assignment to key vault to create secrets."
   scope                = module.key_vault.key_vault_id
   role_definition_name = "Key Vault Secrets Officer"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -46,7 +46,7 @@ resource "azurerm_role_assignment" "role_assignment_databricks_workspace_reader_
   description          = "Role assignment to databricks workspace."
   scope                = var.databricks_workspace_details["engineering"].id
   role_definition_name = "Reader"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -57,7 +57,7 @@ resource "azurerm_role_assignment" "role_assignment_ai_service_admin" {
   description          = "Role assignment to the ai services."
   scope                = module.ai_service[each.key].cognitive_account_id
   role_definition_name = local.ai_service_kind_role_map_write[each.value.kind]
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -65,7 +65,7 @@ resource "azurerm_role_assignment" "role_assignment_cognitive_services_usages_re
   description          = "Cognitive Services Usages Reader to check quota for Azure Open AI models."
   scope                = data.azurerm_subscription.current.id
   role_definition_name = "Cognitive Services Usages Reader"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -76,7 +76,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_index_data_co
   description          = "Role assignment to create or manage objects in AI Search."
   scope                = one(module.ai_search[*].search_service_id)
   role_definition_name = "Search Index Data Contributor"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -86,7 +86,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_contributor_a
   description          = "Role assignment to load documents and run indexing jobs in AI Search."
   scope                = one(module.ai_search[*].search_service_id)
   role_definition_name = "Search Service Contributor"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -97,7 +97,7 @@ resource "azurerm_role_assignment" "role_assignment_data_factory_data_factory_co
   description          = "Role assignment to data factory."
   scope                = one(module.data_factory[*].data_factory_id)
   role_definition_name = "Data Factory Contributor"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -108,7 +108,7 @@ resource "fabric_workspace_role_assignment" "workspace_role_assignment_contribut
   workspace_id = one(module.fabric_workspace[*].fabric_workspace_id)
 
   principal = {
-    id   = data.azuread_group.group_admin.object_id
+    id   = var.admin_group_object_id
     type = "Group"
   }
   role = "Contributor"
@@ -121,7 +121,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_provider_b
   description          = "Role assignment to the provider storage container."
   scope                = azurerm_storage_container.storage_container_provider[each.key].id
   role_definition_name = "Storage Blob Data Owner"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -129,7 +129,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_raw_blob_d
   description          = "Role assignment to the raw storage container."
   scope                = azurerm_storage_container.storage_container_raw.id
   role_definition_name = "Storage Blob Data Owner"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -137,7 +137,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_enriched_b
   description          = "Role assignment to the enriched storage container."
   scope                = azurerm_storage_container.storage_container_enriched.id
   role_definition_name = "Storage Blob Data Owner"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -145,7 +145,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_curated_bl
   description          = "Role assignment to the curated storage container."
   scope                = azurerm_storage_container.storage_container_curated.id
   role_definition_name = "Storage Blob Data Owner"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }
 
@@ -153,6 +153,6 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_workspace_
   description          = "Role assignment to the workspace storage container."
   scope                = azurerm_storage_container.storage_container_workspace.id
   role_definition_name = "Storage Blob Data Owner"
-  principal_id         = data.azuread_group.group_admin.object_id
+  principal_id         = var.admin_group_object_id
   principal_type       = "Group"
 }

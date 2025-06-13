@@ -20,7 +20,7 @@ module "ai_search" {
   search_service_replica_count                = var.search_service_details.replica_count
   search_service_shared_private_links         = local.search_service_shared_private_links
   diagnostics_configurations                  = var.diagnostics_configurations
-  subnet_id                                   = var.subnet_id_app
+  subnet_id                                   = var.subnet_id_private_endpoint
   connectivity_delay_in_seconds               = var.connectivity_delay_in_seconds
   private_dns_zone_id_search_service          = var.private_dns_zone_id_search_service
   customer_managed_key                        = var.customer_managed_key

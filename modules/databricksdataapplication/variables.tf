@@ -251,10 +251,6 @@ variable "data_provider_details" {
   type = map(object({
     service_principal_names = optional(list(string), [])
     group_names             = optional(list(string), [])
-    databricks_catalog = optional(object({
-      enabled                   = optional(bool, false)
-      workspace_binding_catalog = optional(list(string), [])
-    }), {})
   }))
   sensitive = false
   default   = {}
@@ -290,16 +286,6 @@ variable "reader_group_name" {
   validation {
     condition     = var.reader_group_name == "" || length(var.reader_group_name) >= 2
     error_message = "Please specify a valid Entra ID group name."
-  }
-}
-
-variable "service_principal_name" {
-  description = "Specifies the name of the Entra ID service principal name."
-  type        = string
-  sensitive   = false
-  validation {
-    condition     = var.service_principal_name == "" || length(var.service_principal_name) >= 2
-    error_message = "Please specify a valid Entra ID service principal name."
   }
 }
 

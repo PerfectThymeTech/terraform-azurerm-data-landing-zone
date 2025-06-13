@@ -79,12 +79,8 @@ variable "storage_account_ids" {
 variable "data_provider_details" {
   description = "Specifies the list of data provider systems that are pushing data."
   type = map(object({
-    service_principal_names = optional(list(string), [])
-    group_names             = optional(list(string), [])
-    databricks_catalog = optional(object({
-      enabled                   = optional(bool, false)
-      workspace_binding_catalog = optional(list(string), [])
-    }), {})
+    service_principal_object_ids = optional(list(string), [])
+    group_object_ids             = optional(list(string), [])
   }))
   sensitive = false
   default   = {}
@@ -267,56 +263,56 @@ variable "alerting" {
 }
 
 # Identity variables
-variable "admin_group_name" {
-  description = "Specifies the name of the admin Entra ID security group."
+variable "admin_group_object_id" {
+  description = "Specifies the object id of the admin Entra ID security group."
   type        = string
   sensitive   = false
   validation {
-    condition     = length(var.admin_group_name) >= 2
-    error_message = "Please specify a valid Entra ID group name."
+    condition     = length(var.admin_group_object_id) >= 2
+    error_message = "Please specify a valid Entra ID object id."
   }
 }
 
-variable "developer_group_name" {
-  description = "Specifies the name of the developer Entra ID security group."
+variable "developer_group_object_id" {
+  description = "Specifies the object id of the developer Entra ID security group."
   type        = string
   sensitive   = false
   default     = ""
   validation {
-    condition     = var.developer_group_name == "" || length(var.developer_group_name) >= 2
-    error_message = "Please specify a valid Entra ID group name."
+    condition     = var.developer_group_object_id == "" || length(var.developer_group_object_id) >= 2
+    error_message = "Please specify a valid Entra ID group object id."
   }
 }
 
-variable "reader_group_name" {
-  description = "Specifies the name of the reader Entra ID security group."
+variable "reader_group_object_id" {
+  description = "Specifies the object object id of the reader Entra ID security group."
   type        = string
   sensitive   = false
   default     = ""
   validation {
-    condition     = var.reader_group_name == "" || length(var.reader_group_name) >= 2
-    error_message = "Please specify a valid Entra ID group name."
+    condition     = var.reader_group_object_id == "" || length(var.reader_group_object_id) >= 2
+    error_message = "Please specify a valid Entra ID group object id."
   }
 }
 
-variable "service_principal_name" {
-  description = "Specifies the name of the Entra ID service principal name."
-  type        = string
-  sensitive   = false
-  validation {
-    condition     = var.service_principal_name == "" || length(var.service_principal_name) >= 2
-    error_message = "Please specify a valid Entra ID service principal name."
-  }
-}
-
-variable "service_principal_name_terraform_plan" {
-  description = "Specifies the name of the service principal used for the Terraform plan in PRs."
+variable "service_principal_object_id_terraform_plan" {
+  description = "Specifies the object id of the service principal used for the Terraform plan in PRs."
   type        = string
   sensitive   = false
   default     = ""
   validation {
-    condition     = var.service_principal_name_terraform_plan == "" || length(var.service_principal_name_terraform_plan) >= 2
+    condition     = var.service_principal_object_id_terraform_plan == "" || length(var.service_principal_object_id_terraform_plan) >= 2
     error_message = "Please specify a valid name."
+  }
+}
+
+variable "databricks_resourceprovider_object_id" {
+  description = "Specifies the object id of the service principal of the databricks global enterprise app."
+  type        = string
+  sensitive   = false
+  validation {
+    condition     = length(var.databricks_resourceprovider_object_id) >= 2
+    error_message = "Please specify a valid object id."
   }
 }
 
@@ -331,12 +327,12 @@ variable "vnet_id" {
   }
 }
 
-variable "subnet_id_app" {
+variable "subnet_id_private_endpoint" {
   description = "Specifies the id of the app subnet used for the private endpoints."
   type        = string
   sensitive   = false
   validation {
-    condition     = length(split("/", var.subnet_id_app)) == 11
+    condition     = length(split("/", var.subnet_id_private_endpoint)) == 11
     error_message = "Please specify a valid resource ID."
   }
 }

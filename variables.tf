@@ -202,6 +202,27 @@ variable "service_principal_name_terraform_plan" {
   }
 }
 
+variable "service_principal_object_id_terraform_plan" {
+  description = "Specifies the object id of the service principal used for the Terraform plan in PRs."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.service_principal_object_id_terraform_plan == "" || length(var.service_principal_object_id_terraform_plan) >= 2
+    error_message = "Please specify a valid name."
+  }
+}
+
+variable "databricks_resourceprovider_object_id" {
+  description = "Specifies the object id of the service principal of the databricks global enterprise app."
+  type        = string
+  sensitive   = false
+  validation {
+    condition     = length(var.databricks_resourceprovider_object_id) >= 2
+    error_message = "Please specify a valid object id."
+  }
+}
+
 # Network variables
 variable "vnet_id" {
   description = "Specifies the resource ID of the Vnet used for the Data Landing Zone."
@@ -213,67 +234,45 @@ variable "vnet_id" {
   }
 }
 
-variable "nsg_id" {
-  description = "Specifies the resource ID of the default network security group for the Data Landing Zone."
-  type        = string
-  sensitive   = false
-  validation {
-    condition     = length(split("/", var.nsg_id)) == 9
-    error_message = "Please specify a valid resource ID."
-  }
-}
-
-variable "route_table_id" {
-  description = "Specifies the resource ID of the default route table for the Data Landing Zone."
-  type        = string
-  sensitive   = false
-  validation {
-    condition     = length(split("/", var.route_table_id)) == 9
-    error_message = "Please specify a valid resource ID."
-  }
-}
-
-variable "subnet_cidr_ranges" {
-  description = "Specifies the cidr ranges of the subnets used for the Data Management Zone. If not specified, the module will automatically define the right subnet cidr ranges. For this to work, the provided vnet must have no subnets."
-  type = object(
-    {
-      storage_subnet                        = string
-      consumption_subnet                    = string
-      fabric_subnet                         = string
-      databricks_engineering_private_subnet = string
-      databricks_engineering_public_subnet  = string
-      databricks_consumption_private_subnet = optional(string, "")
-      databricks_consumption_public_subnet  = optional(string, "")
-    }
-  )
+variable "subnet_ids" {
+  description = "Specifies the resource ID of the subnets used for the Data Landing Zone."
+  type = object({
+    subnet_id_storage             = string
+    subnet_id_consumption         = string
+    subnet_id_engineering_private = string
+    subnet_id_engineering_public  = string
+    subnet_id_consumption_private = optional(string, "")
+    subnet_id_consumption_public  = optional(string, "")
+    subnet_id_fabric              = string
+  })
   sensitive = false
   validation {
-    condition     = try(cidrnetmask(var.subnet_cidr_ranges.storage_subnet), "invalid") != "invalid"
-    error_message = "Please specify a valid CIDR range for the storage subnet."
+    condition     = length(split("/", var.subnet_ids.subnet_id_storage)) == 11
+    error_message = "Please specify a valid resource ID for the storage subnet."
   }
   validation {
-    condition     = try(cidrnetmask(var.subnet_cidr_ranges.consumption_subnet), "invalid") != "invalid"
-    error_message = "Please specify a valid CIDR range for the storage subnet."
+    condition     = length(split("/", var.subnet_ids.subnet_id_consumption)) == 11
+    error_message = "Please specify a valid resource ID for the consumption subnet."
   }
   validation {
-    condition     = try(cidrnetmask(var.subnet_cidr_ranges.fabric_subnet), "invalid") != "invalid"
-    error_message = "Please specify a valid CIDR range for the fabric subnet."
+    condition     = length(split("/", var.subnet_ids.subnet_id_engineering_private)) == 11
+    error_message = "Please specify a valid resource ID for the private engineering subnet."
   }
   validation {
-    condition     = try(cidrnetmask(var.subnet_cidr_ranges.databricks_engineering_private_subnet), "invalid") != "invalid"
-    error_message = "Please specify a valid CIDR range for the databricks engineering subnet."
+    condition     = length(split("/", var.subnet_ids.subnet_id_engineering_public)) == 11
+    error_message = "Please specify a valid resource ID for the public engineering subnet."
   }
   validation {
-    condition     = try(cidrnetmask(var.subnet_cidr_ranges.databricks_engineering_public_subnet), "invalid") != "invalid"
-    error_message = "Please specify a valid CIDR range for the databricks engineering subnet."
+    condition     = var.subnet_ids.subnet_id_consumption_private == "" || length(split("/", var.subnet_ids.subnet_id_consumption_private)) == 11
+    error_message = "Please specify a valid resource ID for the private consumption subnet."
   }
   validation {
-    condition     = var.subnet_cidr_ranges.databricks_consumption_private_subnet == "" || try(cidrnetmask(var.subnet_cidr_ranges.databricks_consumption_private_subnet), "invalid") != "invalid"
-    error_message = "Please specify a valid CIDR range for the databricks engineering subnet."
+    condition     = var.subnet_ids.subnet_id_consumption_public == "" || length(split("/", var.subnet_ids.subnet_id_consumption_public)) == 11
+    error_message = "Please specify a valid resource ID for the public consumption subnet."
   }
   validation {
-    condition     = var.subnet_cidr_ranges.databricks_consumption_public_subnet == "" || try(cidrnetmask(var.subnet_cidr_ranges.databricks_consumption_public_subnet), "invalid") != "invalid"
-    error_message = "Please specify a valid CIDR range for the databricks engineering subnet."
+    condition     = length(split("/", var.subnet_ids.subnet_id_fabric)) == 11
+    error_message = "Please specify a valid resource ID for the fabric subnet."
   }
 }
 

@@ -14,7 +14,7 @@ resource "azurerm_private_endpoint" "private_endpoint" {
     request_message                = "Private Endpoint Connection Request from Data Landing Zone Stamp Application with prefix: ${local.prefix}"
     subresource_names              = [each.value.subresource_name]
   }
-  subnet_id = var.subnet_id_app
+  subnet_id = var.subnet_id_private_endpoint
   dynamic "private_dns_zone_group" {
     for_each = each.value.private_dns_zone_id == "" ? [] : [1]
     content {

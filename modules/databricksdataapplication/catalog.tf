@@ -1,22 +1,3 @@
-resource "databricks_catalog" "catalog_provider" {
-  for_each = {
-    for key, value in var.data_provider_details :
-    key => value if value.databricks_catalog.enabled
-  }
-
-  name = replace("${local.prefix}-${each.key}-pro", "-", "_")
-
-  comment                        = "Data Applicaton Catalog - ${var.app_name}-${each.key} - Data Provider"
-  enable_predictive_optimization = "DISABLE" # Consider enabling this property or use "INHERIT"
-  force_destroy                  = true
-  isolation_mode                 = "ISOLATED"
-  properties = merge({
-    location = var.location
-    use      = "data-provider-${each.key}"
-  }, local.tags)
-  storage_root = databricks_external_location.external_location_provider[each.key].url
-}
-
 resource "databricks_catalog" "catalog_internal" {
   name = replace("${local.prefix}-int", "-", "_")
 
@@ -52,21 +33,4 @@ resource "databricks_workspace_binding" "workspace_binding_catalog_internal" {
   securable_name = databricks_catalog.catalog_internal.name
   securable_type = "catalog"
   workspace_id   = each.value.workspace_id
-}
-
-resource "databricks_workspace_binding" "workspace_binding_catalog_provider" {
-  for_each = merge([
-    for key, value in var.data_provider_details : {
-      for item in value.databricks_catalog.workspace_binding_catalog :
-      "${key}-${item}" => {
-        key                                    = key
-        workspace_binding_catalog_workspace_id = item
-      } if value.databricks_catalog.enabled
-    }
-  ]...)
-
-  binding_type   = "BINDING_TYPE_READ_WRITE"
-  securable_name = databricks_catalog.catalog_provider[each.value.key].name
-  securable_type = "catalog"
-  workspace_id   = each.value.workspace_binding_catalog_workspace_id
 }

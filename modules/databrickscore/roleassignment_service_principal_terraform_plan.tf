@@ -1,7 +1,7 @@
 resource "databricks_permission_assignment" "permission_assignment_engineering_service_principal_terraform_plan" {
   count = var.service_principal_name_terraform_plan == "" ? 0 : 1
 
-  principal_id = one(databricks_service_principal.service_principal_terraform_plan[*].id)
+  principal_id = one(data.databricks_service_principal.service_principal_terraform_plan[*].id)
   permissions  = ["ADMIN"]
 }
 
@@ -10,7 +10,7 @@ resource "databricks_service_principal_role" "service_principal_role_account_adm
 
   count = var.service_principal_name_terraform_plan == "" ? 0 : 1
 
-  service_principal_id = one(databricks_service_principal.service_principal_terraform_plan[*].id)
+  service_principal_id = one(data.databricks_service_principal.service_principal_terraform_plan[*].id)
   role                 = "account_admin"
 }
 
@@ -18,7 +18,7 @@ resource "databricks_grant" "grant_catalog_engineering_default_service_principal
   count = var.service_principal_name_terraform_plan == "" ? 0 : 1
 
   catalog   = databricks_catalog.catalog_engineering_default.id
-  principal = one(databricks_service_principal.service_principal_terraform_plan[*].application_id)
+  principal = one(data.databricks_service_principal.service_principal_terraform_plan[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -57,7 +57,7 @@ resource "databricks_grant" "grant_external_location_provider_service_principal_
   count = var.service_principal_name_terraform_plan == "" ? 0 : 1
 
   external_location = databricks_external_location.external_location_engineering_default.id
-  principal         = one(databricks_service_principal.service_principal_terraform_plan[*].application_id)
+  principal         = one(data.databricks_service_principal.service_principal_terraform_plan[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
@@ -84,7 +84,7 @@ resource "databricks_grant" "grant_storage_credential_service_principal_terrafor
   count = var.service_principal_name_terraform_plan == "" ? 0 : 1
 
   storage_credential = databricks_storage_credential.storage_credential_engineering_default.id
-  principal          = one(databricks_service_principal.service_principal_terraform_plan[*].application_id)
+  principal          = one(data.databricks_service_principal.service_principal_terraform_plan[*].application_id)
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
