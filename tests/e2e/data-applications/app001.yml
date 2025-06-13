@@ -5,13 +5,11 @@ tags:
 
 identity:
   admin_group_name: "app001-admin"
-  admin_group_object_id: "app001-admin"
+  admin_group_object_id: "f3776135-9227-43a1-a4bd-b786a82878fc"
   developer_group_name: "app001-developer"
-  developer_group_object_id: "app001-developer"
+  developer_group_object_id: "fd3a6a34-8e7c-4315-803a-eedba0cc4b83"
   reader_group_name: "app001-reader"
-  reader_group_object_id: "app001-reader"
-  # service_principal_name: "app001-sp"
-  # service_principal_object_id: "app001-sp"
+  reader_group_object_id: "46a9f467-c63d-4a24-8de9-bb148135bec5"
 
 network:
   private_endpoint_subnet:
@@ -39,7 +37,7 @@ data_providers:
   p001:
     service_principal_object_ids: []
     group_object_ids:
-    - data-provider-001
+    - 5a310c32-c6fd-43b9-a2c2-d3f9171c57f6
 
 budget:
   categories:
