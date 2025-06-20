@@ -15,7 +15,7 @@ resource "databricks_service_principal" "service_principal" {
 }
 
 resource "databricks_service_principal" "service_principal_uai" {
-  application_id             = var.databricks_user_assigned_identity_details.user_assigned_identity_principal_id
+  application_id             = var.databricks_user_assigned_identity_details.user_assigned_identity_client_id
   display_name               = var.databricks_user_assigned_identity_details.user_assigned_identity_name
   active                     = true
   allow_cluster_create       = false
@@ -31,7 +31,7 @@ resource "databricks_service_principal" "service_principal_uai" {
 resource "databricks_service_principal" "service_principal_data_factory" {
   count = var.databricks_data_factory_details.data_factory_enabled ? 1 : 0
 
-  application_id             = var.databricks_data_factory_details.data_factory_principal_id
+  application_id             = var.databricks_data_factory_details.data_factory_client_id
   display_name               = var.databricks_data_factory_details.data_factory_name
   active                     = true
   allow_cluster_create       = false

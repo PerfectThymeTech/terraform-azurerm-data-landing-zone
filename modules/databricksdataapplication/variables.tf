@@ -124,6 +124,7 @@ variable "databricks_data_factory_details" {
     data_factory_name         = optional(string, "")
     data_factory_id           = optional(string, "")
     data_factory_principal_id = optional(string, "")
+    data_factory_client_id    = optional(string, "")
   })
   sensitive = false
   nullable  = false
@@ -141,6 +142,7 @@ variable "databricks_user_assigned_identity_details" {
     user_assigned_identity_name         = optional(string, "")
     user_assigned_identity_id           = optional(string, "")
     user_assigned_identity_principal_id = optional(string, "")
+    user_assigned_identity_client_id    = optional(string, "")
   })
   sensitive = false
   nullable  = false
