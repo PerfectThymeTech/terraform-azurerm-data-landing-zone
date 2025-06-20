@@ -8,9 +8,13 @@ resource "azurerm_data_factory_linked_service_key_vault" "data_factory_linked_se
   additional_properties = {}
   annotations           = []
   description           = "Key Vault for app."
-  # integration_runtime_name = local.data_factory_default_integration_runtime_name
+  integration_runtime_name = one(azurerm_data_factory_integration_runtime_azure.data_factory_integration_runtime_azure[*].id)
   key_vault_id = module.key_vault.key_vault_id
   parameters   = {}
+
+  lifecycle {
+    ignore_changes = [ integration_runtime_name ]
+  }
 }
 
 # Databricks linked services
@@ -30,6 +34,10 @@ resource "azurerm_data_factory_linked_service_azure_databricks" "data_factory_li
   parameters = {
     clusterId = ""
   }
+
+  lifecycle {
+    ignore_changes = [ integration_runtime_name ]
+  }
 }
 
 # Blob storage linked services
@@ -42,11 +50,15 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
   additional_properties = {}
   annotations           = []
   description           = "Blob storage connection for provider storage account."
-  # integration_runtime_name = local.data_factory_default_integration_runtime_name
+  integration_runtime_name = one(azurerm_data_factory_integration_runtime_azure.data_factory_integration_runtime_azure[*].id)
   parameters           = {}
   storage_kind         = "StorageV2"
   service_endpoint     = "https://${split("/", var.storage_account_ids.provider)[8]}.blob.core.windows.net/"
   use_managed_identity = true
+
+  lifecycle {
+    ignore_changes = [ integration_runtime_name ]
+  }
 }
 
 resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_linked_service_azure_blob_storage_raw" {
@@ -58,11 +70,15 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
   additional_properties = {}
   annotations           = []
   description           = "Blob storage connection for raw storage account."
-  # integration_runtime_name = local.data_factory_default_integration_runtime_name
+  integration_runtime_name = one(azurerm_data_factory_integration_runtime_azure.data_factory_integration_runtime_azure[*].id)
   parameters           = {}
   storage_kind         = "StorageV2"
   service_endpoint     = "https://${split("/", var.storage_account_ids.raw)[8]}.blob.core.windows.net/"
   use_managed_identity = true
+
+  lifecycle {
+    ignore_changes = [ integration_runtime_name ]
+  }
 }
 
 resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_linked_service_azure_blob_storage_enriched" {
@@ -74,11 +90,15 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
   additional_properties = {}
   annotations           = []
   description           = "Blob storage connection for enriched storage account."
-  # integration_runtime_name = local.data_factory_default_integration_runtime_name
+  integration_runtime_name = one(azurerm_data_factory_integration_runtime_azure.data_factory_integration_runtime_azure[*].id)
   parameters           = {}
   storage_kind         = "StorageV2"
   service_endpoint     = "https://${split("/", var.storage_account_ids.enriched)[8]}.blob.core.windows.net/"
   use_managed_identity = true
+
+  lifecycle {
+    ignore_changes = [ integration_runtime_name ]
+  }
 }
 
 resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_linked_service_azure_blob_storage_curated" {
@@ -90,11 +110,15 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
   additional_properties = {}
   annotations           = []
   description           = "Blob storage connection for curated storage account."
-  # integration_runtime_name = local.data_factory_default_integration_runtime_name
+  integration_runtime_name = one(azurerm_data_factory_integration_runtime_azure.data_factory_integration_runtime_azure[*].id)
   parameters           = {}
   storage_kind         = "StorageV2"
   service_endpoint     = "https://${split("/", var.storage_account_ids.curated)[8]}.blob.core.windows.net/"
   use_managed_identity = true
+
+  lifecycle {
+    ignore_changes = [ integration_runtime_name ]
+  }
 }
 
 resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_linked_service_azure_blob_storage_workspace" {
@@ -106,11 +130,15 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "data_factory_
   additional_properties = {}
   annotations           = []
   description           = "Blob storage connection for workspace storage account."
-  # integration_runtime_name = local.data_factory_default_integration_runtime_name
+  integration_runtime_name = one(azurerm_data_factory_integration_runtime_azure.data_factory_integration_runtime_azure[*].id)
   parameters           = {}
   storage_kind         = "StorageV2"
   service_endpoint     = "https://${split("/", var.storage_account_ids.workspace)[8]}.blob.core.windows.net/"
   use_managed_identity = true
+
+  lifecycle {
+    ignore_changes = [ integration_runtime_name ]
+  }
 }
 
 # Datalake storage linked services
@@ -123,10 +151,14 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
   additional_properties = {}
   annotations           = []
   description           = "Datalake storage connection for provider storage account."
-  # integration_runtime_name = local.data_factory_default_integration_runtime_name
+  integration_runtime_name = one(azurerm_data_factory_integration_runtime_azure.data_factory_integration_runtime_azure[*].id)
   parameters           = {}
   url                  = "https://${split("/", var.storage_account_ids.provider)[8]}.dfs.core.windows.net/"
   use_managed_identity = true
+
+  lifecycle {
+    ignore_changes = [ integration_runtime_name ]
+  }
 }
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_raw" {
@@ -138,10 +170,14 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
   additional_properties = {}
   annotations           = []
   description           = "Datalake storage connection for raw storage account."
-  # integration_runtime_name = local.data_factory_default_integration_runtime_name
+  integration_runtime_name = one(azurerm_data_factory_integration_runtime_azure.data_factory_integration_runtime_azure[*].id)
   parameters           = {}
   url                  = "https://${split("/", var.storage_account_ids.provider)[8]}.dfs.core.windows.net/"
   use_managed_identity = true
+
+  lifecycle {
+    ignore_changes = [ integration_runtime_name ]
+  }
 }
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_enriched" {
@@ -153,10 +189,14 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
   additional_properties = {}
   annotations           = []
   description           = "Datalake storage connection for enriched storage account."
-  # integration_runtime_name = local.data_factory_default_integration_runtime_name
+  integration_runtime_name = one(azurerm_data_factory_integration_runtime_azure.data_factory_integration_runtime_azure[*].id)
   parameters           = {}
   url                  = "https://${split("/", var.storage_account_ids.enriched)[8]}.dfs.core.windows.net/"
   use_managed_identity = true
+
+  lifecycle {
+    ignore_changes = [ integration_runtime_name ]
+  }
 }
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_curated" {
@@ -168,10 +208,14 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
   additional_properties = {}
   annotations           = []
   description           = "Datalake storage connection for curated storage account."
-  # integration_runtime_name = local.data_factory_default_integration_runtime_name
+  integration_runtime_name = one(azurerm_data_factory_integration_runtime_azure.data_factory_integration_runtime_azure[*].id)
   parameters           = {}
   url                  = "https://${split("/", var.storage_account_ids.curated)[8]}.dfs.core.windows.net/"
   use_managed_identity = true
+
+  lifecycle {
+    ignore_changes = [ integration_runtime_name ]
+  }
 }
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_factory_linked_service_data_lake_storage_gen2_workspace" {
@@ -183,8 +227,12 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "data_fact
   additional_properties = {}
   annotations           = []
   description           = "Datalake storage connection for workspace storage account."
-  # integration_runtime_name = local.data_factory_default_integration_runtime_name
+  integration_runtime_name = one(azurerm_data_factory_integration_runtime_azure.data_factory_integration_runtime_azure[*].id)
   parameters           = {}
   url                  = "https://${split("/", var.storage_account_ids.workspace)[8]}.dfs.core.windows.net/"
   use_managed_identity = true
+
+  lifecycle {
+    ignore_changes = [ integration_runtime_name ]
+  }
 }
