@@ -24,12 +24,12 @@ resource "azurerm_data_factory_linked_service_azure_databricks" "data_factory_li
   data_factory_id = one(module.data_factory[*].data_factory_id)
   name            = "Databricks"
 
-  adb_domain            = "https://${var.databricks_workspace_details["engineering"].workspace_url}"
-  additional_properties = {}
-  annotations           = []
-  description           = "Databricks workspace connection."
-  existing_cluster_id   = "@linkedService().clusterId"
-  # integration_runtime_name   = local.data_factory_default_integration_runtime_name
+  adb_domain                 = "https://${var.databricks_workspace_details["engineering"].workspace_url}"
+  additional_properties      = {}
+  annotations                = []
+  description                = "Databricks workspace connection."
+  existing_cluster_id        = "@linkedService().clusterId"
+  integration_runtime_name   = one(azurerm_data_factory_integration_runtime_azure.data_factory_integration_runtime_azure[*].id)
   msi_work_space_resource_id = var.databricks_workspace_details["engineering"].id
   parameters = {
     clusterId = ""
