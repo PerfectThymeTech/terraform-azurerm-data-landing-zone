@@ -67,7 +67,7 @@ locals {
   }
 
   # Data factory locals
-  data_factory_default_integration_runtime_name = "AutoResolveIntegrationRuntime"
+  data_factory_default_integration_runtime_name = "AutoResolveIntegrationRuntimeVnet"
   data_factory_default_managed_private_endpoints = {
     "storage-provider-blob" = {
       subresource_name   = "blob"

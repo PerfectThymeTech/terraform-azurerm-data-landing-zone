@@ -113,13 +113,13 @@ variable "diagnostics_configurations" {
 }
 
 # Identity variables
-variable "service_principal_name_terraform_plan" {
-  description = "Specifies the name of the service principal used for the Terraform plan in PRs."
+variable "service_principal_object_id_terraform_plan" {
+  description = "Specifies the object id of the service principal used for the Terraform plan in PRs."
   type        = string
   sensitive   = false
   default     = ""
   validation {
-    condition     = var.service_principal_name_terraform_plan == "" || length(var.service_principal_name_terraform_plan) >= 2
+    condition     = var.service_principal_object_id_terraform_plan == "" || length(var.service_principal_object_id_terraform_plan) >= 2
     error_message = "Please specify a valid name."
   }
 }

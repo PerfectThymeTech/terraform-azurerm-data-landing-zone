@@ -21,7 +21,7 @@ module "ai_service" {
   cognitive_account_local_auth_enabled                    = false
   cognitive_account_deployments                           = {}
   diagnostics_configurations                              = var.diagnostics_configurations
-  subnet_id                                               = var.subnet_id_app
+  subnet_id                                               = var.subnet_id_private_endpoint
   connectivity_delay_in_seconds                           = var.connectivity_delay_in_seconds
   private_dns_zone_id_cognitive_account                   = each.value.kind == "OpenAI" ? var.private_dns_zone_id_open_ai : var.private_dns_zone_id_cognitive_account
   customer_managed_key                                    = var.customer_managed_key

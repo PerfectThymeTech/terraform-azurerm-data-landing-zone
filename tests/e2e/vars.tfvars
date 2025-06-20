@@ -43,20 +43,20 @@ zone_redundancy_enabled = false
 log_analytics_workspace_id = ""
 
 # Identity variables
-service_principal_name_terraform_plan = "ptt-dev-uai001-dlz-tfplan"
+service_principal_name_terraform_plan      = ""
+service_principal_object_id_terraform_plan = "362a1893-647a-45de-a059-6feae3fdb7d2"
+databricks_resourceprovider_object_id      = "7f7c7b4a-704d-4531-b73e-45e16b388271"
 
 # Network variables
-vnet_id        = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001"
-nsg_id         = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/networkSecurityGroups/ptt-dev-default-nsg001"
-route_table_id = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/routeTables/ptt-dev-default-rt001"
-subnet_cidr_ranges = {
-  storage_subnet                        = "10.2.0.0/27"
-  consumption_subnet                    = "10.2.0.32/28"
-  fabric_subnet                         = "10.2.0.48/28"
-  databricks_engineering_private_subnet = "10.2.0.64/26"
-  databricks_engineering_public_subnet  = "10.2.0.128/26"
-  # databricks_consumption_private_subnet = "10.2.0.192/26"
-  # databricks_consumption_public_subnet  = "10.2.1.0/26"
+vnet_id = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001"
+subnet_ids = {
+  subnet_id_storage             = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001/subnets/StorageSubnet"
+  subnet_id_consumption         = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001/subnets/ConsumptionSubnet"
+  subnet_id_engineering_private = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001/subnets/EngineeringPrivateSubnet"
+  subnet_id_engineering_public  = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001/subnets/EngineeringPublicSubnet"
+  # subnet_id_consumption_private = ""
+  # subnet_id_consumption_public = ""
+  subnet_id_fabric = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001/subnets/FabricSubnet"
 }
 
 # DNS variables

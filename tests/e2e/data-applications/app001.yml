@@ -5,13 +5,15 @@ tags:
 
 identity:
   admin_group_name: "app001-admin"
+  admin_group_object_id: "f3776135-9227-43a1-a4bd-b786a82878fc"
   developer_group_name: "app001-developer"
+  developer_group_object_id: "fd3a6a34-8e7c-4315-803a-eedba0cc4b83"
   reader_group_name: "app001-reader"
-  # service_principal_name: "app001-sp"
+  reader_group_object_id: "46a9f467-c63d-4a24-8de9-bb148135bec5"
 
 network:
   private_endpoint_subnet:
-    cidr_range: "10.2.1.64/27"
+    id: "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001/subnets/PrivateEndpointSubnet-dptest"
 
 repository:
   type: github
@@ -33,13 +35,9 @@ alerting:
 
 data_providers:
   p001:
-    service_principal_names: []
-    group_names:
-    - data-provider-001
-    databricks_catalog:
-      enabled: true
-      workspace_binding_catalog:
-      - "772046891226939"
+    service_principal_object_ids: []
+    group_object_ids:
+    - 5a310c32-c6fd-43b9-a2c2-d3f9171c57f6
 
 budget:
   categories:

@@ -22,14 +22,6 @@ resource "databricks_permissions" "permissions_directory" {
       permission_level = "CAN_READ"
     }
   }
-  # Service principal permissions
-  dynamic "access_control" {
-    for_each = var.service_principal_name == "" ? [] : [1]
-    content {
-      service_principal_name = one(databricks_service_principal.service_principal[*].application_id)
-      permission_level       = "CAN_MANAGE"
-    }
-  }
   # Service principal data factory permissions
   dynamic "access_control" {
     for_each = var.databricks_data_factory_details.data_factory_enabled ? [1] : []
@@ -48,7 +40,6 @@ resource "databricks_permissions" "permissions_directory" {
     databricks_permission_assignment.permission_assignment_admin,
     databricks_permission_assignment.permission_assignment_developer,
     databricks_permission_assignment.permission_assignment_reader,
-    databricks_permission_assignment.permission_assignment_service_principal,
     databricks_permission_assignment.permission_assignment_service_principal_data_factory,
     databricks_permission_assignment.permission_assignment_uai,
   ]
@@ -63,14 +54,6 @@ resource "databricks_permissions" "permissions_cluster_policy" {
   access_control {
     group_name       = data.databricks_group.group_admin.display_name
     permission_level = "CAN_USE"
-  }
-  # Service principal permissions
-  dynamic "access_control" {
-    for_each = var.service_principal_name == "" ? [] : [1]
-    content {
-      service_principal_name = one(databricks_service_principal.service_principal[*].application_id)
-      permission_level       = "CAN_USE"
-    }
   }
   # Service principal data factory permissions
   dynamic "access_control" {
@@ -90,7 +73,6 @@ resource "databricks_permissions" "permissions_cluster_policy" {
     databricks_permission_assignment.permission_assignment_admin,
     databricks_permission_assignment.permission_assignment_developer,
     databricks_permission_assignment.permission_assignment_reader,
-    databricks_permission_assignment.permission_assignment_service_principal,
     databricks_permission_assignment.permission_assignment_service_principal_data_factory,
     databricks_permission_assignment.permission_assignment_uai,
   ]
@@ -122,14 +104,6 @@ resource "databricks_permissions" "permissions_sql_endpoint" {
       permission_level = "CAN_USE"
     }
   }
-  # Service principal permissions
-  dynamic "access_control" {
-    for_each = var.service_principal_name == "" ? [] : [1]
-    content {
-      service_principal_name = one(databricks_service_principal.service_principal[*].application_id)
-      permission_level       = "CAN_MONITOR"
-    }
-  }
   # Service principal data factory permissions
   dynamic "access_control" {
     for_each = var.databricks_data_factory_details.data_factory_enabled ? [1] : []
@@ -148,7 +122,6 @@ resource "databricks_permissions" "permissions_sql_endpoint" {
     databricks_permission_assignment.permission_assignment_admin,
     databricks_permission_assignment.permission_assignment_developer,
     databricks_permission_assignment.permission_assignment_reader,
-    databricks_permission_assignment.permission_assignment_service_principal,
     databricks_permission_assignment.permission_assignment_service_principal_data_factory,
     databricks_permission_assignment.permission_assignment_uai,
   ]
@@ -162,7 +135,6 @@ resource "databricks_access_control_rule_set" "access_control_rule_set_budget_po
       data.databricks_group.group_admin.acl_principal_id,
       one(data.databricks_group.group_developer[*].acl_principal_id),
       one(data.databricks_group.group_reader[*].acl_principal_id),
-      one(databricks_service_principal.service_principal[*].acl_principal_id),
       one(databricks_service_principal.service_principal_data_factory[*].acl_principal_id),
       databricks_service_principal.service_principal_uai.acl_principal_id,
       var.databricks_service_principal_terraform_plan_details.acl_principal_id,
@@ -174,7 +146,6 @@ resource "databricks_access_control_rule_set" "access_control_rule_set_budget_po
     databricks_permission_assignment.permission_assignment_admin,
     databricks_permission_assignment.permission_assignment_developer,
     databricks_permission_assignment.permission_assignment_reader,
-    databricks_permission_assignment.permission_assignment_service_principal,
     databricks_permission_assignment.permission_assignment_service_principal_data_factory,
     databricks_permission_assignment.permission_assignment_uai,
   ]
@@ -188,26 +159,6 @@ resource "databricks_access_control_rule_set" "access_control_rule_set_service_p
       data.databricks_group.group_admin.acl_principal_id,
       one(data.databricks_group.group_developer[*].acl_principal_id),
       one(data.databricks_group.group_reader[*].acl_principal_id),
-      one(databricks_service_principal.service_principal[*].acl_principal_id),
-      one(databricks_service_principal.service_principal_data_factory[*].acl_principal_id),
-      databricks_service_principal.service_principal_uai.acl_principal_id,
-      var.databricks_service_principal_terraform_plan_details.acl_principal_id,
-    ])
-    role = "roles/servicePrincipal.user"
-  }
-}
-
-resource "databricks_access_control_rule_set" "access_control_rule_set_service_principal" {
-  count = var.service_principal_name == "" ? 0 : 1
-
-  name = "accounts/${var.databricks_account_id}/servicePrincipals/${one(databricks_service_principal.service_principal[*].application_id)}/ruleSets/default"
-
-  grant_rules {
-    principals = compact([
-      data.databricks_group.group_admin.acl_principal_id,
-      one(data.databricks_group.group_developer[*].acl_principal_id),
-      one(data.databricks_group.group_reader[*].acl_principal_id),
-      one(databricks_service_principal.service_principal[*].acl_principal_id),
       one(databricks_service_principal.service_principal_data_factory[*].acl_principal_id),
       databricks_service_principal.service_principal_uai.acl_principal_id,
       var.databricks_service_principal_terraform_plan_details.acl_principal_id,
