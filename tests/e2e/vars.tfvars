@@ -43,7 +43,7 @@ zone_redundancy_enabled = false
 log_analytics_workspace_id = ""
 
 # Identity variables
-service_principal_name_terraform_plan      = "ptt-dev-uai001-dlz-tfplan"
+service_principal_name_terraform_plan      = ""
 service_principal_object_id_terraform_plan = "362a1893-647a-45de-a059-6feae3fdb7d2"
 databricks_resourceprovider_object_id      = "7f7c7b4a-704d-4531-b73e-45e16b388271"
 
