@@ -44,7 +44,7 @@ locals {
     module.key_vault.key_vault_uri,
   ]
   ai_service_outbound_network_access_allowed_fqdns_search = var.search_service_details.enabled ? [
-    "${one(module.ai_search[*].search_service_name)}.search.windows.net",
+    "${local.search_service_name)}.search.windows.net",
   ] : []
   ai_service_outbound_network_access_allowed_fqdns = concat(
     local.ai_service_outbound_network_access_allowed_fqdns_storage,
@@ -154,6 +154,7 @@ locals {
   )
 
   # Search service locals
+  search_service_name = "${local.prefix}-srch001"
   search_service_shared_default_private_links = {
     "keyvault-vault" = {
       subresource_name   = "vault"
