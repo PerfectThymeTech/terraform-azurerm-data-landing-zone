@@ -44,7 +44,7 @@ locals {
     module.key_vault.key_vault_uri,
   ]
   ai_service_outbound_network_access_allowed_fqdns_search = var.search_service_details.enabled ? [
-    "${local.search_service_name)}.search.windows.net",
+    "${local.search_service_name}.search.windows.net",
   ] : []
   ai_service_outbound_network_access_allowed_fqdns = concat(
     local.ai_service_outbound_network_access_allowed_fqdns_storage,
