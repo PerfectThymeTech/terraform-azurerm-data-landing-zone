@@ -33,10 +33,10 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_provider_b
     for data_provider_key, data_provider_value in var.data_provider_details : {
       for ai_service_key, ai_service_value in var.ai_services :
       "${data_provider_key}-${ai_service_key}" => {
-        ai_service_key    = ai_service_key
-        ai_service_value  = ai_service_value
-        data_provider_key = data_provider_key
-        data_provider_value    = data_provider_value
+        ai_service_key      = ai_service_key
+        ai_service_value    = ai_service_value
+        data_provider_key   = data_provider_key
+        data_provider_value = data_provider_value
       }
     }
   ]...)
