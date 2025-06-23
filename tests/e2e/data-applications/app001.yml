@@ -54,6 +54,10 @@ ai_services:
     location: swedencentral
     kind: FormRecognizer
     sku: S0
+  aoai:
+    location: swedencentral
+    kind: OpenAI
+    sku: S0
 
 ai_search:
   enabled: false
