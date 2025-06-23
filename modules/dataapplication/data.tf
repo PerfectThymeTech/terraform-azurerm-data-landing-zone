@@ -19,7 +19,7 @@ data "azuread_service_principal" "service_principal" {
 data "azuread_service_principal" "service_principal_data_factory" {
   count = var.data_factory_details.enabled ? 1 : 0
 
-  display_name = one(module.data_factory[*].data_factory_name)
+  object_id = one(module.data_factory[*].data_factory_principal_id)
 }
 
 data "azuread_service_principal" "service_principal_terraform_plan" {
