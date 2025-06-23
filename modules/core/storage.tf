@@ -65,7 +65,7 @@ module "storage_account_raw" {
   storage_blob_last_access_time_enabled           = false
   storage_blob_versioning_enabled                 = false
   storage_is_hns_enabled                          = true
-  storage_network_bypass                          = ["None"]
+  storage_network_bypass                          = ["AzureServices"]
   storage_network_private_link_access             = local.storage_network_private_link_access
   storage_public_network_access_enabled           = true
   storage_nfsv3_enabled                           = false
@@ -109,7 +109,7 @@ module "storage_account_enriched" {
   storage_blob_last_access_time_enabled           = false
   storage_blob_versioning_enabled                 = false
   storage_is_hns_enabled                          = true
-  storage_network_bypass                          = ["None"]
+  storage_network_bypass                          = ["AzureServices"]
   storage_network_private_link_access             = local.storage_network_private_link_access
   storage_public_network_access_enabled           = true
   storage_nfsv3_enabled                           = false
@@ -153,7 +153,7 @@ module "storage_account_curated" {
   storage_blob_last_access_time_enabled           = false
   storage_blob_versioning_enabled                 = false
   storage_is_hns_enabled                          = true
-  storage_network_bypass                          = ["None"]
+  storage_network_bypass                          = ["AzureServices"]
   storage_network_private_link_access             = local.storage_network_private_link_access
   storage_public_network_access_enabled           = true
   storage_nfsv3_enabled                           = false
@@ -197,7 +197,7 @@ module "storage_account_workspace" {
   storage_blob_last_access_time_enabled           = false
   storage_blob_versioning_enabled                 = false
   storage_is_hns_enabled                          = true
-  storage_network_bypass                          = ["None"]
+  storage_network_bypass                          = ["AzureServices"]
   storage_network_private_link_access             = local.storage_network_private_link_access
   storage_public_network_access_enabled           = true
   storage_nfsv3_enabled                           = false

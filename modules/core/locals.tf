@@ -27,6 +27,13 @@ locals {
       exposed_headers    = [""]
       max_age_in_seconds = 1800
     }
+    openai = {
+      allowed_headers    = ["*"]
+      allowed_methods    = ["GET", "POST", "OPTIONS", "PUT"]
+      allowed_origins    = ["*"]
+      exposed_headers    = ["*"]
+      max_age_in_seconds = 200
+    }
   }
 
   # Databricks locals

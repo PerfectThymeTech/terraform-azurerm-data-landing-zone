@@ -10,7 +10,7 @@ module "ai_search" {
   location                                    = var.location
   resource_group_name                         = azurerm_resource_group.resource_group_app.name
   tags                                        = local.tags
-  search_service_name                         = "${local.prefix}-srch001"
+  search_service_name                         = local.search_service_name
   search_service_sku                          = var.search_service_details.sku
   search_service_semantic_search_sku          = var.search_service_details.semantic_search_sku
   search_service_local_authentication_enabled = false
