@@ -41,7 +41,7 @@ locals {
     "${reverse(split("/", var.storage_account_ids.workspace))[0]}.dfs.core.windows.net",
   ]
   ai_service_outbound_network_access_allowed_fqdns_key_vault = [
-    module.key_vault.key_vault_uri,
+    replace(module.key_vault.key_vault_uri, "https://", ""),
   ]
   ai_service_outbound_network_access_allowed_fqdns_search = var.search_service_details.enabled ? [
     "${local.search_service_name}.search.windows.net",
