@@ -17,7 +17,7 @@ module "ai_service" {
   cognitive_account_sku                                   = each.value.sku
   cognitive_account_firewall_bypass_azure_services        = contains(local.ai_service_kind_firewall_bypass_azure_services_list, each.value.kind) ? true : false
   cognitive_account_outbound_network_access_restricted    = true
-  cognitive_account_outbound_network_access_allowed_fqdns = []
+  cognitive_account_outbound_network_access_allowed_fqdns = local.ai_service_outbound_network_access_allowed_fqdns
   cognitive_account_local_auth_enabled                    = false
   cognitive_account_deployments                           = {}
   diagnostics_configurations                              = var.diagnostics_configurations
