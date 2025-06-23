@@ -54,9 +54,13 @@ ai_services:
     location: swedencentral
     kind: FormRecognizer
     sku: S0
+  aoai:
+    location: swedencentral
+    kind: OpenAI
+    sku: S0
 
 ai_search:
-  enabled: false
+  enabled: true
   sku: standard
   semantic_search_sku: standard
   partition_count: 1

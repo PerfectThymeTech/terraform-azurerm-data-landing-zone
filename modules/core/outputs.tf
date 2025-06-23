@@ -50,5 +50,5 @@ output "storage_dependencies" {
 # Fabric outputs
 output "fabric_capacity_name" {
   description = "Specifies the name of the Fabric capacity."
-  value       = reverse(split("/", one(module.fabric_capacity[*].fabric_capacity_id)))[0]
+  value       = try(reverse(split("/", one(module.fabric_capacity[*].fabric_capacity_id), "/"))[0], "")
 }

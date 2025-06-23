@@ -35,6 +35,7 @@ output "data_factory_details" {
     data_factory_name         = var.data_factory_details.enabled ? one(module.data_factory[*].data_factory_name) : ""
     data_factory_id           = var.data_factory_details.enabled ? one(module.data_factory[*].data_factory_id) : ""
     data_factory_principal_id = var.data_factory_details.enabled ? one(module.data_factory[*].data_factory_principal_id) : ""
+    data_factory_client_id    = var.data_factory_details.enabled ? one(data.azuread_service_principal.service_principal_data_factory[*].client_id) : ""
   }
   sensitive = false
 }
@@ -85,6 +86,7 @@ output "user_assigned_identity_details" {
     user_assigned_identity_name         = module.user_assigned_identity.user_assigned_identity_name
     user_assigned_identity_id           = module.user_assigned_identity.user_assigned_identity_id
     user_assigned_identity_principal_id = module.user_assigned_identity.user_assigned_identity_principal_id
+    user_assigned_identity_client_id    = module.user_assigned_identity.user_assigned_identity_client_id
   }
   sensitive = false
 }

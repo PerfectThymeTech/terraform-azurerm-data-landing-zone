@@ -48,7 +48,8 @@ module "core" {
   tags        = var.tags
 
   # Service variables
-  data_platform_subscription_ids                   = var.data_platform_subscription_ids
+  trusted_subscription_ids                         = var.trusted_subscription_ids
+  trusted_fabric_workspace_ids                     = var.trusted_fabric_workspace_ids
   databricks_compliance_security_profile_standards = var.databricks_compliance_security_profile_standards
   databricks_workspace_consumption_enabled         = var.databricks_workspace_consumption_enabled
   fabric_capacity_details                          = var.fabric_capacity_details

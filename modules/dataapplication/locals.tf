@@ -28,6 +28,29 @@ locals {
   } : {}
 
   # AI service locals
+  ai_service_outbound_network_access_allowed_fqdns_storage = [
+    "${reverse(split("/", var.storage_account_ids.provider))[0]}.blob.core.windows.net",
+    "${reverse(split("/", var.storage_account_ids.raw))[0]}.blob.core.windows.net",
+    "${reverse(split("/", var.storage_account_ids.enriched))[0]}.blob.core.windows.net",
+    "${reverse(split("/", var.storage_account_ids.curated))[0]}.blob.core.windows.net",
+    "${reverse(split("/", var.storage_account_ids.workspace))[0]}.blob.core.windows.net",
+    "${reverse(split("/", var.storage_account_ids.provider))[0]}.dfs.core.windows.net",
+    "${reverse(split("/", var.storage_account_ids.raw))[0]}.dfs.core.windows.net",
+    "${reverse(split("/", var.storage_account_ids.enriched))[0]}.dfs.core.windows.net",
+    "${reverse(split("/", var.storage_account_ids.curated))[0]}.dfs.core.windows.net",
+    "${reverse(split("/", var.storage_account_ids.workspace))[0]}.dfs.core.windows.net",
+  ]
+  ai_service_outbound_network_access_allowed_fqdns_key_vault = [
+    "${module.key_vault.key_vault_name}.vault.azure.net",
+  ]
+  ai_service_outbound_network_access_allowed_fqdns_search = var.search_service_details.enabled ? [
+    "${local.search_service_name}.search.windows.net",
+  ] : []
+  ai_service_outbound_network_access_allowed_fqdns = concat(
+    local.ai_service_outbound_network_access_allowed_fqdns_storage,
+    local.ai_service_outbound_network_access_allowed_fqdns_key_vault,
+    local.ai_service_outbound_network_access_allowed_fqdns_search,
+  )
   ai_service_kind_firewall_bypass_azure_services_list = [
     "OpenAI"
   ]
@@ -67,7 +90,7 @@ locals {
   }
 
   # Data factory locals
-  data_factory_default_integration_runtime_name = "AutoResolveIntegrationRuntime"
+  data_factory_default_integration_runtime_name = "AutoResolveIntegrationRuntimeVnet"
   data_factory_default_managed_private_endpoints = {
     "storage-provider-blob" = {
       subresource_name   = "blob"
@@ -131,6 +154,7 @@ locals {
   )
 
   # Search service locals
+  search_service_name = "${local.prefix}-srch001"
   search_service_shared_default_private_links = {
     "keyvault-vault" = {
       subresource_name   = "vault"

@@ -5,7 +5,8 @@ prefix      = "mydlz01"
 tags        = {}
 
 # Service
-data_platform_subscription_ids              = []
+trusted_subscription_ids                    = ["1fdab118-1638-419a-8b12-06c9543714a0"]
+trusted_fabric_workspace_ids                = ["898a945c-dff2-4f92-923b-626d7be08c32"]
 data_application_library_path               = "./data-applications"
 data_application_file_variables             = {}
 databricks_cluster_policy_library_path      = "./databricks-cluster-policies"
@@ -30,7 +31,7 @@ databricks_workspace_consumption_enabled         = false
 databricks_compliance_security_profile_standards = ["PCI_DSS"]
 databricks_workspace_binding_catalog             = {}
 fabric_capacity_details = {
-  enabled      = true
+  enabled      = false
   admin_emails = []
   sku          = "F2"
 }

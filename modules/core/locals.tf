@@ -3,22 +3,22 @@ locals {
   prefix = "${lower(var.prefix)}-${var.environment}-core"
 
   # Storage locals
-  storage_provider_network_private_link_access = [
-    "/subscriptions/${data.azurerm_client_config.current.subscription_id}/providers/Microsoft.Security/datascanners/storageDataScanner",
-    "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/*/providers/Microsoft.Synapse/workspaces/*",
-    "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/*/providers/Microsoft.CognitiveServices/accounts/*",
-    "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/*/providers/Microsoft.Search/searchServices/*",
-    "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/*/providers/Microsoft.MachineLearningServices/workspaces/*",
-    "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/*/providers/Microsoft.Databricks/accessConnectors/*",
+  trusted_subscription_ids = distinct(concat(var.trusted_subscription_ids, [data.azurerm_client_config.current.subscription_id]))
+  storage_network_private_link_access_fabric = [
+    for item in var.trusted_fabric_workspace_ids :
+    "/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/Fabric/providers/Microsoft.Fabric/workspaces/${item}"
   ]
-  storage_network_private_link_access = [
-    "/subscriptions/${data.azurerm_client_config.current.subscription_id}/providers/Microsoft.Security/datascanners/storageDataScanner",
-    "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/*/providers/Microsoft.Synapse/workspaces/*",
-    "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/*/providers/Microsoft.CognitiveServices/accounts/*",
-    "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/*/providers/Microsoft.Search/searchServices/*",
-    "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/*/providers/Microsoft.MachineLearningServices/workspaces/*",
-    "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/*/providers/Microsoft.Databricks/accessConnectors/*",
-  ]
+  storage_network_private_link_access_azure = flatten([
+    for item in local.trusted_subscription_ids : [
+      "/subscriptions/${item}/providers/Microsoft.Security/datascanners/storageDataScanner",
+      "/subscriptions/${item}/resourceGroups/*/providers/Microsoft.Synapse/workspaces/*",
+      "/subscriptions/${item}/resourceGroups/*/providers/Microsoft.CognitiveServices/accounts/*",
+      "/subscriptions/${item}/resourceGroups/*/providers/Microsoft.Search/searchServices/*",
+      "/subscriptions/${item}/resourceGroups/*/providers/Microsoft.MachineLearningServices/workspaces/*",
+      "/subscriptions/${item}/resourceGroups/*/providers/Microsoft.Databricks/accessConnectors/*",
+    ]
+  ])
+  storage_network_private_link_access = concat(local.storage_network_private_link_access_azure, local.storage_network_private_link_access_fabric)
   storage_blob_cors_rules = {
     databricks = {
       allowed_headers    = ["x-ms-blob-type"]
@@ -26,6 +26,13 @@ locals {
       allowed_origins    = ["https://*.azuredatabricks.net"]
       exposed_headers    = [""]
       max_age_in_seconds = 1800
+    }
+    openai = {
+      allowed_headers    = ["*"]
+      allowed_methods    = ["GET", "POST", "OPTIONS", "PUT"]
+      allowed_origins    = ["*"]
+      exposed_headers    = ["*"]
+      max_age_in_seconds = 200
     }
   }
 
