@@ -69,6 +69,14 @@ output "storage_queue_ids" {
     workspace = azurerm_storage_queue.storage_queue_workspace.id
   }
   sensitive = false
+
+  depends_on = [
+    azurerm_role_assignment.role_assignment_storage_queue_provider_queue_data_contributor_accessconnector,
+    azurerm_role_assignment.role_assignment_storage_queue_raw_queue_data_contributor_accessconnector,
+    azurerm_role_assignment.role_assignment_storage_queue_enriched_queue_data_contributor_accessconnector,
+    azurerm_role_assignment.role_assignment_storage_queue_curated_queue_data_contributor_accessconnector,
+    azurerm_role_assignment.role_assignment_storage_queue_workspace_queue_data_contributor_accessconnector,
+  ]
 }
 
 # User assigned identity outputs
