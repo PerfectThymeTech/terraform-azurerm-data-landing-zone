@@ -95,6 +95,20 @@ variable "zone_redundancy_enabled" {
   default     = true
 }
 
+variable "geo_redundancy_storage_enabled" {
+  description = "Specifies whether geo-redundancy should be enabled for the storage layers."
+  type = object({
+    provider  = optional(bool, false)
+    raw       = optional(bool, false)
+    enriched  = optional(bool, false)
+    curated   = optional(bool, false)
+    workspace = optional(bool, false)
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+}
+
 # Logging and monitoring variables
 variable "diagnostics_configurations" {
   description = "Specifies the diagnostic configuration for the service."
