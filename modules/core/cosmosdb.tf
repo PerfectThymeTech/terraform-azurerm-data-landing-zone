@@ -8,8 +8,8 @@ module "cosmos_db" {
   count = var.ai_foundry_account_details.enabled ? 1 : 0
 
   location                                            = var.location
-  resource_group_name                                 = azurerm_resource_group.resource_group_ai.name
-  tags                                                = local.tags
+  resource_group_name                                 = one(azurerm_resource_group.resource_group_ai[*].name)
+  tags                                                = var.tags
   cosmosdb_account_name                               = "${local.prefix}-csms001"
   cosmosdb_account_access_key_metadata_writes_enabled = false
   cosmosdb_account_analytical_storage_enabled         = false
@@ -24,7 +24,7 @@ module "cosmos_db" {
   cosmosdb_account_capabilities                    = []
   cosmosdb_account_capacity_total_throughput_limit = -1
   cosmosdb_account_consistency_policy = {
-    consistency_level       = var.aifoundry_details.cosmos_db.consistency_level
+    consistency_level       = var.ai_foundry_account_details.cosmos_db.consistency_level
     max_interval_in_seconds = null
     max_staleness_prefix    = null
   }

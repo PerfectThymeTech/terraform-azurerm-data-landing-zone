@@ -228,7 +228,7 @@ module "storage_account_aifoundry" {
   count = var.ai_foundry_account_details.enabled ? 1 : 0
 
   location            = var.location
-  resource_group_name = azurerm_resource_group.resource_group_ai.name
+  resource_group_name = one(azurerm_resource_group.resource_group_ai[*].name)
   tags                = var.tags
 
   storage_account_name                            = replace("${local.prefix}-stg-aif", "-", "")

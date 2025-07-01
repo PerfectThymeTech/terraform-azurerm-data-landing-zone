@@ -8,8 +8,8 @@ module "ai_foundry_account" {
   count = var.ai_foundry_account_details.enabled ? 1 : 0
 
   location                                          = var.location
-  resource_group_name                               = azurerm_resource_group.resource_group_ai.name
-  tags                                              = local.tags
+  resource_group_name                               = one(azurerm_resource_group.resource_group_ai[*].name)
+  tags                                              = var.tags
   ai_services_name                                  = "${local.prefix}-aif001"
   ai_services_sku                                   = "S0"
   ai_services_firewall_bypass_azure_services        = true
