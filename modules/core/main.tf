@@ -19,7 +19,7 @@ resource "azurerm_resource_group" "resource_group_consumption" {
 }
 
 resource "azurerm_resource_group" "resource_group_ai" {
-  count = var.aifoundry_details.enabled ? 1 : 0
+  count = var.ai_foundry_account_details.enabled ? 1 : 0
 
   name     = "${local.prefix}-cnsmptn-rg"
   location = var.location

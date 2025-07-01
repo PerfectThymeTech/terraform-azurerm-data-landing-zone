@@ -58,11 +58,11 @@ output "ai_foundry_account_details" {
   description = "Specifies the ai foundry details of the account."
   value = {
     ai_foundry_account = {
-      id = module.ai_foundry_account.ai_services_id
+      id = one(module.ai_foundry_account[*].ai_services_id)
     }
     search_service = {
-      id     = module.ai_search.search_service_id
-      target = "https://${module.ai_search.search_service_name}.search.windows.net"
+      id     = one(module.ai_search[*].search_service_id)
+      target = "https://${one(module.ai_search[*].search_service_name)}.search.windows.net"
     }
     cosmos_db = {
       id     = one(module.cosmos_db[*].cosmosdb_account_id)

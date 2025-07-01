@@ -224,6 +224,8 @@ module "storage_account_aifoundry" {
     azurerm = azurerm
     time    = time
   }
+  
+  count = var.ai_foundry_account_details.enabled ? 1 : 0
 
   location            = var.location
   resource_group_name = azurerm_resource_group.resource_group_ai.name
