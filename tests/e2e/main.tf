@@ -34,7 +34,8 @@ module "data_landing_zone" {
   ai_foundry_account_details                       = var.ai_foundry_account_details
 
   # HA/DR variables
-  zone_redundancy_enabled = false
+  zone_redundancy_enabled        = var.zone_redundancy_enabled
+  geo_redundancy_storage_enabled = var.geo_redundancy_storage_enabled
 
   # Logging variables
   log_analytics_workspace_id = var.log_analytics_workspace_id

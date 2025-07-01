@@ -13,7 +13,7 @@ module "storage_account_provider" {
   storage_access_tier                             = "Hot"
   storage_account_type                            = "StorageV2"
   storage_account_tier                            = "Standard"
-  storage_account_replication_type                = var.zone_redundancy_enabled ? "ZRS" : "LRS"
+  storage_account_replication_type                = var.zone_redundancy_enabled ? (var.geo_redundancy_storage_enabled.provider ? "GZRS" : "ZRS") : (var.geo_redundancy_storage_enabled.provider ? "GRS" : "LRS")
   storage_blob_change_feed_enabled                = false
   storage_blob_container_delete_retention_in_days = 30
   storage_blob_delete_retention_in_days           = 30
@@ -57,7 +57,7 @@ module "storage_account_raw" {
   storage_access_tier                             = "Hot"
   storage_account_type                            = "StorageV2"
   storage_account_tier                            = "Standard"
-  storage_account_replication_type                = var.zone_redundancy_enabled ? "ZRS" : "LRS"
+  storage_account_replication_type                = var.zone_redundancy_enabled ? (var.geo_redundancy_storage_enabled.raw ? "GZRS" : "ZRS") : (var.geo_redundancy_storage_enabled.raw ? "GRS" : "LRS")
   storage_blob_change_feed_enabled                = false
   storage_blob_container_delete_retention_in_days = 30
   storage_blob_delete_retention_in_days           = 30
@@ -101,7 +101,7 @@ module "storage_account_enriched" {
   storage_access_tier                             = "Hot"
   storage_account_type                            = "StorageV2"
   storage_account_tier                            = "Standard"
-  storage_account_replication_type                = var.zone_redundancy_enabled ? "ZRS" : "LRS"
+  storage_account_replication_type                = var.zone_redundancy_enabled ? (var.geo_redundancy_storage_enabled.enriched ? "GZRS" : "ZRS") : (var.geo_redundancy_storage_enabled.enriched ? "GRS" : "LRS")
   storage_blob_change_feed_enabled                = false
   storage_blob_container_delete_retention_in_days = 30
   storage_blob_delete_retention_in_days           = 30
@@ -145,7 +145,7 @@ module "storage_account_curated" {
   storage_access_tier                             = "Hot"
   storage_account_type                            = "StorageV2"
   storage_account_tier                            = "Standard"
-  storage_account_replication_type                = var.zone_redundancy_enabled ? "ZRS" : "LRS"
+  storage_account_replication_type                = var.zone_redundancy_enabled ? (var.geo_redundancy_storage_enabled.curated ? "GZRS" : "ZRS") : (var.geo_redundancy_storage_enabled.curated ? "GRS" : "LRS")
   storage_blob_change_feed_enabled                = false
   storage_blob_container_delete_retention_in_days = 30
   storage_blob_delete_retention_in_days           = 30
@@ -189,7 +189,7 @@ module "storage_account_workspace" {
   storage_access_tier                             = "Hot"
   storage_account_type                            = "StorageV2"
   storage_account_tier                            = "Standard"
-  storage_account_replication_type                = var.zone_redundancy_enabled ? "ZRS" : "LRS"
+  storage_account_replication_type                = var.zone_redundancy_enabled ? (var.geo_redundancy_storage_enabled.workspace ? "GZRS" : "ZRS") : (var.geo_redundancy_storage_enabled.workspace ? "GRS" : "LRS")
   storage_blob_change_feed_enabled                = false
   storage_blob_container_delete_retention_in_days = 30
   storage_blob_delete_retention_in_days           = 30
