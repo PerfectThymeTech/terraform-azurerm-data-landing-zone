@@ -103,4 +103,7 @@ locals {
       group_id    = "dfs"
     }
   }
+
+  # Search service locals
+  search_service_shared_private_links = {}
 }

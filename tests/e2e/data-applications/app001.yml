@@ -66,6 +66,9 @@ ai_search:
   partition_count: 1
   replica_count: 1
 
+ai_foundry_project:
+  enabled: true
+
 databricks:
   sql_endpoints:
     dw01:

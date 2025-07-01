@@ -57,6 +57,27 @@ resource "azurerm_role_assignment" "role_assignment_databricks_workspace_reader_
 
 # AI search service role assignment
 
+# AI Foundry role assignments
+resource "azurerm_role_assignment" "role_assignment_ai_foundry_account_reader_reader" {
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" && var.reader_group_name != "" ? 1 : 0
+
+  description          = "Role assignment to ai foundry account."
+  scope                = var.ai_foundry_account_details.ai_foundry_account.id
+  role_definition_name = "Reader"
+  principal_id         = one(data.azuread_group.group_reader[*].object_id)
+  principal_type       = "Group"
+}
+
+resource "azurerm_role_assignment" "role_assignment_ai_foundry_project_reader_reader" {
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" && var.reader_group_name != "" ? 1 : 0
+
+  description          = "Role assignment to ai foundry project."
+  scope                = one(azapi_resource.ai_foundry_project[*].id)
+  role_definition_name = "Reader"
+  principal_id         = one(data.azuread_group.group_reader[*].object_id)
+  principal_type       = "Group"
+}
+
 # Data factory role assignments
 
 # Fabric role assignments

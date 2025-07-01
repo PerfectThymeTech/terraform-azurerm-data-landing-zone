@@ -93,6 +93,27 @@ resource "azurerm_role_assignment" "role_assignment_search_service_contributor_s
   principal_type       = "ServicePrincipal"
 }
 
+# AI Foundry role assignments
+resource "azurerm_role_assignment" "role_assignment_ai_foundry_account_reader_service_principal" {
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" && var.service_principal_name != "" ? 1 : 0
+
+  description          = "Role assignment to ai foundry account."
+  scope                = var.ai_foundry_account_details.ai_foundry_account.id
+  role_definition_name = "Reader"
+  principal_id         = one(data.azuread_service_principal.service_principal[*].object_id)
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_ai_foundry_project_manager_service_principal" {
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" && var.service_principal_name != "" ? 1 : 0
+
+  description          = "Role assignment to ai foundry project."
+  scope                = one(azapi_resource.ai_foundry_project[*].id)
+  role_definition_name = "Azure AI Project Manager"
+  principal_id         = one(data.azuread_service_principal.service_principal[*].object_id)
+  principal_type       = "ServicePrincipal"
+}
+
 # Data factory role assignments
 resource "azurerm_role_assignment" "role_assignment_data_factory_data_factory_contributor_service_principal" {
   count = var.service_principal_name != "" && var.data_factory_details.enabled ? 1 : 0

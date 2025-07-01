@@ -81,6 +81,32 @@ locals {
       serviceEndpoints        = []
     }
   }
+  subnet_aifoundry = var.aifoundry_enabled ? {
+    name = "AiFoundrySubnet"
+    properties = {
+      addressPrefix         = var.subnet_cidr_range_aifoundry
+      defaultOutboundAccess = false
+      delegations = [
+        {
+          name = "AppDelegation"
+          properties = {
+            serviceName = "Microsoft.App/environments"
+          }
+        }
+      ]
+      ipAllocations = []
+      networkSecurityGroup = {
+        id = data.azurerm_network_security_group.network_security_group.id
+      }
+      privateEndpointNetworkPolicies    = "Enabled"
+      privateLinkServiceNetworkPolicies = "Enabled"
+      routeTable = {
+        id = data.azurerm_route_table.route_table.id
+      }
+      serviceEndpointPolicies = []
+      serviceEndpoints        = []
+    }
+  } : null
   subnet_engineering_private = {
     name = "EngineeringPrivateSubnet"
     properties = {
@@ -133,7 +159,7 @@ locals {
       serviceEndpoints        = []
     }
   }
-  subnet_consumption_private = {
+  subnet_consumption_private = var.databricks_workspace_consumption_enabled ? {
     name = "ConsumptionPrivateSubnet"
     properties = {
       addressPrefix         = var.subnet_cidr_range_consumption_private
@@ -158,8 +184,8 @@ locals {
       serviceEndpointPolicies = []
       serviceEndpoints        = []
     }
-  }
-  subnet_consumption_public = {
+  } : null
+  subnet_consumption_public = var.databricks_workspace_consumption_enabled ? {
     name = "ConsumptionPublicSubnet"
     properties = {
       addressPrefix         = var.subnet_cidr_range_consumption_public
@@ -184,7 +210,7 @@ locals {
       serviceEndpointPolicies = []
       serviceEndpoints        = []
     }
-  }
+  } : null
   subnets_private_endpoint_applications = [
     for key, value in var.subnet_cidr_range_applications :
     {
@@ -207,4 +233,41 @@ locals {
       }
     }
   ]
+}
+
+locals {
+  # Calculate subnet list
+  # Databricks Consumption enabled?
+  subnets_databricks_consumption = var.databricks_workspace_consumption_enabled ? flatten([
+    [
+      local.subnet_storage,
+      local.subnet_consumption,
+      local.subnet_fabric,
+      local.subnet_engineering_private,
+      local.subnet_engineering_public,
+      local.subnet_consumption_private,
+      local.subnet_consumption_public,
+    ],
+    local.subnets_private_endpoint_applications,
+    ]) : flatten([
+    [
+      local.subnet_storage,
+      local.subnet_consumption,
+      local.subnet_fabric,
+      local.subnet_engineering_private,
+      local.subnet_engineering_public,
+    ],
+    local.subnets_private_endpoint_applications,
+  ])
+
+  # AI Foundry enabled?
+  subnets_aifoundry = var.aifoundry_enabled ? concat(
+    local.subnets_databricks_consumption,
+    [
+      local.subnet_aifoundry
+    ]
+  ) : local.subnets_databricks_consumption
+
+  # Final subnet list
+  subnets = local.subnets_aifoundry
 }

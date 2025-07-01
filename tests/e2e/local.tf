@@ -2,6 +2,7 @@ locals {
   # General locals
   resource_providers_to_register = [
     "Microsoft.Authorization",
+    "Microsoft.App",
     "Microsoft.CognitiveServices",
     "Microsoft.Databricks",
     "Microsoft.DataFactory",

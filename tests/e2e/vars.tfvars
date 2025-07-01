@@ -35,6 +35,9 @@ fabric_capacity_details = {
   admin_emails = []
   sku          = "F2"
 }
+ai_foundry_account_details = {
+  enabled = true
+}
 
 # HA/DR variables
 zone_redundancy_enabled = false
@@ -57,6 +60,7 @@ subnet_cidr_ranges = {
   databricks_engineering_public_subnet  = "10.2.0.128/26"
   # databricks_consumption_private_subnet = "10.2.0.192/26"
   # databricks_consumption_public_subnet  = "10.2.1.0/26"
+  aifoundry_subnet = "10.2.1.64/27"
 }
 
 # DNS variables
@@ -67,8 +71,10 @@ private_dns_zone_id_vault             = "/subscriptions/e82c5267-9dc4-4f45-ac13-
 private_dns_zone_id_databricks        = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.azuredatabricks.net"
 private_dns_zone_id_cognitive_account = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.cognitiveservices.azure.com"
 private_dns_zone_id_open_ai           = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.openai.azure.com"
+private_dns_zone_id_ai_services       = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.services.ai.azure.com"
 private_dns_zone_id_data_factory      = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.datafactory.azure.net"
 private_dns_zone_id_search_service    = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.search.windows.net"
+private_dns_zone_id_cosmos_sql        = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.documents.azure.com"
 
 # Customer-managed key variables
 customer_managed_key = null
