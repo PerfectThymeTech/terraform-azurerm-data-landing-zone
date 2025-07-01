@@ -75,6 +75,6 @@ output "ai_foundry_account_details" {
   }
   sensitive = false
   depends_on = [
-    one(module.ai_foundry_account[*].ai_services_setup_completed),
+    # one(module.ai_foundry_account[*].ai_services_setup_completed),
   ]
 }

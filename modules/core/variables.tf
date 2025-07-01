@@ -175,11 +175,11 @@ variable "subnet_id_consumption" {
 }
 
 variable "subnet_id_aifoundry" {
-  description = "Specifies the id of the consumption subnet used for the databricks workspaces."
+  description = "Specifies the id of the ai foundry subnet used for the agent service."
   type        = string
   sensitive   = false
   validation {
-    condition     = length(split("/", var.subnet_id_consumption)) == 11
+    condition     = length(split("/", var.subnet_id_aifoundry)) == 11
     error_message = "Please specify a valid resource ID."
   }
 }
