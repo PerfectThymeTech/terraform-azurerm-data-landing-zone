@@ -409,6 +409,24 @@ object({
 
 Default: `{}`
 
+### <a name="input_geo_redundancy_storage_enabled"></a> [geo\_redundancy\_storage\_enabled](#input\_geo\_redundancy\_storage\_enabled)
+
+Description: Specifies whether geo-redundancy should be enabled for the storage layers.
+
+Type:
+
+```hcl
+object({
+    provider  = optional(bool, false)
+    raw       = optional(bool, false)
+    enriched  = optional(bool, false)
+    curated   = optional(bool, false)
+    workspace = optional(bool, false)
+  })
+```
+
+Default: `{}`
+
 ### <a name="input_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#input\_log\_analytics\_workspace\_id)
 
 Description: Specifies the resource ID of a log analytics workspace for all diagnostic logs.
