@@ -9,9 +9,9 @@ resource "azapi_resource" "ai_foundry_project_capability_hosts" {
     properties = {
       aiServicesConnections    = slice(local.ai_foundry_project_connection_openai_names, 0, 1)
       capabilityHostKind       = "Agents"
-      storageConnections       = [azapi_resource.ai_foundry_project_connection_storage_account.name]
-      threadStorageConnections = [azapi_resource.ai_foundry_project_connection_cosmosdb_account.name]
-      vectorStoreConnections   = [azapi_resource.ai_foundry_project_connection_search_service_account.name]
+      storageConnections       = [one(azapi_resource.ai_foundry_project_connection_storage_account[*].name)]
+      threadStorageConnections = [one(azapi_resource.ai_foundry_project_connection_cosmosdb_account[*].name)]
+      vectorStoreConnections   = [one(azapi_resource.ai_foundry_project_connection_search_service_account[*].name)]
     }
   }
 
