@@ -43,7 +43,7 @@ ai_foundry_account_details = {
 zone_redundancy_enabled = false
 
 # Logging variables
-log_analytics_workspace_id = ""
+log_analytics_workspace_id = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-logging-rg/providers/Microsoft.OperationalInsights/workspaces/ptt-dev-log001"
 
 # Identity variables
 service_principal_name_terraform_plan = "ptt-dev-uai001-dlz-tfplan"
