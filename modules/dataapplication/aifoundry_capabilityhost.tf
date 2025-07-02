@@ -1,5 +1,5 @@
 resource "azapi_resource" "ai_foundry_project_capability_hosts" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   type      = "Microsoft.CognitiveServices/accounts/projects/capabilityHosts@2025-04-01-preview"
   name      = "default-project-${local.prefix}"

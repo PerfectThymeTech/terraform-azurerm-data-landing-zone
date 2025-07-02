@@ -83,7 +83,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_contributor_a
 
 # AI Foundry role assignments
 resource "azurerm_role_assignment" "role_assignment_ai_foundry_account_reader_accessconnector" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   description          = "Role assignment to ai foundry account."
   scope                = var.ai_foundry_account_details.ai_foundry_account.id
@@ -93,7 +93,7 @@ resource "azurerm_role_assignment" "role_assignment_ai_foundry_account_reader_ac
 }
 
 resource "azurerm_role_assignment" "role_assignment_ai_foundry_project_manager_accessconnector" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   description          = "Role assignment to ai foundry project."
   scope                = one(azapi_resource.ai_foundry_project[*].id)

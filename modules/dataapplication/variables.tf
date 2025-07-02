@@ -210,6 +210,7 @@ variable "fabric_workspace_details" {
 variable "ai_foundry_account_details" {
   description = "Specifies the ai foundry account details."
   type = object({
+    enabled = optional(bool, false)
     ai_foundry_account = optional(object({
       id = optional(string, "")
     }), {})

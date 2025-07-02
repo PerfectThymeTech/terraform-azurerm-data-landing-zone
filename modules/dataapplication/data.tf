@@ -76,7 +76,7 @@ data "azuread_service_principal" "service_principal_data_provider" {
 }
 
 data "azurerm_cosmosdb_sql_role_definition" "cosmosdb_sql_role_definition" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   resource_group_name = split("/", var.ai_foundry_account_details.cosmos_db.id)[4]
   account_name        = reverse(split("/", var.ai_foundry_account_details.cosmos_db.id))[0]

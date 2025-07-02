@@ -1,6 +1,6 @@
 # Capability Host Role Assignments
 resource "azurerm_role_assignment" "role_assignment_storage_account_aifoundry_blob_data_contributor_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   description          = "Role assignment for storage write operations."
   scope                = var.ai_foundry_account_details.storage_account.id
@@ -10,7 +10,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_account_aifoundry_bl
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_account_aifoundry_blob_data_owner_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   description          = "Role assignment for storage write operations."
   scope                = var.ai_foundry_account_details.storage_account.id
@@ -38,7 +38,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_account_aifoundry_bl
 }
 
 resource "azurerm_role_assignment" "role_assignment_cosmosdb_account_operator_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   description          = "Role assignment for cosmos write operations."
   scope                = var.ai_foundry_account_details.cosmos_db.id
@@ -48,7 +48,7 @@ resource "azurerm_role_assignment" "role_assignment_cosmosdb_account_operator_ai
 }
 
 resource "azurerm_cosmosdb_sql_role_assignment" "cosmosdb_sql_role_assignment_thread_message_store_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   resource_group_name = split("/", var.ai_foundry_account_details.cosmos_db.id)[4]
   account_name        = reverse(split("/", var.ai_foundry_account_details.cosmos_db.id))[0]
@@ -62,7 +62,7 @@ resource "azurerm_cosmosdb_sql_role_assignment" "cosmosdb_sql_role_assignment_th
 }
 
 resource "azurerm_cosmosdb_sql_role_assignment" "cosmosdb_sql_role_assignment_system_thread_message_store_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   resource_group_name = split("/", var.ai_foundry_account_details.cosmos_db.id)[4]
   account_name        = reverse(split("/", var.ai_foundry_account_details.cosmos_db.id))[0]
@@ -76,7 +76,7 @@ resource "azurerm_cosmosdb_sql_role_assignment" "cosmosdb_sql_role_assignment_sy
 }
 
 resource "azurerm_cosmosdb_sql_role_assignment" "cosmosdb_sql_role_assignment_agent_entity_store_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   resource_group_name = split("/", var.ai_foundry_account_details.cosmos_db.id)[4]
   account_name        = reverse(split("/", var.ai_foundry_account_details.cosmos_db.id))[0]
@@ -90,7 +90,7 @@ resource "azurerm_cosmosdb_sql_role_assignment" "cosmosdb_sql_role_assignment_ag
 }
 
 resource "azurerm_role_assignment" "role_assignment_search_service_account_search_index_data_contributor_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   description          = "Role assignment for ai search write operations."
   scope                = var.ai_foundry_account_details.search_service.id
@@ -100,7 +100,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_account_searc
 }
 
 resource "azurerm_role_assignment" "role_assignment_search_service_account_search_service_contributor_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   description          = "Role assignment for ai search write operations."
   scope                = var.ai_foundry_account_details.search_service.id
@@ -117,7 +117,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_account_searc
 
 # AI service role assignments
 resource "azurerm_role_assignment" "role_assignment_ai_service_ai_foundry_project" {
-  for_each = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? var.ai_services : {}
+  for_each = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? var.ai_services : {}
 
   description          = "Role assignment to the ai services."
   scope                = module.ai_service[each.key].cognitive_account_id
@@ -128,7 +128,7 @@ resource "azurerm_role_assignment" "role_assignment_ai_service_ai_foundry_projec
 
 # AI search service role assignment
 resource "azurerm_role_assignment" "role_assignment_search_service_index_data_contributor_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" && var.search_service_details.enabled ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled && var.search_service_details.enabled ? 1 : 0
 
   description          = "Role assignment to create or manage objects in AI Search."
   scope                = one(module.ai_search[*].search_service_id)
@@ -138,7 +138,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_index_data_co
 }
 
 resource "azurerm_role_assignment" "role_assignment_search_service_contributor_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" && var.search_service_details.enabled ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled && var.search_service_details.enabled ? 1 : 0
 
   description          = "Role assignment to load documents and run indexing jobs in AI Search."
   scope                = one(module.ai_search[*].search_service_id)
@@ -149,7 +149,7 @@ resource "azurerm_role_assignment" "role_assignment_search_service_contributor_a
 
 # Storage Role Assignments
 resource "azurerm_role_assignment" "role_assignment_storage_container_provider_blob_data_contributor_ai_foundry_project" {
-  for_each = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? var.data_provider_details : {}
+  for_each = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? var.data_provider_details : {}
 
   description          = "Role assignment to provider storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_provider[each.key].id
@@ -159,7 +159,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_provider_b
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_raw_blob_data_contributor_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   description          = "Role assignment to raw storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_raw.id
@@ -169,7 +169,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_raw_blob_d
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_enriched_blob_data_contributor_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   description          = "Role assignment to enriched storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_enriched.id
@@ -179,7 +179,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_enriched_b
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_curated_blob_data_contributor_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   description          = "Role assignment to curated storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_curated.id
@@ -189,7 +189,7 @@ resource "azurerm_role_assignment" "role_assignment_storage_container_curated_bl
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage_container_workspace_blob_data_contributor_ai_foundry_project" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   description          = "Role assignment to workspace storage account container to read and write data."
   scope                = azurerm_storage_container.storage_container_workspace.id

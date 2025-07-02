@@ -1,6 +1,6 @@
 # Cosmos DB connections
 resource "azapi_resource" "ai_foundry_project_connection_cosmosdb_account" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   type      = "Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview"
   name      = "cosmosdb-account-${local.prefix}"
@@ -33,7 +33,7 @@ resource "azapi_resource" "ai_foundry_project_connection_cosmosdb_account" {
 
 # Search connections
 resource "azapi_resource" "ai_foundry_project_connection_search_service_account" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   type      = "Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview"
   name      = "cognitivesearch-account-${local.prefix}"
@@ -65,7 +65,7 @@ resource "azapi_resource" "ai_foundry_project_connection_search_service_account"
 }
 
 resource "azapi_resource" "ai_foundry_project_connection_search_service" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" && var.search_service_details.enabled ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled && var.search_service_details.enabled ? 1 : 0
 
   type      = "Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview"
   name      = "cognitivesearch-${local.prefix}"
@@ -98,7 +98,7 @@ resource "azapi_resource" "ai_foundry_project_connection_search_service" {
 
 # Open AI connections
 resource "azapi_resource" "ai_foundry_project_connection_openai" {
-  for_each = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? local.ai_foundry_project_connection_openai : {}
+  for_each = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? local.ai_foundry_project_connection_openai : {}
 
   type      = "Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview"
   name      = "openai-${local.prefix}-${each.key}"
@@ -131,7 +131,7 @@ resource "azapi_resource" "ai_foundry_project_connection_openai" {
 
 # Application Insights connections
 resource "azapi_resource" "ai_foundry_project_connection_appinsights" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   type      = "Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview"
   name      = "appinsights-${local.prefix}"
@@ -167,7 +167,7 @@ resource "azapi_resource" "ai_foundry_project_connection_appinsights" {
 
 # Storage connections
 resource "azapi_resource" "ai_foundry_project_connection_storage_account" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   type      = "Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview"
   name      = "azurestorageaccount-account-${local.prefix}"
@@ -199,7 +199,7 @@ resource "azapi_resource" "ai_foundry_project_connection_storage_account" {
 }
 
 resource "azapi_resource" "ai_foundry_project_connection_storage_provider" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   type      = "Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview"
   name      = "azurestorageaccount-provider-${local.prefix}"
@@ -231,7 +231,7 @@ resource "azapi_resource" "ai_foundry_project_connection_storage_provider" {
 }
 
 resource "azapi_resource" "ai_foundry_project_connection_storage_raw" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   type      = "Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview"
   name      = "azurestorageaccount-raw-${local.prefix}"
@@ -263,7 +263,7 @@ resource "azapi_resource" "ai_foundry_project_connection_storage_raw" {
 }
 
 resource "azapi_resource" "ai_foundry_project_connection_storage_enriched" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   type      = "Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview"
   name      = "azurestorageaccount-enriched-${local.prefix}"
@@ -295,7 +295,7 @@ resource "azapi_resource" "ai_foundry_project_connection_storage_enriched" {
 }
 
 resource "azapi_resource" "ai_foundry_project_connection_storage_curated" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   type      = "Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview"
   name      = "azurestorageaccount-curated-${local.prefix}"
@@ -327,7 +327,7 @@ resource "azapi_resource" "ai_foundry_project_connection_storage_curated" {
 }
 
 resource "azapi_resource" "ai_foundry_project_connection_storage_workspace" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
 
   type      = "Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview"
   name      = "azurestorageaccount-workspace-${local.prefix}"

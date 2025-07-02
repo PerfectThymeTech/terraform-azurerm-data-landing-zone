@@ -57,6 +57,7 @@ output "fabric_capacity_name" {
 output "ai_foundry_account_details" {
   description = "Specifies the ai foundry details of the account."
   value = {
+    enabled = var.ai_foundry_account_details.enabled
     ai_foundry_account = {
       id = one(module.ai_foundry_account[*].ai_services_id)
     }

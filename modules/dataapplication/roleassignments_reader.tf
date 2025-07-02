@@ -59,7 +59,7 @@ resource "azurerm_role_assignment" "role_assignment_databricks_workspace_reader_
 
 # AI Foundry role assignments
 resource "azurerm_role_assignment" "role_assignment_ai_foundry_account_reader_reader" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" && var.reader_group_name != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled && var.reader_group_name != "" ? 1 : 0
 
   description          = "Role assignment to ai foundry account."
   scope                = var.ai_foundry_account_details.ai_foundry_account.id
@@ -69,7 +69,7 @@ resource "azurerm_role_assignment" "role_assignment_ai_foundry_account_reader_re
 }
 
 resource "azurerm_role_assignment" "role_assignment_ai_foundry_project_reader_reader" {
-  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.ai_foundry_account.id != "" && var.reader_group_name != "" ? 1 : 0
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled && var.reader_group_name != "" ? 1 : 0
 
   description          = "Role assignment to ai foundry project."
   scope                = one(azapi_resource.ai_foundry_project[*].id)
