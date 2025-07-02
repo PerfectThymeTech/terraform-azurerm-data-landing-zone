@@ -4,7 +4,7 @@ resource "azapi_resource" "ai_foundry_project" {
   type      = "Microsoft.CognitiveServices/accounts/projects@2025-04-01-preview"
   name      = local.prefix
   location  = var.location
-  parent_id = var.ai_foundry_account_details.ai_foundry_id
+  parent_id = var.ai_foundry_account_details.ai_foundry_account.id
   identity {
     type = "SystemAssigned"
   }
