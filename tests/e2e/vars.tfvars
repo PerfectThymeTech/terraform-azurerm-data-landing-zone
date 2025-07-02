@@ -1,5 +1,5 @@
 # General variables
-location    = "northeurope"
+location    = "eastus2"
 environment = "int"
 prefix      = "mydlz01"
 tags        = {}
@@ -12,7 +12,7 @@ data_application_file_variables             = {}
 databricks_cluster_policy_library_path      = "./databricks-cluster-policies"
 databricks_cluster_policy_file_variables    = {}
 databricks_account_id                       = "515f13c1-53bb-48fb-a2c9-75e3f5d943f5"
-databricks_network_connectivity_config_name = "ncc-northeurope-test"
+databricks_network_connectivity_config_name = "ncc-eastus2-test"
 databricks_network_policy_details = {
   allowed_internet_destinations = [
     {
@@ -49,18 +49,18 @@ log_analytics_workspace_id = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d2
 service_principal_name_terraform_plan = "ptt-dev-uai001-dlz-tfplan"
 
 # Network variables
-vnet_id        = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001"
-nsg_id         = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/networkSecurityGroups/ptt-dev-default-nsg001"
-route_table_id = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/routeTables/ptt-dev-default-rt001"
+vnet_id        = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-eus2-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-eus2-vnet001"
+nsg_id         = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-eus2-rg/providers/Microsoft.Network/networkSecurityGroups/ptt-dev-defaul-eus2-nsg001"
+route_table_id = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-eus2-rg/providers/Microsoft.Network/routeTables/ptt-dev-eus2-default-rt001"
 subnet_cidr_ranges = {
-  storage_subnet                        = "10.2.0.0/27"
-  consumption_subnet                    = "10.2.0.32/28"
-  fabric_subnet                         = "10.2.0.48/28"
-  databricks_engineering_private_subnet = "10.2.0.64/26"
-  databricks_engineering_public_subnet  = "10.2.0.128/26"
-  # databricks_consumption_private_subnet = "10.2.0.192/26"
-  # databricks_consumption_public_subnet  = "10.2.1.0/26"
-  aifoundry_subnet = "10.2.1.64/27"
+  storage_subnet                        = "192.168.0.0/27"
+  consumption_subnet                    = "192.168.0.32/28"
+  fabric_subnet                         = "192.168.0.48/28"
+  databricks_engineering_private_subnet = "192.168.0.64/26"
+  databricks_engineering_public_subnet  = "192.168.0.128/26"
+  # databricks_consumption_private_subnet = "192.168.0.192/26"
+  # databricks_consumption_public_subnet  = "192.168.1.0/26"
+  aifoundry_subnet = "192.168.1.64/27"
 }
 
 # DNS variables
