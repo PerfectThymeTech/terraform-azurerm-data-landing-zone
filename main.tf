@@ -77,13 +77,15 @@ module "core" {
   connectivity_delay_in_seconds = local.connectivity_delay_in_seconds
 
   # DNS variables
-  private_dns_zone_id_blob           = var.private_dns_zone_id_blob
-  private_dns_zone_id_dfs            = var.private_dns_zone_id_dfs
-  private_dns_zone_id_queue          = var.private_dns_zone_id_queue
-  private_dns_zone_id_databricks     = var.private_dns_zone_id_databricks
-  private_dns_zone_id_ai_services    = var.private_dns_zone_id_ai_services
-  private_dns_zone_id_search_service = var.private_dns_zone_id_search_service
-  private_dns_zone_id_cosmos_sql     = var.private_dns_zone_id_cosmos_sql
+  private_dns_zone_id_blob              = var.private_dns_zone_id_blob
+  private_dns_zone_id_dfs               = var.private_dns_zone_id_dfs
+  private_dns_zone_id_queue             = var.private_dns_zone_id_queue
+  private_dns_zone_id_databricks        = var.private_dns_zone_id_databricks
+  private_dns_zone_id_ai_services       = var.private_dns_zone_id_ai_services
+  private_dns_zone_id_cognitive_account = var.private_dns_zone_id_cognitive_account
+  private_dns_zone_id_open_ai           = var.private_dns_zone_id_open_ai
+  private_dns_zone_id_search_service    = var.private_dns_zone_id_search_service
+  private_dns_zone_id_cosmos_sql        = var.private_dns_zone_id_cosmos_sql
 
   # Customer-managed key variables
   customer_managed_key = var.customer_managed_key

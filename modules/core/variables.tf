@@ -193,7 +193,7 @@ variable "subnet_id_aifoundry" {
   type        = string
   sensitive   = false
   validation {
-    condition     = length(split("/", var.subnet_id_aifoundry)) == 11
+    condition     = var.subnet_id_aifoundry == "" || length(split("/", var.subnet_id_aifoundry)) == 11
     error_message = "Please specify a valid resource ID."
   }
 }
