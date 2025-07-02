@@ -81,7 +81,7 @@ locals {
       serviceEndpoints        = []
     }
   }
-  subnet_aifoundry = var.aifoundry_enabled ? {
+  subnet_aifoundry = {
     name = "AiFoundrySubnet"
     properties = {
       addressPrefix         = var.subnet_cidr_range_aifoundry
@@ -106,7 +106,7 @@ locals {
       serviceEndpointPolicies = []
       serviceEndpoints        = []
     }
-  } : null
+  }
   subnet_engineering_private = {
     name = "EngineeringPrivateSubnet"
     properties = {
@@ -159,7 +159,7 @@ locals {
       serviceEndpoints        = []
     }
   }
-  subnet_consumption_private = var.databricks_workspace_consumption_enabled ? {
+  subnet_consumption_private = {
     name = "ConsumptionPrivateSubnet"
     properties = {
       addressPrefix         = var.subnet_cidr_range_consumption_private
@@ -184,8 +184,8 @@ locals {
       serviceEndpointPolicies = []
       serviceEndpoints        = []
     }
-  } : null
-  subnet_consumption_public = var.databricks_workspace_consumption_enabled ? {
+  }
+  subnet_consumption_public = {
     name = "ConsumptionPublicSubnet"
     properties = {
       addressPrefix         = var.subnet_cidr_range_consumption_public
@@ -210,7 +210,7 @@ locals {
       serviceEndpointPolicies = []
       serviceEndpoints        = []
     }
-  } : null
+  }
   subnets_private_endpoint_applications = [
     for key, value in var.subnet_cidr_range_applications :
     {
