@@ -6,6 +6,7 @@ locals {
     "Microsoft.CognitiveServices",
     "Microsoft.Databricks",
     "Microsoft.DataFactory",
+    "Microsoft.DocumentDB",
     "Microsoft.Insights",
     "Microsoft.KeyVault",
     "Microsoft.ManagedIdentity",
