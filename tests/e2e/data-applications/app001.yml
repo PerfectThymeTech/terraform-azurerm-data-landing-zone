@@ -71,7 +71,7 @@ ai_foundry_project:
 
 databricks:
   sql_endpoints:
-    dw01:
+    se01:
       auto_stop_mins: 60
       enable_serverless_compute: false
       cluster_size: "2X-Small"
