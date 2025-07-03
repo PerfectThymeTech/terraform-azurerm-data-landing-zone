@@ -30,7 +30,7 @@ provider "azurerm" {
       permanently_delete_on_destroy = true
     }
     resource_group {
-      prevent_deletion_if_contains_resources = true
+      prevent_deletion_if_contains_resources = false
     }
   }
 }
