@@ -1,7 +1,7 @@
 # General variables
 location    = "eastus2"
 environment = "int"
-prefix      = "mydlz01"
+prefix      = "mydz01"
 tags        = {}
 
 # Service
