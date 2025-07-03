@@ -11,7 +11,7 @@ identity:
 
 network:
   private_endpoint_subnet:
-    cidr_range: "10.2.1.64/27"
+    cidr_range: "192.168.1.96/27"
 
 repository:
   type: github
