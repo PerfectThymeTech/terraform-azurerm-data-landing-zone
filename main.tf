@@ -19,6 +19,7 @@ module "platform" {
   subnet_cidr_range_storage             = var.subnet_cidr_ranges.storage_subnet
   subnet_cidr_range_consumption         = var.subnet_cidr_ranges.consumption_subnet
   subnet_cidr_range_fabric              = var.subnet_cidr_ranges.fabric_subnet
+  subnet_cidr_range_aifoundry           = var.subnet_cidr_ranges.aifoundry_subnet
   subnet_cidr_range_engineering_private = var.subnet_cidr_ranges.databricks_engineering_private_subnet
   subnet_cidr_range_engineering_public  = var.subnet_cidr_ranges.databricks_engineering_public_subnet
   subnet_cidr_range_consumption_private = var.subnet_cidr_ranges.databricks_consumption_private_subnet
@@ -30,6 +31,7 @@ module "platform" {
     }
   }
   databricks_workspace_consumption_enabled = var.databricks_workspace_consumption_enabled
+  aifoundry_enabled                        = var.ai_foundry_account_details.enabled
 }
 
 module "core" {

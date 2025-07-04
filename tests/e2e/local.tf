@@ -4,6 +4,7 @@ locals {
     "Microsoft.Authorization",
     "Microsoft.App",
     "Microsoft.CognitiveServices",
+    "Microsoft.ContainerService",
     "Microsoft.Databricks",
     "Microsoft.DataFactory",
     "Microsoft.DocumentDB",

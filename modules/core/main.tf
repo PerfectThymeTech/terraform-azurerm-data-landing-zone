@@ -21,7 +21,7 @@ resource "azurerm_resource_group" "resource_group_consumption" {
 resource "azurerm_resource_group" "resource_group_ai" {
   count = var.ai_foundry_account_details.enabled ? 1 : 0
 
-  name     = "${local.prefix}-cnsmptn-rg"
+  name     = "${local.prefix}-ai-rg"
   location = var.location
   tags     = var.tags
 }
