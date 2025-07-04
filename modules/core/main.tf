@@ -18,6 +18,14 @@ resource "azurerm_resource_group" "resource_group_consumption" {
   tags     = var.tags
 }
 
+resource "azurerm_resource_group" "resource_group_ai" {
+  count = var.ai_foundry_account_details.enabled ? 1 : 0
+
+  name     = "${local.prefix}-ai-rg"
+  location = var.location
+  tags     = var.tags
+}
+
 resource "azurerm_resource_group" "resource_group_fabric" {
   name     = "${local.prefix}-fbrc-rg"
   location = var.location

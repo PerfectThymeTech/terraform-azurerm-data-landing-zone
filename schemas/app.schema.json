@@ -531,6 +531,18 @@
       "required": [],
       "additionalProperties": false
     },
+    "ai_foundry_project": {
+      "description": "Specifies the ai foundry project configuration for the app.",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "description": "Specifies whether ai foundry project should be enabled.",
+          "type": "boolean"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
     "data_factory": {
       "description": "Specifies the data factory section of the application.",
       "type": "object",

@@ -1,7 +1,7 @@
 # General variables
-location    = "northeurope"
+location    = "eastus2"
 environment = "int"
-prefix      = "mydlz01"
+prefix      = "mydz01"
 tags        = {}
 
 # Service
@@ -12,7 +12,7 @@ data_application_file_variables             = {}
 databricks_cluster_policy_library_path      = "./databricks-cluster-policies"
 databricks_cluster_policy_file_variables    = {}
 databricks_account_id                       = "515f13c1-53bb-48fb-a2c9-75e3f5d943f5"
-databricks_network_connectivity_config_name = "ncc-northeurope-test"
+databricks_network_connectivity_config_name = "ncc-eastus2-test"
 databricks_network_policy_details = {
   allowed_internet_destinations = [
     {
@@ -35,28 +35,32 @@ fabric_capacity_details = {
   admin_emails = []
   sku          = "F2"
 }
+ai_foundry_account_details = {
+  enabled = true
+}
 
 # HA/DR variables
 zone_redundancy_enabled = false
 
 # Logging variables
-log_analytics_workspace_id = ""
+log_analytics_workspace_id = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-logging-rg/providers/Microsoft.OperationalInsights/workspaces/ptt-dev-log001"
 
 # Identity variables
 service_principal_name_terraform_plan = "ptt-dev-uai001-dlz-tfplan"
 
 # Network variables
-vnet_id        = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-vnet001"
-nsg_id         = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/networkSecurityGroups/ptt-dev-default-nsg001"
-route_table_id = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-rg/providers/Microsoft.Network/routeTables/ptt-dev-default-rt001"
+vnet_id        = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-eus2-rg/providers/Microsoft.Network/virtualNetworks/spoke-ptt-dev-eus2-vnet001"
+nsg_id         = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-eus2-rg/providers/Microsoft.Network/networkSecurityGroups/ptt-dev-defaul-eus2-nsg001"
+route_table_id = "/subscriptions/9842be63-c8c0-4647-a5d1-0c5e7f8bbb25/resourceGroups/ptt-dev-networking-eus2-rg/providers/Microsoft.Network/routeTables/ptt-dev-eus2-default-rt001"
 subnet_cidr_ranges = {
-  storage_subnet                        = "10.2.0.0/27"
-  consumption_subnet                    = "10.2.0.32/28"
-  fabric_subnet                         = "10.2.0.48/28"
-  databricks_engineering_private_subnet = "10.2.0.64/26"
-  databricks_engineering_public_subnet  = "10.2.0.128/26"
-  # databricks_consumption_private_subnet = "10.2.0.192/26"
-  # databricks_consumption_public_subnet  = "10.2.1.0/26"
+  storage_subnet                        = "192.168.0.0/27"
+  consumption_subnet                    = "192.168.0.32/28"
+  fabric_subnet                         = "192.168.0.48/28"
+  databricks_engineering_private_subnet = "192.168.0.64/26"
+  databricks_engineering_public_subnet  = "192.168.0.128/26"
+  # databricks_consumption_private_subnet = "192.168.0.192/26"
+  # databricks_consumption_public_subnet  = "192.168.1.0/26"
+  aifoundry_subnet = "192.168.1.64/27"
 }
 
 # DNS variables
@@ -67,8 +71,10 @@ private_dns_zone_id_vault             = "/subscriptions/e82c5267-9dc4-4f45-ac13-
 private_dns_zone_id_databricks        = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.azuredatabricks.net"
 private_dns_zone_id_cognitive_account = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.cognitiveservices.azure.com"
 private_dns_zone_id_open_ai           = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.openai.azure.com"
+private_dns_zone_id_ai_services       = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.services.ai.azure.com"
 private_dns_zone_id_data_factory      = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.datafactory.azure.net"
 private_dns_zone_id_search_service    = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.search.windows.net"
+private_dns_zone_id_cosmos_sql        = "/subscriptions/e82c5267-9dc4-4f45-ac13-abdd5e130d27/resourceGroups/ptt-dev-privatedns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.documents.azure.com"
 
 # Customer-managed key variables
 customer_managed_key = null

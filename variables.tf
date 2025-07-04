@@ -169,6 +169,25 @@ variable "fabric_capacity_details" {
   }
 }
 
+variable "ai_foundry_account_details" {
+  description = "Specifies the ai foundry configuration."
+  type = object({
+    enabled = optional(bool, false)
+    search_service = optional(object({
+      sku                 = optional(string, "basic")
+      semantic_search_sku = optional(string, "standard")
+      partition_count     = optional(number, 1)
+      replica_count       = optional(number, 1)
+    }), {})
+    cosmos_db = optional(object({
+      consistency_level = optional(string, "Session")
+    }), {})
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+}
+
 # HA/DR variables
 variable "zone_redundancy_enabled" {
   description = "Specifies whether zone-redundancy should be enabled for all resources."
@@ -254,6 +273,7 @@ variable "subnet_cidr_ranges" {
       storage_subnet                        = string
       consumption_subnet                    = string
       fabric_subnet                         = string
+      aifoundry_subnet                      = optional(string, "")
       databricks_engineering_private_subnet = string
       databricks_engineering_public_subnet  = string
       databricks_consumption_private_subnet = optional(string, "")
@@ -272,6 +292,10 @@ variable "subnet_cidr_ranges" {
   validation {
     condition     = try(cidrnetmask(var.subnet_cidr_ranges.fabric_subnet), "invalid") != "invalid"
     error_message = "Please specify a valid CIDR range for the fabric subnet."
+  }
+  validation {
+    condition     = var.subnet_cidr_ranges.fabric_subnet == "" || try(cidrnetmask(var.subnet_cidr_ranges.fabric_subnet), "invalid") != "invalid"
+    error_message = "Please specify a valid CIDR range for the ai foundry subnet."
   }
   validation {
     condition     = try(cidrnetmask(var.subnet_cidr_ranges.databricks_engineering_private_subnet), "invalid") != "invalid"
@@ -373,6 +397,17 @@ variable "private_dns_zone_id_open_ai" {
   }
 }
 
+variable "private_dns_zone_id_ai_services" {
+  description = "Specifies the resource ID of the private DNS zone for Azure Foundry (AI Services). Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_ai_services == "" || (length(split("/", var.private_dns_zone_id_ai_services)) == 9 && endswith(var.private_dns_zone_id_ai_services, "privatelink.services.ai.azure.com"))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
 variable "private_dns_zone_id_data_factory" {
   description = "Specifies the resource ID of the private DNS zone for Azure Data Factory. Not required if DNS A-records get created via Azure Policy."
   type        = string
@@ -391,6 +426,17 @@ variable "private_dns_zone_id_search_service" {
   default     = ""
   validation {
     condition     = var.private_dns_zone_id_search_service == "" || (length(split("/", var.private_dns_zone_id_search_service)) == 9 && endswith(var.private_dns_zone_id_search_service, "privatelink.search.windows.net"))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
+variable "private_dns_zone_id_cosmos_sql" {
+  description = "Specifies the resource ID of the private DNS zone for cosmos db sql. Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_cosmos_sql == "" || (length(split("/", var.private_dns_zone_id_cosmos_sql)) == 9 && endswith(var.private_dns_zone_id_cosmos_sql, "privatelink.documents.azure.com"))
     error_message = "Please specify a valid resource ID for the private DNS Zone."
   }
 }

@@ -174,4 +174,24 @@ locals {
     local.search_service_shared_default_private_links,
     local.search_service_shared_ai_service_private_links
   )
+
+  # AI Foundry locals
+  ai_foundry_project_internal_id  = one(azapi_resource.ai_foundry_project[*].output.properties.internalId)
+  ai_foundry_project_workspace_id = "${substr(local.ai_foundry_project_internal_id, 0, 8)}-${substr(local.ai_foundry_project_internal_id, 8, 4)}-${substr(local.ai_foundry_project_internal_id, 12, 4)}-${substr(local.ai_foundry_project_internal_id, 16, 4)}-${substr(local.ai_foundry_project_internal_id, 20, 12)}"
+  ai_foundry_project_connection_openai = {
+    for key, value in var.ai_services :
+    key => {
+      id       = module.ai_service[key].cognitive_account_id
+      target   = module.ai_service[key].cognitive_account_endpoint
+      location = value.location
+    } if value.kind == "OpenAI"
+  }
+  ai_foundry_project_connection_openai_names = [
+    for key, value in local.ai_foundry_project_connection_openai :
+    azapi_resource.ai_foundry_project_connection_openai[key].name
+  ]
+  cosmosdb_account_database_name                                 = "enterprise_memory"
+  cosmosdb_account_database_container_thread_message_name        = "thread-message-store"
+  cosmosdb_account_database_container_system_thread_message_name = "system-thread-message-store"
+  cosmosdb_account_database_container_agent_entity_store_name    = "agent-entity-store"
 }

@@ -94,6 +94,17 @@ variable "subnet_cidr_range_fabric" {
   }
 }
 
+variable "subnet_cidr_range_aifoundry" {
+  description = "Specifies the cidr ranges of the ai foundry subnet used for the Data Landing Zone."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.subnet_cidr_range_aifoundry == "" || try(cidrnetmask(var.subnet_cidr_range_aifoundry), "invalid") != "invalid"
+    error_message = "Please specify a valid CIDR range for the ai foundry subnet."
+  }
+}
+
 variable "subnet_cidr_range_engineering_private" {
   description = "Specifies the cidr ranges of the engineering private subnet used for the Data Landing Zone."
   type        = string
@@ -152,6 +163,14 @@ variable "subnet_cidr_range_applications" {
 
 variable "databricks_workspace_consumption_enabled" {
   description = "Specifies whether the consumption workspace should be enabled."
+  type        = bool
+  sensitive   = false
+  nullable    = false
+  default     = false
+}
+
+variable "aifoundry_enabled" {
+  description = "Specifies whether the ai foundry deployment is enabled."
   type        = bool
   sensitive   = false
   nullable    = false

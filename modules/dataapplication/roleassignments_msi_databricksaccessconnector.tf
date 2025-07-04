@@ -81,6 +81,27 @@ resource "azurerm_role_assignment" "role_assignment_search_service_contributor_a
   principal_type       = "ServicePrincipal"
 }
 
+# AI Foundry role assignments
+resource "azurerm_role_assignment" "role_assignment_ai_foundry_account_reader_accessconnector" {
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
+
+  description          = "Role assignment to ai foundry account."
+  scope                = var.ai_foundry_account_details.ai_foundry_account.id
+  role_definition_name = "Reader"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_ai_foundry_project_manager_accessconnector" {
+  count = var.ai_foundry_project_details.enabled && var.ai_foundry_account_details.enabled ? 1 : 0
+
+  description          = "Role assignment to ai foundry project."
+  scope                = one(azapi_resource.ai_foundry_project[*].id)
+  role_definition_name = "Azure AI Project Manager"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
 # Storage Role Assignments
 resource "azurerm_role_assignment" "role_assignment_storage_account_provider_event_subscription_contributor_accessconnector" {
   description          = "Role assignment to provider storage account to create event triggers."

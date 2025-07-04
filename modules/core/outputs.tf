@@ -52,3 +52,30 @@ output "fabric_capacity_name" {
   description = "Specifies the name of the Fabric capacity."
   value       = try(reverse(split("/", one(module.fabric_capacity[*].fabric_capacity_id), "/"))[0], "")
 }
+
+# AI Foundry details
+output "ai_foundry_account_details" {
+  description = "Specifies the ai foundry details of the account."
+  value = {
+    enabled = var.ai_foundry_account_details.enabled
+    ai_foundry_account = {
+      id = one(module.ai_foundry_account[*].ai_services_id)
+    }
+    search_service = {
+      id     = one(module.ai_search[*].search_service_id)
+      target = "https://${one(module.ai_search[*].search_service_name)}.search.windows.net"
+    }
+    cosmos_db = {
+      id     = one(module.cosmos_db[*].cosmosdb_account_id)
+      target = one(module.cosmos_db[*].cosmosdb_account_endpoint)
+    }
+    storage_account = {
+      id     = one(module.storage_account_aifoundry[*].storage_account_id)
+      target = one(module.storage_account_aifoundry[*].storage_account_primary_blob_endpoint)
+    }
+  }
+  sensitive = false
+  depends_on = [
+    # one(module.ai_foundry_account[*].ai_services_setup_completed),
+  ]
+}

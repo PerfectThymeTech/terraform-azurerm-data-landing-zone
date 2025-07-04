@@ -207,6 +207,42 @@ variable "fabric_workspace_details" {
   default   = {}
 }
 
+variable "ai_foundry_account_details" {
+  description = "Specifies the ai foundry account details."
+  type = object({
+    enabled = optional(bool, false)
+    ai_foundry_account = optional(object({
+      id = optional(string, "")
+    }), {})
+    search_service = optional(object({
+      id     = optional(string, "")
+      target = optional(string, "")
+    }), {})
+    cosmos_db = optional(object({
+      id     = optional(string, "")
+      target = optional(string, "")
+    }), {})
+    storage_account = optional(object({
+      id     = optional(string, "")
+      target = optional(string, "")
+    }), {})
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+}
+
+variable "ai_foundry_project_details" {
+  description = "Specifies the ai foundry project details."
+  type = object({
+    enabled = optional(bool, true)
+    # tbd
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+}
+
 variable "storage_dependencies" {
   description = "Specifies a list of dependencies for storage resources."
   type        = list(bool)
@@ -224,6 +260,17 @@ variable "zone_redundancy_enabled" {
 }
 
 # Logging and monitoring variables
+variable "log_analytics_workspace_id" {
+  description = "Specifies the resource ID of a log analytics workspace for all diagnostic logs."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = length(split("/", var.log_analytics_workspace_id)) == 9 || var.log_analytics_workspace_id == ""
+    error_message = "Please specify a valid resource ID."
+  }
+}
+
 variable "diagnostics_configurations" {
   description = "Specifies the diagnostic configuration for the service."
   type = list(object({

@@ -11,7 +11,7 @@ identity:
 
 network:
   private_endpoint_subnet:
-    cidr_range: "10.2.1.64/27"
+    cidr_range: "192.168.1.96/27"
 
 repository:
   type: github
@@ -66,9 +66,12 @@ ai_search:
   partition_count: 1
   replica_count: 1
 
+ai_foundry_project:
+  enabled: true
+
 databricks:
   sql_endpoints:
-    dw01:
+    se01:
       auto_stop_mins: 60
       enable_serverless_compute: false
       cluster_size: "2X-Small"
