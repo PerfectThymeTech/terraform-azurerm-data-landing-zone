@@ -164,7 +164,7 @@ variable "search_service_details" {
     sku                 = optional(string, "standard")
     semantic_search_sku = optional(string, "standard")
     partition_count     = optional(number, 1)
-    replica_count       = optional(string, 1)
+    replica_count       = optional(number, 1)
   })
   sensitive = false
   nullable  = false
