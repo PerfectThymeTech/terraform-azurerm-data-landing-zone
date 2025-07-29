@@ -55,7 +55,7 @@ ai_services:
     kind: FormRecognizer
     sku: S0
   aoai:
-    location: swedencentral
+    location: eastus2
     kind: OpenAI
     sku: S0
 
