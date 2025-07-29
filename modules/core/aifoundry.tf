@@ -23,12 +23,12 @@ module "ai_foundry_account" {
   ai_services_openai_accounts                       = {}
   ai_services_connections_account                   = {}
   ai_services_deployments                           = {}
-  diagnostics_configurations                        = []
+  diagnostics_configurations                        = var.diagnostics_configurations
   subnet_id                                         = var.subnet_id_consumption
   subnet_id_capability_hosts                        = var.subnet_id_aifoundry
   connectivity_delay_in_seconds                     = var.connectivity_delay_in_seconds
   private_dns_zone_id_ai_services                   = var.private_dns_zone_id_ai_services
   private_dns_zone_id_cognitive_account             = var.private_dns_zone_id_cognitive_account
   private_dns_zone_id_open_ai                       = var.private_dns_zone_id_open_ai
-  customer_managed_key                              = null
+  customer_managed_key                              = var.customer_managed_key
 }
