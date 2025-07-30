@@ -69,3 +69,20 @@ resource "databricks_external_location" "external_location_workspace" {
   skip_validation = false
   url             = "abfss://${local.storage_container_workspace.storage_container_name}@${local.storage_container_workspace.storage_account_name}.dfs.core.windows.net/"
 }
+
+resource "databricks_workspace_binding" "workspace_binding_external_location_provider" {
+  for_each = merge([
+    for key, value in var.data_provider_details : {
+      for item in value.databricks_catalog.workspace_binding_catalog :
+      "${key}-${item}" => {
+        key                                    = key
+        workspace_binding_catalog_workspace_id = item
+      } if value.databricks_catalog.enabled
+    }
+  ]...)
+
+  binding_type   = "BINDING_TYPE_READ_WRITE"
+  securable_name = databricks_external_location.external_location_provider[each.value.key].name
+  securable_type = "external_location"
+  workspace_id   = each.value.workspace_binding_catalog_workspace_id
+}
