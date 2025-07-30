@@ -19,6 +19,7 @@ module "platform" {
   subnet_cidr_range_storage             = var.subnet_cidr_ranges.storage_subnet
   subnet_cidr_range_consumption         = var.subnet_cidr_ranges.consumption_subnet
   subnet_cidr_range_fabric              = var.subnet_cidr_ranges.fabric_subnet
+  subnet_cidr_range_aifoundry           = var.subnet_cidr_ranges.aifoundry_subnet
   subnet_cidr_range_engineering_private = var.subnet_cidr_ranges.databricks_engineering_private_subnet
   subnet_cidr_range_engineering_public  = var.subnet_cidr_ranges.databricks_engineering_public_subnet
   subnet_cidr_range_consumption_private = var.subnet_cidr_ranges.databricks_consumption_private_subnet
@@ -30,6 +31,7 @@ module "platform" {
     }
   }
   databricks_workspace_consumption_enabled = var.databricks_workspace_consumption_enabled
+  aifoundry_enabled                        = var.ai_foundry_account_details.enabled
 }
 
 module "core" {
@@ -53,6 +55,7 @@ module "core" {
   databricks_compliance_security_profile_standards = var.databricks_compliance_security_profile_standards
   databricks_workspace_consumption_enabled         = var.databricks_workspace_consumption_enabled
   fabric_capacity_details                          = var.fabric_capacity_details
+  ai_foundry_account_details                       = var.ai_foundry_account_details
 
   # HA/DR variables
   zone_redundancy_enabled        = var.zone_redundancy_enabled
@@ -68,6 +71,7 @@ module "core" {
   vnet_id                       = var.vnet_id
   subnet_id_storage             = module.platform.subnet_id_storage
   subnet_id_consumption         = module.platform.subnet_id_consumption
+  subnet_id_aifoundry           = module.platform.subnet_id_aifoundry
   subnet_id_engineering_private = module.platform.subnet_id_engineering_private
   subnet_id_engineering_public  = module.platform.subnet_id_engineering_public
   subnet_id_consumption_private = module.platform.subnet_id_consumption_private
@@ -75,10 +79,15 @@ module "core" {
   connectivity_delay_in_seconds = local.connectivity_delay_in_seconds
 
   # DNS variables
-  private_dns_zone_id_blob       = var.private_dns_zone_id_blob
-  private_dns_zone_id_dfs        = var.private_dns_zone_id_dfs
-  private_dns_zone_id_queue      = var.private_dns_zone_id_queue
-  private_dns_zone_id_databricks = var.private_dns_zone_id_databricks
+  private_dns_zone_id_blob              = var.private_dns_zone_id_blob
+  private_dns_zone_id_dfs               = var.private_dns_zone_id_dfs
+  private_dns_zone_id_queue             = var.private_dns_zone_id_queue
+  private_dns_zone_id_databricks        = var.private_dns_zone_id_databricks
+  private_dns_zone_id_ai_services       = var.private_dns_zone_id_ai_services
+  private_dns_zone_id_cognitive_account = var.private_dns_zone_id_cognitive_account
+  private_dns_zone_id_open_ai           = var.private_dns_zone_id_open_ai
+  private_dns_zone_id_search_service    = var.private_dns_zone_id_search_service
+  private_dns_zone_id_cosmos_sql        = var.private_dns_zone_id_cosmos_sql
 
   # Customer-managed key variables
   customer_managed_key = var.customer_managed_key
@@ -135,12 +144,17 @@ module "data_application" {
       root_folder     = try(each.value.repository.github.fabric_root_folder, "")
     }
   }
+  ai_foundry_account_details = module.core.ai_foundry_account_details
+  ai_foundry_project_details = {
+    enabled = try(each.value.ai_foundry_project.enabled, false)
+  }
   storage_dependencies = module.core.storage_dependencies
 
   # HA/DR variables
   zone_redundancy_enabled = var.zone_redundancy_enabled
 
   # Logging and monitoring variables
+  log_analytics_workspace_id = var.log_analytics_workspace_id
   diagnostics_configurations = local.diagnostics_configurations
   alerting                   = try(each.value.alerting, {})
 

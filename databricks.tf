@@ -23,6 +23,7 @@ module "databricks_core" {
   databricks_ip_access_list_deny                   = []
   databricks_network_connectivity_config_name      = var.databricks_network_connectivity_config_name
   databricks_compliance_security_profile_standards = var.databricks_compliance_security_profile_standards
+  # databricks_network_policy_details                = var.databricks_network_policy_details
 
   # Identity variables
   service_principal_name_terraform_plan = var.service_principal_name_terraform_plan

@@ -242,6 +242,7 @@ object(
       storage_subnet                        = string
       consumption_subnet                    = string
       fabric_subnet                         = string
+      aifoundry_subnet                      = optional(string, "")
       databricks_engineering_private_subnet = string
       databricks_engineering_public_subnet  = string
       databricks_consumption_private_subnet = optional(string, "")
@@ -259,6 +260,29 @@ Type: `string`
 ## Optional Inputs
 
 The following input variables are optional (have default values):
+
+### <a name="input_ai_foundry_account_details"></a> [ai\_foundry\_account\_details](#input\_ai\_foundry\_account\_details)
+
+Description: Specifies the ai foundry configuration.
+
+Type:
+
+```hcl
+object({
+    enabled = optional(bool, false)
+    search_service = optional(object({
+      sku                 = optional(string, "basic")
+      semantic_search_sku = optional(string, "standard")
+      partition_count     = optional(number, 1)
+      replica_count       = optional(number, 1)
+    }), {})
+    cosmos_db = optional(object({
+      consistency_level = optional(string, "Session")
+    }), {})
+  })
+```
+
+Default: `{}`
 
 ### <a name="input_customer_managed_key"></a> [customer\_managed\_key](#input\_customer\_managed\_key)
 
@@ -411,6 +435,14 @@ Type: `string`
 
 Default: `""`
 
+### <a name="input_private_dns_zone_id_ai_services"></a> [private\_dns\_zone\_id\_ai\_services](#input\_private\_dns\_zone\_id\_ai\_services)
+
+Description: Specifies the resource ID of the private DNS zone for Azure Foundry (AI Services). Not required if DNS A-records get created via Azure Policy.
+
+Type: `string`
+
+Default: `""`
+
 ### <a name="input_private_dns_zone_id_blob"></a> [private\_dns\_zone\_id\_blob](#input\_private\_dns\_zone\_id\_blob)
 
 Description: Specifies the resource ID of the private DNS zone for Azure Storage blob endpoints. Not required if DNS A-records get created via Azue Policy.
@@ -422,6 +454,14 @@ Default: `""`
 ### <a name="input_private_dns_zone_id_cognitive_account"></a> [private\_dns\_zone\_id\_cognitive\_account](#input\_private\_dns\_zone\_id\_cognitive\_account)
 
 Description: Specifies the resource ID of the private DNS zone for Azure Cognitive Services. Not required if DNS A-records get created via Azure Policy.
+
+Type: `string`
+
+Default: `""`
+
+### <a name="input_private_dns_zone_id_cosmos_sql"></a> [private\_dns\_zone\_id\_cosmos\_sql](#input\_private\_dns\_zone\_id\_cosmos\_sql)
+
+Description: Specifies the resource ID of the private DNS zone for cosmos db sql. Not required if DNS A-records get created via Azure Policy.
 
 Type: `string`
 

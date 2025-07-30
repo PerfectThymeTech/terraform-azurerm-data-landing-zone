@@ -86,6 +86,25 @@ variable "fabric_capacity_details" {
   }
 }
 
+variable "ai_foundry_account_details" {
+  description = "Specifies the ai foundry configuration."
+  type = object({
+    enabled = optional(bool, false)
+    search_service = optional(object({
+      sku                 = optional(string, "basic")
+      semantic_search_sku = optional(string, "standard")
+      partition_count     = optional(number, 1)
+      replica_count       = optional(number, 1)
+    }), {})
+    cosmos_db = optional(object({
+      consistency_level = optional(string, "Session")
+    }), {})
+  })
+  sensitive = false
+  nullable  = false
+  default   = {}
+}
+
 # HA/DR variables
 variable "zone_redundancy_enabled" {
   description = "Specifies whether zone-redundancy should be enabled for all resources."
@@ -165,6 +184,16 @@ variable "subnet_id_consumption" {
   sensitive   = false
   validation {
     condition     = length(split("/", var.subnet_id_consumption)) == 11
+    error_message = "Please specify a valid resource ID."
+  }
+}
+
+variable "subnet_id_aifoundry" {
+  description = "Specifies the id of the ai foundry subnet used for the agent service."
+  type        = string
+  sensitive   = false
+  validation {
+    condition     = var.subnet_id_aifoundry == "" || length(split("/", var.subnet_id_aifoundry)) == 11
     error_message = "Please specify a valid resource ID."
   }
 }
@@ -264,6 +293,61 @@ variable "private_dns_zone_id_databricks" {
   default     = ""
   validation {
     condition     = var.private_dns_zone_id_databricks == "" || (length(split("/", var.private_dns_zone_id_databricks)) == 9 && endswith(var.private_dns_zone_id_databricks, "privatelink.azuredatabricks.net"))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
+variable "private_dns_zone_id_cognitive_account" {
+  description = "Specifies the resource ID of the private DNS zone for Azure Cognitive Services. Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_cognitive_account == "" || (length(split("/", var.private_dns_zone_id_cognitive_account)) == 9 && (endswith(var.private_dns_zone_id_cognitive_account, "privatelink.cognitiveservices.azure.com")))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
+variable "private_dns_zone_id_open_ai" {
+  description = "Specifies the resource ID of the private DNS zone for Azure Open AI. Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_open_ai == "" || (length(split("/", var.private_dns_zone_id_open_ai)) == 9 && (endswith(var.private_dns_zone_id_open_ai, "privatelink.openai.azure.com")))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
+variable "private_dns_zone_id_ai_services" {
+  description = "Specifies the resource ID of the private DNS zone for Azure Foundry (AI Services). Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_ai_services == "" || (length(split("/", var.private_dns_zone_id_ai_services)) == 9 && endswith(var.private_dns_zone_id_ai_services, "privatelink.services.ai.azure.com"))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
+variable "private_dns_zone_id_search_service" {
+  description = "Specifies the resource ID of the private DNS zone for Azure Cognitive Search endpoints. Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_search_service == "" || (length(split("/", var.private_dns_zone_id_search_service)) == 9 && endswith(var.private_dns_zone_id_search_service, "privatelink.search.windows.net"))
+    error_message = "Please specify a valid resource ID for the private DNS Zone."
+  }
+}
+
+variable "private_dns_zone_id_cosmos_sql" {
+  description = "Specifies the resource ID of the private DNS zone for cosmos db sql. Not required if DNS A-records get created via Azure Policy."
+  type        = string
+  sensitive   = false
+  default     = ""
+  validation {
+    condition     = var.private_dns_zone_id_cosmos_sql == "" || (length(split("/", var.private_dns_zone_id_cosmos_sql)) == 9 && endswith(var.private_dns_zone_id_cosmos_sql, "privatelink.documents.azure.com"))
     error_message = "Please specify a valid resource ID for the private DNS Zone."
   }
 }

@@ -31,6 +31,7 @@ module "data_landing_zone" {
   databricks_compliance_security_profile_standards = var.databricks_compliance_security_profile_standards
   databricks_workspace_binding_catalog             = var.databricks_workspace_binding_catalog
   fabric_capacity_details                          = var.fabric_capacity_details
+  ai_foundry_account_details                       = var.ai_foundry_account_details
 
   # HA/DR variables
   zone_redundancy_enabled        = var.zone_redundancy_enabled
@@ -56,8 +57,10 @@ module "data_landing_zone" {
   private_dns_zone_id_databricks        = var.private_dns_zone_id_databricks
   private_dns_zone_id_cognitive_account = var.private_dns_zone_id_cognitive_account
   private_dns_zone_id_open_ai           = var.private_dns_zone_id_open_ai
+  private_dns_zone_id_ai_services       = var.private_dns_zone_id_ai_services
   private_dns_zone_id_data_factory      = var.private_dns_zone_id_data_factory
   private_dns_zone_id_search_service    = var.private_dns_zone_id_search_service
+  private_dns_zone_id_cosmos_sql        = var.private_dns_zone_id_cosmos_sql
 
   # Customer-managed key variables
   customer_managed_key = var.customer_managed_key

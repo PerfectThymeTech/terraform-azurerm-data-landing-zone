@@ -16,6 +16,12 @@ output "subnet_id_fabric" {
   value       = "${azapi_update_resource.virtual_network.id}/subnets/${local.subnet_fabric.name}"
 }
 
+output "subnet_id_aifoundry" {
+  description = "Specifies the ai foundry subnet id."
+  sensitive   = false
+  value       = "${azapi_update_resource.virtual_network.id}/subnets/${local.subnet_aifoundry.name}"
+}
+
 output "subnet_id_engineering_private" {
   description = "Specifies the private consumption subnet id."
   sensitive   = false
