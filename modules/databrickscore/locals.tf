@@ -2,15 +2,15 @@ locals {
   # General locals
   prefix = "${lower(var.prefix)}-${var.environment}-core"
   system_schema_names = [
-    "access",
-    # "billing", # billing system schema can only be enabled by Databricks
-    "compute",
-    "lakeflow",
+    # "access", # access system schema is automatically enabled by Databricks
+    # "billing", # billing system schema is automatically enabled by Databricks
+    # "compute", # compute system schema is automatically enabled by Databricks
+    # "lakeflow", # lakeflow system schema is automatically enabled by Databricks
     # "lineage", # lineage system schema can only be enabled by Databricks
-    "marketplace",
+    # "marketplace", # marketplace system schema can only be enabled by Databricks
     # "query", # query system schema can only be enabled by Databricks
-    "serving",
-    "storage",
+    # "serving", # serving system schema is automatically enabled by Databricks
+    # "storage", # storage system schema is automatically enabled by Databricks
   ]
 
   # Databricks locals
