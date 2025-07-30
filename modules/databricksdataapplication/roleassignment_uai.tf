@@ -33,7 +33,7 @@ resource "databricks_grant" "grant_catalog_provider_uai" {
 
     # Metadata
     "BROWSE",
-    # "APPLY_TAG", # Only allow system assigned tags at catalog level
+    "APPLY_TAG",
 
     # Read
     "EXECUTE",
@@ -74,7 +74,7 @@ resource "databricks_grant" "grant_catalog_internal_uai" {
 
     # Metadata
     "BROWSE",
-    # "APPLY_TAG", # Only allow system assigned tags at catalog level
+    "APPLY_TAG",
 
     # Read
     "EXECUTE",
@@ -115,7 +115,7 @@ resource "databricks_grant" "grant_catalog_published_uai" {
 
     # Metadata
     "BROWSE",
-    # "APPLY_TAG", # Only allow system assigned tags at catalog level
+    "APPLY_TAG",
 
     # Read
     "EXECUTE",

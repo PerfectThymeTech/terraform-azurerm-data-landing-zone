@@ -26,7 +26,7 @@ resource "databricks_grant" "grant_catalog_provider_service_principal_terraform_
 
     # Metadata
     "BROWSE",
-    # "APPLY_TAG", # Only allow system assigned tags at catalog level
+    "APPLY_TAG",
 
     # Read
     # "EXECUTE",
@@ -65,7 +65,7 @@ resource "databricks_grant" "grant_catalog_internal_service_principal_terraform_
 
     # Metadata
     "BROWSE",
-    # "APPLY_TAG", # Only allow system assigned tags at catalog level
+    "APPLY_TAG",
 
     # Read
     # "EXECUTE",
@@ -104,7 +104,7 @@ resource "databricks_grant" "grant_catalog_published_service_principal_terraform
 
     # Metadata
     "BROWSE",
-    # "APPLY_TAG", # Only allow system assigned tags at catalog level
+    "APPLY_TAG",
 
     # Read
     # "EXECUTE",
@@ -134,7 +134,7 @@ resource "databricks_grant" "grant_external_location_provider_service_principal_
   privileges = [
     # General
     # "ALL_PRIVILIGES", # Use specific permissions instead of allowing all permissions by default
-    # "MANAGE", # Only allow system assigned permissions at catalog level and enforce permissions at lower levels
+    "MANAGE", # Required to read workspace binding
 
     # Metadata
     "BROWSE",
