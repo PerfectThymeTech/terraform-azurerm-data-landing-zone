@@ -86,7 +86,7 @@ jobs:
       # Check Out Repository
       - name: Check Out Repository
         id: checkout_repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           submodules: true
 

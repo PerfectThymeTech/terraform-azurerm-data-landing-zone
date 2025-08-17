@@ -31,7 +31,7 @@ jobs:
       # Checkout repository
       - name: Check Out Repository
         id: checkout_repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Run Linting
       - name: Run Linting
