@@ -66,7 +66,7 @@ jobs:
       # Setup Node
       - name: Setup Node
         id: node_setup
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ inputs.node_version }}
 
