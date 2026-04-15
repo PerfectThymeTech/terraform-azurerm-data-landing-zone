@@ -1,14 +1,16 @@
 module "fabric_workspace" {
   source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/fabricworkspace?ref=fabric_workspace_providers"
   providers = {
-    azurerm = azurerm
-    azapi   = azapi
-    time    = time
-    fabric  = fabric
+    # azurerm = azurerm
+    # azapi   = azapi
+    # time    = time
+    fabric = fabric
   }
 
   count = var.fabric_workspace_details.enabled && var.fabric_capacity_details.enabled ? 1 : 0
 
+  location                   = var.location
+  resource_group_name        = azurerm_resource_group.resource_group_app.name
   workspace_capacity_name    = var.fabric_capacity_details.name
   workspace_display_name     = "${local.prefix}-wsp001"
   workspace_description      = "Fabric workspace for stamp '${var.prefix}' and app '${var.app_name}'"
@@ -32,4 +34,5 @@ module "fabric_workspace" {
   }
   workspace_git              = null
   workspace_role_assignments = {}
+  subnet_id                  = var.subnet_id_app
 }
