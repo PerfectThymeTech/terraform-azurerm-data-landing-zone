@@ -34,6 +34,10 @@ locals {
     storage_account_name   = split("/", var.storage_container_ids.workspace)[8]
     storage_container_name = reverse(split("/", var.storage_container_ids.workspace))[0]
   }
+  storage_container_archive = {
+    storage_account_name   = split("/", var.storage_container_ids.archive)[8]
+    storage_container_name = reverse(split("/", var.storage_container_ids.archive))[0]
+  }
 }
 
 locals {
