@@ -2,6 +2,7 @@ module "fabric_workspace" {
   source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/fabricworkspace?ref=main"
   providers = {
     fabric = fabric
+    azapi  = azapi
   }
 
   count = var.fabric_workspace_details.enabled && var.fabric_capacity_details.enabled ? 1 : 0
