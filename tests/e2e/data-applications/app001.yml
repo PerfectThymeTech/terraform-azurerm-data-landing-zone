@@ -11,7 +11,7 @@ identity:
 
 network:
   private_endpoint_subnet:
-    cidr_range: "10.2.1.64/27"
+    cidr_range: "192.168.1.96/27"
 
 repository:
   type: github
@@ -55,7 +55,7 @@ ai_services:
     kind: FormRecognizer
     sku: S0
   aoai:
-    location: swedencentral
+    location: eastus2
     kind: OpenAI
     sku: S0
 
@@ -68,7 +68,7 @@ ai_search:
 
 databricks:
   sql_endpoints:
-    dw01:
+    se01:
       auto_stop_mins: 60
       enable_serverless_compute: false
       cluster_size: "2X-Small"

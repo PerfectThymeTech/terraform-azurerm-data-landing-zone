@@ -16,11 +16,11 @@ terraform {
     }
     fabric = {
       source  = "microsoft/fabric"
-      version = "1.2.0"
+      version = "1.3.0"
     }
     databricks = {
       source  = "databricks/databricks"
-      version = "1.83.0"
+      version = "1.84.0"
     }
     time = {
       source  = "hashicorp/time"
