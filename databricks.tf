@@ -67,8 +67,8 @@ module "databricks_data_application" {
     data_factory_principal_id = try(module.data_application[each.key].data_factory_details.data_factory_principal_id, {})
     data_factory_client_id    = try(module.data_application[each.key].data_factory_details.data_factory_client_id, {})
   }
-  storage_container_ids = try(module.data_application[each.key].storage_container_ids, {})
-  storage_queue_ids     = try(module.data_application[each.key].storage_queue_ids, {})
+  storage_container_ids = module.data_application[each.key].storage_container_ids
+  storage_queue_ids     = module.data_application[each.key].storage_queue_ids
   data_provider_details = try(each.value.data_providers, {})
 
   # Identity variables

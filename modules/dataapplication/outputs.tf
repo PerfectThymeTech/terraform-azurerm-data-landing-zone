@@ -52,6 +52,7 @@ output "storage_container_ids" {
     enriched  = azurerm_storage_container.storage_container_enriched.id
     curated   = azurerm_storage_container.storage_container_curated.id
     workspace = azurerm_storage_container.storage_container_workspace.id
+    archive   = azurerm_storage_container.storage_container_archive.id
   }
   sensitive = false
 }
@@ -67,6 +68,7 @@ output "storage_queue_ids" {
     enriched  = azurerm_storage_queue.storage_queue_enriched.id
     curated   = azurerm_storage_queue.storage_queue_curated.id
     workspace = azurerm_storage_queue.storage_queue_workspace.id
+    archive   = azurerm_storage_queue.storage_queue_archive.id
   }
   sensitive = false
 }
