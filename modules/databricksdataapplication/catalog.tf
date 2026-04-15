@@ -45,6 +45,20 @@ resource "databricks_catalog" "catalog_published" {
   storage_root = one(databricks_external_location.external_location_curated[*].url)
 }
 
+resource "databricks_catalog" "catalog_archive" {
+  name = replace("${local.prefix}-arc", "-", "_")
+
+  comment                        = "Data Applicaton Catalog - ${var.app_name} - Archive"
+  enable_predictive_optimization = "DISABLE" # Consider enabling this property or use "INHERIT"
+  force_destroy                  = true
+  isolation_mode                 = "OPEN"
+  properties = merge({
+    location = var.location
+    use      = "archive"
+  }, local.tags)
+  storage_root = one(databricks_external_location.external_location_archive[*].url)
+}
+
 resource "databricks_workspace_binding" "workspace_binding_catalog_internal" {
   for_each = var.databricks_workspace_binding_catalog
 
