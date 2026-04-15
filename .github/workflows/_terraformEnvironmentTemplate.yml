@@ -191,77 +191,77 @@ jobs:
               body: output
             })
 
-  apply:
-    name: Terraform Apply
-    runs-on: [self-hosted]
-    continue-on-error: false
-    environment: ${{ inputs.environment }}
-    # if: github.event_name == 'push' || github.event_name == 'release'
-    needs: [plan]
-    concurrency:
-      group: terraform-${{ inputs.environment }}
-      cancel-in-progress: false
-    outputs:
-      databricks_account_id: ${{ steps.terraform_outputs.outputs.databricks_account_id }}
-      databricks_network_connectivity_config_id: ${{ steps.terraform_outputs.outputs.databricks_network_connectivity_config_id }}
+  # apply:
+  #   name: Terraform Apply
+  #   runs-on: [self-hosted]
+  #   continue-on-error: false
+  #   environment: ${{ inputs.environment }}
+  #   # if: github.event_name == 'push' || github.event_name == 'release'
+  #   needs: [plan]
+  #   concurrency:
+  #     group: terraform-${{ inputs.environment }}
+  #     cancel-in-progress: false
+  #   outputs:
+  #     databricks_account_id: ${{ steps.terraform_outputs.outputs.databricks_account_id }}
+  #     databricks_network_connectivity_config_id: ${{ steps.terraform_outputs.outputs.databricks_network_connectivity_config_id }}
 
-    env:
-      ARM_TENANT_ID: ${{ inputs.tenant_id }}
-      ARM_SUBSCRIPTION_ID: ${{ inputs.subscription_id }}
-      ARM_CLIENT_ID: ${{ secrets.CLIENT_ID_APPLY }}
-      ARM_USE_OIDC: true
+  #   env:
+  #     ARM_TENANT_ID: ${{ inputs.tenant_id }}
+  #     ARM_SUBSCRIPTION_ID: ${{ inputs.subscription_id }}
+  #     ARM_CLIENT_ID: ${{ secrets.CLIENT_ID_APPLY }}
+  #     ARM_USE_OIDC: true
 
-    steps:
-      # Setup Node
-      - name: Setup Node
-        id: node_setup
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ inputs.node_version }}
+  #   steps:
+  #     # Setup Node
+  #     - name: Setup Node
+  #       id: node_setup
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: ${{ inputs.node_version }}
 
-      # Setup Terraform
-      - name: Setup Terraform
-        id: terraform_setup
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: ${{ inputs.terraform_version }}
-          terraform_wrapper: true
+  #     # Setup Terraform
+  #     - name: Setup Terraform
+  #       id: terraform_setup
+  #       uses: hashicorp/setup-terraform@v3
+  #       with:
+  #         terraform_version: ${{ inputs.terraform_version }}
+  #         terraform_wrapper: true
 
-      # Check Out Repository
-      - name: Check Out Repository
-        id: checkout_repository
-        uses: actions/checkout@v4
+  #     # Check Out Repository
+  #     - name: Check Out Repository
+  #       id: checkout_repository
+  #       uses: actions/checkout@v4
 
-      # Azure login
-      - name: Azure login
-        id: azure_login
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.CLIENT_ID_APPLY }}
-          tenant-id: ${{ inputs.tenant_id }}
-          subscription-id: ${{ inputs.subscription_id }}
+  #     # Azure login
+  #     - name: Azure login
+  #       id: azure_login
+  #       uses: azure/login@v2
+  #       with:
+  #         client-id: ${{ secrets.CLIENT_ID_APPLY }}
+  #         tenant-id: ${{ inputs.tenant_id }}
+  #         subscription-id: ${{ inputs.subscription_id }}
 
-      # Terraform Init
-      - name: Terraform Init
-        id: terraform_init
-        working-directory: ${{ inputs.working_directory }}
-        run: |
-          terraform init -backend-config="azurerm.tfbackend"
+  #     # Terraform Init
+  #     - name: Terraform Init
+  #       id: terraform_init
+  #       working-directory: ${{ inputs.working_directory }}
+  #       run: |
+  #         terraform init -backend-config="azurerm.tfbackend"
 
-      # Terraform Apply
-      - name: Terraform Apply
-        id: terraform_apply
-        working-directory: ${{ inputs.working_directory }}
-        run: |
-          terraform apply -var-file="vars.tfvars" -auto-approve -input=false
+  #     # Terraform Apply
+  #     - name: Terraform Apply
+  #       id: terraform_apply
+  #       working-directory: ${{ inputs.working_directory }}
+  #       run: |
+  #         terraform apply -var-file="vars.tfvars" -auto-approve -input=false
 
-      # Terraform Export Outputs
-      - name: Terraform Export Outputs
-        id: terraform_outputs
-        working-directory: ${{ inputs.working_directory }}
-        run: |
-          # Get Terraform output
-          echo "Get Terraform output"
+  #     # Terraform Export Outputs
+  #     - name: Terraform Export Outputs
+  #       id: terraform_outputs
+  #       working-directory: ${{ inputs.working_directory }}
+  #       run: |
+  #         # Get Terraform output
+  #         echo "Get Terraform output"
 
-          databricks_account_id=$(terraform output -raw databricks_account_id)
-          echo "databricks_account_id=$databricks_account_id" >> "$GITHUB_OUTPUT"
+  #         databricks_account_id=$(terraform output -raw databricks_account_id)
+  #         echo "databricks_account_id=$databricks_account_id" >> "$GITHUB_OUTPUT"

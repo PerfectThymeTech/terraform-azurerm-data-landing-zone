@@ -53,3 +53,7 @@ provider "azuread" {
 #   host       = "https://accounts.azuredatabricks.net"
 #   account_id = "515f13c1-53bb-48fb-a2c9-75e3f5d943f5"
 # }
+
+provider "fabric" {
+  preview = true
+}

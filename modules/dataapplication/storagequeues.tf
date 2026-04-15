@@ -49,3 +49,13 @@ resource "azurerm_storage_queue" "storage_queue_workspace" {
     var.storage_dependencies,
   ]
 }
+
+resource "azurerm_storage_queue" "storage_queue_archive" {
+  storage_account_name = reverse(split("/", var.storage_account_ids.archive))[0]
+  name                 = "${local.prefix}-archive"
+  metadata             = local.tags
+
+  depends_on = [
+    var.storage_dependencies,
+  ]
+}

@@ -245,3 +245,35 @@ resource "azurerm_role_assignment" "role_assignment_storage_queue_workspace_queu
   principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
   principal_type       = "ServicePrincipal"
 }
+
+resource "azurerm_role_assignment" "role_assignment_storage_account_archive_event_subscription_contributor_accessconnector" {
+  description          = "Role assignment to archive storage account to create event triggers."
+  scope                = var.storage_account_ids.archive
+  role_definition_name = "EventGrid EventSubscription Contributor"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_storage_account_archive_blob_delegator_accessconnector" {
+  description          = "Role assignment to archive storage account to create SAS keys."
+  scope                = var.storage_account_ids.archive
+  role_definition_name = "Storage Blob Delegator"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_storage_container_archive_blob_data_contributor_accessconnector" {
+  description          = "Role assignment to archive storage account container to read and write data."
+  scope                = azurerm_storage_container.storage_container_archive.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "role_assignment_storage_queue_archive_queue_data_contributor_accessconnector" {
+  description          = "Role assignment to archive storage account queue to read and write data for file events."
+  scope                = azurerm_storage_queue.storage_queue_archive.resource_manager_id
+  role_definition_name = "Storage Queue Data Contributor"
+  principal_id         = module.databricks_access_connector.databricks_access_connector_principal_id
+  principal_type       = "ServicePrincipal"
+}

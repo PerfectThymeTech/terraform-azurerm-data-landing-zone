@@ -42,6 +42,7 @@ variable "storage_account_ids" {
     enriched  = string
     curated   = string
     workspace = string
+    archive   = string
   })
   sensitive = false
   validation {
@@ -63,6 +64,10 @@ variable "storage_account_ids" {
   validation {
     condition     = length(split("/", var.storage_account_ids.workspace)) == 9
     error_message = "Please specify a valid workspace storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.archive)) == 9
+    error_message = "Please specify a valid archive storage account id."
   }
 }
 

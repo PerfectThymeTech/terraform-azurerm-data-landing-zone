@@ -179,15 +179,15 @@ variable "databricks_sql_endpoint_details" {
 variable "storage_container_ids" {
   description = "Specifies the storage container ids that will be used for the external locations."
   type = object({
-    provider  = optional(map(string), {})
-    raw       = optional(string, "")
-    enriched  = optional(string, "")
-    curated   = optional(string, "")
-    workspace = optional(string, "")
+    provider  = map(string)
+    raw       = string
+    enriched  = string
+    curated   = string
+    workspace = string
+    archive   = string
   })
   sensitive = false
   nullable  = false
-  default   = {}
   validation {
     condition = alltrue([
       length([for id in values(var.storage_container_ids.provider)[*] : id if length(split("/", id)) != 13]) <= 0,
@@ -195,35 +195,39 @@ variable "storage_container_ids" {
     error_message = "Please provide valid provider storage container id."
   }
   validation {
-    condition     = var.storage_container_ids.raw == "" || length(split("/", var.storage_container_ids.raw)) == 13
+    condition     = length(split("/", var.storage_container_ids.raw)) == 13
     error_message = "Please provide valid raw storage container id."
   }
   validation {
-    condition     = var.storage_container_ids.enriched == "" || length(split("/", var.storage_container_ids.enriched)) == 13
+    condition     = length(split("/", var.storage_container_ids.enriched)) == 13
+    error_message = "Please provide valid enriched storage container id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_container_ids.curated)) == 13
     error_message = "Please provide valid curated storage container id."
   }
   validation {
-    condition     = var.storage_container_ids.curated == "" || length(split("/", var.storage_container_ids.curated)) == 13
-    error_message = "Please provide valid curated storage container id."
-  }
-  validation {
-    condition     = var.storage_container_ids.workspace == "" || length(split("/", var.storage_container_ids.workspace)) == 13
+    condition     = length(split("/", var.storage_container_ids.workspace)) == 13
     error_message = "Please provide valid workspace storage container id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_container_ids.archive)) == 13
+    error_message = "Please provide valid archive storage container id."
   }
 }
 
 variable "storage_queue_ids" {
   description = "Specifies the storage queue ids that will be used for the external locations."
   type = object({
-    provider  = optional(map(string), {})
-    raw       = optional(string, "")
-    enriched  = optional(string, "")
-    curated   = optional(string, "")
-    workspace = optional(string, "")
+    provider  = map(string)
+    raw       = string
+    enriched  = string
+    curated   = string
+    workspace = string
+    archive   = string
   })
   sensitive = false
   nullable  = false
-  default   = {}
   validation {
     condition = alltrue([
       length([for id in values(var.storage_queue_ids.provider)[*] : id if !(startswith(var.storage_queue_ids.raw, "https://") && strcontains(var.storage_queue_ids.raw, ".queue.core.windows.net/"))]) <= 0,
@@ -231,20 +235,24 @@ variable "storage_queue_ids" {
     error_message = "Please provide valid provider storage queue id."
   }
   validation {
-    condition     = var.storage_queue_ids.raw == "" || (startswith(var.storage_queue_ids.raw, "https://") && strcontains(var.storage_queue_ids.raw, ".queue.core.windows.net/"))
+    condition     = (startswith(var.storage_queue_ids.raw, "https://") && strcontains(var.storage_queue_ids.raw, ".queue.core.windows.net/"))
     error_message = "Please provide valid raw storage queue id."
   }
   validation {
-    condition     = var.storage_queue_ids.enriched == "" || (startswith(var.storage_queue_ids.enriched, "https://") && strcontains(var.storage_queue_ids.enriched, ".queue.core.windows.net/"))
+    condition     = (startswith(var.storage_queue_ids.enriched, "https://") && strcontains(var.storage_queue_ids.enriched, ".queue.core.windows.net/"))
+    error_message = "Please provide valid enriched storage queue id."
+  }
+  validation {
+    condition     = (startswith(var.storage_queue_ids.curated, "https://") && strcontains(var.storage_queue_ids.curated, ".queue.core.windows.net/"))
     error_message = "Please provide valid curated storage queue id."
   }
   validation {
-    condition     = var.storage_queue_ids.curated == "" || (startswith(var.storage_queue_ids.curated, "https://") && strcontains(var.storage_queue_ids.curated, ".queue.core.windows.net/"))
-    error_message = "Please provide valid curated storage queue id."
-  }
-  validation {
-    condition     = var.storage_queue_ids.workspace == "" || (startswith(var.storage_queue_ids.workspace, "https://") && strcontains(var.storage_queue_ids.workspace, ".queue.core.windows.net/"))
+    condition     = (startswith(var.storage_queue_ids.workspace, "https://") && strcontains(var.storage_queue_ids.workspace, ".queue.core.windows.net/"))
     error_message = "Please provide valid workspace storage queue id."
+  }
+  validation {
+    condition     = (startswith(var.storage_queue_ids.archive, "https://") && strcontains(var.storage_queue_ids.archive, ".queue.core.windows.net/"))
+    error_message = "Please provide valid archive storage queue id."
   }
 }
 

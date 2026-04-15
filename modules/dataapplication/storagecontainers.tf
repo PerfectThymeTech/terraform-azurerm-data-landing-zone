@@ -69,3 +69,17 @@ resource "azurerm_storage_container" "storage_container_workspace" {
     var.storage_dependencies,
   ]
 }
+
+resource "azurerm_storage_container" "storage_container_archive" {
+  storage_account_id = var.storage_account_ids.archive
+  name               = "${local.prefix}-arc"
+
+  container_access_type             = "private"
+  default_encryption_scope          = null
+  encryption_scope_override_enabled = null
+  metadata                          = local.tags
+
+  depends_on = [
+    var.storage_dependencies,
+  ]
+}

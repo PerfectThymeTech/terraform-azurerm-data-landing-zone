@@ -69,3 +69,17 @@ resource "databricks_external_location" "external_location_workspace" {
   skip_validation = false
   url             = "abfss://${local.storage_container_workspace.storage_container_name}@${local.storage_container_workspace.storage_account_name}.dfs.core.windows.net/"
 }
+
+resource "databricks_external_location" "external_location_archive" {
+  name = replace("${local.prefix}-arc", "-", "_")
+
+  comment         = "Default archive storage layer for '${var.app_name}' data application."
+  credential_name = one(databricks_storage_credential.storage_credential[*].name)
+  fallback        = false
+  force_destroy   = true
+  force_update    = true
+  isolation_mode  = "ISOLATION_MODE_ISOLATED"
+  read_only       = false
+  skip_validation = false
+  url             = "abfss://${local.storage_container_archive.storage_container_name}@${local.storage_container_archive.storage_account_name}.dfs.core.windows.net/"
+}

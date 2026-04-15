@@ -32,6 +32,7 @@ output "storage_account_ids" {
     enriched  = module.storage_account_enriched.storage_account_id
     curated   = module.storage_account_curated.storage_account_id
     workspace = module.storage_account_workspace.storage_account_id
+    archive   = module.storage_account_archive.storage_account_id
   }
   sensitive = false
 }
@@ -44,6 +45,7 @@ output "storage_dependencies" {
     module.storage_account_enriched.storage_setup_completed,
     module.storage_account_curated.storage_setup_completed,
     module.storage_account_workspace.storage_setup_completed,
+    module.storage_account_archive.storage_setup_completed,
   ]
 }
 

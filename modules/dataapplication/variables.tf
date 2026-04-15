@@ -52,6 +52,7 @@ variable "storage_account_ids" {
     enriched  = string
     curated   = string
     workspace = string
+    archive   = string
   })
   sensitive = false
   validation {
@@ -73,6 +74,10 @@ variable "storage_account_ids" {
   validation {
     condition     = length(split("/", var.storage_account_ids.workspace)) == 9
     error_message = "Please specify a valid workspace storage account id."
+  }
+  validation {
+    condition     = length(split("/", var.storage_account_ids.archive)) == 9
+    error_message = "Please specify a valid archive storage account id."
   }
 }
 
@@ -137,7 +142,7 @@ variable "private_endpoints" {
       length([for resource_id in values(var.private_endpoints)[*].resource_id : resource_id if length(split("/", resource_id)) != 9]) <= 0,
       length([for private_dns_zone_id in values(var.private_endpoints)[*].private_dns_zone_id : private_dns_zone_id if(private_dns_zone_id != "" && length(split("/", private_dns_zone_id)) != 9)]) <= 0,
     ])
-    error_message = "Please specify a valid ai service configuration."
+    error_message = "Please specify a valid private endpoint configuration."
   }
 }
 
