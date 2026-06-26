@@ -1,5 +1,5 @@
 module "databricks_access_connector_engineering" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/databricksaccessconnector?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/databricksaccessconnector?ref=main"
   providers = {
     azurerm = azurerm
   }
@@ -11,7 +11,7 @@ module "databricks_access_connector_engineering" {
 }
 
 module "databricks_access_connector_consumption" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/databricksaccessconnector?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/databricksaccessconnector?ref=main"
   providers = {
     azurerm = azurerm
   }

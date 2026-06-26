@@ -1,5 +1,5 @@
 module "databricks_workspace_engineering" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/databricksworkspace?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/databricksworkspace?ref=main"
   providers = {
     azurerm = azurerm
     time    = time
@@ -30,7 +30,7 @@ module "databricks_workspace_engineering" {
 }
 
 module "databricks_workspace_consumption" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/databricksworkspace?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/databricksworkspace?ref=main"
   providers = {
     azurerm = azurerm
     time    = time

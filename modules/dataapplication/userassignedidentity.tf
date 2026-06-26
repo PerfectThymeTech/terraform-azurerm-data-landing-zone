@@ -1,5 +1,5 @@
 module "user_assigned_identity" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/userassignedidentity?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/userassignedidentity?ref=main"
   providers = {
     azurerm = azurerm
   }

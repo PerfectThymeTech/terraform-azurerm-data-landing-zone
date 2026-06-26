@@ -1,5 +1,5 @@
 module "data_factory" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/datafactory?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/datafactory?ref=main"
   providers = {
     azurerm = azurerm
     azapi   = azapi

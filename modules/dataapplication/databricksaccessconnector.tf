@@ -1,5 +1,5 @@
 module "databricks_access_connector" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/databricksaccessconnector?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/databricksaccessconnector?ref=main"
   providers = {
     azurerm = azurerm
   }

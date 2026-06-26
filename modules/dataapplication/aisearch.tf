@@ -1,5 +1,5 @@
 module "ai_search" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/aisearch?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/aisearch?ref=main"
   providers = {
     azurerm = azurerm
     time    = time

@@ -1,5 +1,5 @@
 module "fabric_workspace" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/fabricworkspace?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/fabricworkspace?ref=main"
   providers = {
     fabric = fabric
   }

@@ -1,5 +1,5 @@
 module "storage_account_provider" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/storage?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/storage?ref=main"
   providers = {
     azurerm = azurerm
     time    = time
@@ -43,7 +43,7 @@ module "storage_account_provider" {
 }
 
 module "storage_account_raw" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/storage?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/storage?ref=main"
   providers = {
     azurerm = azurerm
     time    = time
@@ -87,7 +87,7 @@ module "storage_account_raw" {
 }
 
 module "storage_account_enriched" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/storage?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/storage?ref=main"
   providers = {
     azurerm = azurerm
     time    = time
@@ -131,7 +131,7 @@ module "storage_account_enriched" {
 }
 
 module "storage_account_curated" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/storage?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/storage?ref=main"
   providers = {
     azurerm = azurerm
     time    = time
@@ -175,7 +175,7 @@ module "storage_account_curated" {
 }
 
 module "storage_account_workspace" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/storage?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/storage?ref=main"
   providers = {
     azurerm = azurerm
     time    = time

@@ -1,5 +1,5 @@
 module "ai_service" {
-  source = "github.com/PerfectThymeTech/terraform-azurerm-modules//modules/aiservice?ref=main"
+  source = "github.com/rework-space-com/terraform-azurerm-modules//modules/aiservice?ref=main"
   providers = {
     azurerm = azurerm
     azapi   = azapi
